@@ -388,10 +388,17 @@
   align-items: center;
   gap: 3px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
 .story-metric-item:hover {
   color: #ef4444;
+}
+
+.story-metric-item.liked,
+.story-metric-item.liked i {
+  color: #ef4444 !important;
 }
 
 /* 4. RIGHT SIDEBAR */
@@ -613,6 +620,45 @@
 
 @media (max-width: 900px) {
   .stories-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stories-hero-banner {
+    flex-direction: column;
+    padding: 24px 18px;
+    gap: 20px;
+  }
+  .stories-hero-right {
+    width: 100%;
+  }
+  .stories-hero-img {
+    width: 100%;
+    height: 180px;
+  }
+  .stories-hero-quote {
+    display: none;
+  }
+  .stories-filter-strip {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .stories-pill-list {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .stories-pill-list::-webkit-scrollbar {
+    display: none;
+  }
+  .stories-search-input-box {
+    width: 100%;
+  }
+  .stories-cards-grid {
     grid-template-columns: 1fr;
   }
 }

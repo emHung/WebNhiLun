@@ -1,7 +1,7 @@
 # 01 — Mô hình tổ chức & vận hành
 
 ## 1. Bản chất sản phẩm
-VolunteerHub là nền tảng kết nối, không mặc định là một tổ chức từ thiện trực tiếp điều hành mọi sự kiện. Mỗi hoạt động có đơn vị chịu trách nhiệm và đầu mối liên hệ rõ ràng.
+NhiLun là nền tảng kết nối, không mặc định là một tổ chức từ thiện trực tiếp điều hành mọi sự kiện. Mỗi hoạt động có đơn vị chịu trách nhiệm và đầu mối liên hệ rõ ràng.
 
 ## 2. Sơ đồ tổ chức vận hành đề xuất
 ```mermaid

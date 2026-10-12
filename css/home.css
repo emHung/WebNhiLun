@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HOME.CSS — Giao Diện Trang Chủ VolunteerHub (Khớp 100% Mockup Hình 1)
+   HOME.CSS — Giao Diện Trang Chủ NhiLun (Khớp 100% Mockup Hình 1)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&display=swap');
@@ -377,102 +377,149 @@
 }
 
 /* --- STATS & QUICK FILTER BAR --- */
+/* --- STATS & QUICK FILTER BAR --- */
 .home-stats-filter-bar {
-  background: var(--surface-white);
-  border: 1px solid var(--border-default);
-  border-radius: 18px;
-  padding: 12px 18px;
-  margin-bottom: 24px;
+  background: var(--surface-white, #ffffff);
+  border: 1px solid var(--border-default, #e5e7eb);
+  border-radius: 20px;
+  padding: 18px 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  box-shadow: var(--shadow-sm);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .stats-three-counters {
-  display: flex;
-  align-items: center;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-default, #f1f5f9);
 }
 
 .stat-single-box {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: var(--canvas, #f8fafc);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  transition: all 0.15s;
+}
+
+.stat-single-box:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .stat-single-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
-  background: var(--canvas);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
 }
 
 .stat-single-num {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--text-primary, #0f172a);
   display: block;
   line-height: 1.1;
 }
 
 .stat-single-label {
-  font-size: 0.68rem;
-  color: var(--text-secondary);
+  font-size: 0.74rem;
+  color: var(--text-secondary, #64748b);
+  font-weight: 500;
 }
 
 .quick-filter-form {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex: 1;
-  max-width: 620px;
-  justify-content: flex-end;
+  gap: 12px;
+  width: 100%;
 }
 
 .quick-filter-title {
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-primary, #0f172a);
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .quick-select-control {
-  height: 36px;
-  border-radius: 8px;
-  border: 1px solid var(--border-default);
-  background: var(--canvas);
-  color: var(--text-primary);
-  padding: 0 10px;
-  font-size: 0.78rem;
+  flex: 1;
+  min-width: 140px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border-default, #e2e8f0);
+  background: var(--canvas, #f8fafc);
+  color: var(--text-primary, #1e293b);
+  padding: 0 12px;
+  font-size: 0.8rem;
   font-family: inherit;
+  outline: none;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.quick-select-control:focus {
+  background: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
 }
 
 .btn-quick-search {
-  height: 36px;
+  height: 40px;
   background: #10b981;
   color: #ffffff;
   border: none;
-  border-radius: 8px;
-  padding: 0 16px;
-  font-size: 0.8rem;
+  border-radius: 10px;
+  padding: 0 22px;
+  font-size: 0.84rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+  flex-shrink: 0;
 }
 
 .btn-quick-search:hover {
   background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+@media (max-width: 900px) {
+  .stats-three-counters {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .quick-filter-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .quick-select-control,
+  .btn-quick-search {
+    width: 100%;
+  }
 }
 
 /* --- HOẠT ĐỘNG NỔI BẬT (FEATURED ACTIVITIES) --- */
@@ -890,6 +937,17 @@
 }
 
 @media (max-width: 768px) {
+  .home-hero-wrap {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+  .home-hero-title {
+    font-size: 1.7rem;
+  }
+  .home-hero-stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
   .home-hero-content {
     grid-template-columns: 1fr;
   }
@@ -901,5 +959,18 @@
   }
   .testimonials-grid-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .categories-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-hero-primary, .btn-hero-video {
+    justify-content: center;
   }
 }

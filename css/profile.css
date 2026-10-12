@@ -43,19 +43,19 @@
 }
 
 .sidebar-brand-logo {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   background: rgba(16, 185, 129, 0.12);
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .sidebar-brand-title {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  color: #0b3d2c;
+  color: #064e3b;
   letter-spacing: -0.3px;
 }
 
@@ -69,7 +69,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   flex: 1;
 }
 
@@ -77,8 +77,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 12px;
-  border-radius: 10px;
+  padding: 9px 14px;
+  border-radius: 999px;
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -87,13 +87,13 @@
 }
 
 .sidebar-menu-item a:hover {
-  background: var(--brand-surface);
-  color: var(--brand-primary);
+  background: #f0fdf4;
+  color: #047857;
 }
 
 .sidebar-menu-item.active a {
   background: #e8f5e9;
-  color: #1b4332;
+  color: #065f46;
   font-weight: 700;
 }
 
@@ -1032,14 +1032,183 @@
     position: relative;
     border-right: none;
     border-bottom: 1px solid var(--border-default);
+    padding: 10px 14px;
+  }
+  .sidebar-menu-list {
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    padding-bottom: 6px;
+  }
+  .sidebar-menu-list::-webkit-scrollbar {
+    display: none;
+  }
+  .sidebar-menu-item a {
+    padding: 6px 10px;
+    font-size: 0.78rem;
   }
   .sidebar-mini-promo {
     display: none;
+  }
+  .profile-meta-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 16px 16px;
+    gap: 12px;
+  }
+  .profile-topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .topbar-right-actions {
+    justify-content: space-between;
   }
   .profile-kpi-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .upcoming-activities-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile layout for profile history and account settings */
+@media (max-width: 640px) {
+  .profile-main-area {
+    min-width: 0;
+    padding: 10px 12px 24px;
+  }
+
+  .profile-nav-tabs-bar {
+    gap: 2px;
+    margin-right: -2px;
+    padding-bottom: 2px;
+    overscroll-behavior-x: contain;
+  }
+
+  .profile-tab-button {
+    flex: 0 0 auto;
+    padding: 9px 11px;
+    font-size: 0.78rem;
+  }
+
+  .profile-box-card {
+    min-width: 0;
+    padding: 14px 12px;
+    border-radius: 14px;
+  }
+
+  #paneHistory .box-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #paneHistory .box-card-header .btn {
+    align-self: flex-start;
+  }
+
+  #paneHistory .profile-box-card > div[style*="overflow-x"] {
+    overflow: visible !important;
+  }
+
+  #paneHistory .table {
+    display: block;
+    width: 100%;
+  }
+
+  #paneHistory .table thead {
+    display: none;
+  }
+
+  #paneHistory .table tbody {
+    display: grid;
+    gap: 10px;
+  }
+
+  #paneHistory .table tbody tr {
+    display: grid;
+    gap: 0;
+    padding: 8px 12px;
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    background: var(--surface-white);
+  }
+
+  #paneHistory .table tbody tr:hover {
+    background: var(--surface-white);
+  }
+
+  #paneHistory .table td {
+    display: grid;
+    grid-template-columns: minmax(96px, 36%) minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border-default);
+    font-size: 0.78rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  #paneHistory .table td:last-child {
+    border-bottom: 0;
+  }
+
+  #paneHistory .table td::before {
+    color: var(--text-secondary);
+    font-size: 0.67rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  #historyTableBody td:nth-child(1)::before { content: "Hoạt động"; }
+  #historyTableBody td:nth-child(2)::before { content: "Thời gian"; }
+  #historyTableBody td:nth-child(3)::before { content: "Địa điểm"; }
+  #historyTableBody td:nth-child(4)::before { content: "Số giờ"; }
+  #historyTableBody td:nth-child(5)::before { content: "Trạng thái"; }
+  #historyTableBody td:nth-child(6)::before { content: "Điểm danh"; }
+
+  #paneSettings .profile-box-card > div[style*="max-width"] {
+    width: 100%;
+    max-width: none !important;
+  }
+
+  #paneSettings .profile-box-card > div[style*="max-width"] > div[style*="justify-content: space-between"] {
+    gap: 14px;
+    align-items: flex-start !important;
+  }
+
+  #paneSettings .profile-box-card > div[style*="max-width"] > div[style*="justify-content: space-between"] > div {
+    min-width: 0;
+  }
+
+  #paneSettings .profile-box-card > div[style*="max-width"] > div[style*="justify-content: space-between"] input[type="checkbox"] {
+    flex: 0 0 20px;
+    margin: 2px 2px 0 8px;
+  }
+
+  #paneSettings .profile-box-card > div[style*="max-width"] > div > div[style*="display: flex; gap: 8px"] {
+    flex-wrap: wrap;
+  }
+
+  #paneSettings .profile-box-card > div[style*="max-width"] input[type="password"] {
+    flex: 1 1 190px;
+    min-width: 0;
+  }
+
+  #paneSettings .profile-box-card > div[style*="max-width"] > div:last-child .btn {
+    max-width: 100%;
+    white-space: normal;
   }
 }

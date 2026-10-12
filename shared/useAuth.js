@@ -45,9 +45,9 @@ const useAuth = {
   resolvePath(url) {
     if (!url) return '#';
     const path = window.location.pathname.replace(/\\/g, '/');
-    const isSubDir = path.includes('/admin/') || 
-                     path.includes('/volunteer/') || 
-                     path.includes('/organizer/');
+    const isSubDir = path.includes('/admin/') ||
+      path.includes('/volunteer/') ||
+      path.includes('/organizer/');
     if (isSubDir && !url.startsWith('../') && !url.startsWith('http') && !url.startsWith('javascript:')) {
       return '../' + url;
     }
@@ -106,7 +106,7 @@ const useAuth = {
       useToast.show(`Đã chuyển sang vai trò: ${target.roleTitle} (${target.name})`, 'success');
     }
     this.renderAllNavAuth();
-    
+
     // Nếu đang ở dashboard, tự cập nhật nội dung tương ứng
     if (typeof renderDashboardByRole === 'function') {
       renderDashboardByRole(target);
@@ -137,7 +137,7 @@ const useAuth = {
         return {
           title: "Dashboard Ban tổ chức",
           desc: "Quản lý chiến dịch, duyệt đơn & quét điểm danh",
-          icon: "🏢",
+          icon: '<i class="ri-building-line"></i>',
           link: this.resolvePath('organizer/manage.html'),
           themeClass: "organizer"
         };
@@ -145,7 +145,7 @@ const useAuth = {
         return {
           title: "Dashboard Quản trị viên",
           desc: "Kiểm duyệt tổ chức & sự kiện toàn hệ thống",
-          icon: "🛡️",
+          icon: '<i class="ri-shield-check-line"></i>',
           link: this.resolvePath('admin/moderation.html'),
           themeClass: "admin"
         };
@@ -154,7 +154,7 @@ const useAuth = {
         return {
           title: "Dashboard Tình nguyện viên",
           desc: "Theo dõi giờ thiện nguyện, chỉ số & huy hiệu",
-          icon: "📊",
+          icon: '<i class="ri-bar-chart-2-line"></i>',
           link: this.resolvePath('dashboard.html'),
           themeClass: "volunteer"
         };
@@ -192,8 +192,9 @@ const useAuth = {
     // Nếu chưa đăng nhập: Hiển thị nút Đăng nhập / Đăng ký
     if (!user) {
       container.innerHTML = `
-        <a href="${this.resolvePath('auth.html')}" class="btn btn-sm btn-primary" style="padding: 6px 14px; font-weight: 600; border-radius: 999px;">
-          🔑 Đăng nhập / Đăng ký
+        <a href="${this.resolvePath('auth.html')}" class="btn btn-sm btn-primary" style="padding: 6px 14px; font-weight: 600; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
+          <i class="ri-login-box-line"></i>
+          <span>Đăng nhập / Đăng ký</span>
         </a>
       `;
       return;
@@ -208,37 +209,37 @@ const useAuth = {
     if (user.role === 'volunteer') {
       roleSpecificHtml = `
         <a href="${this.resolvePath('schedule.html')}" class="vh-user-item">
-          <span class="vh-user-item-icon">📅</span>
+          <span class="vh-user-item-icon"><i class="ri-calendar-line"></i></span>
           <span class="vh-user-item-title">Lịch hoạt động</span>
         </a>
         <a href="${this.resolvePath('certificates.html')}" class="vh-user-item">
-          <span class="vh-user-item-icon">🎖️</span>
+          <span class="vh-user-item-icon"><i class="ri-award-line"></i></span>
           <span class="vh-user-item-title">Chứng nhận điện tử</span>
         </a>
         <a href="${this.resolvePath('volunteer/dashboard.html')}" class="vh-user-item">
-          <span class="vh-user-item-icon">📋</span>
-          <span class="vh-user-item-title">Đơn đăng ký của tôi</span>
+          <span class="vh-user-item-icon"><i class="ri-file-list-3-line"></i></span>
+          <span class="vh-user-item-title">Hoạt động của tôi</span>
         </a>
       `;
     } else if (user.role === 'organizer') {
       roleSpecificHtml = `
         <a href="${this.resolvePath('organizer/create-event.html')}" class="vh-user-item">
-          <span class="vh-user-item-icon">➕</span>
+          <span class="vh-user-item-icon"><i class="ri-add-circle-line"></i></span>
           <span class="vh-user-item-title">Tạo hoạt động mới</span>
         </a>
         <a href="${this.resolvePath('organizer/manage.html')}" class="vh-user-item">
-          <span class="vh-user-item-icon">👥</span>
+          <span class="vh-user-item-icon"><i class="ri-team-line"></i></span>
           <span class="vh-user-item-title">Duyệt đơn tình nguyện viên</span>
         </a>
       `;
     } else if (user.role === 'admin') {
       roleSpecificHtml = `
         <a href="${this.resolvePath('admin/moderation.html')}" class="vh-user-item">
-          <span class="vh-user-item-icon">🛡️</span>
+          <span class="vh-user-item-icon"><i class="ri-shield-check-line"></i></span>
           <span class="vh-user-item-title">Kiểm duyệt tổ chức & sự kiện</span>
         </a>
         <a href="${this.resolvePath('admin/theme-settings.html')}" class="vh-user-item">
-          <span class="vh-user-item-icon">🎨</span>
+          <span class="vh-user-item-icon"><i class="ri-palette-line"></i></span>
           <span class="vh-user-item-title">Quản lý Bảng màu hệ thống</span>
         </a>
       `;
@@ -285,11 +286,11 @@ const useAuth = {
           <div class="vh-user-dropdown-section">
             <div class="vh-user-section-title">Cá nhân & Cài đặt</div>
             <a href="${this.resolvePath('profile.html')}" class="vh-user-item">
-              <span class="vh-user-item-icon">👤</span>
+              <span class="vh-user-item-icon"><i class="ri-user-3-line"></i></span>
               <span class="vh-user-item-title">Hồ sơ cá nhân</span>
             </a>
             <a href="${this.resolvePath('profile.html#settings')}" class="vh-user-item">
-              <span class="vh-user-item-icon">⚙️</span>
+              <span class="vh-user-item-icon"><i class="ri-settings-4-line"></i></span>
               <span class="vh-user-item-title">Cài đặt tài khoản</span>
             </a>
             ${roleSpecificHtml}
@@ -300,13 +301,13 @@ const useAuth = {
             <div class="vh-user-section-title">Đổi vai trò demo (Phân quyền)</div>
             <div class="vh-role-switch-grid">
               <button type="button" class="vh-role-switch-btn ${user.role === 'volunteer' ? 'active' : ''}" onclick="useAuth.switchRole('volunteer')" title="Đóng vai Tình nguyện viên">
-                🙋 TNV
+                <i class="ri-user-heart-line"></i> TNV
               </button>
               <button type="button" class="vh-role-switch-btn ${user.role === 'organizer' ? 'active' : ''}" onclick="useAuth.switchRole('organizer')" title="Đóng vai Ban tổ chức">
-                🏢 Ban tổ chức
+                <i class="ri-building-line"></i> Ban tổ chức
               </button>
               <button type="button" class="vh-role-switch-btn ${user.role === 'admin' ? 'active' : ''}" onclick="useAuth.switchRole('admin')" title="Đóng vai Quản trị viên">
-                🛡️ Admin
+                <i class="ri-shield-user-line"></i> Admin
               </button>
             </div>
           </div>
@@ -314,7 +315,7 @@ const useAuth = {
           <!-- 5. Nút Đăng xuất -->
           <div class="vh-user-dropdown-footer">
             <button type="button" class="vh-logout-btn" onclick="useAuth.logout()">
-              <span>🚪</span>
+              <i class="ri-logout-box-r-line"></i>
               <span>Đăng xuất tài khoản</span>
             </button>
           </div>
@@ -344,11 +345,94 @@ const useAuth = {
     }
   },
 
+  _lastToggleTime: 0,
+
+  toggleMobileMenu(e) {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
+    const now = Date.now();
+    if (now - (this._lastToggleTime || 0) < 250) {
+      return; // Prevent duplicate toggle from inline onclick + event listener
+    }
+    this._lastToggleTime = now;
+
+    const navbars = document.querySelectorAll('.vh-navbar-wrapper, .app-header, .vh-navbar-container, .navbar');
+    if (!navbars.length) return;
+
+    const isCurrentlyOpen = Array.from(navbars).some(el => el.classList.contains('mobile-open'));
+    const willOpen = !isCurrentlyOpen;
+
+    navbars.forEach(el => {
+      el.classList.toggle('mobile-open', willOpen);
+    });
+
+    const toggleBtns = document.querySelectorAll('.vh-mobile-toggle-btn, #vhMobileToggle');
+    toggleBtns.forEach(btn => {
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      const icon = btn.querySelector('i');
+      if (icon) {
+        icon.className = willOpen ? 'ri-close-line' : 'ri-menu-line';
+      }
+    });
+  },
+
+  closeMobileMenu() {
+    const navbars = document.querySelectorAll('.vh-navbar-wrapper, .app-header, .vh-navbar-container, .navbar');
+    navbars.forEach(el => el.classList.remove('mobile-open'));
+
+    const toggleBtns = document.querySelectorAll('.vh-mobile-toggle-btn, #vhMobileToggle');
+    toggleBtns.forEach(btn => {
+      btn.setAttribute('aria-expanded', 'false');
+      const icon = btn.querySelector('i');
+      if (icon) {
+        icon.className = 'ri-menu-line';
+      }
+    });
+  },
+
+  setupMobileNav() {
+    if (typeof document === 'undefined') return;
+    const navMenu = document.querySelector('.vh-nav-menu-list, .nav-menu, .org-nav-links');
+    if (!navMenu) return;
+
+    if (!document.querySelector('.vh-mobile-toggle-btn, #vhMobileToggle')) {
+      const actionsWrap = document.querySelector('.vh-nav-actions') || 
+                          document.querySelector('.container.navbar > div:last-child') ||
+                          document.querySelector('.navbar > div:last-child') ||
+                          document.querySelector('.vh-navbar-container');
+      if (actionsWrap) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'vh-mobile-toggle-btn';
+        btn.id = 'vhMobileToggle';
+        btn.setAttribute('aria-label', 'Menu điều hướng');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = '<i class="ri-menu-line" id="vhMobileToggleIcon"></i>';
+        actionsWrap.appendChild(btn);
+      }
+    }
+  },
+
   bindEvents() {
     document.addEventListener('click', (e) => {
       const pillBtn = e.target.closest('#vhUserPillBtn, .vh-user-pill-btn');
       const menuWrap = e.target.closest('#vhUserMenuWrapper, .vh-user-menu-wrapper');
-      
+      const toggleBtn = e.target.closest('.vh-mobile-toggle-btn, #vhMobileToggle');
+      const navItemLink = e.target.closest('.vh-nav-item a, .nav-menu li a, .org-nav-links li a');
+      const navbar = e.target.closest('.vh-navbar-wrapper, .app-header, .vh-navbar-container, .navbar');
+
+      if (toggleBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleMobileMenu();
+        return;
+      }
+
+      if (navItemLink) {
+        this.closeMobileMenu();
+      }
+
       if (pillBtn) {
         e.preventDefault();
         e.stopPropagation();
@@ -359,20 +443,31 @@ const useAuth = {
       if (!menuWrap) {
         this.closeUserDropdown();
       }
+
+      if (!navbar && !toggleBtn) {
+        this.closeMobileMenu();
+      }
     });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         this.closeUserDropdown();
+        this.closeMobileMenu();
       }
     });
   },
 
   init() {
     this.renderAllNavAuth();
+    this.setupMobileNav();
     this.bindEvents();
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.useAuth = useAuth;
+  window.toggleMobileMenu = () => useAuth.toggleMobileMenu();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   useAuth.init();

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stories — Câu Chuyện Cộng Đồng | VolunteerHub</title>
+  <title>Stories — Câu Chuyện Cộng Đồng | NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/stories.css">
@@ -20,7 +21,7 @@
           </svg>
         </span>
         <div class="vh-brand-title-wrap">
-          <span class="vh-brand-name">VolunteerHub</span>
+          <span class="vh-brand-name">NhiLun</span>
           <span class="vh-brand-slogan">Cùng nhau lan tỏa giá trị tốt đẹp</span>
         </div>
       </a>
@@ -31,10 +32,11 @@
         <li class="vh-nav-item"><a href="activities.html"><span>Hoạt động</span></a></li>
         <li class="vh-nav-item"><a href="stories.html" class="active"><span>Stories</span></a></li>
         <li class="vh-nav-item"><a href="about.html"><span>Giới thiệu</span></a></li>
+        <li class="vh-nav-item"><a href="volunteer/dashboard.html"><span>Hoạt động của tôi</span></a></li>
       </ul>
 
       <div class="vh-nav-search-bar">
-        <span class="vh-nav-search-icon">🔍</span>
+        <i class="ri-search-line vh-nav-search-icon"></i>
         <input type="text" id="storiesSearchInput" placeholder="Tìm kiếm hoạt động, người, câu chuyện..." oninput="handleSearchStories(this.value)">
       </div>
 
@@ -42,18 +44,15 @@
         <!-- POPUP THÔNG BÁO DROPDOWN -->
         <div class="vh-notif-wrapper">
           <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
+            <i class="ri-notification-3-line" style="font-size: 1.25rem;"></i>
             <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
           </button>
 
           <!-- DROPDOWN CONTENT -->
           <div class="vh-notif-dropdown" id="vhNotifDropdown">
             <div class="vh-notif-header">
-              <div class="vh-notif-header-title">🔔 Thông báo mới</div>
-              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+              <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()"><i class="ri-check-double-line"></i> Đánh dấu đã đọc</button>
             </div>
             <div class="vh-notif-list" id="vhNotifList">
               <!-- Nạp từ useNotification.js -->
@@ -69,6 +68,11 @@
 
         <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
         <div id="vhUserNavWrap"></div>
+
+        <!-- NÚT MENU THU GỌN TRÊN MOBILE -->
+        <button type="button" class="vh-mobile-toggle-btn" id="vhMobileToggle" aria-label="Menu điều hướng" aria-expanded="false" onclick="useAuth.toggleMobileMenu()">
+          <i class="ri-menu-line" id="vhMobileToggleIcon"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -88,11 +92,11 @@
         </p>
         <div class="stories-hero-actions">
           <button type="button" class="btn-share-story" onclick="openStoryModal()">
-            <span>✎</span>
+            <i class="ri-edit-box-line"></i>
             <span>Chia sẻ câu chuyện</span>
           </button>
-          <a href="#" class="btn-watch-video">
-            <span>▶</span>
+          <a href="#" class="btn-watch-video" onclick="openStoryVideoModal(event)">
+            <i class="ri-play-circle-line"></i>
             <span>Xem video nổi bật</span>
           </a>
         </div>
@@ -109,15 +113,15 @@
     <!-- 2. BỘ LỌC DẠNG PILL & THANH TÌM KIẾM CÂU CHUYỆN -->
     <div class="stories-filter-strip">
       <div class="stories-pill-list">
-        <button type="button" class="story-pill-btn active" onclick="filterStories('all', this)">🟢 Tất cả</button>
-        <button type="button" class="story-pill-btn" onclick="filterStories('article', this)">📄 Bài viết</button>
-        <button type="button" class="story-pill-btn" onclick="filterStories('image', this)">🖼️ Hình ảnh</button>
-        <button type="button" class="story-pill-btn" onclick="filterStories('video', this)">▶ Video</button>
-        <button type="button" class="story-pill-btn" onclick="filterStories('inspire', this)">✨ Câu chuyện truyền cảm hứng</button>
+        <button type="button" class="story-pill-btn active" onclick="filterStories('all', this)"><i class="ri-apps-2-line"></i> Tất cả</button>
+        <button type="button" class="story-pill-btn" onclick="filterStories('article', this)"><i class="ri-article-line"></i> Bài viết</button>
+        <button type="button" class="story-pill-btn" onclick="filterStories('image', this)"><i class="ri-image-line"></i> Hình ảnh</button>
+        <button type="button" class="story-pill-btn" onclick="filterStories('video', this)"><i class="ri-video-line"></i> Video</button>
+        <button type="button" class="story-pill-btn" onclick="filterStories('inspire', this)"><i class="ri-sparkling-line"></i> Câu chuyện truyền cảm hứng</button>
       </div>
 
       <div class="stories-search-input-box">
-        <span class="stories-search-icon">🔍</span>
+        <i class="ri-search-line stories-search-icon"></i>
         <input type="text" placeholder="Tìm kiếm câu chuyện..." oninput="handleSearchStories(this.value)">
       </div>
     </div>
@@ -132,7 +136,7 @@
         <article class="story-card-item" data-category="article">
           <div class="story-card-thumb-wrap">
             <img src="images/act-tree.jpg" alt="Ngày hội trồng cây" class="story-card-thumb-img">
-            <span class="story-card-tag">🌱 Môi trường</span>
+            <span class="story-card-tag"><i class="ri-leaf-line"></i> Môi trường</span>
           </div>
           <div class="story-card-body">
             <h3 class="story-card-title">Ngày hội trồng 1.000 cây xanh — Những nụ cười xanh</h3>
@@ -146,9 +150,9 @@
                 </div>
               </div>
               <div class="story-card-metrics">
-                <span class="story-metric-item" onclick="toggleLike(this)">❤️ <span>128</span></span>
-                <span class="story-metric-item">💬 12</span>
-                <span class="story-metric-item">↗ 5</span>
+                <span class="story-metric-item story-like-btn" onclick="toggleLike(this)" title="Thích câu chuyện"><i class="ri-heart-line"></i> <span>128</span></span>
+                <span class="story-metric-item"><i class="ri-chat-3-line"></i> 12</span>
+                <span class="story-metric-item"><i class="ri-share-forward-line"></i> 5</span>
               </div>
             </div>
           </div>
@@ -158,7 +162,7 @@
         <article class="story-card-item" data-category="article">
           <div class="story-card-thumb-wrap">
             <img src="images/act-books.jpg" alt="Tủ sách trao em" class="story-card-thumb-img">
-            <span class="story-card-tag">📚 Giáo dục</span>
+            <span class="story-card-tag"><i class="ri-book-read-line"></i> Giáo dục</span>
           </div>
           <div class="story-card-body">
             <h3 class="story-card-title">Tủ sách trao em — Hành trình của những cuốn sách biết đi</h3>
@@ -172,9 +176,9 @@
                 </div>
               </div>
               <div class="story-card-metrics">
-                <span class="story-metric-item" onclick="toggleLike(this)">❤️ <span>256</span></span>
-                <span class="story-metric-item">💬 18</span>
-                <span class="story-metric-item">↗ 11</span>
+                <span class="story-metric-item story-like-btn" onclick="toggleLike(this)" title="Thích câu chuyện"><i class="ri-heart-line"></i> <span>256</span></span>
+                <span class="story-metric-item"><i class="ri-chat-3-line"></i> 18</span>
+                <span class="story-metric-item"><i class="ri-share-forward-line"></i> 11</span>
               </div>
             </div>
           </div>
@@ -184,7 +188,7 @@
         <article class="story-card-item" data-category="inspire">
           <div class="story-card-thumb-wrap">
             <img src="images/act-beach.jpg" alt="Làm sạch bờ biển" class="story-card-thumb-img">
-            <span class="story-card-tag">🤝 Cộng đồng</span>
+            <span class="story-card-tag"><i class="ri-heart-3-line"></i> Cộng đồng</span>
           </div>
           <div class="story-card-body">
             <h3 class="story-card-title">Làm sạch bờ biển — Trả lại màu xanh cho đại dương</h3>
@@ -198,9 +202,9 @@
                 </div>
               </div>
               <div class="story-card-metrics">
-                <span class="story-metric-item" onclick="toggleLike(this)">❤️ <span>189</span></span>
-                <span class="story-metric-item">💬 24</span>
-                <span class="story-metric-item">↗ 16</span>
+                <span class="story-metric-item story-like-btn" onclick="toggleLike(this)" title="Thích câu chuyện"><i class="ri-heart-line"></i> <span>189</span></span>
+                <span class="story-metric-item"><i class="ri-chat-3-line"></i> 24</span>
+                <span class="story-metric-item"><i class="ri-share-forward-line"></i> 16</span>
               </div>
             </div>
           </div>
@@ -210,7 +214,7 @@
         <article class="story-card-item" data-category="article">
           <div class="story-card-thumb-wrap">
             <img src="images/act-medical.jpg" alt="Khám bệnh miễn phí" class="story-card-thumb-img">
-            <span class="story-card-tag">🩺 Y tế</span>
+            <span class="story-card-tag"><i class="ri-heart-pulse-line"></i> Y tế</span>
           </div>
           <div class="story-card-body">
             <h3 class="story-card-title">Khám bệnh miễn phí — Nụ cười là liều thuốc quý nhất</h3>
@@ -224,9 +228,9 @@
                 </div>
               </div>
               <div class="story-card-metrics">
-                <span class="story-metric-item" onclick="toggleLike(this)">❤️ <span>302</span></span>
-                <span class="story-metric-item">💬 20</span>
-                <span class="story-metric-item">↗ 14</span>
+                <span class="story-metric-item story-like-btn" onclick="toggleLike(this)" title="Thích câu chuyện"><i class="ri-heart-line"></i> <span>302</span></span>
+                <span class="story-metric-item"><i class="ri-chat-3-line"></i> 20</span>
+                <span class="story-metric-item"><i class="ri-share-forward-line"></i> 14</span>
               </div>
             </div>
           </div>
@@ -236,7 +240,7 @@
         <article class="story-card-item" data-category="inspire">
           <div class="story-card-thumb-wrap">
             <img src="images/act-food.jpg" alt="Chung tay sau bão lũ" class="story-card-thumb-img">
-            <span class="story-card-tag">🆘 Cứu trợ</span>
+            <span class="story-card-tag"><i class="ri-lifebuoy-line"></i> Cứu trợ</span>
           </div>
           <div class="story-card-body">
             <h3 class="story-card-title">Chung tay sau bão lũ — Không ai bị bỏ lại phía sau</h3>
@@ -250,9 +254,9 @@
                 </div>
               </div>
               <div class="story-card-metrics">
-                <span class="story-metric-item" onclick="toggleLike(this)">❤️ <span>214</span></span>
-                <span class="story-metric-item">💬 15</span>
-                <span class="story-metric-item">↗ 8</span>
+                <span class="story-metric-item story-like-btn" onclick="toggleLike(this)" title="Thích câu chuyện"><i class="ri-heart-line"></i> <span>214</span></span>
+                <span class="story-metric-item"><i class="ri-chat-3-line"></i> 15</span>
+                <span class="story-metric-item"><i class="ri-share-forward-line"></i> 8</span>
               </div>
             </div>
           </div>
@@ -262,13 +266,13 @@
         <article class="story-card-item" data-category="video">
           <div class="story-card-thumb-wrap">
             <img src="images/home-hero-volunteer.jpg" alt="Một ngày làm tình nguyện viên" class="story-card-thumb-img">
-            <span class="story-card-tag">▶ Video</span>
+            <span class="story-card-tag"><i class="ri-play-circle-line"></i> Video</span>
             <div class="story-video-play-badge">
-              <div class="story-play-icon">▶</div>
+              <div class="story-play-icon"><i class="ri-play-fill"></i></div>
             </div>
           </div>
           <div class="story-card-body">
-            <h3 class="story-card-title">Một ngày làm tình nguyện viên cùng chúng mình 💚</h3>
+            <h3 class="story-card-title">Một ngày làm tình nguyện viên cùng chúng mình <i class="ri-heart-fill" style="color: #10b981;"></i></h3>
             <p class="story-card-desc">Video ghi lại hành trình 1 ngày tham gia hoạt động tại trạm y tế xã. Nhiều cảm xúc, nhiều kỷ niệm đáng nhớ!</p>
             <div class="story-card-author-row">
               <div class="story-author-info">
@@ -279,9 +283,9 @@
                 </div>
               </div>
               <div class="story-card-metrics">
-                <span class="story-metric-item" onclick="toggleLike(this)">❤️ <span>176</span></span>
-                <span class="story-metric-item">💬 10</span>
-                <span class="story-metric-item">↗ 22</span>
+                <span class="story-metric-item story-like-btn" onclick="toggleLike(this)" title="Thích câu chuyện"><i class="ri-heart-line"></i> <span>176</span></span>
+                <span class="story-metric-item"><i class="ri-chat-3-line"></i> 10</span>
+                <span class="story-metric-item"><i class="ri-share-forward-line"></i> 22</span>
               </div>
             </div>
           </div>
@@ -300,28 +304,28 @@
           </div>
           <div class="story-stats-grid">
             <div class="story-stat-cell">
-              <div class="story-stat-icon green">📄</div>
+              <div class="story-stat-icon green"><i class="ri-file-text-line"></i></div>
               <div>
                 <div class="story-stat-num">428</div>
                 <div class="story-stat-label">Bài viết</div>
               </div>
             </div>
             <div class="story-stat-cell">
-              <div class="story-stat-icon blue">🖼️</div>
+              <div class="story-stat-icon blue"><i class="ri-image-line"></i></div>
               <div>
                 <div class="story-stat-num">1.2K</div>
                 <div class="story-stat-label">Hình ảnh</div>
               </div>
             </div>
             <div class="story-stat-cell">
-              <div class="story-stat-icon pink">▶</div>
+              <div class="story-stat-icon pink"><i class="ri-play-fill"></i></div>
               <div>
                 <div class="story-stat-num">86</div>
                 <div class="story-stat-label">Video</div>
               </div>
             </div>
             <div class="story-stat-cell">
-              <div class="story-stat-icon orange">❤️</div>
+              <div class="story-stat-icon orange"><i class="ri-heart-fill"></i></div>
               <div>
                 <div class="story-stat-num">3.4K</div>
                 <div class="story-stat-label">Lượt thích</div>
@@ -333,39 +337,39 @@
         <!-- HỘP CÂU CHUYỆN NỔI BẬT -->
         <div class="story-side-box">
           <div class="story-side-header">
-            <h4 class="story-side-title">🏆 Câu chuyện nổi bật</h4>
+            <h4 class="story-side-title"><i class="ri-trophy-line" style="color: #f59e0b;"></i> Câu chuyện nổi bật</h4>
           </div>
           <div class="story-top-list">
             <a href="#" class="story-top-item">
               <img src="images/act-tree.jpg" alt="Cùng nhau phủ xanh" class="story-top-img">
               <div class="story-top-info">
                 <div class="story-top-title">Cùng nhau phủ xanh quê hương</div>
-                <div class="story-top-author">👤 Nguyễn Thị Lan</div>
+                <div class="story-top-author"><i class="ri-user-line"></i> Nguyễn Thị Lan</div>
               </div>
-              <div class="story-top-likes">❤️ 1.2K</div>
+              <div class="story-top-likes"><i class="ri-heart-fill" style="color: #ef4444;"></i> 1.2K</div>
             </a>
             <a href="#" class="story-top-item">
               <img src="images/act-books.jpg" alt="Những nụ cười vùng cao" class="story-top-img">
               <div class="story-top-info">
                 <div class="story-top-title">Những nụ cười vùng cao</div>
-                <div class="story-top-author">👤 Trần Minh Khoa</div>
+                <div class="story-top-author"><i class="ri-user-line"></i> Trần Minh Khoa</div>
               </div>
-              <div class="story-top-likes">❤️ 953</div>
+              <div class="story-top-likes"><i class="ri-heart-fill" style="color: #ef4444;"></i> 953</div>
             </a>
             <a href="#" class="story-top-item">
               <img src="images/act-beach.jpg" alt="Biển sạch hơn mỗi ngày" class="story-top-img">
               <div class="story-top-info">
                 <div class="story-top-title">Biển sạch hơn mỗi ngày</div>
-                <div class="story-top-author">👤 Lê Thu Thảo</div>
+                <div class="story-top-author"><i class="ri-user-line"></i> Lê Thu Thảo</div>
               </div>
-              <div class="story-top-likes">❤️ 876</div>
+              <div class="story-top-likes"><i class="ri-heart-fill" style="color: #ef4444;"></i> 876</div>
             </a>
           </div>
         </div>
 
         <!-- HỘP KÊU GỌI TRUYỀN CẢM HỨNG -->
         <div class="story-inspire-box">
-          <div class="story-inspire-icon">🌱</div>
+          <div class="story-inspire-icon"><i class="ri-plant-line"></i></div>
           <p class="story-inspire-text">"Câu chuyện của bạn có thể truyền cảm hứng cho hàng ngàn người khác"</p>
           <button type="button" class="btn-inspire-share" onclick="openStoryModal()">Chia sẻ ngay &rarr;</button>
         </div>
@@ -380,7 +384,7 @@
   <div class="story-modal-overlay" id="storyModalOverlay" onclick="closeStoryModal()">
     <div class="story-modal-card" onclick="event.stopPropagation()">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #0f172a;">Chia sẻ câu chuyện tình nguyện ✨</h3>
+        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px;"><i class="ri-sparkling-fill" style="color: #f59e0b;"></i> Chia sẻ câu chuyện tình nguyện</h3>
         <button type="button" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;" onclick="closeStoryModal()">✕</button>
       </div>
 
@@ -394,11 +398,11 @@
           <div>
             <label style="display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 4px;">Lĩnh vực</label>
             <select id="storyCategorySelect" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 8px;">
-              <option value="Môi trường">🌱 Môi trường</option>
-              <option value="Giáo dục">📚 Giáo dục</option>
-              <option value="Cộng đồng">🤝 Cộng đồng</option>
-              <option value="Y tế">🩺 Y tế</option>
-              <option value="Cứu trợ">🆘 Cứu trợ</option>
+              <option value="Môi trường">Môi trường</option>
+              <option value="Giáo dục">Giáo dục</option>
+              <option value="Cộng đồng">Cộng đồng</option>
+              <option value="Y tế">Y tế</option>
+              <option value="Cứu trợ">Cứu trợ</option>
             </select>
           </div>
           <div>
@@ -426,12 +430,27 @@
 
   <footer class="app-footer">
     <div class="container">
-      <p>© 2026 VolunteerHub • Lan Tỏa Những Câu Chuyện Đẹp Vì Cộng Đồng</p>
+      <p>© 2026 NhiLun • Lan Tỏa Những Câu Chuyện Đẹp Vì Cộng Đồng</p>
     </div>
   </footer>
 
+  <!-- VIDEO MODAL -->
+  <div id="storyVideoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#0f172a; border-radius:16px; overflow:hidden; max-width:800px; width:92%; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+      <button onclick="closeStoryVideoModal()" style="position:absolute; top:12px; right:16px; background:none; border:none; color:#fff; font-size:1.8rem; cursor:pointer; z-index:10;">&times;</button>
+      <div style="padding:16px 20px; color:#fff; border-bottom:1px solid #334155;">
+        <h3 style="margin:0; font-size:1.1rem;">Thước phim tình nguyện — Hành trình vì cộng đồng</h3>
+      </div>
+      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+        <iframe id="storyVideoIframe" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" src="" title="Video Stories NhiLun" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
   <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="data/seedData.js"></script>
   <script src="shared/useStorage.js"></script>
+  <script src="shared/useRepository.js"></script>
   <script src="shared/useToast.js"></script>
   <script src="shared/useTheme.js"></script>
   <script src="shared/useAuth.js"></script>
@@ -439,6 +458,26 @@
 
   <script>
     let currentUploadedStoryImg = 'images/act-tree.jpg';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+      loadUserStories();
+    });
+
+    function openStoryVideoModal(e) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('storyVideoModal');
+      const iframe = document.getElementById('storyVideoIframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1';
+      modal.style.display = 'flex';
+    }
+
+    function closeStoryVideoModal() {
+      const modal = document.getElementById('storyVideoModal');
+      const iframe = document.getElementById('storyVideoIframe');
+      iframe.src = '';
+      modal.style.display = 'none';
+    }
 
     function openStoryModal() {
       document.getElementById('storyModalOverlay').style.display = 'flex';
@@ -461,40 +500,69 @@
       }
     }
 
+    function loadUserStories() {
+      const saved = JSON.parse(localStorage.getItem('vh_user_stories') || '[]');
+      const container = document.getElementById('storiesCardsContainer');
+      saved.forEach(story => {
+        const card = createStoryCardEl(story);
+        container.insertBefore(card, container.firstChild);
+      });
+    }
+
+    function createStoryCardEl(story) {
+      const card = document.createElement('article');
+      card.className = 'story-card-item';
+      card.setAttribute('data-category', story.categoryType || 'article');
+      card.innerHTML = `
+        <div class="story-card-thumb-wrap">
+          <img src="${story.img}" alt="${story.title}" class="story-card-thumb-img">
+          <span class="story-card-tag"><i class="ri-sparkling-line"></i> ${story.category}</span>
+        </div>
+        <div class="story-card-body">
+          <h3 class="story-card-title">${story.title}</h3>
+          <p class="story-card-desc">${story.content}</p>
+          <div class="story-card-author-row">
+            <div class="story-author-info">
+              <img src="images/profile-avatar.jpg" alt="Author" class="story-author-avatar">
+              <div>
+                <div class="story-author-name">${story.author || 'Nguyễn Văn An'}</div>
+                <div class="story-card-time">${story.time || 'Vừa xong'}</div>
+              </div>
+            </div>
+            <div class="story-card-metrics">
+              <span class="story-metric-item story-like-btn" onclick="toggleLike(this)" title="Thích câu chuyện"><i class="ri-heart-line"></i> <span>${story.likes || 1}</span></span>
+              <span class="story-metric-item"><i class="ri-chat-3-line"></i> 0</span>
+              <span class="story-metric-item"><i class="ri-share-forward-line"></i> 0</span>
+            </div>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
     function handlePostStory(e) {
       e.preventDefault();
       const title = document.getElementById('storyTitleInput').value.trim();
       const category = document.getElementById('storyCategorySelect').value;
       const content = document.getElementById('storyContentInput').value.trim();
 
-      const newStoryCard = document.createElement('article');
-      newStoryCard.className = 'story-card-item';
-      newStoryCard.setAttribute('data-category', 'article');
-      newStoryCard.innerHTML = `
-        <div class="story-card-thumb-wrap">
-          <img src="${currentUploadedStoryImg}" alt="${title}" class="story-card-thumb-img">
-          <span class="story-card-tag">✨ ${category}</span>
-        </div>
-        <div class="story-card-body">
-          <h3 class="story-card-title">${title}</h3>
-          <p class="story-card-desc">${content}</p>
-          <div class="story-card-author-row">
-            <div class="story-author-info">
-              <img src="images/profile-avatar.jpg" alt="Author" class="story-author-avatar">
-              <div>
-                <div class="story-author-name">Nguyễn Văn An</div>
-                <div class="story-card-time">Vừa xong</div>
-              </div>
-            </div>
-            <div class="story-card-metrics">
-              <span class="story-metric-item" onclick="toggleLike(this)">❤️ <span>1</span></span>
-              <span class="story-metric-item">💬 0</span>
-              <span class="story-metric-item">↗ 0</span>
-            </div>
-          </div>
-        </div>
-      `;
+      const storyObj = {
+        title,
+        category,
+        content,
+        img: currentUploadedStoryImg,
+        author: 'Nguyễn Văn An',
+        time: 'Vừa xong',
+        likes: 1,
+        categoryType: 'article'
+      };
 
+      // Save to localStorage
+      const saved = JSON.parse(localStorage.getItem('vh_user_stories') || '[]');
+      saved.unshift(storyObj);
+      localStorage.setItem('vh_user_stories', JSON.stringify(saved));
+
+      const newStoryCard = createStoryCardEl(storyObj);
       const container = document.getElementById('storiesCardsContainer');
       container.insertBefore(newStoryCard, container.firstChild);
 
@@ -505,13 +573,32 @@
     }
 
     function toggleLike(el) {
+      const icon = el.querySelector('i');
       const countSpan = el.querySelector('span');
-      let count = parseInt(countSpan.innerText, 10);
-      if (el.classList.contains('liked')) {
+      let count = parseInt(countSpan.innerText.replace(/,/g, ''), 10) || 0;
+      const isLiked = el.classList.contains('liked') || (icon && icon.classList.contains('ri-heart-fill'));
+
+      if (isLiked) {
+        // HỦY THÍCH: Gỡ bỏ màu đỏ, chuyển về viền xám, giảm số đếm
         el.classList.remove('liked');
-        countSpan.innerText = count - 1;
+        if (icon) {
+          icon.className = 'ri-heart-line';
+          icon.style.color = '';
+        }
+        countSpan.style.color = '';
+        countSpan.innerText = Math.max(0, count - 1);
+        useToast.show('Đã bỏ thích câu chuyện.', 'info');
       } else {
+        // THÍCH: Chuyển sang tim đỏ đặc, tăng số đếm, hiệu ứng pop
         el.classList.add('liked');
+        if (icon) {
+          icon.className = 'ri-heart-fill';
+          icon.style.color = '#ef4444';
+          icon.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          icon.style.transform = 'scale(1.35)';
+          setTimeout(() => { icon.style.transform = 'scale(1)'; }, 200);
+        }
+        countSpan.style.color = '#ef4444';
         countSpan.innerText = count + 1;
         useToast.show('Đã thích câu chuyện!', 'success');
       }

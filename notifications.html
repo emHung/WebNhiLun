@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thông Báo Hệ Thống — VolunteerHub</title>
+  <title>Thông Báo Hệ Thống — NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/profile.css">
@@ -22,20 +23,20 @@
             <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <span class="sidebar-brand-title">VolunteerHub</span>
+        <span class="sidebar-brand-title">NhiLun</span>
       </a>
 
       <ul class="sidebar-menu-list">
-        <li class="sidebar-menu-item"><a href="index.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🏠</span><span>Trang chủ</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="activities.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🧭</span><span>Hoạt động</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="stories.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📖</span><span>Stories</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="about.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Giới thiệu</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="schedule.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📅</span><span>Lịch hoạt động</span></span></a></li>
-        <li class="sidebar-menu-item active"><a href="notifications.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
-        <li class="sidebar-menu-item"><a href="profile.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👤</span><span>Hồ sơ cá nhân</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="volunteer/dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Hoạt động của tôi</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="certificates.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🎖️</span><span>Chứng nhận</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="index.html"><span class="sidebar-menu-label"><i class="ri-home-4-line sidebar-menu-icon"></i><span>Trang chủ</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="activities.html"><span class="sidebar-menu-label"><i class="ri-compass-3-line sidebar-menu-icon"></i><span>Hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="stories.html"><span class="sidebar-menu-label"><i class="ri-book-open-line sidebar-menu-icon"></i><span>Stories</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="about.html"><span class="sidebar-menu-label"><i class="ri-team-line sidebar-menu-icon"></i><span>Giới thiệu</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="dashboard.html"><span class="sidebar-menu-label"><i class="ri-bar-chart-2-line sidebar-menu-icon"></i><span>Dashboard</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="schedule.html"><span class="sidebar-menu-label"><i class="ri-calendar-line sidebar-menu-icon"></i><span>Lịch hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item active"><a href="notifications.html"><span class="sidebar-menu-label"><i class="ri-notification-3-line sidebar-menu-icon"></i><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
+        <li class="sidebar-menu-item"><a href="profile.html"><span class="sidebar-menu-label"><i class="ri-user-3-line sidebar-menu-icon"></i><span>Hồ sơ cá nhân</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="volunteer/dashboard.html"><span class="sidebar-menu-label"><i class="ri-file-list-3-line sidebar-menu-icon"></i><span>Hoạt động của tôi</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="certificates.html"><span class="sidebar-menu-label"><i class="ri-award-line sidebar-menu-icon"></i><span>Chứng nhận</span></span></a></li>
       </ul>
     </aside>
 
@@ -45,7 +46,7 @@
       <!-- TOPBAR -->
       <div class="profile-topbar">
         <div class="topbar-search-box">
-          <span class="topbar-search-icon">🔍</span>
+          <i class="ri-search-line topbar-search-icon"></i>
           <input type="text" class="topbar-search-input" placeholder="Tìm kiếm thông báo...">
         </div>
         <div class="topbar-right-actions">
@@ -57,69 +58,121 @@
       <div class="notify-container-card">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-default); padding-bottom: 12px;">
           <div>
-            <h1 style="margin: 0; font-size: 1.25rem; font-weight: 800;">Thông Báo Của Bạn 🔔</h1>
-            <span style="font-size: 0.74rem; color: var(--text-secondary);">Bạn có 3 thông báo mới chưa đọc</span>
+            <h1 style="margin: 0; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;"><i class="ri-notification-3-line" style="color: var(--brand-primary);"></i> Thông Báo Của Bạn</h1>
+            <span id="notifySubtitle" style="font-size: 0.74rem; color: var(--text-secondary);">Bạn có 0 thông báo mới chưa đọc</span>
           </div>
-          <button type="button" class="btn btn-sm btn-outline" onclick="useToast.show('Đã đánh dấu đọc tất cả thông báo!', 'success')">
-            ✓ Đánh dấu tất cả đã đọc
+          <button type="button" class="btn btn-sm btn-outline" onclick="handleMarkAllRead()" style="display: inline-flex; align-items: center; gap: 6px;">
+            <i class="ri-check-double-line"></i> Đánh dấu tất cả đã đọc
           </button>
         </div>
 
-        <div class="notify-list">
-
-          <!-- Thông báo 1 -->
-          <div class="notify-item-card unread">
-            <div class="notify-icon-circle success">🎉</div>
-            <div class="notify-body-text">
-              <strong>Đơn tham gia đã được Ban tổ chức phê duyệt!</strong>
-              <p>Ban Điều Phối Quỹ Xanh đã phê duyệt đơn đăng ký của bạn cho sự kiện <strong>"Ngày hội trồng cây xanh 2026"</strong>. Vui lòng có mặt đúng 07:00 ngày 24/10/2026 tại Rừng ngập mặn Cần Giờ.</p>
-              <span class="notify-time-stamp">⏱️ 10 phút trước • Ban Điều Phối</span>
-            </div>
-            <div>
-              <a href="detail.html?id=ACT-001" class="btn btn-sm btn-primary">Xem chi tiết</a>
-            </div>
-          </div>
-
-          <!-- Thông báo 2 -->
-          <div class="notify-item-card unread">
-            <div class="notify-icon-circle info">🎖️</div>
-            <div class="notify-body-text">
-              <strong>Chứng nhận điện tử mới đã được cấp</strong>
-              <p>Hệ thống vừa cấp mã <strong>CERT-2026-001</strong> ("Chiến Sĩ Môi Trường Xanh 2026") vào hồ sơ của bạn. Bạn đã tích lũy thêm +8 giờ công nhận.</p>
-              <span class="notify-time-stamp">⏱️ 2 giờ trước • Hệ thống chứng nhận</span>
-            </div>
-            <div>
-              <a href="certificates.html" class="btn btn-sm btn-outline">Xem chứng nhận</a>
-            </div>
-          </div>
-
-          <!-- Thông báo 3 -->
-          <div class="notify-item-card unread">
-            <div class="notify-icon-circle warning">⏰</div>
-            <div class="notify-body-text">
-              <strong>Nhắc nhở chuẩn bị ca trực thiện nguyện sắp tới</strong>
-              <p>Hoạt động "Sách Cho Em" sẽ bắt đầu sau 6 ngày nữa. Hãy kiểm tra các đồ dùng cần chuẩn bị trong cẩm nang hướng dẫn.</p>
-              <span class="notify-time-stamp">⏱️ 1 ngày trước • Ban Quản lý sự kiện</span>
-            </div>
-            <div>
-              <a href="schedule.html" class="btn btn-sm btn-outline">Xem lịch</a>
-            </div>
-          </div>
-
+        <div class="notify-list" id="mainNotifyList">
+          <!-- Rendered dynamically -->
         </div>
       </div>
 
     </main>
   </div>
 
+  <script src="data/seedData.js"></script>
   <script src="shared/useStorage.js"></script>
+  <script src="shared/useRepository.js"></script>
   <script src="shared/useToast.js"></script>
   <script src="shared/useTheme.js"></script>
   <script src="shared/useAuth.js"></script>
   <script src="shared/useNotification.js"></script>
   <script>
+    let currentFilterText = '';
+
+    function getCurrentUserId() {
+      const u = typeof useAuth !== 'undefined' ? useAuth.getCurrentUser() : null;
+      return u && u.id ? u.id : 'USR-001';
+    }
+
+    function renderNotifications() {
+      const userId = getCurrentUserId();
+      let notifs = useRepository.getNotifications(userId);
+      const container = document.getElementById('mainNotifyList');
+      const subtitle = document.getElementById('notifySubtitle');
+      const badge = document.querySelector('.sidebar-menu-item.active .sidebar-badge');
+
+      if (currentFilterText) {
+        const q = currentFilterText.toLowerCase();
+        notifs = notifs.filter(n => (n.title && n.title.toLowerCase().includes(q)) || (n.desc && n.desc.toLowerCase().includes(q)));
+      }
+
+      const unreadCount = notifs.filter(n => n.unread).length;
+      if (subtitle) {
+        subtitle.textContent = `Bạn có ${unreadCount} thông báo mới chưa đọc`;
+      }
+      if (badge) {
+        badge.textContent = unreadCount;
+        badge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+      }
+
+      if (!container) return;
+
+      if (notifs.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 48px 16px; color: var(--text-secondary);">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;"><i class="ri-inbox-archive-line"></i></div>
+            <p>Không có thông báo nào phù hợp.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = notifs.map(n => {
+        const typeClass = n.type === 'success' ? 'success' : (n.type === 'warning' ? 'warning' : 'info');
+        const fallbackIcon = n.type === 'success' ? '<i class="ri-checkbox-circle-line"></i>' : (n.type === 'warning' ? '<i class="ri-time-line"></i>' : '<i class="ri-notification-3-line"></i>');
+        const icon = (n.icon && (n.icon.includes('<i') || n.icon.length > 5)) ? n.icon : fallbackIcon;
+        const unreadClass = n.unread ? 'unread' : '';
+        const link = n.link || '#';
+        return `
+          <div class="notify-item-card ${unreadClass}" onclick="handleReadSingle('${n.id}', '${link}')">
+            <div class="notify-icon-circle ${typeClass}">${icon}</div>
+            <div class="notify-body-text" style="flex: 1;">
+              <strong>${n.title || ''}</strong>
+              <p>${n.desc || ''}</p>
+              <span class="notify-time-stamp"><i class="ri-time-line"></i> ${n.time || 'Vừa xong'}</span>
+            </div>
+            <div>
+              <a href="${link}" class="btn btn-sm ${n.unread ? 'btn-primary' : 'btn-outline'}" onclick="event.stopPropagation(); handleReadSingle('${n.id}', '${link}')">
+                Chi tiết
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleMarkAllRead() {
+      const userId = getCurrentUserId();
+      useRepository.markAllNotificationsRead(userId);
+      renderNotifications();
+      useToast.show('Đã đánh dấu đọc tất cả thông báo!', 'success');
+    }
+
+    function handleReadSingle(id, link) {
+      useRepository.markNotificationRead(id);
+      renderNotifications();
+      if (link && link !== '#') {
+        window.location.href = link;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       useTheme.init();
+      useRepository.init();
+      renderNotifications();
+
+      const searchInput = document.querySelector('.topbar-search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentFilterText = e.target.value.trim();
+          renderNotifications();
+        });
+      }
     });
   </script>
 </body>

@@ -1,4 +1,4 @@
-# VolunteerHub — Product & UI/UX Master Blueprint v1.0
+# NhiLun — Product & UI/UX Master Blueprint v1.0
 
 > Ngôn ngữ: Tiếng Việt | Trạng thái: Thiết kế đề xuất, chưa triển khai | Ngày: 12/10/2026
 

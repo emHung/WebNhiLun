@@ -87,7 +87,7 @@ function renderThemesList() {
               <span style="width: 12px; height: 12px; border-radius: 50%; background: ${t.surface}; display: inline-block; border: 1px solid rgba(0,0,0,0.1);" title="Nền thẻ: ${t.surface}"></span>
             </div>
             <strong style="font-size: 0.88rem; color: ${t.primary};">${t.name}</strong>
-            ${isActive ? '<span class="badge badge-success" style="font-size:0.68rem; padding:1px 5px;">✓ Đang dùng</span>' : ''}
+            ${isActive ? '<span class="badge badge-success" style="font-size:0.68rem; padding:1px 5px;"><i class="ri-check-line"></i> Đang dùng</span>' : ''}
           </div>
           <div style="font-size: 0.74rem; color: var(--text-secondary); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
             ${t.meaning ? `<span>${t.meaning} • </span>` : ''}
@@ -96,11 +96,11 @@ function renderThemesList() {
         </div>
 
         <div style="display: flex; gap: 4px; flex-shrink: 0;">
-          <button class="btn btn-sm ${isActive ? 'btn-secondary' : 'btn-primary'}" onclick="activateTheme(${t.id})">
-            ${isActive ? '✓ Dùng' : '⚡ Áp dụng'}
+          <button class="btn btn-sm ${isActive ? 'btn-secondary' : 'btn-primary'}" onclick="activateTheme(${t.id})" style="display: inline-flex; align-items: center; gap: 4px;">
+            ${isActive ? '<i class="ri-check-line"></i> Dùng' : '<i class="ri-flashlight-line"></i> Áp dụng'}
           </button>
-          <button class="btn btn-sm btn-outline" onclick="editTheme(${t.id})" title="Chỉnh sửa">✏️</button>
-          ${t.id !== 1 ? `<button class="btn btn-sm btn-danger" onclick="removeTheme(${t.id})" title="Xóa">🗑️</button>` : ''}
+          <button class="btn btn-sm btn-outline" onclick="editTheme(${t.id})" title="Chỉnh sửa"><i class="ri-edit-line"></i></button>
+          ${t.id !== 1 ? `<button class="btn btn-sm btn-danger" onclick="removeTheme(${t.id})" title="Xóa"><i class="ri-delete-bin-line"></i></button>` : ''}
         </div>
       </div>
     `;
@@ -311,7 +311,7 @@ window.autoSuggestDarkMode = function() {
   const darkRadio = document.querySelector('input[name="themeMode"][value="dark"]');
   if (darkRadio) darkRadio.checked = true;
 
-  useToast.show('✨ Đã gợi ý bộ màu Tối: Tiêu đề sáng nổi bật, nền thẻ dịu mắt không bị tối đen!', 'success');
+  useToast.show('Đã gợi ý bộ màu Tối: Tiêu đề sáng nổi bật, nền thẻ dịu mắt không bị tối đen!', 'success');
 };
 
 /**

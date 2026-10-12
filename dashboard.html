@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bảng Điều Khiển Tình Nguyện Viên — VolunteerHub</title>
+  <title>Bảng Điều Khiển Tình Nguyện Viên — NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/profile.css">
@@ -22,71 +23,71 @@
             <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <span class="sidebar-brand-title">VolunteerHub</span>
+        <span class="sidebar-brand-title">NhiLun</span>
       </a>
 
       <ul class="sidebar-menu-list">
         <li class="sidebar-menu-item active">
           <a href="dashboard.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span>
+            <span class="sidebar-menu-label"><i class="ri-bar-chart-2-line sidebar-menu-icon"></i><span>Dashboard</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="activities.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🧭</span><span>Hoạt động</span></span>
+            <span class="sidebar-menu-label"><i class="ri-compass-3-line sidebar-menu-icon"></i><span>Hoạt động</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="stories.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📖</span><span>Stories</span></span>
+            <span class="sidebar-menu-label"><i class="ri-book-open-line sidebar-menu-icon"></i><span>Stories</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="about.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Giới thiệu</span></span>
+            <span class="sidebar-menu-label"><i class="ri-group-line sidebar-menu-icon"></i><span>Giới thiệu</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="volunteer/dashboard.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Hoạt động của tôi</span></span>
+            <span class="sidebar-menu-label"><i class="ri-file-list-3-line sidebar-menu-icon"></i><span>Hoạt động của tôi</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="schedule.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📅</span><span>Lịch hoạt động</span></span>
+            <span class="sidebar-menu-label"><i class="ri-calendar-line sidebar-menu-icon"></i><span>Lịch hoạt động</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="certificates.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🎖️</span><span>Chứng nhận</span></span>
+            <span class="sidebar-menu-label"><i class="ri-award-line sidebar-menu-icon"></i><span>Chứng nhận</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="notifications.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span>
+            <span class="sidebar-menu-label"><i class="ri-notification-3-line sidebar-menu-icon"></i><span>Thông báo</span></span>
             <span class="sidebar-badge">3</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="profile.html">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">👤</span><span>Hồ sơ cá nhân</span></span>
+            <span class="sidebar-menu-label"><i class="ri-user-3-line sidebar-menu-icon"></i><span>Hồ sơ cá nhân</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="activities.html?filter=saved">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🤍</span><span>Yêu thích</span></span>
+            <span class="sidebar-menu-label"><i class="ri-heart-line sidebar-menu-icon"></i><span>Yêu thích</span></span>
           </a>
         </li>
         <li class="sidebar-menu-item">
           <a href="profile.html#settings">
-            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">⚙️</span><span>Cài đặt</span></span>
+            <span class="sidebar-menu-label"><i class="ri-settings-4-line sidebar-menu-icon"></i><span>Cài đặt</span></span>
           </a>
         </li>
       </ul>
 
       <!-- MINI BANNER SIDEBAR -->
       <div class="sidebar-mini-promo">
-        <div class="mini-promo-graphic">🌱</div>
+        <div class="mini-promo-graphic"><i class="ri-plant-line" style="font-size: 1.6rem; color: #10b981;"></i></div>
         <p class="mini-promo-title">Cùng nhau<br>lan tỏa giá trị tốt đẹp</p>
         <a href="activities.html" class="mini-promo-btn">Khám phá hoạt động &rarr;</a>
       </div>
@@ -98,7 +99,7 @@
       <!-- TOPBAR -->
       <div class="profile-topbar">
         <div class="topbar-search-box">
-          <span class="topbar-search-icon">🔍</span>
+          <i class="ri-search-line topbar-search-icon"></i>
           <input type="text" class="topbar-search-input" placeholder="Tìm kiếm hoạt động, địa điểm, chủ đề... (Ctrl K)">
         </div>
 
@@ -106,14 +107,14 @@
           <!-- POPUP THÔNG BÁO DROPDOWN -->
           <div class="vh-notif-wrapper">
             <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
-              <span style="font-size: 1.1rem;">🔔</span>
+              <i class="ri-notification-3-line" style="font-size: 1.25rem;"></i>
               <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
             </button>
 
             <div class="vh-notif-dropdown" id="vhNotifDropdown">
               <div class="vh-notif-header">
-                <div class="vh-notif-header-title">🔔 Thông báo mới</div>
-                <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+                <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+                <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()"><i class="ri-check-double-line"></i> Đánh dấu đã đọc</button>
               </div>
               <div class="vh-notif-list" id="vhNotifList">
                 <!-- Nạp từ useNotification.js -->
@@ -135,7 +136,7 @@
       <!-- BANNER CHÀO MỪNG (MOCKUP HÌNH 3) -->
       <div class="dash-welcome-card">
         <div>
-          <h1 class="dash-welcome-title">Xin chào, Nguyễn Văn An! 👋</h1>
+          <h1 class="dash-welcome-title">Xin chào, Nguyễn Văn An!</h1>
           <div class="dash-welcome-quote">
             “Mỗi hành động nhỏ cũng có thể tạo nên một thay đổi lớn.”
           </div>
@@ -144,8 +145,8 @@
               <span>Khám phá hoạt động</span>
               <span>&rarr;</span>
             </a>
-            <a href="javascript:void(0)" onclick="alert('Đang phát video phóng sự: Cộng đồng tạo nên thay đổi!')" class="btn-hero-video" style="padding: 8px 16px; font-size: 0.8rem;">
-              <span>▶</span>
+            <a href="javascript:void(0)" onclick="document.getElementById('dashVideoModal').style.display='flex'" class="btn-hero-video" style="padding: 8px 16px; font-size: 0.8rem;">
+              <i class="ri-play-circle-line"></i>
               <span>Xem video</span>
             </a>
           </div>
@@ -160,7 +161,7 @@
       <!-- 4 THẺ THỐNG KÊ KPI -->
       <div class="profile-kpi-grid" style="margin-bottom: 16px;">
         <div class="profile-kpi-card" onclick="window.location.href='volunteer/dashboard.html'" style="cursor: pointer;">
-          <div class="kpi-icon-bubble green">📅</div>
+          <div class="kpi-icon-bubble green"><i class="ri-calendar-check-line" style="font-size: 1.35rem;"></i></div>
           <div class="kpi-text-box">
             <span class="kpi-stat-number">08</span>
             <span class="kpi-stat-label">Hoạt động đã tham gia &rarr;</span>
@@ -168,7 +169,7 @@
         </div>
 
         <div class="profile-kpi-card">
-          <div class="kpi-icon-bubble blue">⏱️</div>
+          <div class="kpi-icon-bubble blue"><i class="ri-time-line" style="font-size: 1.35rem;"></i></div>
           <div class="kpi-text-box">
             <span class="kpi-stat-number">32 giờ</span>
             <span class="kpi-stat-label">Thời gian đóng góp &rarr;</span>
@@ -176,7 +177,7 @@
         </div>
 
         <div class="profile-kpi-card" onclick="window.location.href='certificates.html'" style="cursor: pointer;">
-          <div class="kpi-icon-bubble amber">🎖️</div>
+          <div class="kpi-icon-bubble amber"><i class="ri-award-line" style="font-size: 1.35rem;"></i></div>
           <div class="kpi-text-box">
             <span class="kpi-stat-number">03</span>
             <span class="kpi-stat-label">Chứng nhận đã nhận &rarr;</span>
@@ -184,7 +185,7 @@
         </div>
 
         <div class="profile-kpi-card">
-          <div class="kpi-icon-bubble red">🤍</div>
+          <div class="kpi-icon-bubble red"><i class="ri-heart-3-line" style="font-size: 1.35rem;"></i></div>
           <div class="kpi-text-box">
             <span class="kpi-stat-number">120</span>
             <span class="kpi-stat-label">Điểm thiện nguyện &rarr;</span>
@@ -202,7 +203,7 @@
           <div class="profile-box-card">
             <div class="box-card-header">
               <h3 class="box-card-title">
-                <span>🌿</span>
+                <i class="ri-calendar-event-line" style="color: #10b981;"></i>
                 <span>Hoạt động sắp tới</span>
               </h3>
               <a href="volunteer/dashboard.html" class="btn-box-action" style="color: #10b981; border-color: transparent;">Xem tất cả &rarr;</a>
@@ -223,11 +224,11 @@
                     </div>
                     <div>
                       <h4 class="dash-carousel-title">Ngày hội trồng cây xanh</h4>
-                      <span style="font-size: 0.68rem; color: var(--text-secondary);">📍 TP. Hồ Chí Minh</span>
+                      <span style="font-size: 0.68rem; color: var(--text-secondary);"><i class="ri-map-pin-line"></i> TP. Hồ Chí Minh</span>
                     </div>
                   </div>
                   <div class="dash-carousel-meta">
-                    <span>👥 38/50 người • +6 giờ</span>
+                    <span><i class="ri-group-line"></i> 38/50 người • +6 giờ</span>
                     <a href="detail.html?id=ACT-001" style="color: #10b981; font-weight: 700; text-decoration: none;">Xem chi tiết</a>
                   </div>
                 </div>
@@ -247,11 +248,11 @@
                     </div>
                     <div>
                       <h4 class="dash-carousel-title">Sách cho em</h4>
-                      <span style="font-size: 0.68rem; color: var(--text-secondary);">📍 Đồng Nai</span>
+                      <span style="font-size: 0.68rem; color: var(--text-secondary);"><i class="ri-map-pin-line"></i> Đồng Nai</span>
                     </div>
                   </div>
                   <div class="dash-carousel-meta">
-                    <span>👥 12/30 người • +4 giờ</span>
+                    <span><i class="ri-group-line"></i> 12/30 người • +4 giờ</span>
                     <a href="detail.html?id=ACT-002" style="color: #10b981; font-weight: 700; text-decoration: none;">Xem chi tiết</a>
                   </div>
                 </div>
@@ -271,11 +272,11 @@
                     </div>
                     <div>
                       <h4 class="dash-carousel-title">Làm sạch bờ biển</h4>
-                      <span style="font-size: 0.68rem; color: var(--text-secondary);">📍 Vũng Tàu</span>
+                      <span style="font-size: 0.68rem; color: var(--text-secondary);"><i class="ri-map-pin-line"></i> Vũng Tàu</span>
                     </div>
                   </div>
                   <div class="dash-carousel-meta">
-                    <span>👥 15/25 người • +6 giờ</span>
+                    <span><i class="ri-group-line"></i> 15/25 người • +6 giờ</span>
                     <a href="detail.html?id=ACT-004" style="color: #10b981; font-weight: 700; text-decoration: none;">Xem chi tiết</a>
                   </div>
                 </div>
@@ -287,7 +288,7 @@
           <div class="chart-box-card">
             <div class="box-card-header" style="margin-bottom: 4px;">
               <h3 class="box-card-title">
-                <span>⏱️</span>
+                <i class="ri-bar-chart-2-line" style="color: #059669;"></i>
                 <span>Thống kê hoạt động</span>
               </h3>
               <div class="chart-header-tabs">
@@ -345,7 +346,7 @@
           <div class="profile-box-card" style="margin-top: 14px;">
             <div class="box-card-header">
               <h3 class="box-card-title">
-                <span>🎯</span>
+                <i class="ri-focus-3-line" style="color: #10b981;"></i>
                 <span>Gợi ý hoạt động dành cho bạn</span>
               </h3>
               <a href="activities.html" class="btn-box-action" style="color: #10b981; border-color: transparent;">Xem thêm &rarr;</a>
@@ -356,7 +357,7 @@
                 <img src="images/act-animal.jpg" alt="Chung tay vì thú cưng" class="dash-rec-thumb">
                 <div class="dash-rec-body">
                   <h5 class="dash-rec-title">Chung tay vì thú cưng</h5>
-                  <span class="dash-rec-sub">📅 05/11/2026 • Vũng Tàu</span>
+                  <span class="dash-rec-sub"><i class="ri-calendar-line"></i> 05/11/2026 • Vũng Tàu</span>
                 </div>
               </a>
 
@@ -364,7 +365,7 @@
                 <img src="images/act-books.jpg" alt="Dạy học cho em" class="dash-rec-thumb">
                 <div class="dash-rec-body">
                   <h5 class="dash-rec-title">Dạy học cho em</h5>
-                  <span class="dash-rec-sub">📅 10/11/2026 • TP.HCM</span>
+                  <span class="dash-rec-sub"><i class="ri-calendar-line"></i> 10/11/2026 • TP.HCM</span>
                 </div>
               </a>
 
@@ -372,7 +373,7 @@
                 <img src="images/act-medical.jpg" alt="Gieo mầm tri thức" class="dash-rec-thumb">
                 <div class="dash-rec-body">
                   <h5 class="dash-rec-title">Gieo mầm tri thức</h5>
-                  <span class="dash-rec-sub">📅 15/11/2026 • Bình Phước</span>
+                  <span class="dash-rec-sub"><i class="ri-calendar-line"></i> 15/11/2026 • Bình Phước</span>
                 </div>
               </a>
 
@@ -380,7 +381,7 @@
                 <img src="images/act-food.jpg" alt="Hiến máu nhân đạo" class="dash-rec-thumb">
                 <div class="dash-rec-body">
                   <h5 class="dash-rec-title">Hiến máu nhân đạo</h5>
-                  <span class="dash-rec-sub">📅 20/11/2026 • Đồng Nai</span>
+                  <span class="dash-rec-sub"><i class="ri-calendar-line"></i> 20/11/2026 • Đồng Nai</span>
                 </div>
               </a>
             </div>
@@ -395,12 +396,12 @@
           <div class="profile-box-card">
             <div class="box-card-header">
               <h3 class="box-card-title">
-                <span>🎖️</span>
+                <i class="ri-award-line" style="color: #f59e0b;"></i>
                 <span>Cấp bậc hiện tại</span>
               </h3>
             </div>
             <div class="rank-card-box">
-              <div class="rank-medal-icon">🏅</div>
+              <div class="rank-medal-icon"><i class="ri-medal-fill" style="color: #f59e0b; font-size: 1.5rem;"></i></div>
               <div class="rank-details-text">
                 <strong>Tình nguyện viên tích cực</strong>
                 <span style="font-size: 0.72rem; color: var(--text-secondary);">120 / 200 điểm</span>
@@ -418,7 +419,7 @@
           <div class="mini-cal-card">
             <div class="box-card-header">
               <h3 class="box-card-title">
-                <span>📅</span>
+                <i class="ri-calendar-event-line" style="color: #059669;"></i>
                 <span>Lịch của tôi</span>
               </h3>
               <a href="schedule.html" class="btn-box-action" style="color: #10b981; border-color: transparent;">Xem lịch &rarr;</a>
@@ -476,7 +477,7 @@
               <img src="images/act-tree.jpg" alt="Ngày hội trồng cây" class="mini-cal-event-thumb">
               <div style="flex: 1;">
                 <strong style="font-size: 0.76rem; display: block;">Ngày hội trồng cây xanh</strong>
-                <span style="font-size: 0.68rem; color: var(--text-secondary);">⏰ 07:30 - 11:00 • Công viên Cần Giờ</span>
+                <span style="font-size: 0.68rem; color: var(--text-secondary);"><i class="ri-time-line"></i> 07:30 - 11:00 • Công viên Cần Giờ</span>
               </div>
               <span>&rarr;</span>
             </div>
@@ -486,7 +487,7 @@
           <div class="profile-box-card">
             <div class="box-card-header">
               <h3 class="box-card-title">
-                <span>🔔</span>
+                <i class="ri-notification-3-line" style="color: #059669;"></i>
                 <span>Thông báo mới</span>
               </h3>
               <a href="notifications.html" class="btn-box-action" style="color: #10b981; border-color: transparent;">Xem tất cả &rarr;</a>
@@ -501,7 +502,7 @@
             </div>
 
             <div class="dash-notify-item-compact">
-              <span style="font-size: 0.8rem; margin-top: 4px;">📢</span>
+              <span style="font-size: 0.85rem; margin-top: 4px; color: #3b82f6;"><i class="ri-notification-badge-line"></i></span>
               <div>
                 <strong>Có hoạt động mới phù hợp với bạn</strong>
                 <p style="margin: 2px 0 0 0; font-size: 0.68rem; color: var(--text-secondary);">Làm sạch bờ biển Vũng Tàu • 1 ngày trước</p>
@@ -509,7 +510,7 @@
             </div>
 
             <div class="dash-notify-item-compact">
-              <span style="font-size: 0.8rem; margin-top: 4px;">🎖️</span>
+              <span style="font-size: 0.85rem; margin-top: 4px; color: #f59e0b;"><i class="ri-award-line"></i></span>
               <div>
                 <strong>Bạn đã nhận được chứng nhận</strong>
                 <p style="margin: 2px 0 0 0; font-size: 0.68rem; color: var(--text-secondary);">Bữa cơm 0 đồng yêu thương • 3 ngày trước</p>
@@ -540,7 +541,7 @@
       if (!welcomeTitle || !kpiGrid) return;
 
       if (user.role === 'organizer') {
-        welcomeTitle.innerHTML = `Xin chào, ${user.name}! 🏢`;
+        welcomeTitle.innerHTML = `Xin chào, ${user.name}!`;
         if (welcomeQuote) welcomeQuote.innerText = 'Cổng điều phối ban tổ chức • Quản lý chiến dịch, xét duyệt đơn nộp và quét điểm danh.';
         if (heroActions) {
           heroActions.innerHTML = `
@@ -548,34 +549,34 @@
               <span>Duyệt đơn & Điểm danh</span> <span>&rarr;</span>
             </a>
             <a href="organizer/create-event.html" class="btn-hero-video" style="padding: 8px 16px; font-size: 0.8rem;">
-              <span>➕ Tạo hoạt động mới</span>
+              <span><i class="ri-add-line"></i> Tạo hoạt động mới</span>
             </a>
           `;
         }
         kpiGrid.innerHTML = `
           <div class="profile-kpi-card" onclick="window.location.href='organizer/manage.html'" style="cursor: pointer;">
-            <div class="kpi-icon-bubble green">🏢</div>
+            <div class="kpi-icon-bubble green"><i class="ri-building-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">14</span>
               <span class="kpi-stat-label">Chiến dịch đã mở &rarr;</span>
             </div>
           </div>
           <div class="profile-kpi-card" onclick="window.location.href='organizer/manage.html'" style="cursor: pointer;">
-            <div class="kpi-icon-bubble amber">📋</div>
+            <div class="kpi-icon-bubble amber"><i class="ri-file-list-3-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">06</span>
               <span class="kpi-stat-label">Hồ sơ chờ duyệt &rarr;</span>
             </div>
           </div>
           <div class="profile-kpi-card">
-            <div class="kpi-icon-bubble blue">👥</div>
+            <div class="kpi-icon-bubble blue"><i class="ri-team-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">120</span>
               <span class="kpi-stat-label">TNV đã tham gia &rarr;</span>
             </div>
           </div>
           <div class="profile-kpi-card">
-            <div class="kpi-icon-bubble red">✓</div>
+            <div class="kpi-icon-bubble red"><i class="ri-checkbox-circle-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">95%</span>
               <span class="kpi-stat-label">Tỷ lệ hoàn thành &rarr;</span>
@@ -583,7 +584,7 @@
           </div>
         `;
       } else if (user.role === 'admin') {
-        welcomeTitle.innerHTML = `Xin chào, ${user.name}! 🛡️`;
+        welcomeTitle.innerHTML = `Xin chào, ${user.name}!`;
         if (welcomeQuote) welcomeQuote.innerText = 'Trung tâm quản trị hệ thống • Kiểm duyệt tổ chức, kiểm tra sự kiện và quản lý theme giao diện.';
         if (heroActions) {
           heroActions.innerHTML = `
@@ -591,34 +592,34 @@
               <span>Kiểm duyệt hệ thống</span> <span>&rarr;</span>
             </a>
             <a href="admin/theme-settings.html" class="btn-hero-video" style="padding: 8px 16px; font-size: 0.8rem;">
-              <span>⚙️ Quản lý bảng màu</span>
+              <span><i class="ri-palette-line"></i> Quản lý bảng màu</span>
             </a>
           `;
         }
         kpiGrid.innerHTML = `
           <div class="profile-kpi-card" onclick="window.location.href='admin/moderation.html'" style="cursor: pointer;">
-            <div class="kpi-icon-bubble green">🏛️</div>
+            <div class="kpi-icon-bubble green"><i class="ri-government-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">48</span>
               <span class="kpi-stat-label">Tổ chức đã duyệt &rarr;</span>
             </div>
           </div>
           <div class="profile-kpi-card" onclick="window.location.href='admin/moderation.html'" style="cursor: pointer;">
-            <div class="kpi-icon-bubble amber">🛡️</div>
+            <div class="kpi-icon-bubble amber"><i class="ri-shield-check-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">12</span>
               <span class="kpi-stat-label">Sự kiện chờ duyệt &rarr;</span>
             </div>
           </div>
           <div class="profile-kpi-card">
-            <div class="kpi-icon-bubble blue">👥</div>
+            <div class="kpi-icon-bubble blue"><i class="ri-user-3-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">1.2K</span>
               <span class="kpi-stat-label">Tài khoản hoạt động &rarr;</span>
             </div>
           </div>
           <div class="profile-kpi-card" onclick="window.location.href='admin/theme-settings.html'" style="cursor: pointer;">
-            <div class="kpi-icon-bubble red">🎨</div>
+            <div class="kpi-icon-bubble red"><i class="ri-palette-line"></i></div>
             <div class="kpi-text-box">
               <span class="kpi-stat-number">5</span>
               <span class="kpi-stat-label">Bảng màu hệ thống &rarr;</span>
@@ -633,5 +634,19 @@
       renderDashboardByRole();
     });
   </script>
+
+  <!-- MODAL PHÓNG SỰ VIDEO -->
+  <div id="dashVideoModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center;" onclick="this.style.display='none'">
+    <div style="background: var(--bg-surface); border-radius: 16px; padding: 20px; max-width: 560px; width: 90%; text-align: center; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0; font-size: 1rem;"><i class="ri-movie-line" style="color: #10b981;"></i> Phóng Sự: Cộng Đồng Tạo Nên Thay Đổi</h3>
+        <button type="button" class="btn btn-sm btn-ghost" onclick="document.getElementById('dashVideoModal').style.display='none'"><i class="ri-close-line"></i></button>
+      </div>
+      <div style="background: #000; border-radius: 10px; height: 260px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff;">
+        <div style="font-size: 3rem; margin-bottom: 8px; cursor: pointer; color: #10b981;"><i class="ri-play-circle-fill"></i></div>
+        <p style="margin: 0; font-size: 0.85rem; color: #94a3b8;">Đang kết nối luồng phát video trực tuyến...</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

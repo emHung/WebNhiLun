@@ -29,8 +29,8 @@ const useToast = {
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
 
-    const icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : 'ℹ️');
-    toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+    const icon = type === 'success' ? '<i class="ri-checkbox-circle-fill" style="color: #10b981;"></i>' : (type === 'error' ? '<i class="ri-error-warning-fill" style="color: #ef4444;"></i>' : '<i class="ri-information-fill" style="color: #3b82f6;"></i>');
+    toast.innerHTML = `<span style="font-size: 1.15rem; display: inline-flex; align-items: center;">${icon}</span> <span>${message}</span>`;
 
     container.appendChild(toast);
 

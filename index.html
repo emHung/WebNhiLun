@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VolunteerHub — Nền Tảng Đăng Ký Hoạt Động Thiện Nguyện Toàn Quốc</title>
+  <title>NhiLun — Nền Tảng Đăng Ký Hoạt Động Thiện Nguyện Toàn Quốc</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/home.css">
 </head>
-<body>
 
-  <!-- TOP DEMO RIBBON (TIỆN ÍCH CHẤM ĐIỂM / THUYẾT TRÌNH) -->
-  <div class="demo-bar">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
-      <span>🚀 <strong>Demo Thuyết Trình:</strong> Điều hướng nhanh các phân hệ:</span>
-      <div>
-        <a href="index.html" style="font-weight: 700; color: #10b981;">🏠 Trang chủ</a> |
-        <a href="activities.html">🔍 Hoạt động</a> |
-        <a href="dashboard.html">📊 Dashboard</a> |
-        <a href="profile.html">👤 Hồ sơ TNV</a> |
-        <a href="detail.html?id=ACT-001">📄 Chi tiết</a> |
-        <a href="organizer/create-event.html">➕ Thêm HĐ</a> |
-        <a href="admin/moderation.html">🛡️ Kiểm duyệt</a> |
-        <a href="auth.html">🔑 Auth</a>
-      </div>
-    </div>
-  </div>
+<body>
 
   <!-- THANH NAVBAR THỐNG NHẤT TOÀN HỆ THỐNG -->
   <header class="vh-navbar-wrapper">
     <div class="vh-navbar-container">
       <a href="index.html" class="vh-brand-group">
         <span class="vh-brand-logo-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              fill="#059669" />
           </svg>
         </span>
         <div class="vh-brand-title-wrap">
-          <span class="vh-brand-name">VolunteerHub</span>
+          <span class="vh-brand-name">NhiLun</span>
           <span class="vh-brand-slogan">Cùng nhau lan tỏa giá trị tốt đẹp</span>
         </div>
       </a>
@@ -48,29 +37,30 @@
         <li class="vh-nav-item"><a href="activities.html"><span>Hoạt động</span></a></li>
         <li class="vh-nav-item"><a href="stories.html"><span>Stories</span></a></li>
         <li class="vh-nav-item"><a href="about.html"><span>Giới thiệu</span></a></li>
+        <li class="vh-nav-item"><a href="volunteer/dashboard.html"><span>Hoạt động của tôi</span></a></li>
       </ul>
 
       <div class="vh-nav-search-bar">
-        <span class="vh-nav-search-icon">🔍</span>
-        <input type="text" placeholder="Tìm kiếm hoạt động, câu chuyện, địa điểm..." onkeydown="if(event.key==='Enter') window.location.href='activities.html?q='+encodeURIComponent(this.value)">
+        <i class="ri-search-line vh-nav-search-icon" style="font-size: 0.95rem; color: #94a3b8; margin-left: 8px;"></i>
+        <input type="text" placeholder="Tìm kiếm hoạt động, câu chuyện, địa điểm..."
+          onkeydown="if(event.key==='Enter') window.location.href='activities.html?q='+encodeURIComponent(this.value)">
       </div>
 
       <div class="vh-nav-actions">
         <!-- POPUP THÔNG BÁO DROPDOWN -->
         <div class="vh-notif-wrapper">
-          <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-            <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+          <button type="button" class="vh-notif-bell-btn" id="vhNotifBtn" onclick="useNotification.toggle()"
+            title="Thông báo mới" aria-expanded="false">
+            <i class="ri-notification-3-line"></i>
+            <span class="vh-notif-badge" id="vhNotifBadge">3</span>
           </button>
 
           <!-- DROPDOWN CONTENT -->
           <div class="vh-notif-dropdown" id="vhNotifDropdown">
             <div class="vh-notif-header">
-              <div class="vh-notif-header-title">🔔 Thông báo mới</div>
-              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+              <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu
+                đã đọc</button>
             </div>
             <div class="vh-notif-list" id="vhNotifList">
               <!-- Nạp từ useNotification.js -->
@@ -86,6 +76,11 @@
 
         <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
         <div id="vhUserNavWrap"></div>
+
+        <!-- NÚT MENU THU GỌN TRÊN MOBILE -->
+        <button type="button" class="vh-mobile-toggle-btn" id="vhMobileToggle" aria-label="Menu điều hướng" aria-expanded="false" onclick="useAuth.toggleMobileMenu()">
+          <i class="ri-menu-line" id="vhMobileToggleIcon"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -97,7 +92,7 @@
       <div class="home-hero-content">
         <div>
           <div class="hero-pill-badge">
-            <span>🌿</span>
+            <i class="ri-leaf-line" style="color: #10b981; font-size: 1rem;"></i>
             <span>Kết nối cộng đồng • Lan tỏa giá trị tốt đẹp</span>
           </div>
 
@@ -116,7 +111,7 @@
               <span>Khám phá hoạt động</span>
               <span>&rarr;</span>
             </a>
-            <a href="#stories" class="btn-hero-video">
+            <a href="javascript:void(0)" onclick="openHomeVideoModal()" class="btn-hero-video">
               <span>▶</span>
               <span>Xem video giới thiệu</span>
             </a>
@@ -154,7 +149,9 @@
     <section class="home-stats-filter-bar">
       <div class="stats-three-counters">
         <div class="stat-single-box">
-          <div class="stat-single-icon">📅</div>
+          <div class="stat-single-icon">
+            <i class="ri-calendar-check-line" style="color: #2563eb; font-size: 1.35rem;"></i>
+          </div>
           <div>
             <span class="stat-single-num">120+</span>
             <span class="stat-single-label">Hoạt động thiện nguyện</span>
@@ -162,7 +159,9 @@
         </div>
 
         <div class="stat-single-box">
-          <div class="stat-single-icon">👥</div>
+          <div class="stat-single-icon">
+            <i class="ri-team-line" style="color: #059669; font-size: 1.35rem;"></i>
+          </div>
           <div>
             <span class="stat-single-num">2.500+</span>
             <span class="stat-single-label">Tình nguyện viên</span>
@@ -170,7 +169,9 @@
         </div>
 
         <div class="stat-single-box">
-          <div class="stat-single-icon">📍</div>
+          <div class="stat-single-icon">
+            <i class="ri-map-pin-2-line" style="color: #ea580c; font-size: 1.35rem;"></i>
+          </div>
           <div>
             <span class="stat-single-num">35+</span>
             <span class="stat-single-label">Địa điểm</span>
@@ -179,8 +180,9 @@
       </div>
 
       <!-- BỘ LỌC TÌM KIẾM NHANH TRÊN HERO -->
-      <form class="quick-filter-form" onsubmit="event.preventDefault(); window.location.href='activities.html';">
-        <span class="quick-filter-title">Bạn muốn tham gia hoạt động gì?</span>
+      <form class="quick-filter-form" onsubmit="handleHomeQuickSearch(event)">
+        <span class="quick-filter-title"><i class="ri-search-line" style="color: #059669;"></i> Bạn muốn tham gia hoạt
+          động gì?</span>
         <select class="quick-select-control" id="homeCatSelect">
           <option value="">Chọn lĩnh vực</option>
           <option value="Môi trường">Môi trường</option>
@@ -195,13 +197,13 @@
           <option value="Bình Phước">Bình Phước</option>
           <option value="Vũng Tàu">Vũng Tàu</option>
         </select>
-        <select class="quick-select-control">
+        <select class="quick-select-control" id="homeTimeSelect">
           <option value="">Chọn thời gian</option>
           <option value="7d">Trong 7 ngày tới</option>
           <option value="30d">Trong 30 ngày tới</option>
         </select>
         <button type="submit" class="btn-quick-search">
-          <span>🔍</span>
+          <i class="ri-search-line"></i>
           <span>Tìm kiếm</span>
         </button>
       </form>
@@ -211,7 +213,7 @@
     <section style="margin-bottom: 30px;">
       <div class="section-header-row">
         <h2 class="section-main-title">
-          <span>🔥</span>
+          <i class="ri-fire-fill" style="color: #ef4444; font-size: 1.25rem;"></i>
           <span>Hoạt động nổi bật</span>
         </h2>
         <a href="activities.html" class="section-view-all-link">Xem tất cả hoạt động &rarr;</a>
@@ -223,16 +225,17 @@
         <div class="featured-act-card">
           <div class="act-card-thumb-wrap">
             <img src="images/act-tree.jpg" alt="Ngày hội trồng cây xanh 2026" class="act-card-thumb-img">
-            <span class="act-thumb-tag">🌿 Môi trường</span>
+            <span class="act-thumb-tag"><i class="ri-leaf-line"></i> Môi trường</span>
             <span class="act-thumb-status">Sắp diễn ra</span>
-            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+            <button class="act-thumb-heart-btn" id="fav-btn-ACT-001" onclick="toggleHomeFav('ACT-001', this)"
+              title="Yêu thích"><i class="ri-heart-line"></i></button>
           </div>
           <div class="act-card-body">
             <h3 class="act-card-name">Ngày hội trồng cây xanh 2026</h3>
             <p class="act-card-excerpt">Cùng nhau phủ xanh những vùng đất và bảo vệ môi trường sống.</p>
             <div class="act-card-meta-line">
-              <span>📅 24/10/2026 • 📍 TP. Hồ Chí Minh</span>
-              <span>👥 38 / 50 người đã đăng ký</span>
+              <span><i class="ri-calendar-line"></i> 24/10/2026 • <i class="ri-map-pin-line"></i> TP. Hồ Chí Minh</span>
+              <span><i class="ri-group-line"></i> 38 / 50 người đã đăng ký</span>
             </div>
             <a href="detail.html?id=ACT-001" class="act-card-btn-action primary">Đăng ký ngay &rarr;</a>
           </div>
@@ -242,16 +245,17 @@
         <div class="featured-act-card">
           <div class="act-card-thumb-wrap">
             <img src="images/act-books.jpg" alt="Sách cho em" class="act-card-thumb-img">
-            <span class="act-thumb-tag" style="color: #0284c7;">📘 Giáo dục</span>
+            <span class="act-thumb-tag" style="color: #0284c7;"><i class="ri-book-read-line"></i> Giáo dục</span>
             <span class="act-thumb-status" style="background: rgba(16, 185, 129, 0.85);">Đang tuyển</span>
-            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+            <button class="act-thumb-heart-btn" id="fav-btn-ACT-002" onclick="toggleHomeFav('ACT-002', this)"
+              title="Yêu thích"><i class="ri-heart-line"></i></button>
           </div>
           <div class="act-card-body">
             <h3 class="act-card-name">Sách cho em</h3>
             <p class="act-card-excerpt">Trao tặng sách và đồ dùng học tập cho trẻ em vùng cao.</p>
             <div class="act-card-meta-line">
-              <span>📅 18/10/2026 • 📍 Đồng Nai</span>
-              <span>👥 12 / 30 người đã đăng ký</span>
+              <span><i class="ri-calendar-line"></i> 18/10/2026 • <i class="ri-map-pin-line"></i> Đồng Nai</span>
+              <span><i class="ri-group-line"></i> 12 / 30 người đã đăng ký</span>
             </div>
             <a href="detail.html?id=ACT-002" class="act-card-btn-action outline">Xem chi tiết &rarr;</a>
           </div>
@@ -261,16 +265,17 @@
         <div class="featured-act-card">
           <div class="act-card-thumb-wrap">
             <img src="images/act-food.jpg" alt="Bữa cơm yêu thương" class="act-card-thumb-img">
-            <span class="act-thumb-tag" style="color: #c2410c;">👥 Cộng đồng</span>
+            <span class="act-thumb-tag" style="color: #c2410c;"><i class="ri-heart-3-line"></i> Cộng đồng</span>
             <span class="act-thumb-status">Sắp diễn ra</span>
-            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+            <button class="act-thumb-heart-btn" id="fav-btn-ACT-003" onclick="toggleHomeFav('ACT-003', this)"
+              title="Yêu thích"><i class="ri-heart-line"></i></button>
           </div>
           <div class="act-card-body">
             <h3 class="act-card-name">Bữa cơm yêu thương</h3>
             <p class="act-card-excerpt">Chung tay mang những bữa ăn ấm áp đến người có hoàn cảnh khó khăn.</p>
             <div class="act-card-meta-line">
-              <span>📅 28/10/2026 • 📍 TP. Hồ Chí Minh</span>
-              <span>👥 20 / 40 người đã đăng ký</span>
+              <span><i class="ri-calendar-line"></i> 28/10/2026 • <i class="ri-map-pin-line"></i> TP. Hồ Chí Minh</span>
+              <span><i class="ri-group-line"></i> 20 / 40 người đã đăng ký</span>
             </div>
             <a href="detail.html?id=ACT-003" class="act-card-btn-action primary">Đăng ký ngay &rarr;</a>
           </div>
@@ -280,16 +285,17 @@
         <div class="featured-act-card">
           <div class="act-card-thumb-wrap">
             <img src="images/act-animal.jpg" alt="Chung tay vì thú cưng" class="act-card-thumb-img">
-            <span class="act-thumb-tag" style="color: #7e22ce;">🐾 Động vật</span>
+            <span class="act-thumb-tag" style="color: #7e22ce;"><i class="ri-bear-smile-line"></i> Động vật</span>
             <span class="act-thumb-status" style="background: rgba(16, 185, 129, 0.85);">Đang tuyển</span>
-            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+            <button class="act-thumb-heart-btn" id="fav-btn-ACT-004" onclick="toggleHomeFav('ACT-004', this)"
+              title="Yêu thích"><i class="ri-heart-line"></i></button>
           </div>
           <div class="act-card-body">
             <h3 class="act-card-name">Chung tay vì thú cưng</h3>
             <p class="act-card-excerpt">Chăm sóc, cứu hộ và tìm mái ấm cho các thú cưng bị bỏ rơi.</p>
             <div class="act-card-meta-line">
-              <span>📅 05/11/2026 • 📍 Vũng Tàu</span>
-              <span>👥 15 / 25 người đã đăng ký</span>
+              <span><i class="ri-calendar-line"></i> 05/11/2026 • <i class="ri-map-pin-line"></i> Vũng Tàu</span>
+              <span><i class="ri-group-line"></i> 15 / 25 người đã đăng ký</span>
             </div>
             <a href="detail.html?id=ACT-004" class="act-card-btn-action outline">Xem chi tiết &rarr;</a>
           </div>
@@ -300,13 +306,17 @@
           <div>
             <h3 class="join-promo-title">Trở thành tình nguyện viên ngay hôm nay</h3>
             <ul class="join-promo-list">
-              <li><span>🎁</span> <span>Đóng góp cho cộng đồng</span></li>
-              <li><span>⏱️</span> <span>Tích lũy giờ tình nguyện</span></li>
-              <li><span>🎖️</span> <span>Nhận chứng nhận tham gia</span></li>
+              <li><i class="ri-gift-line" style="color: #f59e0b; font-size: 1.1rem;"></i> <span>Đóng góp cho cộng
+                  đồng</span></li>
+              <li><i class="ri-time-line" style="color: #3b82f6; font-size: 1.1rem;"></i> <span>Tích lũy giờ tình
+                  nguyện</span></li>
+              <li><i class="ri-award-line" style="color: #10b981; font-size: 1.1rem;"></i> <span>Nhận chứng nhận tham
+                  gia</span></li>
             </ul>
           </div>
           <div style="text-align: center; margin: 8px 0;">
-            <img src="images/sapling-soil.jpg" alt="Mầm non hy vọng" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.4);">
+            <img src="images/sapling-soil.jpg" alt="Mầm non hy vọng"
+              style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.4);">
           </div>
           <a href="auth.html" class="btn-join-promo">Tạo tài khoản miễn phí &rarr;</a>
         </div>
@@ -317,13 +327,13 @@
     <!-- LĨNH VỰC HOẠT ĐỘNG (CATEGORIES) -->
     <section style="margin-bottom: 30px;">
       <h2 class="section-main-title" style="margin-bottom: 14px;">
-        <span>🌿</span>
+        <i class="ri-apps-2-line" style="color: #059669; font-size: 1.25rem;"></i>
         <span>Lĩnh vực hoạt động</span>
       </h2>
 
       <div class="categories-card-grid">
         <a href="activities.html?category=Môi trường" class="category-item-card">
-          <div class="category-icon-circle" style="color: #10b981;">🌿</div>
+          <div class="category-icon-circle" style="color: #10b981;"><i class="ri-plant-line"></i></div>
           <div class="category-text-box">
             <strong>Môi trường</strong>
             <span>Trồng cây, dọn dẹp, bảo vệ thiên nhiên</span>
@@ -331,7 +341,7 @@
         </a>
 
         <a href="activities.html?category=Giáo dục" class="category-item-card">
-          <div class="category-icon-circle" style="color: #0284c7;">📘</div>
+          <div class="category-icon-circle" style="color: #0284c7;"><i class="ri-book-open-line"></i></div>
           <div class="category-text-box">
             <strong>Giáo dục</strong>
             <span>Hỗ trợ học tập, trao tặng sách vở</span>
@@ -339,7 +349,7 @@
         </a>
 
         <a href="activities.html?category=Cộng đồng" class="category-item-card">
-          <div class="category-icon-circle" style="color: #c2410c;">👥</div>
+          <div class="category-icon-circle" style="color: #c2410c;"><i class="ri-hand-heart-line"></i></div>
           <div class="category-text-box">
             <strong>Cộng đồng</strong>
             <span>Giúp đỡ người già, trẻ em khó khăn</span>
@@ -347,7 +357,7 @@
         </a>
 
         <a href="activities.html?category=Y tế" class="category-item-card">
-          <div class="category-icon-circle" style="color: #e11d48;">💖</div>
+          <div class="category-icon-circle" style="color: #e11d48;"><i class="ri-heart-pulse-line"></i></div>
           <div class="category-text-box">
             <strong>Sức khỏe</strong>
             <span>Hiến máu, chăm sóc sức khỏe cộng đồng</span>
@@ -355,7 +365,7 @@
         </a>
 
         <a href="activities.html?category=Động vật" class="category-item-card">
-          <div class="category-icon-circle" style="color: #7e22ce;">🐾</div>
+          <div class="category-icon-circle" style="color: #7e22ce;"><i class="ri-bear-smile-line"></i></div>
           <div class="category-text-box">
             <strong>Động vật</strong>
             <span>Cứu hộ, chăm sóc bảo vệ động vật</span>
@@ -363,7 +373,7 @@
         </a>
 
         <a href="activities.html" class="category-item-card">
-          <div class="category-icon-circle" style="color: #64748b;">💬</div>
+          <div class="category-icon-circle" style="color: #64748b;"><i class="ri-more-fill"></i></div>
           <div class="category-text-box">
             <strong>Khác</strong>
             <span>Nhiều hoạt động ý nghĩa khác</span>
@@ -379,13 +389,14 @@
       <div class="story-video-card">
         <div class="story-card-content">
           <h3>Những câu chuyện lan tỏa yêu thương</h3>
-          <p>Cùng xem lại những khoảnh khắc ý nghĩa từ cộng đồng VolunteerHub</p>
-          <a href="javascript:void(0)" onclick="alert('Đang phát video phóng sự: Hành trình Trái Tim Ấm Áp 2026!')" class="btn btn-sm" style="background: rgba(255,255,255,0.9); color: #0b3d2c; font-weight: 700; border-radius: 999px;">
+          <p>Cùng xem lại những khoảnh khắc ý nghĩa từ cộng đồng NhiLun</p>
+          <a href="javascript:void(0)" onclick="openHomeVideoModal()" class="btn btn-sm"
+            style="background: rgba(255,255,255,0.9); color: #0b3d2c; font-weight: 700; border-radius: 999px;">
             Xem video &rarr;
           </a>
         </div>
-        <div class="story-play-btn" onclick="alert('Đang phát video phóng sự: Hành trình Trái Tim Ấm Áp 2026!')">
-          ▶
+        <div class="story-play-btn" onclick="openHomeVideoModal()">
+          <i class="ri-play-fill"></i>
         </div>
       </div>
 
@@ -393,10 +404,10 @@
       <div class="testimonials-card-box">
         <div class="section-header-row" style="margin-bottom: 6px;">
           <h3 class="section-main-title" style="font-size: 0.95rem;">
-            <span>👥</span>
+            <i class="ri-message-3-line" style="color: #059669; font-size: 1.15rem;"></i>
             <span>Cảm nhận từ tình nguyện viên</span>
           </h3>
-          <a href="javascript:void(0)" class="section-view-all-link">Xem tất cả &rarr;</a>
+          <a href="stories.html" class="section-view-all-link">Xem tất cả &rarr;</a>
         </div>
 
         <div class="testimonials-grid-row">
@@ -409,9 +420,12 @@
                 <span>Sinh viên</span>
               </div>
             </div>
-            <div style="font-size: 0.7rem; color: #f59e0b;">★★★★★</div>
+            <div style="font-size: 0.75rem; color: #f59e0b; display: flex; gap: 2px;"><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i></div>
             <p class="testimonial-quote-text">
-              “Tham gia các hoạt động ở đây giúp mình có thêm nhiều trải nghiệm quý giá và gặp gỡ những người bạn tuyệt vời.”
+              “Tham gia các hoạt động ở đây giúp mình có thêm nhiều trải nghiệm quý giá và gặp gỡ những người bạn tuyệt
+              vời.”
             </p>
           </div>
 
@@ -424,7 +438,9 @@
                 <span>Tình nguyện viên</span>
               </div>
             </div>
-            <div style="font-size: 0.7rem; color: #f59e0b;">★★★★★</div>
+            <div style="font-size: 0.75rem; color: #f59e0b; display: flex; gap: 2px;"><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i></div>
             <p class="testimonial-quote-text">
               “Mình đã học được rất nhiều điều, không chỉ giúp đỡ cộng đồng mà còn phát triển bản thân toàn diện.”
             </p>
@@ -439,9 +455,12 @@
                 <span>Giáo viên</span>
               </div>
             </div>
-            <div style="font-size: 0.7rem; color: #f59e0b;">★★★★★</div>
+            <div style="font-size: 0.75rem; color: #f59e0b; display: flex; gap: 2px;"><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
+                class="ri-star-fill"></i></div>
             <p class="testimonial-quote-text">
-              “Một nền tảng rất ý nghĩa và chuyên nghiệp. Dễ dàng tìm kiếm và đăng ký các hoạt động thiện nguyện phù hợp.”
+              “Một nền tảng rất ý nghĩa và chuyên nghiệp. Dễ dàng tìm kiếm và đăng ký các hoạt động thiện nguyện phù
+              hợp.”
             </p>
           </div>
         </div>
@@ -453,16 +472,46 @@
 
   <!-- FOOTER -->
   <footer class="app-footer">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-      <p style="margin: 0;">© 2026 VolunteerHub • Nền tảng kết nối hoạt động từ thiện & minh bạch giờ công nhận</p>
+    <div class="container"
+      style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <p style="margin: 0;">© 2026 NhiLun • Nền tảng kết nối hoạt động từ thiện & minh bạch giờ công nhận</p>
       <div>
-        <a href="privacy.html" style="color: var(--text-secondary); margin-right: 12px; font-size: 0.76rem;">Chính sách bảo mật</a>
+        <a href="privacy.html" style="color: var(--text-secondary); margin-right: 12px; font-size: 0.76rem;">Chính sách
+          bảo mật</a>
         <a href="terms.html" style="color: var(--text-secondary); font-size: 0.76rem;">Quy tắc cộng đồng</a>
       </div>
     </div>
   </footer>
 
+  <!-- MODAL VIDEO PHÓNG SỰ -->
+  <div id="homeVideoModal"
+    style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 9999; align-items: center; justify-content: center;"
+    onclick="closeHomeVideoModal()">
+    <div
+      style="background: #0f172a; border-radius: 16px; padding: 20px; max-width: 650px; width: 92%; color: white; position: relative;"
+      onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0; font-size: 1.1rem; color: #10b981; display: flex; align-items: center; gap: 8px;">
+          <i class="ri-movie-line" style="font-size: 1.25rem;"></i> Phóng sự: Hành Trình Trái Tim Ấm Áp 2026
+        </h3>
+        <button type="button"
+          style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center;"
+          onclick="closeHomeVideoModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div
+        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; background: #000;">
+        <iframe style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border: 0;"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" title="Video NhiLun"
+          allowfullscreen></iframe>
+      </div>
+      <p style="margin: 10px 0 0 0; font-size: 0.8rem; color: #94a3b8;">Cùng nhìn lại hơn 1.200 chiến dịch thiện nguyện
+        và 2.500+ tình nguyện viên đã chung tay vì cộng đồng.</p>
+    </div>
+  </div>
+
+  <script src="data/seedData.js"></script>
   <script src="shared/useStorage.js"></script>
+  <script src="shared/useRepository.js"></script>
   <script src="shared/useToast.js"></script>
   <script src="shared/useTheme.js"></script>
   <script src="shared/useAuth.js"></script>
@@ -470,7 +519,45 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       useTheme.init();
+      useRepository.init();
+      updateHomeFavButtons();
     });
+
+    function handleHomeQuickSearch(e) {
+      e.preventDefault();
+      const cat = document.getElementById('homeCatSelect').value;
+      const city = document.getElementById('homeCitySelect').value;
+      const time = document.getElementById('homeTimeSelect').value;
+      const query = [];
+      if (cat) query.push('category=' + encodeURIComponent(cat));
+      if (city) query.push('city=' + encodeURIComponent(city));
+      if (time) query.push('time=' + encodeURIComponent(time));
+      window.location.href = 'activities.html' + (query.length ? '?' + query.join('&') : '');
+    }
+
+    function toggleHomeFav(actId, btn) {
+      const isFav = useRepository.toggleFavorite(actId);
+      btn.innerHTML = isFav ? '<i class="ri-heart-fill" style="color: #ef4444;"></i>' : '<i class="ri-heart-line"></i>';
+      useToast.show(isFav ? 'Đã thêm hoạt động vào danh sách yêu thích!' : 'Đã xóa hoạt động khỏi danh sách yêu thích.', 'info');
+    }
+
+    function updateHomeFavButtons() {
+      ['ACT-001', 'ACT-002', 'ACT-003', 'ACT-004'].forEach(id => {
+        const btn = document.getElementById('fav-btn-' + id);
+        if (btn && useRepository.isFavorite(id)) {
+          btn.innerHTML = '<i class="ri-heart-fill" style="color: #ef4444;"></i>';
+        }
+      });
+    }
+
+    function openHomeVideoModal() {
+      document.getElementById('homeVideoModal').style.display = 'flex';
+    }
+
+    function closeHomeVideoModal() {
+      document.getElementById('homeVideoModal').style.display = 'none';
+    }
   </script>
 </body>
+
 </html>

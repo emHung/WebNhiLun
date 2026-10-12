@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng Nhập & Đăng Ký Tài Khoản — VolunteerHub</title>
+  <title>Đăng Nhập & Đăng Ký Tài Khoản — NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/auth.css">
@@ -15,7 +16,7 @@
     <!-- THANH ĐIỀU HƯỚNG TRÊN CÙNG -->
     <header class="auth-top-nav">
       <div class="nav-brand" style="display: flex; align-items: center; gap: 8px;">
-        <span style="font-weight: 800; font-size: 1rem; color: #0b3d2c;">VolunteerHub</span>
+        <span style="font-weight: 800; font-size: 1rem; color: #0b3d2c;">NhiLun</span>
         <span class="logo-badge" style="background: rgba(16, 185, 129, 0.15); color: #0d7052; border-color: rgba(16, 185, 129, 0.3);">Xác thực tài khoản</span>
       </div>
       <ul class="auth-nav-links">
@@ -54,7 +55,7 @@
       <div class="demo-accounts-ribbon">
         <div class="demo-ribbon-header">
           <span class="demo-ribbon-title">
-            <span>🚀</span> Đăng nhập nhanh 1 chạm (Demo):
+            <i class="ri-flashlight-line" style="color: #f59e0b;"></i> Đăng nhập nhanh 1 chạm (Demo):
           </span>
           <span class="demo-ribbon-pwd">
             Mật khẩu mặc định: <span class="demo-pass-pill">123</span>
@@ -62,21 +63,21 @@
         </div>
         <div class="demo-quick-buttons-row">
           <button type="button" class="demo-quick-card-btn" onclick="quickLoginRole('volunteer')" title="Đăng nhập tài khoản Tình nguyện viên">
-            <div class="demo-avatar-circle tnv">🧑</div>
+            <div class="demo-avatar-circle tnv"><i class="ri-user-heart-line"></i></div>
             <div class="demo-btn-text">
               <strong>TNV</strong>
               <span>Nguyễn Văn An</span>
             </div>
           </button>
           <button type="button" class="demo-quick-card-btn" onclick="quickLoginRole('organizer')" title="Đăng nhập tài khoản Ban tổ chức">
-            <div class="demo-avatar-circle btc">🏢</div>
+            <div class="demo-avatar-circle btc"><i class="ri-building-line"></i></div>
             <div class="demo-btn-text">
               <strong>BTC</strong>
               <span>Quỹ Xanh VN</span>
             </div>
           </button>
           <button type="button" class="demo-quick-card-btn" onclick="quickLoginRole('admin')" title="Đăng nhập tài khoản Quản trị hệ thống">
-            <div class="demo-avatar-circle admin">🛡️</div>
+            <div class="demo-avatar-circle admin"><i class="ri-shield-check-line"></i></div>
             <div class="demo-btn-text">
               <strong>Admin</strong>
               <span>Quản trị</span>
@@ -155,8 +156,8 @@
           <label class="auth-field-label">Chọn vai trò của bạn *</label>
           <div class="role-selection-grid">
             <div class="role-select-card selected" id="optVolunteer" onclick="selectRole('volunteer')">
-              <div class="role-check-badge">✓</div>
-              <div class="role-card-avatar volunteer">🙋</div>
+              <div class="role-check-badge"><i class="ri-check-line"></i></div>
+              <div class="role-card-avatar volunteer"><i class="ri-user-heart-line"></i></div>
               <div class="role-card-body">
                 <strong>Tình nguyện viên</strong>
                 <p>Tìm kiếm chiến dịch, tích lũy giờ & nhận chứng nhận.</p>
@@ -164,8 +165,8 @@
             </div>
 
             <div class="role-select-card" id="optOrganizer" onclick="selectRole('organizer')">
-              <div class="role-check-badge">✓</div>
-              <div class="role-card-avatar organizer">🏢</div>
+              <div class="role-check-badge"><i class="ri-check-line"></i></div>
+              <div class="role-card-avatar organizer"><i class="ri-building-line"></i></div>
               <div class="role-card-body">
                 <strong>Ban tổ chức / CLB</strong>
                 <p>Tạo hoạt động, duyệt đơn & quét QR điểm danh.</p>
@@ -229,7 +230,7 @@
           <div class="auth-checkbox-row" style="margin-top: 4px;">
             <label class="custom-checkbox-container">
               <input type="checkbox" id="regAgreement" checked required>
-              <span>Bằng việc bấm đăng ký, bạn đồng ý với <a href="javascript:void(0)" onclick="showTermsAlert()" style="color: #10b981; text-decoration: underline; font-weight: 600;">Quy tắc cộng đồng</a> của VolunteerHub.</span>
+              <span>Bằng việc bấm đăng ký, bạn đồng ý với <a href="javascript:void(0)" onclick="showTermsAlert()" style="color: #10b981; text-decoration: underline; font-weight: 600;">Quy tắc cộng đồng</a> của NhiLun.</span>
             </label>
           </div>
 
@@ -251,7 +252,7 @@
 
     <!-- CHỮ THƯ PHÁP DƯỚI ĐÁY (MOCKUP) -->
     <div class="ambient-bottom-quote">
-      Cùng nhau làm nên những điều tốt đẹp hơn 💚
+      Cùng nhau làm nên những điều tốt đẹp hơn ♡
     </div>
 
   </div>
@@ -366,7 +367,7 @@
 
     // Thông báo Quy tắc cộng đồng
     function showTermsAlert() {
-      alert('QUY TẮC CỘNG ĐỒNG VOLUNTEERHUB:\n\n1. Minh bạch và trung thực trong mọi hoạt động thiện nguyện.\n2. Tôn trọng người thụ hưởng và các thành viên tham gia.\n3. Tuân thủ tuyệt đối an toàn và sự điều phối của Ban tổ chức.');
+      window.location.href = 'terms.html';
     }
   </script>
 </body>

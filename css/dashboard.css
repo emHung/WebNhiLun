@@ -336,3 +336,17 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 640px) {
+  .dash-recommend-grid {
+    grid-template-columns: 1fr;
+  }
+  .dash-welcome-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .dash-welcome-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+}

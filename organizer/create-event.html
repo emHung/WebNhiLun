@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tạo Hoạt Động Mới — Ban Tổ Chức | VolunteerHub</title>
+  <title>Tạo Hoạt Động Mới — Ban Tổ Chức | NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/organizer.css">
@@ -19,7 +20,7 @@
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
           </svg>
         </span>
-        <span>VolunteerHub</span>
+        <span>NhiLun</span>
       </a>
 
       <ul class="org-nav-links">
@@ -27,10 +28,11 @@
         <li><a href="../activities.html">Hoạt động</a></li>
         <li><a href="../stories.html">Stories</a></li>
         <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="../volunteer/dashboard.html">Hoạt động của tôi</a></li>
       </ul>
 
       <div class="org-search-box">
-        <span class="org-search-icon">🔍</span>
+        <i class="ri-search-line org-search-icon"></i>
         <input type="text" placeholder="Tìm kiếm hoạt động, địa điểm, chủ đề...">
       </div>
 
@@ -48,8 +50,8 @@
           <!-- DROPDOWN CONTENT -->
           <div class="vh-notif-dropdown" id="vhNotifDropdown">
             <div class="vh-notif-header">
-              <div class="vh-notif-header-title">🔔 Thông báo mới</div>
-              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+              <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()"><i class="ri-check-line"></i> Đánh dấu đã đọc</button>
             </div>
             <div class="vh-notif-list" id="vhNotifList">
               <!-- Nạp từ useNotification.js -->
@@ -65,6 +67,11 @@
 
         <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
         <div id="vhUserNavWrap"></div>
+
+        <!-- NÚT MENU THU GỌN TRÊN MOBILE -->
+        <button type="button" class="vh-mobile-toggle-btn" id="vhMobileToggle" aria-label="Menu điều hướng" aria-expanded="false" onclick="useAuth.toggleMobileMenu()">
+          <i class="ri-menu-line" id="vhMobileToggleIcon"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -76,7 +83,7 @@
     <aside class="organizer-sidebar">
       <!-- THẺ THÔNG TIN BAN TỔ CHỨC -->
       <div class="org-badge-card">
-        <div class="org-badge-icon">🌿</div>
+        <div class="org-badge-icon"><i class="ri-leaf-line"></i></div>
         <div>
           <div class="org-badge-title">Ban tổ chức</div>
           <div class="org-badge-name">CLB Ánh Sáng Tương Lai</div>
@@ -87,13 +94,13 @@
       <div class="org-menu-card">
         <div class="org-nav-group">
           <a href="../dashboard.html" class="org-menu-link">
-            <span class="org-menu-left">🏠 <span>Tổng quan</span></span>
+            <span class="org-menu-left"><i class="ri-home-4-line"></i> <span>Tổng quan</span></span>
           </a>
         </div>
 
         <div class="org-nav-group">
           <a href="javascript:void(0)" class="org-menu-link active">
-            <span class="org-menu-left">📋 <span>Quản lý hoạt động</span></span>
+            <span class="org-menu-left"><i class="ri-file-list-3-line"></i> <span>Quản lý hoạt động</span></span>
             <span>⌃</span>
           </a>
           <div class="org-sub-menu">
@@ -102,35 +109,35 @@
               <span>Thêm hoạt động</span>
             </a>
             <a href="manage.html" class="org-sub-link">
-              <span>📑 Danh sách hoạt động</span>
+              <span><i class="ri-file-text-line"></i> Danh sách hoạt động</span>
             </a>
             <a href="manage.html" class="org-sub-link">
-              <span>📥 Đơn đăng ký</span>
+              <span><i class="ri-inbox-line"></i> Đơn đăng ký</span>
             </a>
             <a href="manage.html" class="org-sub-link">
-              <span>⏱️ Điểm danh</span>
+              <span><i class="ri-time-line"></i> Điểm danh</span>
             </a>
             <a href="javascript:void(0)" class="org-sub-link">
-              <span>📊 Báo cáo</span>
+              <span><i class="ri-bar-chart-2-line"></i> Báo cáo</span>
             </a>
           </div>
         </div>
 
         <div class="org-nav-group">
           <a href="javascript:void(0)" class="org-menu-link">
-            <span class="org-menu-left">👥 <span>Thành viên</span></span>
+            <span class="org-menu-left"><i class="ri-team-line"></i> <span>Thành viên</span></span>
           </a>
         </div>
 
         <div class="org-nav-group">
           <a href="javascript:void(0)" class="org-menu-link">
-            <span class="org-menu-left">⚙️ <span>Cài đặt tổ chức</span></span>
+            <span class="org-menu-left"><i class="ri-settings-4-line"></i> <span>Cài đặt tổ chức</span></span>
           </a>
         </div>
 
         <div class="org-nav-group">
           <a href="javascript:void(0)" class="org-menu-link">
-            <span class="org-menu-left">❓ <span>Hỗ trợ</span></span>
+            <span class="org-menu-left"><i class="ri-question-line"></i> <span>Hỗ trợ</span></span>
           </a>
         </div>
       </div>
@@ -149,7 +156,7 @@
       <!-- BANNER HEADER CHỦ ĐỀ MỚI -->
       <div class="org-hero-banner">
         <div class="org-hero-left">
-          <div class="org-hero-pill">✎ Tạo hoạt động mới</div>
+          <div class="org-hero-pill"><i class="ri-edit-line"></i> Tạo hoạt động mới</div>
           <h1 class="org-hero-title-main">Lan tỏa yêu thương</h1>
           <h2 class="org-hero-title-sub">Bắt đầu từ những hành động nhỏ</h2>
           <p class="org-hero-desc">Tạo hoạt động tình nguyện để kết nối cộng đồng và góp phần thay đổi cuộc sống tốt đẹp hơn.</p>
@@ -221,7 +228,7 @@
           <!-- ================= BƯỚC 1: THÔNG TIN CƠ BẢN ================= -->
           <div class="wizard-pane active" id="pane1">
             <div class="org-card-header">
-              <div class="org-card-header-icon">🌿</div>
+              <div class="org-card-header-icon"><i class="ri-leaf-line"></i></div>
               <div>
                 <h3 class="org-card-header-title">Thông tin chung về hoạt động</h3>
                 <p class="org-card-header-sub">Cung cấp thông tin cơ bản để mọi người có thể hiểu và tìm thấy hoạt động của bạn.</p>
@@ -247,12 +254,12 @@
                 </label>
                 <div class="org-select-wrapper">
                   <select id="evCategory" class="org-select" onchange="handleCategoryChange(this.value)">
-                    <option value="Môi trường" selected>🌱 Môi trường</option>
-                    <option value="Giáo dục">📚 Giáo dục</option>
-                    <option value="Cộng đồng">🤝 Cộng đồng</option>
-                    <option value="Y tế">🩺 Y tế</option>
-                    <option value="Động vật">🐾 Động vật</option>
-                    <option value="Khác">✨ Khác</option>
+                    <option value="Môi trường" selected>Môi trường</option>
+                    <option value="Giáo dục">Giáo dục</option>
+                    <option value="Cộng đồng">Cộng đồng</option>
+                    <option value="Y tế">Y tế</option>
+                    <option value="Động vật">Động vật</option>
+                    <option value="Khác">Khác</option>
                   </select>
                   <span class="org-select-arrow">⌵</span>
                 </div>
@@ -264,10 +271,10 @@
                 </label>
                 <div class="org-select-wrapper">
                   <select id="evOrganizer" class="org-select">
-                    <option value="CLB Ánh Sáng Tương Lai" selected>🏢 CLB Ánh Sáng Tương Lai</option>
-                    <option value="Quỹ Xanh Việt Nam">🏢 Quỹ Xanh Việt Nam</option>
-                    <option value="Bếp Ăn Nghĩa Tình">🏢 Bếp Ăn Nghĩa Tình</option>
-                    <option value="Hội Thầy Thuốc Vì Cộng Đồng">🏢 Hội Thầy Thuốc Vì Cộng Đồng</option>
+                    <option value="CLB Ánh Sáng Tương Lai" selected>CLB Ánh Sáng Tương Lai</option>
+                    <option value="Quỹ Xanh Việt Nam">Quỹ Xanh Việt Nam</option>
+                    <option value="Bếp Ăn Nghĩa Tình">Bếp Ăn Nghĩa Tình</option>
+                    <option value="Hội Thầy Thuốc Vì Cộng Đồng">Hội Thầy Thuốc Vì Cộng Đồng</option>
                   </select>
                   <span class="org-select-arrow">⇅</span>
                 </div>
@@ -283,7 +290,7 @@
                 <!-- Dropzone lấy file từ máy tính -->
                 <div class="org-dropzone" id="dropzoneEl" onclick="document.getElementById('bannerFileInput').click()">
                   <input type="file" id="bannerFileInput" accept="image/*" style="display: none;" onchange="handleLocalFileUpload(event)">
-                  <div class="org-dropzone-icon">☁️⬆️</div>
+                  <div class="org-dropzone-icon"><i class="ri-upload-cloud-line" style="font-size: 2.2rem; color: #10b981;"></i></div>
                   <h4 class="org-dropzone-title">Kéo thả ảnh hoặc nhấn để tải lên</h4>
                   <p class="org-dropzone-sub">Hỗ trợ JPG, PNG, WEBP (tối đa 10MB) từ máy tính</p>
                 </div>
@@ -300,7 +307,7 @@
                     <img src="../images/home-hero-volunteer.jpg" alt="Thumb 2" class="org-thumb-img" onclick="setPreviewImage('../images/home-hero-volunteer.jpg')">
                   </div>
                   <button type="button" class="org-btn-preview" onclick="openImageModal()">
-                    👁 Xem trước
+                    <i class="ri-eye-line"></i> Xem trước
                   </button>
                 </div>
               </div>
@@ -336,9 +343,9 @@
                   <button type="button" class="org-toolbar-btn" onclick="execCmd('insertUnorderedList')">•≡</button>
                   <button type="button" class="org-toolbar-btn" onclick="execCmd('insertOrderedList')">1.≡</button>
                   <span class="org-toolbar-divider"></span>
-                  <button type="button" class="org-toolbar-btn" onclick="execCmdPrompt('createLink', 'Nhập liên kết web:')">🔗</button>
-                  <button type="button" class="org-toolbar-btn" onclick="document.getElementById('bannerFileInput').click()" title="Tải ảnh từ máy">🖼️</button>
-                  <button type="button" class="org-toolbar-btn" onclick="execCmdPrompt('insertVideo', 'Nhập liên kết video YouTube:')">▶️</button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmdPrompt('createLink', 'Nhập liên kết web:')"><i class="ri-link"></i></button>
+                  <button type="button" class="org-toolbar-btn" onclick="document.getElementById('bannerFileInput').click()" title="Tải ảnh từ máy"><i class="ri-image-line"></i></button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmdPrompt('insertVideo', 'Nhập liên kết video YouTube:')"><i class="ri-movie-line"></i></button>
                   <button type="button" class="org-toolbar-btn" onclick="execCmd('formatBlock', 'blockquote')">❝</button>
                   <button type="button" class="org-toolbar-btn" onclick="useToast.show('Đã chèn bảng', 'info')">⊞</button>
                   <span class="org-toolbar-divider"></span>
@@ -362,7 +369,7 @@
           <!-- ================= BƯỚC 2: LỊCH & ĐỊA ĐIỂM ================= -->
           <div class="wizard-pane" id="pane2">
             <div class="org-card-header">
-              <div class="org-card-header-icon">📍</div>
+              <div class="org-card-header-icon"><i class="ri-map-pin-line"></i></div>
               <div>
                 <h3 class="org-card-header-title">Bước 2: Thời gian & Danh sách Địa điểm</h3>
                 <p class="org-card-header-sub">Hỗ trợ nhiều địa điểm (điểm tập trung xe đưa đón, trạm trồng cây, điểm trao quà).</p>
@@ -375,7 +382,7 @@
                 <label class="org-form-label">Ngày diễn ra sự kiện <span class="org-req-star">*</span></label>
                 <div class="calendar-input-group">
                   <input type="text" id="evDate" class="org-input" placeholder="DD/MM/YYYY" value="24/10/2026" onchange="syncDatePreview(this.value)">
-                  <button type="button" class="calendar-toggle-btn" onclick="toggleCalendar('calDatePopup')" title="Mở lịch chọn nhanh">📅</button>
+                  <button type="button" class="calendar-toggle-btn" onclick="toggleCalendar('calDatePopup')" title="Mở lịch chọn nhanh"><i class="ri-calendar-line"></i></button>
                 </div>
 
                 <!-- Khung lịch popup themed -->
@@ -407,8 +414,8 @@
             <!-- Quản lý nhiều địa điểm -->
             <div style="border-top: 1px solid #f3f4f6; padding-top: 14px; margin-top: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <label class="org-form-label" style="margin: 0;">📍 Danh sách địa điểm tổ chức (Có thể thêm nhiều điểm):</label>
-                <button type="button" class="org-btn-preview" onclick="addLocationItem()">➕ Thêm địa điểm phụ</button>
+                <label class="org-form-label" style="margin: 0; display: flex; align-items: center; gap: 4px;"><i class="ri-map-pin-line" style="color: #059669;"></i> Danh sách địa điểm tổ chức (Có thể thêm nhiều điểm):</label>
+                <button type="button" class="org-btn-preview" onclick="addLocationItem()" style="display: inline-flex; align-items: center; gap: 4px;"><i class="ri-add-line"></i> Thêm địa điểm phụ</button>
               </div>
 
               <div id="locationsContainer">
@@ -425,7 +432,7 @@
           <!-- ================= BƯỚC 3: CHI TIẾT & HẠN CHÓT ================= -->
           <div class="wizard-pane" id="pane3">
             <div class="org-card-header">
-              <div class="org-card-header-icon">👥</div>
+              <div class="org-card-header-icon"><i class="ri-group-line"></i></div>
               <div>
                 <h3 class="org-card-header-title">Bước 3: Chỉ tiêu tuyển & Hạn chót đăng ký</h3>
                 <p class="org-card-header-sub">Tự động chốt danh sách khi đủ chỉ tiêu hoặc hết thời hạn đăng ký.</p>
@@ -448,7 +455,7 @@
               <label class="org-form-label">Hạn chót nhận đơn đăng ký <span class="org-req-star">*</span></label>
               <div class="calendar-input-group">
                 <input type="text" id="evDeadline" class="org-input" placeholder="DD/MM/YYYY" value="20/10/2026">
-                <button type="button" class="calendar-toggle-btn" onclick="toggleCalendar('calDeadlinePopup')" title="Mở lịch chọn nhanh">📅</button>
+                <button type="button" class="calendar-toggle-btn" onclick="toggleCalendar('calDeadlinePopup')" title="Mở lịch chọn nhanh"><i class="ri-calendar-line"></i></button>
               </div>
 
               <div class="custom-calendar-popup" id="calDeadlinePopup">
@@ -478,7 +485,7 @@
           <!-- ================= BƯỚC 4: LỊCH TRÌNH & AN TOÀN ================= -->
           <div class="wizard-pane" id="pane4">
             <div class="org-card-header">
-              <div class="org-card-header-icon">🛡️</div>
+              <div class="org-card-header-icon"><i class="ri-shield-check-line"></i></div>
               <div>
                 <h3 class="org-card-header-title">Bước 4: Tiêu chuẩn an toàn & Vật dụng mang theo</h3>
                 <p class="org-card-header-sub">Bảo đảm mọi tình nguyện viên được trang bị đầy đủ kiến thức và an toàn.</p>
@@ -509,7 +516,7 @@
           <!-- ================= BƯỚC 5: XEM TRƯỚC & GỬI ================= -->
           <div class="wizard-pane" id="pane5">
             <div class="org-card-header">
-              <div class="org-card-header-icon">🚀</div>
+              <div class="org-card-header-icon"><i class="ri-send-plane-line"></i></div>
               <div>
                 <h3 class="org-card-header-title">Bước 5: Xem trước toàn bộ & Gửi ban kiểm duyệt</h3>
                 <p class="org-card-header-sub">Kiểm tra thông tin trước khi chuyển sang hệ thống Admin duyệt công bố.</p>
@@ -525,20 +532,20 @@
               <p id="prevDesc" style="font-size: 0.85rem; color: #475569; margin-bottom: 12px;">Mô tả</p>
 
               <div style="font-size: 0.8rem; color: #64748b; display: flex; flex-direction: column; gap: 6px;">
-                <div>📅 <strong>Thời gian:</strong> <span id="prevTime">...</span></div>
-                <div>⏳ <strong>Hạn chót nhận đơn:</strong> <span id="prevDeadline">...</span></div>
-                <div>📍 <strong>Danh sách các địa điểm tổ chức:</strong>
+                <div><i class="ri-calendar-line"></i> <strong>Thời gian:</strong> <span id="prevTime">...</span></div>
+                <div><i class="ri-time-line"></i> <strong>Hạn chót nhận đơn:</strong> <span id="prevDeadline">...</span></div>
+                <div><i class="ri-map-pin-line"></i> <strong>Danh sách các địa điểm tổ chức:</strong>
                   <div id="prevLocsList" style="margin-left: 14px; margin-top: 4px;"></div>
                 </div>
-                <div>👥 <strong>Chỉ tiêu tiếp nhận:</strong> <span id="prevCap">...</span> &bull; 📜 <strong>Giờ công nhận:</strong> <span id="prevHours">...</span></div>
+                <div><i class="ri-group-line"></i> <strong>Chỉ tiêu tiếp nhận:</strong> <span id="prevCap">...</span> &bull; <i class="ri-award-line"></i> <strong>Giờ công nhận:</strong> <span id="prevHours">...</span></div>
               </div>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <button type="button" class="org-btn-draft" onclick="switchStep(4)">&larr; Chỉnh sửa lại</button>
               <div style="display: flex; gap: 10px;">
-                <button type="button" class="org-btn-draft" onclick="saveEvent(true)">💾 Lưu Bản Nháp</button>
-                <button type="button" class="org-btn-submit-next" onclick="saveEvent(false)">🚀 Gửi Duyệt Lên Admin</button>
+                <button type="button" class="org-btn-draft" onclick="saveEvent(true)" style="display: inline-flex; align-items: center; gap: 6px;"><i class="ri-save-line"></i> Lưu Bản Nháp</button>
+                <button type="button" class="org-btn-submit-next" onclick="saveEvent(false)" style="display: inline-flex; align-items: center; gap: 6px;"><i class="ri-send-plane-fill"></i> Gửi Duyệt Lên Admin</button>
               </div>
             </div>
           </div>
@@ -553,20 +560,20 @@
       <!-- CARD 1: THÔNG TIN HỖ TRỢ -->
       <div class="org-helper-card">
         <div class="org-helper-header">
-          <span>💡</span>
+          <i class="ri-lightbulb-line" style="color: #f59e0b; font-size: 1.1rem;"></i>
           <span>Thông tin hỗ trợ</span>
         </div>
         <ul class="org-helper-checklist">
           <li class="org-helper-item">
-            <span class="org-check-icon">✓</span>
+            <span class="org-check-icon"><i class="ri-check-line"></i></span>
             <span>Hoạt động nên có ý nghĩa rõ ràng</span>
           </li>
           <li class="org-helper-item">
-            <span class="org-check-icon">✓</span>
+            <span class="org-check-icon"><i class="ri-check-line"></i></span>
             <span>Cung cấp đầy đủ thông tin</span>
           </li>
           <li class="org-helper-item">
-            <span class="org-check-icon">✓</span>
+            <span class="org-check-icon"><i class="ri-check-line"></i></span>
             <span>Tuân thủ quy định cộng đồng</span>
           </li>
         </ul>
@@ -575,7 +582,7 @@
       <!-- CARD 2: LƯU Ý QUAN TRỌNG -->
       <div class="org-alert-card">
         <div class="org-alert-header">
-          <span>⚠️</span>
+          <i class="ri-alert-line" style="color: #ef4444; font-size: 1.1rem;"></i>
           <span>Lưu ý quan trọng</span>
         </div>
         <p class="org-alert-text">
@@ -598,15 +605,15 @@
 
             <div class="org-live-meta">
               <div class="org-live-meta-item">
-                <span>📅</span>
+                <i class="ri-calendar-line"></i>
                 <span id="previewLiveDate">24/10/2026</span>
               </div>
               <div class="org-live-meta-item">
-                <span>📍</span>
+                <i class="ri-map-pin-line"></i>
                 <span id="previewLiveLocation">TP. Hồ Chí Minh</span>
               </div>
               <div class="org-live-meta-item">
-                <span>👥</span>
+                <i class="ri-group-line"></i>
                 <span id="previewLiveCap">50 người tham gia</span>
               </div>
             </div>
@@ -629,7 +636,7 @@
           <span>&rarr;</span>
         </button>
         <button type="button" class="org-btn-draft" onclick="saveEvent(true)">
-          <span>💾 Lưu nháp</span>
+          <span><i class="ri-save-line"></i> Lưu nháp</span>
         </button>
       </div>
 
@@ -649,7 +656,9 @@
   </div>
 
   <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="../data/seedData.js"></script>
   <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useRepository.js"></script>
   <script src="../shared/useToast.js"></script>
   <script src="../shared/useTheme.js"></script>
   <script src="../shared/useAuth.js"></script>
@@ -809,11 +818,11 @@
         item.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span class="badge ${index === 0 ? 'badge-mint' : 'badge-warning'}">
-              📍 Địa điểm #${index + 1}: ${loc.type}
+              <i class="ri-map-pin-line"></i> Địa điểm #${index + 1}: ${loc.type}
             </span>
             ${locations.length > 1 ? `
-              <button type="button" class="btn btn-sm btn-danger" style="padding: 2px 6px; font-size: 0.7rem;" onclick="removeLocationItem(${index})">
-                🗑️ Xóa
+              <button type="button" class="btn btn-sm btn-danger" style="padding: 2px 6px; font-size: 0.7rem; display: inline-flex; align-items: center; gap: 4px;" onclick="removeLocationItem(${index})">
+                <i class="ri-delete-bin-line"></i> Xóa
               </button>
             ` : ''}
           </div>
@@ -1024,7 +1033,7 @@
       const btnNext = document.getElementById('btnMainContinue');
       if (btnNext) {
         if (step === 5) {
-          btnNext.innerHTML = '<span>🚀 Gửi Duyệt</span>';
+          btnNext.innerHTML = '<span><i class="ri-send-plane-fill"></i> Gửi Duyệt</span>';
         } else {
           btnNext.innerHTML = '<span>Tiếp tục</span><span>&rarr;</span>';
         }
@@ -1066,16 +1075,15 @@
     // 7. LƯU BẢN NHÁP HOẶC GỬI DUYỆT
     function saveEvent(isDraft) {
       const primaryLoc = locations[0] || { address: 'TP. Hồ Chí Minh', city: 'TP. Hồ Chí Minh' };
-      const newEvent = {
-        id: Date.now(),
-        title: document.getElementById('evTitle').value.trim() || 'Hoạt động thiện nguyện mới',
+      const eventPayload = {
+        title: (document.getElementById('evTitle').value || '').trim() || 'Hoạt động thiện nguyện mới',
         category: document.getElementById('evCategory').value,
-        organizer: document.getElementById('evOrganizer').value,
+        organizer: (document.getElementById('evOrganizer').value || '').trim() || 'CLB Ánh Sáng Tương Lai',
         organizerVerified: true,
         banner: document.getElementById('mainBannerPreview').src,
-        date: document.getElementById('evDate').value.trim(),
-        time: document.getElementById('evTime').value.trim(),
-        deadline: document.getElementById('evDeadline').value.trim(),
+        date: (document.getElementById('evDate').value || '').trim() || '24/10/2026',
+        time: (document.getElementById('evTime').value || '').trim() || '08:00 - 12:00',
+        deadline: (document.getElementById('evDeadline').value || '').trim() || '20/10/2026',
         city: primaryLoc.city,
         location: primaryLoc.address,
         locations: locations,
@@ -1083,15 +1091,17 @@
         applied: 0,
         verifiedHours: parseInt(document.getElementById('evHours').value) || 6,
         status: isDraft ? 'Bản nháp' : 'Chờ Admin duyệt',
-        description: document.getElementById('evDesc').value.trim(),
-        detailedContent: document.getElementById('evDetailedContent').innerHTML,
-        requirements: document.getElementById('evReq').value.trim(),
-        itemsToBring: document.getElementById('evItems').value.trim(),
-        contact: document.getElementById('evContact').value.trim()
+        description: (document.getElementById('evDesc').value || '').trim(),
+        requirements: (document.getElementById('evReq').value || '').trim() || 'Nhiệt tình, có trách nhiệm',
+        itemsToBring: (document.getElementById('evItems').value || '').trim() || 'Trang phục thoải mái, chai nước cá nhân',
+        contact: (document.getElementById('evContact').value || '').trim() || 'Ban tổ chức - 0901 234 567'
       };
 
+      const created = useRepository.createActivity(eventPayload);
+
+      // Đồng bộ pending events cho legacy handlers
       const pending = useStorage.get('vh_pending_events', []);
-      pending.unshift(newEvent);
+      pending.unshift(created);
       useStorage.set('vh_pending_events', pending);
 
       useToast.show(isDraft ? 'Đã lưu bản nháp hoạt động thành công!' : 'Đã gửi hoạt động lên Admin kiểm duyệt!', 'success');

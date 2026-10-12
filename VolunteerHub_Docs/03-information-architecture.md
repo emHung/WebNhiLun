@@ -3,7 +3,7 @@
 ## Sitemap
 ```mermaid
 flowchart TD
- ROOT[VolunteerHub] --> PUB[Public]
+ ROOT[NhiLun] --> PUB[Public]
  ROOT --> AUTH[Auth]
  ROOT --> VOL[Volunteer Portal]
  ROOT --> ORG[Organizer Portal]

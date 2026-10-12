@@ -65,7 +65,7 @@ flowchart TD
 5. **Tổng kết & Đề xuất cấp chứng nhận:**
    * Ban tổ chức xác nhận số giờ tham gia thực tế để hệ thống phát hành chứng chỉ PDF cho TNV.
 
-> **💡 Câu thoại khi thuyết trình:** *"Trước đây ban tổ chức quản lý bằng file Excel rất dễ trùng sót. VolunteerHub giải quyết triệt để bằng luồng duyệt tự động chặn vượt chỉ tiêu và công cụ điểm danh QR tại chỗ, tiết kiệm 80% thời gian vận hành."*
+> **💡 Câu thoại khi thuyết trình:** *"Trước đây ban tổ chức quản lý bằng file Excel rất dễ trùng sót. NhiLun giải quyết triệt để bằng luồng duyệt tự động chặn vượt chỉ tiêu và công cụ điểm danh QR tại chỗ, tiết kiệm 80% thời gian vận hành."*
 
 ---
 
@@ -130,7 +130,7 @@ sequenceDiagram
    - Cung cấp **3 nút Đăng nhập nhanh 1 chạm (Quick Demo)** cho giám khảo/thầy cô chấm điểm:
      - 🙋 TNV: `an.nguyen@email.com` ➔ Tự động điều hướng đến Trang cá nhân TNV.
      - 🏢 BTC: `coordinator@quyxanh.vn` ➔ Tự động điều hướng đến Trang quản lý duyệt đơn & tạo sự kiện.
-     - 🛡️ Admin: `admin@volunteerhub.vn` ➔ Tự động điều hướng đến Dashboard & Hàng đợi kiểm duyệt.
+     - 🛡️ Admin: `admin@NhiLun.vn` ➔ Tự động điều hướng đến Dashboard & Hàng đợi kiểm duyệt.
 2. **Bảng Điều Khiển Tổng Quan (`/dashboard.html`):**
    - Giám sát 4 chỉ số KPI điều hành: Số lượng TNV, Tổ chức bảo chứng, Chiến dịch đang mở, Tổng giờ thiện nguyện thực tế.
    - Biểu đồ cơ cấu lĩnh vực hoạt động & Tỷ lệ hoàn thành chỉ tiêu tuyển quân (CSS-powered).

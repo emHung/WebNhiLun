@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ORGANIZER.CSS — Modern VolunteerHub Organizer Portal & Event Creator
+   ORGANIZER.CSS — Modern NhiLun Organizer Portal & Event Creator
    Matches add_hoatdong.png high-fidelity mockup perfectly
    ========================================================================== */
 
@@ -1311,5 +1311,97 @@
   }
   .organizer-sidebar {
     display: none;
+  }
+  .organizer-preview-col {
+    display: none;
+  }
+  .form-grid-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .org-hero-banner {
+    flex-direction: column;
+    padding: 20px 16px;
+    gap: 14px;
+  }
+
+  .org-hero-right {
+    display: none;
+  }
+
+  .org-stepper-bar {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 10px 12px;
+    gap: 12px;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .org-step-node {
+    flex-shrink: 0;
+  }
+
+  .org-two-col {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .org-upload-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .org-form-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .org-editor-toolbar {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .org-btn-submit-next {
+    width: 100% !important;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .custom-calendar-popup {
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 640px) {
+  .manage-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .manage-table-responsive {
+    overflow-x: auto;
+    width: 100%;
+  }
+  .org-create-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+    width: 100%;
+  }
+  .org-create-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .org-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }

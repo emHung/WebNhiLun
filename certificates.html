@@ -3,11 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bộ Sưu Tập Chứng Nhận Điện Tử — VolunteerHub</title>
+  <title>Bộ Sưu Tập Chứng Nhận Điện Tử — NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/profile.css">
   <link rel="stylesheet" href="css/certificates.css">
+  <style>
+    @media print {
+      body * { visibility: hidden; }
+      #printableCertArea, #printableCertArea * { visibility: visible; }
+      #printableCertArea {
+        position: fixed;
+        left: 0; top: 0; width: 100%; height: 100%;
+        display: flex !important;
+        align-items: center; justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -22,20 +35,20 @@
             <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <span class="sidebar-brand-title">VolunteerHub</span>
+        <span class="sidebar-brand-title">NhiLun</span>
       </a>
 
       <ul class="sidebar-menu-list">
-        <li class="sidebar-menu-item"><a href="index.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🏠</span><span>Trang chủ</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="activities.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🧭</span><span>Hoạt động</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="stories.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📖</span><span>Stories</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="about.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Giới thiệu</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="schedule.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📅</span><span>Lịch hoạt động</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="notifications.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
-        <li class="sidebar-menu-item"><a href="profile.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👤</span><span>Hồ sơ cá nhân</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="volunteer/dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Hoạt động của tôi</span></span></a></li>
-        <li class="sidebar-menu-item active"><a href="certificates.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🎖️</span><span>Chứng nhận</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="index.html"><span class="sidebar-menu-label"><i class="ri-home-4-line sidebar-menu-icon"></i><span>Trang chủ</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="activities.html"><span class="sidebar-menu-label"><i class="ri-compass-3-line sidebar-menu-icon"></i><span>Hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="stories.html"><span class="sidebar-menu-label"><i class="ri-book-open-line sidebar-menu-icon"></i><span>Stories</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="about.html"><span class="sidebar-menu-label"><i class="ri-group-line sidebar-menu-icon"></i><span>Giới thiệu</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="dashboard.html"><span class="sidebar-menu-label"><i class="ri-bar-chart-2-line sidebar-menu-icon"></i><span>Dashboard</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="schedule.html"><span class="sidebar-menu-label"><i class="ri-calendar-line sidebar-menu-icon"></i><span>Lịch hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="notifications.html"><span class="sidebar-menu-label"><i class="ri-notification-3-line sidebar-menu-icon"></i><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
+        <li class="sidebar-menu-item"><a href="profile.html"><span class="sidebar-menu-label"><i class="ri-user-3-line sidebar-menu-icon"></i><span>Hồ sơ cá nhân</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="volunteer/dashboard.html"><span class="sidebar-menu-label"><i class="ri-file-list-3-line sidebar-menu-icon"></i><span>Hoạt động của tôi</span></span></a></li>
+        <li class="sidebar-menu-item active"><a href="certificates.html"><span class="sidebar-menu-label"><i class="ri-award-line sidebar-menu-icon"></i><span>Chứng nhận</span></span></a></li>
       </ul>
     </aside>
 
@@ -45,20 +58,20 @@
       <!-- TOPBAR -->
       <div class="profile-topbar">
         <div class="topbar-search-box">
-          <span class="topbar-search-icon">🔍</span>
-          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm chứng nhận theo mã, đơn vị cấp...">
+          <i class="ri-search-line topbar-search-icon"></i>
+          <input type="text" id="certSearchInput" class="topbar-search-input" placeholder="Tìm kiếm chứng nhận theo mã, đơn vị cấp, tên hoạt động..." oninput="handleCertSearch(this.value)">
         </div>
         <div class="topbar-right-actions">
           <!-- POPUP THÔNG BÁO DROPDOWN -->
           <div class="vh-notif-wrapper">
-            <button type="button" class="vh-notif-btn" id="vhNotifBtn" title="Xem thông báo" aria-expanded="false">
-              🔔
+            <button type="button" class="vh-notif-bell-btn" id="vhNotifBtn" title="Xem thông báo" aria-expanded="false" onclick="useNotification.toggle()">
+              <i class="ri-notification-3-line" style="font-size: 1.25rem;"></i>
               <span class="vh-notif-badge" id="vhNotifBadge">3</span>
             </button>
             <div class="vh-notif-dropdown" id="vhNotifDropdown">
               <div class="vh-notif-header">
-                <span class="vh-notif-title">Thông báo mới</span>
-                <button type="button" class="vh-notif-markall" id="vhNotifMarkAll">Đã đọc tất cả</button>
+                <span class="vh-notif-title"><i class="ri-notification-3-line"></i> Thông báo mới</span>
+                <button type="button" class="vh-notif-markall" id="vhNotifMarkAll" onclick="useNotification.markAllRead()"><i class="ri-check-double-line"></i> Đã đọc tất cả</button>
               </div>
               <div class="vh-notif-list" id="vhNotifList"></div>
               <div class="vh-notif-footer">
@@ -73,113 +86,179 @@
       </div>
 
       <div>
-        <h1 style="margin: 0; font-size: 1.35rem; font-weight: 800;">Chứng Nhận & Giấy Khen Điện Tử 🎖️</h1>
+        <h1 style="margin: 0; font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 8px;"><i class="ri-award-fill" style="color: #f59e0b;"></i> Chứng Nhận & Giấy Khen Điện Tử</h1>
         <p style="margin: 2px 0 0 0; font-size: 0.78rem; color: var(--text-secondary);">
-          Các chứng nhận có chữ ký số xác thực và mã QR tra cứu toàn quốc dành cho Tình nguyện viên Nguyễn Văn An.
+          Các chứng nhận có mã định danh số và mã QR tra cứu toàn quốc dành cho Tình nguyện viên Nguyễn Văn An.
         </p>
       </div>
 
-      <!-- GALLERY CHỨNG NHẬN -->
-      <div class="cert-gallery-grid">
-
-        <!-- Chứng nhận 1 -->
-        <div class="cert-card-item">
-          <div class="cert-gold-header">
-            <div class="cert-header-icon">🌿</div>
-            <span class="cert-badge-type">Chứng nhận hoàn thành</span>
-            <h3 class="cert-main-title">Chiến Sĩ Môi Trường Xanh 2026</h3>
-          </div>
-          <div class="cert-body-content">
-            <div class="cert-meta-table">
-              <div><strong>Đơn vị cấp:</strong> Quỹ Xanh Việt Nam</div>
-              <div><strong>Mã định danh:</strong> <code>CERT-2026-001</code></div>
-              <div><strong>Ngày cấp:</strong> 15/09/2026 • <strong>Giờ công nhận:</strong> 8 giờ</div>
-            </div>
-            <div class="cert-qr-row">
-              <div class="cert-qr-box">📱</div>
-              <div>
-                <strong style="font-size: 0.76rem; display: block;">Xác thực Blockchain</strong>
-                <span style="font-size: 0.68rem; color: #10b981;">✔ Hợp lệ trên cổng Quốc gia</span>
-              </div>
-            </div>
-            <div class="cert-footer-actions">
-              <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="useToast.show('Đang tải file PDF bản in khổ A4...', 'success')">Tải bản in PDF</button>
-              <button class="btn btn-sm btn-outline" onclick="alert('Đường link tra cứu công khai: https://volunteerhub.vn/verify/CERT-2026-001')">Sao chép link</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Chứng nhận 2 -->
-        <div class="cert-card-item">
-          <div class="cert-gold-header" style="background: linear-gradient(135deg, #b45309 0%, #d97706 100%);">
-            <div class="cert-header-icon">⏱️</div>
-            <span class="cert-badge-type">Huy hiệu cống hiến</span>
-            <h3 class="cert-main-title">20 Giờ Cống Hiến Vì Cộng Đồng</h3>
-          </div>
-          <div class="cert-body-content">
-            <div class="cert-meta-table">
-              <div><strong>Đơn vị cấp:</strong> Thành Đoàn TP. Hồ Chí Minh</div>
-              <div><strong>Mã định danh:</strong> <code>CERT-2026-002</code></div>
-              <div><strong>Ngày cấp:</strong> 15/07/2026 • <strong>Giờ công nhận:</strong> 20 giờ</div>
-            </div>
-            <div class="cert-qr-row">
-              <div class="cert-qr-box">📱</div>
-              <div>
-                <strong style="font-size: 0.76rem; display: block;">Xác thực số Thành Đoàn</strong>
-                <span style="font-size: 0.68rem; color: #10b981;">✔ Hợp lệ hồ sơ Đoàn viên</span>
-              </div>
-            </div>
-            <div class="cert-footer-actions">
-              <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="useToast.show('Đang tải file PDF bản in khổ A4...', 'success')">Tải bản in PDF</button>
-              <button class="btn btn-sm btn-outline" onclick="alert('Đường link tra cứu công khai: https://volunteerhub.vn/verify/CERT-2026-002')">Sao chép link</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Chứng nhận 3 -->
-        <div class="cert-card-item">
-          <div class="cert-gold-header" style="background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);">
-            <div class="cert-header-icon">🎓</div>
-            <span class="cert-badge-type">Giấy khen thành tích</span>
-            <h3 class="cert-main-title">Tiếp Sức Mùa Thi Đại Học 2026</h3>
-          </div>
-          <div class="cert-body-content">
-            <div class="cert-meta-table">
-              <div><strong>Đơn vị cấp:</strong> Hội Sinh Viên ĐHQG TP.HCM</div>
-              <div><strong>Mã định danh:</strong> <code>CERT-2026-003</code></div>
-              <div><strong>Ngày cấp:</strong> 01/07/2026 • <strong>Giờ công nhận:</strong> 4 giờ</div>
-            </div>
-            <div class="cert-qr-row">
-              <div class="cert-qr-box">📱</div>
-              <div>
-                <strong style="font-size: 0.76rem; display: block;">Điểm rèn luyện sinh viên</strong>
-                <span style="font-size: 0.68rem; color: #10b981;">✔ Đã cộng +5 điểm rèn luyện</span>
-              </div>
-            </div>
-            <div class="cert-footer-actions">
-              <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="useToast.show('Đang tải file PDF bản in khổ A4...', 'success')">Tải bản in PDF</button>
-              <button class="btn btn-sm btn-outline" onclick="alert('Đường link tra cứu công khai: https://volunteerhub.vn/verify/CERT-2026-003')">Sao chép link</button>
-            </div>
-          </div>
-        </div>
-
+      <!-- GALLERY CHỨNG NHẬN (DYNAMIC) -->
+      <div class="cert-gallery-grid" id="certGalleryGrid">
+        <!-- Render động qua renderCertificates() -->
       </div>
 
     </main>
   </div>
 
+  <!-- MODAL XEM & IN CHỨNG NHẬN -->
+  <div id="certPreviewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#ffffff; border-radius:20px; max-width:680px; width:92%; padding:32px 28px; position:relative; box-shadow:0 25px 60px rgba(0,0,0,0.4);">
+      <button onclick="closeCertPreviewModal()" style="position:absolute; top:14px; right:18px; background:none; border:none; font-size:1.8rem; cursor:pointer; color:#94a3b8;"><i class="ri-close-line"></i></button>
+      
+      <div id="printableCertArea" style="border: 6px double #d97706; border-radius:14px; padding:28px 24px; text-align:center; background:linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);">
+        <div style="font-size:3rem; margin-bottom:4px; color: #d97706;"><i class="ri-award-fill"></i></div>
+        <div style="font-size:0.75rem; font-weight:800; color:#b45309; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:2px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+        <div style="font-size:0.7rem; color:#64748b; margin-bottom:14px;">Độc lập - Tự do - Hạnh phúc</div>
+        <h2 style="font-size:1.5rem; color:#0f172a; margin:0 0 8px 0; font-family:serif;">CHỨNG NHẬN TÌNH NGUYỆN VIÊN</h2>
+        <p style="font-size:0.85rem; color:#475569; margin:0 0 14px 0;">Chứng nhận tình nguyện viên xuất sắc hoàn thành xuất sắc nhiệm vụ:</p>
+        
+        <div style="font-size:1.35rem; font-weight:800; color:#059669; margin-bottom:12px;" id="modalCertVolunteerName">Nguyễn Văn An</div>
+        
+        <div style="background:#ffffff; border:1px solid #fed7aa; border-radius:12px; padding:12px 18px; margin-bottom:18px; text-align:left;">
+          <div style="font-size:0.85rem; margin-bottom:4px;"><strong>Hoạt động:</strong> <span id="modalCertActivity">Trồng 1.000 cây xanh</span></div>
+          <div style="font-size:0.85rem; margin-bottom:4px;"><strong>Đơn vị cấp:</strong> <span id="modalCertIssuer">Quỹ Xanh Việt Nam</span></div>
+          <div style="font-size:0.85rem; margin-bottom:4px;"><strong>Mã chứng nhận:</strong> <code id="modalCertIdentifier">CERT-2026-001</code> • <strong>Giờ công nhận:</strong> <span id="modalCertHours" style="color:#059669; font-weight:700;">+8 giờ</span></div>
+          <div style="font-size:0.85rem;"><strong>Ngày cấp:</strong> <span id="modalCertDate">15/09/2026</span></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0 12px; margin-top:16px;">
+          <div style="text-align:left;">
+            <div style="font-size:1.8rem; color: #10b981;"><i class="ri-qr-code-line"></i></div>
+            <span style="font-size:0.68rem; color:#10b981; font-weight:600; display: inline-flex; align-items: center; gap: 4px;"><i class="ri-checkbox-circle-line"></i> Xác thực trên cổng NhiLun</span>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.75rem; color:#64748b;">ĐẠI DIỆN BAN TỔ CHỨC</div>
+            <div style="font-size:0.85rem; font-weight:700; color:#0f172a; margin-top:20px;">[Đã ký điện tử]</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button type="button" class="btn btn-outline" onclick="closeCertPreviewModal()">Đóng</button>
+        <button type="button" class="btn btn-primary" onclick="window.print()" style="display: inline-flex; align-items: center; gap: 6px;"><i class="ri-printer-line"></i> In bản A4 / Lưu PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data/seedData.js"></script>
   <script src="shared/useStorage.js"></script>
+  <script src="shared/useRepository.js"></script>
   <script src="shared/useToast.js"></script>
   <script src="shared/useTheme.js"></script>
   <script src="shared/useAuth.js"></script>
   <script src="shared/useNotification.js"></script>
   <script>
+    let certificatesList = [];
+
     document.addEventListener('DOMContentLoaded', () => {
       useTheme.init();
       if (window.useNotification) {
         useNotification.init();
       }
+      loadCertificates();
     });
+
+    function loadCertificates() {
+      const curUser = (window.useAuth && useAuth.getCurrentUser()) || { id: 'USR-001', name: 'Nguyễn Văn An' };
+      certificatesList = (window.useRepository && useRepository.getCertificates(curUser.id)) || [];
+      renderCertificates(certificatesList);
+    }
+
+    function renderCertificates(list) {
+      const container = document.getElementById('certGalleryGrid');
+      if (!container) return;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 48px 16px; text-align: center; background: #ffffff; border: 1.5px dashed #cbd5e1; border-radius: 18px;">
+            <div style="font-size: 2.5rem; margin-bottom: 8px; color: #94a3b8;"><i class="ri-award-line"></i></div>
+            <h3 style="font-size: 1.1rem; color: #0f172a; margin: 0 0 6px 0;">Chưa có chứng nhận nào</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin: 0 0 16px 0;">Tham gia các hoạt động và điểm danh thực tế để được ban tổ chức cấp chứng nhận điện tử.</p>
+            <a href="activities.html" class="btn btn-primary">Khám phá hoạt động ngay</a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map((cert, idx) => {
+        const bgGrad = (idx % 3 === 0)
+          ? 'linear-gradient(135deg, #059669 0%, #10b981 100%)'
+          : (idx % 3 === 1)
+            ? 'linear-gradient(135deg, #b45309 0%, #d97706 100%)'
+            : 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%)';
+
+        return `
+          <div class="cert-card-item">
+            <div class="cert-gold-header" style="background: ${bgGrad};">
+              <div class="cert-header-icon"><i class="ri-award-fill"></i></div>
+              <span class="cert-badge-type">${cert.type || 'Chứng nhận hoàn thành'}</span>
+              <h3 class="cert-main-title">${cert.title}</h3>
+            </div>
+            <div class="cert-body-content">
+              <div class="cert-meta-table">
+                <div><strong>Đơn vị cấp:</strong> ${cert.issuer || 'Ban Tổ Chức'}</div>
+                <div><strong>Mã định danh:</strong> <code>${cert.code}</code></div>
+                <div><strong>Ngày cấp:</strong> ${cert.issueDate || 'Hôm nay'} • <strong>Giờ công nhận:</strong> +${cert.hours || 6} giờ</div>
+              </div>
+              <div class="cert-qr-row">
+                <div class="cert-qr-box"><i class="ri-qr-code-line" style="font-size: 1.3rem; color: #10b981;"></i></div>
+                <div>
+                  <strong style="font-size: 0.76rem; display: block;">Xác thực điện tử</strong>
+                  <span style="font-size: 0.68rem; color: #10b981; display: inline-flex; align-items: center; gap: 4px;"><i class="ri-checkbox-circle-line"></i> Hợp lệ trên cổng NhiLun</span>
+                </div>
+              </div>
+              <div class="cert-footer-actions">
+                <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="openCertPreviewModal('${cert.code}')">Tải bản in / PDF</button>
+                <button class="btn btn-sm btn-outline" onclick="copyCertLink('${cert.code}')">Sao chép link</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleCertSearch(q) {
+      const term = q.toLowerCase().trim();
+      if (!term) {
+        renderCertificates(certificatesList);
+        return;
+      }
+      const filtered = certificatesList.filter(c => 
+        (c.title || '').toLowerCase().includes(term) ||
+        (c.code || '').toLowerCase().includes(term) ||
+        (c.issuer || '').toLowerCase().includes(term)
+      );
+      renderCertificates(filtered);
+    }
+
+    function copyCertLink(code) {
+      const link = `https://volunteerhub.vn/verify/${code}`;
+      navigator.clipboard.writeText(link).then(() => {
+        useToast.show(`Đã sao chép liên kết tra cứu: ${link}`, 'success');
+      }).catch(() => {
+        useToast.show(`Mã tra cứu: ${code}`, 'info');
+      });
+    }
+
+    function openCertPreviewModal(code) {
+      const cert = certificatesList.find(c => c.code === code) || certificatesList[0];
+      if (!cert) return;
+
+      const curUser = (window.useAuth && useAuth.getCurrentUser()) || { name: 'Nguyễn Văn An' };
+
+      document.getElementById('modalCertVolunteerName').textContent = cert.volunteerName || curUser.name || 'Nguyễn Văn An';
+      document.getElementById('modalCertActivity').textContent = cert.title;
+      document.getElementById('modalCertIssuer').textContent = cert.issuer || 'Ban Tổ Chức';
+      document.getElementById('modalCertIdentifier').textContent = cert.code;
+      document.getElementById('modalCertHours').textContent = `+${cert.hours || 6} giờ`;
+      document.getElementById('modalCertDate').textContent = cert.issueDate || '15/09/2026';
+
+      document.getElementById('certPreviewModal').style.display = 'flex';
+    }
+
+    function closeCertPreviewModal() {
+      document.getElementById('certPreviewModal').style.display = 'none';
+    }
   </script>
 </body>
 </html>

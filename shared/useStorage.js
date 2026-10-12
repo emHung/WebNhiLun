@@ -36,3 +36,8 @@ const useStorage = {
     localStorage.removeItem(key);
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.useStorage = useStorage;
+}
+

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hàng Đợi Kiểm Duyệt & Audit Logs — Admin Portal | VolunteerHub</title>
+  <title>Hàng Đợi Kiểm Duyệt & Audit Logs — Admin Portal | NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/profile.css">
@@ -13,7 +14,7 @@
 
   <div class="profile-app-container">
 
-    <!-- SIDEBAR ADMIN (MOCKUP HÌNH 5) -->
+    <!-- SIDEBAR ADMIN -->
     <aside class="profile-sidebar">
       <a href="../index.html" class="sidebar-brand-box">
         <div class="sidebar-brand-logo">
@@ -22,23 +23,23 @@
             <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <span class="sidebar-brand-title">VolunteerHub</span>
+        <span class="sidebar-brand-title">NhiLun</span>
       </a>
 
       <ul class="sidebar-menu-list">
-        <li class="sidebar-menu-item"><a href="../dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Quản lý người dùng</span></span></a></li>
-        <li class="sidebar-menu-item active"><a href="moderation.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🛡️</span><span>Kiểm duyệt</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Quản lý hoạt động</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🏢</span><span>Quản lý tổ chức</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📈</span><span>Báo cáo & Thống kê</span></span></a></li>
-        <li class="sidebar-menu-item"><a href="../notifications.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
-        <li class="sidebar-menu-item"><a href="theme-settings.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">⚙️</span><span>Cài đặt hệ thống (Theme)</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="../dashboard.html"><span class="sidebar-menu-label"><i class="ri-dashboard-line sidebar-menu-icon"></i><span>Dashboard</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-user-line sidebar-menu-icon"></i><span>Quản lý người dùng</span></span></a></li>
+        <li class="sidebar-menu-item active"><a href="moderation.html"><span class="sidebar-menu-label"><i class="ri-checkbox-circle-line sidebar-menu-icon"></i><span>Kiểm duyệt</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-calendar-event-line sidebar-menu-icon"></i><span>Quản lý hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-building-line sidebar-menu-icon"></i><span>Quản lý tổ chức</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-bar-chart-box-line sidebar-menu-icon"></i><span>Báo cáo & Thống kê</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="../notifications.html"><span class="sidebar-menu-label"><i class="ri-notification-3-line sidebar-menu-icon"></i><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
+        <li class="sidebar-menu-item"><a href="theme-settings.html"><span class="sidebar-menu-label"><i class="ri-settings-3-line sidebar-menu-icon"></i><span>Cài đặt hệ thống</span></span></a></li>
       </ul>
 
       <div class="sidebar-mini-promo">
-        <div class="mini-promo-graphic">🌱</div>
-        <p class="mini-promo-title">Cùng nhau<br>lan tỏa giá trị tốt đẹp</p>
+        <div class="mini-promo-graphic"><i class="ri-leaf-line" style="font-size: 2rem; color: #10b981;"></i></div>
+        <p class="mini-promo-title">Cùng nhau<br>lan tỏa giá trị tốt đẹp<br><small style="font-weight: 500; opacity: 0.85;">cho cộng đồng</small></p>
         <a href="../index.html" class="mini-promo-btn">Quay về trang chủ &rarr;</a>
       </div>
     </aside>
@@ -49,21 +50,24 @@
       <!-- TOPBAR -->
       <div class="profile-topbar">
         <div class="topbar-search-box">
-          <span class="topbar-search-icon">🔍</span>
-          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm tổ chức, hoạt động, người dùng... (Ctrl K)">
+          <i class="ri-search-line topbar-search-icon"></i>
+          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm tổ chức, hoạt động, người dùng...">
         </div>
         <div class="topbar-right-actions">
           <!-- POPUP THÔNG BÁO DROPDOWN -->
           <div class="vh-notif-wrapper">
-            <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
-              <span style="font-size: 1.1rem;">🔔</span>
-              <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+            <button type="button" class="vh-notif-bell-btn" id="vhNotifBtn" onclick="useNotification.toggle()" title="Thông báo mới" aria-expanded="false">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="vh-notif-badge" id="vhNotifBadge">3</span>
             </button>
 
             <div class="vh-notif-dropdown" id="vhNotifDropdown">
               <div class="vh-notif-header">
-                <div class="vh-notif-header-title">🔔 Thông báo mới</div>
-                <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+                <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+                <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()"><i class="ri-check-line"></i> Đánh dấu đã đọc</button>
               </div>
               <div class="vh-notif-list" id="vhNotifList">
                 <!-- Nạp từ useNotification.js -->
@@ -77,68 +81,75 @@
             </div>
           </div>
 
-          <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
           <div id="vhUserNavWrap"></div>
         </div>
       </div>
 
-      <!-- PAGE TITLE HEADER -->
-      <div style="margin-bottom: 16px;">
-        <h1 style="margin: 0 0 2px 0; font-size: 1.45rem; font-weight: 800;">Hàng Đợi Kiểm Duyệt & Audit Logs</h1>
-        <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);">
-          Bảo chứng danh tính tổ chức và tính minh bạch của các chiến dịch.
-        </p>
+      <!-- PAGE TITLE HERO BANNER (CHUẨN THEO MOCKUP HÌNH 5 CÓ NỀN LÁ VÀ QUOTE) -->
+      <div class="admin-hero-nature-banner">
+        <div class="admin-hero-text-col">
+          <h1 class="admin-hero-main-title">Hàng Đợi Kiểm Duyệt & Audit Logs</h1>
+          <p class="admin-hero-main-sub">Bảo chứng danh tính tổ chức và tính minh bạch của các chiến dịch.</p>
+          <div class="admin-hero-quote-box">
+            <em>&ldquo;Minh bạch hôm nay vì cộng đồng bền vững ngày mai&rdquo;</em>
+          </div>
+        </div>
+        <div class="admin-hero-badge-col">
+          <div class="admin-hero-shield-pill">
+            <i class="ri-shield-check-fill"></i>
+          </div>
+        </div>
       </div>
 
       <!-- 4 THẺ CHỈ SỐ METRIC CARDS -->
       <div class="admin-stats-row-four">
         <div class="admin-stat-card">
-          <div class="admin-stat-icon">🏢</div>
+          <div class="admin-stat-icon"><i class="ri-building-line"></i></div>
           <div>
-            <span class="admin-stat-num">5</span>
+            <span class="admin-stat-num" id="statMetricPendingOrgs">0</span>
             <span class="admin-stat-lbl">Tổ chức chờ duyệt</span>
           </div>
         </div>
 
         <div class="admin-stat-card">
-          <div class="admin-stat-icon">📅</div>
+          <div class="admin-stat-icon"><i class="ri-calendar-line"></i></div>
           <div>
-            <span class="admin-stat-num">12</span>
+            <span class="admin-stat-num" id="statMetricPendingActs">0</span>
             <span class="admin-stat-lbl">Hoạt động chờ duyệt</span>
           </div>
         </div>
 
         <div class="admin-stat-card">
-          <div class="admin-stat-icon">👥</div>
+          <div class="admin-stat-icon"><i class="ri-user-3-line"></i></div>
           <div>
-            <span class="admin-stat-num">28</span>
-            <span class="admin-stat-lbl">Người dùng mới</span>
+            <span class="admin-stat-num" id="statMetricUsers">28</span>
+            <span class="admin-stat-lbl">Người dùng hệ thống</span>
           </div>
         </div>
 
         <div class="admin-stat-card">
-          <div class="admin-stat-icon">🛡️</div>
+          <div class="admin-stat-icon"><i class="ri-shield-check-line"></i></div>
           <div>
-            <span class="admin-stat-num" style="color: #10b981;">0</span>
-            <span class="admin-stat-lbl">Báo cáo vi phạm</span>
+            <span class="admin-stat-num" style="color: #10b981;" id="statMetricAuditCount">0</span>
+            <span class="admin-stat-lbl">Nhật ký Audit Logs</span>
           </div>
         </div>
       </div>
 
-      <!-- PHẦN 1: KIỂM DUYỆT TỔ CHỨC THIỆN NGUYỆN (5) -->
+      <!-- PHẦN 1: KIỂM DUYỆT TỔ CHỨC THIỆN NGUYỆN -->
       <div class="admin-section-block">
         <div class="admin-section-header">
           <h2 class="admin-sec-title">
-            <span>🏢</span> <span>1. Kiểm Duyệt Tổ Chức Thiện Nguyện (5)</span>
+            <i class="ri-building-line"></i> <span>1. Kiểm Duyệt Tổ Chức Thiện Nguyện</span>
           </h2>
           <div class="admin-table-search-row">
-            <input type="text" placeholder="Tìm tên tổ chức..." class="quick-select-control" style="width: 160px;">
-            <select class="quick-select-control">
-              <option>Tất cả trạng thái ⌵</option>
-              <option>Chờ duyệt</option>
-              <option>Đã xác nhận</option>
+            <input type="text" id="searchOrgInput" placeholder="Tìm tên tổ chức..." class="quick-select-control" style="width: 170px;">
+            <select id="filterOrgStatus" class="quick-select-control">
+              <option value="">Tất cả trạng thái ⌵</option>
+              <option value="pending">Chờ duyệt</option>
+              <option value="verified">Đã xác nhận</option>
+              <option value="rejected">Từ chối</option>
             </select>
-            <a href="javascript:void(0)" class="section-view-all-link">Xem tất cả &rarr;</a>
           </div>
         </div>
 
@@ -156,77 +167,27 @@
                 <th>Hành động</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td><strong>🌱 CLB Ánh Sáng Tương Lai</strong></td>
-                <td>Chị Thu Thảo (Chủ nhiệm)</td>
-                <td><span class="badge" style="background:#e0f2fe; color:#0284c7;">Giáo dục</span></td>
-                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Quyết định thành lập CLB.pdf</a></td>
-                <td>12/10/2026</td>
-                <td><span class="badge badge-warning">Chờ duyệt</span></td>
-                <td>
-                  <div style="display: flex; gap: 4px;">
-                    <button class="btn btn-sm btn-primary" onclick="useToast.show('Đã duyệt cấp tích xanh cho CLB Ánh Sáng Tương Lai!', 'success')">Duyệt</button>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444;" onclick="alert('Nhập lý do từ chối hồ sơ pháp lý:')">Từ chối</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><strong>🌿 Quỹ Xanh Việt Nam</strong></td>
-                <td>Anh Minh Trí</td>
-                <td><span class="badge badge-mint">Môi trường</span></td>
-                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Giấy phép hoạt động.pdf</a></td>
-                <td>10/10/2026</td>
-                <td><span class="badge badge-success">Đã xác nhận</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline" onclick="alert('Hồ sơ pháp lý: Đã xác thực Bộ Nội Vụ')">Xem chi tiết</button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><strong>🌸 Nhóm Thiện Nguyện Hoa Sen</strong></td>
-                <td>Nguyễn Thị Lan</td>
-                <td><span class="badge" style="background:#ffedd5; color:#c2410c;">Cộng đồng</span></td>
-                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Điều lệ tổ chức.pdf</a></td>
-                <td>08/10/2026</td>
-                <td><span class="badge badge-warning">Chờ duyệt</span></td>
-                <td>
-                  <div style="display: flex; gap: 4px;">
-                    <button class="btn btn-sm btn-primary" onclick="useToast.show('Đã duyệt tổ chức Hoa Sen!', 'success')">Duyệt</button>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td><strong>⚕️ Hội Thầy Thuốc Vì Cộng Đồng</strong></td>
-                <td>Bác sĩ Hoàng Nam</td>
-                <td><span class="badge" style="background:#fee2e2; color:#b91c1c;">Y tế</span></td>
-                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Giấy phép hành nghề.pdf</a></td>
-                <td>05/10/2026</td>
-                <td><span class="badge" style="background:#e0f2fe; color:#0369a1;">Đang xem xét</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline">Xem chi tiết</button>
-                </td>
-              </tr>
+            <tbody id="orgTableBody">
+              <!-- Render dynamically -->
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- PHẦN 2: KIỂM DUYỆT HOẠT ĐỘNG TRƯỚC KHI CÔNG BỐ (12) -->
+      <!-- PHẦN 2: KIỂM DUYỆT HOẠT ĐỘNG TRƯỚC KHI CÔNG BỐ -->
       <div class="admin-section-block">
         <div class="admin-section-header">
           <h2 class="admin-sec-title">
-            <span>📅</span> <span>2. Kiểm Duyệt Hoạt Động Trước Khi Công Bố (12)</span>
+            <i class="ri-calendar-event-line"></i> <span>2. Kiểm Duyệt Hoạt Động Trước Khi Công Bố</span>
           </h2>
           <div class="admin-table-search-row">
-            <input type="text" placeholder="Tìm tên hoạt động..." class="quick-select-control" style="width: 160px;">
-            <select class="quick-select-control"><option>Tất cả trạng thái ⌵</option></select>
-            <select class="quick-select-control"><option>Tất cả lĩnh vực ⌵</option></select>
-            <a href="javascript:void(0)" class="section-view-all-link">Xem tất cả &rarr;</a>
+            <input type="text" id="searchActInput" placeholder="Tìm tên hoạt động..." class="quick-select-control" style="width: 170px;">
+            <select id="filterActStatus" class="quick-select-control">
+              <option value="">Tất cả trạng thái ⌵</option>
+              <option value="pending">Chờ Admin duyệt</option>
+              <option value="published">Đã công bố</option>
+              <option value="rejected">Từ chối</option>
+            </select>
           </div>
         </div>
 
@@ -243,78 +204,8 @@
                 <th>Quyết định</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="../images/act-books.jpg" alt="Activity" class="table-act-thumb-small">
-                    <strong>Chuyến xe yêu thương - Tặng quà trẻ em vùng lũ</strong>
-                  </div>
-                </td>
-                <td>Quỹ Xanh Việt Nam</td>
-                <td>📅 28/11/2026 (07:30 - 16:30)<br>📍 Bình Phước</td>
-                <td>👥 35 người</td>
-                <td><span class="badge badge-warning">Chờ duyệt</span></td>
-                <td>
-                  <div style="display: flex; gap: 4px;">
-                    <button class="btn btn-sm btn-primary" onclick="useToast.show('Đã duyệt công bố hoạt động ra công khai!', 'success')">Công bố</button>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="../images/act-tree.jpg" alt="Activity" class="table-act-thumb-small">
-                    <strong>Ngày hội trồng 1.000 cây xanh</strong>
-                  </div>
-                </td>
-                <td>Quỹ Xanh Việt Nam</td>
-                <td>📅 24/10/2026 (08:00 - 12:00)<br>📍 TP. Hồ Chí Minh</td>
-                <td>👥 50 người</td>
-                <td><span class="badge badge-success">Đã công bố</span></td>
-                <td><button class="btn btn-sm btn-outline">Xem chi tiết</button></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="../images/act-food.jpg" alt="Activity" class="table-act-thumb-small">
-                    <strong>Bữa cơm 0 đồng yêu thương</strong>
-                  </div>
-                </td>
-                <td>Bếp Ăn Nghĩa Tình</td>
-                <td>📅 18/10/2026 (10:00 - 14:00)<br>📍 TP. Hồ Chí Minh</td>
-                <td>👥 25 người</td>
-                <td><span class="badge" style="background:#e0f2fe; color:#0369a1;">Đang xem xét</span></td>
-                <td>
-                  <div style="display: flex; gap: 4px;">
-                    <button class="btn btn-sm btn-primary">Công bố</button>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="../images/act-books.jpg" alt="Activity" class="table-act-thumb-small">
-                    <strong>Tủ sách trao em - Đem tri thức...</strong>
-                  </div>
-                </td>
-                <td>CLB Ánh Sáng Tương Lai</td>
-                <td>📅 02/11/2026 (08:00 - 11:00)<br>📍 Đồng Nai</td>
-                <td>👥 30 người</td>
-                <td><span class="badge badge-warning">Chờ duyệt</span></td>
-                <td>
-                  <div style="display: flex; gap: 4px;">
-                    <button class="btn btn-sm btn-primary">Công bố</button>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
-                  </div>
-                </td>
-              </tr>
+            <tbody id="actModerationTableBody">
+              <!-- Render dynamically -->
             </tbody>
           </table>
         </div>
@@ -324,11 +215,16 @@
       <div class="admin-section-block">
         <div class="admin-section-header">
           <h2 class="admin-sec-title">
-            <span>📋</span> <span>3. Nhật Ký Kiểm Toán (Audit Logs) <span style="font-size: 0.74rem; color: #10b981; font-weight: normal;">Hôm nay: 12</span></span>
+            <i class="ri-file-list-3-line"></i> <span>3. Nhật Ký Kiểm Toán (Audit Logs) <span style="font-size: 0.74rem; color: #10b981; font-weight: normal;" id="auditTodayCount">Hôm nay: 0</span></span>
           </h2>
           <div class="admin-table-search-row">
-            <select class="quick-select-control"><option>Tất cả hành động ⌵</option></select>
-            <span style="font-size: 0.74rem; color: var(--text-secondary);">📅 12/10/2026 - 15/11/2026</span>
+            <select id="filterAuditAction" class="quick-select-control">
+              <option value="">Tất cả hành động ⌵</option>
+              <option value="Tạo hoạt động">Tạo hoạt động</option>
+              <option value="Chuyển trạng thái">Chuyển trạng thái</option>
+              <option value="Cập nhật trạng thái tổ chức">Xác minh tổ chức</option>
+              <option value="Quét điểm danh">Điểm danh & Cert</option>
+            </select>
           </div>
         </div>
 
@@ -345,59 +241,73 @@
                 <th>Địa chỉ IP</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>11:20:15 12/10/2026</td>
-                <td>System Admin</td>
-                <td><span class="audit-action-badge theme">THEME_SWITCH</span></td>
-                <td>Đại dương (Mặc định)</td>
-                <td>Áp dụng bảng màu toàn hệ thống</td>
-                <td><code>192.168.1.10</code></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>09:45:00 12/10/2026</td>
-                <td>System Admin</td>
-                <td><span class="audit-action-badge verify">VERIFY_ORGANIZATION</span></td>
-                <td>Quỹ Xanh Việt Nam</td>
-                <td>Cấp tích xanh xác minh pháp lý</td>
-                <td><code>192.168.1.10</code></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>08:30:22 12/10/2026</td>
-                <td>Nguyễn Văn An</td>
-                <td><span class="audit-action-badge theme">APPROVE_EVENT</span></td>
-                <td>Ngày hội trồng cây xanh</td>
-                <td>Duyệt hoạt động và công bố</td>
-                <td><code>192.168.1.15</code></td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>07:12:10 12/10/2026</td>
-                <td>Trần Thu Hà</td>
-                <td><span class="audit-action-badge reject">REJECT_ORGANIZATION</span></td>
-                <td>Nhóm Nụ Cười Ấm Áp</td>
-                <td>Từ chối do thiếu giấy phép</td>
-                <td><code>192.168.1.12</code></td>
-              </tr>
+            <tbody id="auditLogsTableBody">
+              <!-- Render dynamically -->
             </tbody>
           </table>
+        </div>
+
+        <!-- PHÂN TRANG (PAGINATION) CHUẨN MOCKUP HÌNH 5 -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-default);">
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;"><i class="ri-arrow-left-s-line"></i></button>
+          <button type="button" class="btn btn-sm btn-primary" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">1</button>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">2</button>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">3</button>
+          <span style="font-size: 0.8rem; color: #94a3b8; padding: 0 4px;">...</span>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">10</button>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;"><i class="ri-arrow-right-s-line"></i></button>
         </div>
       </div>
 
     </main>
   </div>
 
+  <!-- MODAL TỪ CHỐI ADMIN -->
+  <div id="adminRejectModal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="max-width: 480px; width: 90%; background: var(--bg-surface); border-radius: 12px; padding: 22px; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+      <h3 id="rejectModalTitle" style="margin: 0 0 10px 0; font-size: 1.1rem; color: var(--status-danger);">Từ Chối Phê Duyệt</h3>
+      <p id="rejectModalLabel" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">Vui lòng nêu lý do từ chối:</p>
+      <div class="form-group" style="margin-bottom: 16px;">
+        <textarea id="rejectModalInput" class="form-control" rows="3" style="font-size: 0.82rem;"></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn btn-outline" onclick="closeAdminRejectModal()">Hủy Bỏ</button>
+        <button type="button" class="btn btn-danger" onclick="confirmAdminReject()">Xác Nhận Từ Chối</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHI TIẾT TỔ CHỨC -->
+  <div id="adminDetailModal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="max-width: 520px; width: 90%; background: var(--bg-surface); border-radius: 12px; padding: 22px; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 id="adminDetailModalTitle" style="margin: 0; font-size: 1.1rem;">Hồ Sơ Chi Tiết</h3>
+        <button type="button" class="btn btn-sm btn-ghost" onclick="closeAdminDetailModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div id="adminDetailModalBody" style="margin-bottom: 16px;"></div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button type="button" class="btn btn-outline" onclick="closeAdminDetailModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../data/seedData.js"></script>
   <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useRepository.js"></script>
   <script src="../shared/useToast.js"></script>
   <script src="../shared/useTheme.js"></script>
   <script src="../shared/useAuth.js"></script>
   <script src="../shared/useNotification.js"></script>
+  <script src="moderation.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       useTheme.init();
+      if (window.useAuth) {
+        useAuth.renderNavbarAuth('vhUserNavWrap');
+      }
+      if (window.useNotification) {
+        useNotification.init();
+      }
     });
   </script>
 </body>

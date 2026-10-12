@@ -4,7 +4,7 @@
  * Phụ thuộc: shared/useStorage.js
  */
 const useTheme = {
-  // 5 Bảng màu chuẩn tươi sáng của VolunteerHub
+  // 5 Bảng màu chuẩn tươi sáng của NhiLun
   defaultThemes: [
     {
       id: 1,
@@ -106,7 +106,9 @@ const useTheme = {
    */
   deleteTheme(id) {
     if (id === 1) {
-      alert('Không thể xóa Bảng màu mặc định của hệ thống!');
+      if (typeof useToast !== 'undefined') {
+        useToast.show('Không thể xóa Bảng màu mặc định của hệ thống!', 'warning');
+      }
       return false;
     }
     let list = this.getAllThemes();

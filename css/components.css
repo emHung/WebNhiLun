@@ -121,9 +121,9 @@
 }
 
 .btn-sm {
-  padding: 2px 7px;
+  padding: 3px 10px;
   font-size: 0.74rem;
-  border-radius: 4px;
+  border-radius: 999px;
 }
 
 /* 3. CARDS GỌN GÀNG */
@@ -131,7 +131,7 @@
   background: var(--surface-white);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
-  padding: 10px 14px;
+  padding: 12px 16px;
   box-shadow: var(--shadow-sm);
   transition: transform 0.15s, box-shadow 0.15s;
 }
@@ -149,10 +149,10 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 1px 6px;
-  border-radius: 4px;
-  font-size: 0.7rem;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.3;
 }
@@ -229,8 +229,8 @@
 
 .form-control {
   width: 100%;
-  height: 28px;
-  padding: 2px 8px;
+  height: 34px;
+  padding: 4px 14px;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-btn);
   font-size: 0.8rem;
@@ -511,62 +511,112 @@ textarea.form-control {
 }
 
 /* THÔNG BÁO POPUP DROPDOWN */
+/* THÔNG BÁO POPUP DROPDOWN (ĐỒNG BỘ TẤT CẢ CÁC TRANG) */
 .vh-notif-wrapper {
   position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
-.vh-notif-bell-btn {
-  background: transparent;
-  border: none;
-  position: relative;
+.vh-notif-bell-btn,
+.vh-notif-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-default, #e2e8f0);
+  background: var(--surface-white, #ffffff);
+  color: var(--text-secondary, #475569);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 6px;
-  color: #4b5563;
+  position: relative;
+  padding: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.vh-notif-bell-btn:hover,
+.vh-notif-btn:hover {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.vh-notif-bell-btn svg,
+.vh-notif-btn svg,
+.vh-notif-bell-btn i,
+.vh-notif-btn i {
   display: flex;
   align-items: center;
-  border-radius: 8px;
-  transition: background 0.15s;
+  justify-content: center;
+  font-size: 1.15rem;
 }
 
-.vh-notif-bell-btn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
-}
-
+.vh-notif-badge,
 .vh-notif-badge-dot {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: -3px;
+  right: -3px;
   background: #ef4444;
   color: #ffffff;
   font-size: 0.65rem;
   font-weight: 700;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid #ffffff;
+  box-shadow: 0 2px 5px rgba(239, 68, 68, 0.35);
+  line-height: 1;
 }
 
 .vh-notif-dropdown {
   position: absolute;
-  top: calc(100% + 10px);
-  right: -40px;
-  width: 360px;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 380px;
+  max-width: calc(100vw - 24px);
   background: var(--surface-white, #ffffff);
   border: 1px solid var(--border-default, #e5e7eb);
   border-radius: 16px;
-  box-shadow: 0 14px 38px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.04);
-  z-index: 1000;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.06);
+  z-index: 99999;
   overflow: hidden;
   display: none;
   animation: notifPopIn 0.18s ease-out;
 }
 
 .vh-notif-dropdown.show {
-  display: block;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+@media (max-width: 640px) {
+  .vh-notif-dropdown {
+    position: fixed !important;
+    top: 60px !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: calc(100vh - 76px) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3) !important;
+    z-index: 999999 !important;
+  }
+
+  .vh-notif-list {
+    max-height: calc(100vh - 180px) !important;
+    overflow-y: auto !important;
+  }
 }
 
 @keyframes notifPopIn {
@@ -583,7 +633,8 @@ textarea.form-control {
   background: #fafafa;
 }
 
-.vh-notif-header-title {
+.vh-notif-header-title,
+.vh-notif-title {
   font-size: 0.88rem;
   font-weight: 700;
   color: #0f172a;
@@ -592,7 +643,8 @@ textarea.form-control {
   gap: 6px;
 }
 
-.vh-notif-header-mark-all {
+.vh-notif-header-mark-all,
+.vh-notif-markall {
   background: transparent;
   border: none;
   font-size: 0.74rem;
@@ -602,7 +654,8 @@ textarea.form-control {
   padding: 2px 4px;
 }
 
-.vh-notif-header-mark-all:hover {
+.vh-notif-header-mark-all:hover,
+.vh-notif-markall:hover {
   text-decoration: underline;
 }
 
@@ -682,7 +735,8 @@ textarea.form-control {
   text-align: center;
 }
 
-.vh-notif-view-all-btn {
+.vh-notif-view-all-btn,
+.vh-notif-viewall-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1038,5 +1092,194 @@ textarea.form-control {
   background: #dc2626;
   border-color: #dc2626;
   color: #ffffff;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE & TABLET ADAPTATION — MENU THU GỌN HAMBURGER)
+   ========================================================================== */
+.vh-mobile-toggle-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border-default, #e2e8f0);
+  background: var(--surface-white, #ffffff);
+  color: var(--text-primary, #0f172a);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 0.15s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.vh-mobile-toggle-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+@media (max-width: 992px) {
+  .vh-mobile-toggle-btn {
+    display: inline-flex !important;
+  }
+
+  .vh-navbar-container,
+  .container.navbar,
+  .navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    padding: 10px 16px !important;
+    gap: 8px !important;
+    position: relative !important;
+    height: auto !important;
+  }
+
+  .nav-brand,
+  .vh-brand-group {
+    order: 1 !important;
+    flex: 1 !important;
+  }
+
+  .vh-nav-actions,
+  .navbar > div:last-child {
+    order: 2 !important;
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  /* ẨN MENU ĐIỀU HƯỚNG MẶC ĐỊNH TRÊN MOBILE - CHỈ HIỆN KHI BẤM NÚT HAMBURGER */
+  .vh-nav-menu-list,
+  .nav-menu,
+  .org-nav-links {
+    display: none !important;
+    order: 5 !important;
+    width: 100% !important;
+    flex-direction: column !important;
+    background: var(--surface-white, #ffffff) !important;
+    border: 1px solid var(--border-default, #e5e7eb) !important;
+    border-radius: 14px !important;
+    padding: 8px !important;
+    margin: 8px 0 0 0 !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12) !important;
+    gap: 2px !important;
+    list-style: none !important;
+    animation: mobileNavPop 0.2s ease-out !important;
+  }
+
+  /* KHI BẤM NÚT THU GỌN -> HIỆN MENU ĐIỀU HƯỚNG */
+  .mobile-open .vh-nav-menu-list,
+  .mobile-open .nav-menu,
+  .mobile-open .org-nav-links,
+  .vh-navbar-wrapper.mobile-open .vh-nav-menu-list,
+  .vh-navbar-container.mobile-open .vh-nav-menu-list,
+  .app-header.mobile-open .nav-menu,
+  .navbar.mobile-open .nav-menu,
+  .container.mobile-open .nav-menu {
+    display: flex !important;
+    position: relative !important;
+    z-index: 99999 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  @keyframes mobileNavPop {
+    from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .vh-nav-item,
+  .nav-menu li,
+  .org-nav-links li {
+    width: 100% !important;
+  }
+
+  .vh-nav-item a,
+  .nav-menu li a,
+  .org-nav-links li a {
+    display: flex !important;
+    align-items: center !important;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: var(--text-primary, #1e293b) !important;
+    text-decoration: none !important;
+    transition: all 0.15s ease !important;
+  }
+
+  .vh-nav-item a:hover,
+  .nav-menu li a:hover,
+  .org-nav-links li a:hover {
+    background: #f0fdf4 !important;
+    color: #059669 !important;
+  }
+
+  .vh-nav-item a.active,
+  .nav-menu li a.active,
+  .org-nav-links li a.active {
+    background: #ecfdf5 !important;
+    color: #059669 !important;
+    font-weight: 700 !important;
+  }
+
+  .vh-nav-item a.active::after {
+    display: none !important;
+  }
+
+  /* THANH TÌM KIẾM TRÊN MOBILE - HIỆN KHI MENU ĐƯỢC MỞ */
+  .vh-nav-search-bar,
+  .v-nav-search-box,
+  .org-search-box {
+    display: none !important;
+    order: 6 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 6px !important;
+  }
+
+  .mobile-open .vh-nav-search-bar,
+  .mobile-open .v-nav-search-box,
+  .mobile-open .org-search-box,
+  .vh-navbar-wrapper.mobile-open .vh-nav-search-bar,
+  .app-header.mobile-open .v-nav-search-box {
+    display: block !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .v-nav-user-details {
+    display: none !important;
+  }
+  .v-nav-user-chip {
+    padding: 2px !important;
+  }
+  .nav-brand .badge,
+  .vh-brand-slogan {
+    display: none !important;
+  }
+  .vh-brand-name {
+    font-size: 1.12rem;
+  }
+  .vh-user-pill-info {
+    display: none;
+  }
+  .vh-user-pill-btn {
+    padding: 2px 4px 2px 2px;
+  }
+  .vh-notif-dropdown {
+    width: calc(100vw - 24px) !important;
+    max-width: 360px;
+    right: -10px !important;
+  }
+  .vh-user-dropdown {
+    width: calc(100vw - 24px) !important;
+    max-width: 320px;
+    right: 0 !important;
+  }
 }
 
