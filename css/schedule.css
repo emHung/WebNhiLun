@@ -1,0 +1,134 @@
+/* ==========================================================================
+   SCHEDULE.CSS — Lịch Hoạt Động Thiện Nguyện (Calendar & Shift Timeline)
+   ========================================================================== */
+
+.schedule-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.month-navigator-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.current-month-label {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.calendar-month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  background: var(--surface-white);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cal-header-day {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.cal-date-slot {
+  min-height: 80px;
+  border-radius: 10px;
+  border: 1px solid var(--border-default);
+  padding: 6px;
+  background: var(--canvas);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.15s;
+}
+
+.cal-date-slot:hover {
+  border-color: #10b981;
+  background: var(--surface-white);
+}
+
+.cal-date-slot.has-event {
+  background: rgba(16, 185, 129, 0.06);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.cal-date-slot.today {
+  border: 2px solid #10b981;
+}
+
+.cal-date-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.cal-event-pill {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #10b981;
+  color: #ffffff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.cal-event-pill.pending {
+  background: #f59e0b;
+}
+
+/* Timeline danh sách ca trực */
+.shift-timeline-card {
+  background: var(--surface-white);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.shift-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-default);
+  gap: 12px;
+}
+
+.shift-item-row:last-child {
+  border-bottom: none;
+}
+
+.shift-date-badge {
+  background: #e8f5e9;
+  color: #1b4332;
+  border-radius: 10px;
+  padding: 6px 12px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  min-width: 65px;
+}
+
+:root[data-mode="dark"] .shift-date-badge {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}

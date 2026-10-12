@@ -1,0 +1,117 @@
+/* ==========================================================================
+   VOLUNTEER.CSS — Giao Diện & Quy Trình Dành Cho Tình Nguyện Viên
+   ========================================================================== */
+
+/* --- ĐĂNG KÝ THAM GIA HOẠT ĐỘNG (APPLY FORM) --- */
+.apply-container {
+  max-width: 640px;
+  margin: 12px auto;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.step-indicator::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: var(--border-default);
+  z-index: 1;
+}
+
+.step-node {
+  position: relative;
+  z-index: 2;
+  background: var(--canvas);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface-white);
+  border: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.step-node.active .step-circle {
+  border-color: var(--brand-cta);
+  background: var(--brand-cta);
+  color: #fff;
+}
+
+.step-node.completed .step-circle {
+  border-color: var(--status-success);
+  background: var(--status-success);
+  color: #fff;
+}
+
+.step-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.step-node.active .step-label {
+  color: var(--brand-primary);
+}
+
+.step-pane {
+  display: none;
+}
+
+.step-pane.active {
+  display: block;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- TÌNH NGUYỆN VIÊN DASHBOARD (THỐNG KÊ & TIẾN ĐỘ) --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.stat-card {
+  background: var(--surface-white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: 8px 12px;
+  border-top: 3px solid var(--brand-cta);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  margin: 1px 0;
+}

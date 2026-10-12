@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tạo Hoạt Động Mới — Ban Tổ Chức | VolunteerHub</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/organizer.css">
+</head>
+<body class="organizer-page-wrapper">
+
+  <!-- TOPBAR NAVBAR CHUẨN DESIGN SYSTEM -->
+  <header class="organizer-navbar">
+    <div class="organizer-navbar-inner">
+      <a href="../index.html" class="org-brand">
+        <span class="org-brand-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
+          </svg>
+        </span>
+        <span>VolunteerHub</span>
+      </a>
+
+      <ul class="org-nav-links">
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../activities.html">Hoạt động</a></li>
+        <li><a href="../stories.html">Stories</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+      </ul>
+
+      <div class="org-search-box">
+        <span class="org-search-icon">🔍</span>
+        <input type="text" placeholder="Tìm kiếm hoạt động, địa điểm, chủ đề...">
+      </div>
+
+      <div class="org-user-actions">
+        <!-- POPUP THÔNG BÁO DROPDOWN -->
+        <div class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+          </button>
+
+          <!-- DROPDOWN CONTENT -->
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <div class="vh-notif-header-title">🔔 Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList">
+              <!-- Nạp từ useNotification.js -->
+            </div>
+            <div class="vh-notif-footer">
+              <a href="../notifications.html" class="vh-notif-view-all-btn">
+                <span>Xem tất cả thông báo</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+        <div id="vhUserNavWrap"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN 3-COLUMN LAYOUT -->
+  <main class="organizer-container">
+
+    <!-- CỘT 1: SIDEBAR TRÁI -->
+    <aside class="organizer-sidebar">
+      <!-- THẺ THÔNG TIN BAN TỔ CHỨC -->
+      <div class="org-badge-card">
+        <div class="org-badge-icon">🌿</div>
+        <div>
+          <div class="org-badge-title">Ban tổ chức</div>
+          <div class="org-badge-name">CLB Ánh Sáng Tương Lai</div>
+        </div>
+      </div>
+
+      <!-- MENU ĐIỀU HƯỚNG TỔ CHỨC -->
+      <div class="org-menu-card">
+        <div class="org-nav-group">
+          <a href="../dashboard.html" class="org-menu-link">
+            <span class="org-menu-left">🏠 <span>Tổng quan</span></span>
+          </a>
+        </div>
+
+        <div class="org-nav-group">
+          <a href="javascript:void(0)" class="org-menu-link active">
+            <span class="org-menu-left">📋 <span>Quản lý hoạt động</span></span>
+            <span>⌃</span>
+          </a>
+          <div class="org-sub-menu">
+            <a href="create-event.html" class="org-sub-link active">
+              <span class="org-sub-circle-icon">+</span>
+              <span>Thêm hoạt động</span>
+            </a>
+            <a href="manage.html" class="org-sub-link">
+              <span>📑 Danh sách hoạt động</span>
+            </a>
+            <a href="manage.html" class="org-sub-link">
+              <span>📥 Đơn đăng ký</span>
+            </a>
+            <a href="manage.html" class="org-sub-link">
+              <span>⏱️ Điểm danh</span>
+            </a>
+            <a href="javascript:void(0)" class="org-sub-link">
+              <span>📊 Báo cáo</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="org-nav-group">
+          <a href="javascript:void(0)" class="org-menu-link">
+            <span class="org-menu-left">👥 <span>Thành viên</span></span>
+          </a>
+        </div>
+
+        <div class="org-nav-group">
+          <a href="javascript:void(0)" class="org-menu-link">
+            <span class="org-menu-left">⚙️ <span>Cài đặt tổ chức</span></span>
+          </a>
+        </div>
+
+        <div class="org-nav-group">
+          <a href="javascript:void(0)" class="org-menu-link">
+            <span class="org-menu-left">❓ <span>Hỗ trợ</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- BANNER PROMO DƯỚI SIDEBAR -->
+      <div class="org-promo-card">
+        <img src="../images/sapling-soil.jpg" alt="Lan tỏa giá trị" class="org-promo-img">
+        <p class="org-promo-text">Cùng lan tỏa giá trị tốt đẹp vì một cộng đồng tốt đẹp hơn!</p>
+        <a href="#" class="org-promo-btn">Xem hướng dẫn &rarr;</a>
+      </div>
+    </aside>
+
+    <!-- CỘT 2: TRỌNG TÂM NỘI DUNG FORM CHÍNH -->
+    <section class="organizer-main">
+
+      <!-- BANNER HEADER CHỦ ĐỀ MỚI -->
+      <div class="org-hero-banner">
+        <div class="org-hero-left">
+          <div class="org-hero-pill">✎ Tạo hoạt động mới</div>
+          <h1 class="org-hero-title-main">Lan tỏa yêu thương</h1>
+          <h2 class="org-hero-title-sub">Bắt đầu từ những hành động nhỏ</h2>
+          <p class="org-hero-desc">Tạo hoạt động tình nguyện để kết nối cộng đồng và góp phần thay đổi cuộc sống tốt đẹp hơn.</p>
+        </div>
+
+        <div class="org-hero-right">
+          <div class="org-hero-quote">
+            "Cùng nhau<br>vì cộng đồng<br>bền vững ♡"
+          </div>
+          <img src="../images/home-hero-volunteer.jpg" alt="Hoạt động trồng cây" class="org-hero-banner-img">
+        </div>
+      </div>
+
+      <!-- THANH ĐIỀU HƯỚNG 5 BƯỚC (STEPPER) -->
+      <nav class="org-stepper-bar" aria-label="Các bước tạo sự kiện">
+        <button type="button" class="org-step-node active" id="stepNode1" onclick="switchStep(1)">
+          <div class="org-step-num">1</div>
+          <div class="org-step-meta">
+            <span class="org-step-label">Thông tin cơ bản</span>
+            <span class="org-step-sub">Nhập thông tin chung</span>
+          </div>
+        </button>
+
+        <div class="org-step-divider" id="stepDiv1"></div>
+
+        <button type="button" class="org-step-node" id="stepNode2" onclick="switchStep(2)">
+          <div class="org-step-num">2</div>
+          <div class="org-step-meta">
+            <span class="org-step-label">Lịch & Địa điểm</span>
+            <span class="org-step-sub">Thời gian, địa điểm</span>
+          </div>
+        </button>
+
+        <div class="org-step-divider" id="stepDiv2"></div>
+
+        <button type="button" class="org-step-node" id="stepNode3" onclick="switchStep(3)">
+          <div class="org-step-num">3</div>
+          <div class="org-step-meta">
+            <span class="org-step-label">Chi tiết & Hạn chót</span>
+            <span class="org-step-sub">Mô tả, yêu cầu</span>
+          </div>
+        </button>
+
+        <div class="org-step-divider" id="stepDiv3"></div>
+
+        <button type="button" class="org-step-node" id="stepNode4" onclick="switchStep(4)">
+          <div class="org-step-num">4</div>
+          <div class="org-step-meta">
+            <span class="org-step-label">Lịch trình & An toàn</span>
+            <span class="org-step-sub">Kế hoạch & lưu ý</span>
+          </div>
+        </button>
+
+        <div class="org-step-divider" id="stepDiv4"></div>
+
+        <button type="button" class="org-step-node" id="stepNode5" onclick="switchStep(5)">
+          <div class="org-step-num">5</div>
+          <div class="org-step-meta">
+            <span class="org-step-label">Xem trước & Gửi</span>
+            <span class="org-step-sub">Kiểm tra và công bố</span>
+          </div>
+        </button>
+      </nav>
+
+      <!-- CARD CHÍNH CHỨA CÁC BƯỚC FORM -->
+      <div class="org-form-card">
+        <form id="createEventForm" onsubmit="event.preventDefault();">
+
+          <!-- ================= BƯỚC 1: THÔNG TIN CƠ BẢN ================= -->
+          <div class="wizard-pane active" id="pane1">
+            <div class="org-card-header">
+              <div class="org-card-header-icon">🌿</div>
+              <div>
+                <h3 class="org-card-header-title">Thông tin chung về hoạt động</h3>
+                <p class="org-card-header-sub">Cung cấp thông tin cơ bản để mọi người có thể hiểu và tìm thấy hoạt động của bạn.</p>
+              </div>
+            </div>
+
+            <!-- Tên hoạt động -->
+            <div class="org-form-group">
+              <label class="org-form-label" for="evTitle">
+                <span>Tên hoạt động <span class="org-req-star">*</span></span>
+              </label>
+              <div class="org-input-with-counter">
+                <input type="text" id="evTitle" class="org-input" placeholder="Ví dụ: Ngày hội trồng cây xanh 2026" maxlength="100" value="Ngày hội trồng cây xanh 2026" oninput="handleTitleInput(this)">
+                <span class="org-counter-badge" id="titleCounter">27/100</span>
+              </div>
+            </div>
+
+            <!-- Lĩnh vực & Đơn vị tổ chức -->
+            <div class="org-form-group org-two-col">
+              <div>
+                <label class="org-form-label" for="evCategory">
+                  <span>Lĩnh vực hoạt động <span class="org-req-star">*</span></span>
+                </label>
+                <div class="org-select-wrapper">
+                  <select id="evCategory" class="org-select" onchange="handleCategoryChange(this.value)">
+                    <option value="Môi trường" selected>🌱 Môi trường</option>
+                    <option value="Giáo dục">📚 Giáo dục</option>
+                    <option value="Cộng đồng">🤝 Cộng đồng</option>
+                    <option value="Y tế">🩺 Y tế</option>
+                    <option value="Động vật">🐾 Động vật</option>
+                    <option value="Khác">✨ Khác</option>
+                  </select>
+                  <span class="org-select-arrow">⌵</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="org-form-label" for="evOrganizer">
+                  <span>Đơn vị tổ chức <span class="org-req-star">*</span></span>
+                </label>
+                <div class="org-select-wrapper">
+                  <select id="evOrganizer" class="org-select">
+                    <option value="CLB Ánh Sáng Tương Lai" selected>🏢 CLB Ánh Sáng Tương Lai</option>
+                    <option value="Quỹ Xanh Việt Nam">🏢 Quỹ Xanh Việt Nam</option>
+                    <option value="Bếp Ăn Nghĩa Tình">🏢 Bếp Ăn Nghĩa Tình</option>
+                    <option value="Hội Thầy Thuốc Vì Cộng Đồng">🏢 Hội Thầy Thuốc Vì Cộng Đồng</option>
+                  </select>
+                  <span class="org-select-arrow">⇅</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ảnh đại diện & Banner (Upload từ máy tính) -->
+            <div class="org-form-group">
+              <label class="org-form-label">
+                <span>Ảnh đại diện & Banner <span class="org-req-star">*</span></span>
+              </label>
+              <div class="org-upload-row">
+                <!-- Dropzone lấy file từ máy tính -->
+                <div class="org-dropzone" id="dropzoneEl" onclick="document.getElementById('bannerFileInput').click()">
+                  <input type="file" id="bannerFileInput" accept="image/*" style="display: none;" onchange="handleLocalFileUpload(event)">
+                  <div class="org-dropzone-icon">☁️⬆️</div>
+                  <h4 class="org-dropzone-title">Kéo thả ảnh hoặc nhấn để tải lên</h4>
+                  <p class="org-dropzone-sub">Hỗ trợ JPG, PNG, WEBP (tối đa 10MB) từ máy tính</p>
+                </div>
+
+                <!-- Khung ảnh xem trước trung tâm -->
+                <div class="org-preview-center">
+                  <img id="mainBannerPreview" src="../images/sapling-soil.jpg" alt="Ảnh xem trước hoạt động">
+                </div>
+
+                <!-- Thumbs nhỏ bên phải & nút Xem trước -->
+                <div class="org-preview-thumbs">
+                  <div class="org-thumb-row">
+                    <img src="../images/act-tree.jpg" alt="Thumb 1" class="org-thumb-img" onclick="setPreviewImage('../images/act-tree.jpg')">
+                    <img src="../images/home-hero-volunteer.jpg" alt="Thumb 2" class="org-thumb-img" onclick="setPreviewImage('../images/home-hero-volunteer.jpg')">
+                  </div>
+                  <button type="button" class="org-btn-preview" onclick="openImageModal()">
+                    👁 Xem trước
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mô tả ngắn gọn -->
+            <div class="org-form-group">
+              <label class="org-form-label" for="evDesc">
+                <span>Mô tả ngắn gọn <span class="org-req-star">*</span></span>
+              </label>
+              <div class="org-textarea-box">
+                <textarea id="evDesc" class="org-textarea" rows="2" maxlength="255" placeholder="Giới thiệu ngắn gọn về hoạt động (xuất hiện trên danh sách)" oninput="handleDescInput(this)">Cùng nhau phủ xanh những vùng đất trống, cải thiện môi trường sinh thái và bảo vệ lá phổi xanh của cộng đồng.</textarea>
+                <span class="org-textarea-counter" id="descCounter">115/255</span>
+              </div>
+            </div>
+
+            <!-- Nội dung chi tiết với Rich-text Toolbar -->
+            <div class="org-form-group">
+              <label class="org-form-label">
+                <span>Nội dung chi tiết <span class="org-req-star">*</span></span>
+              </label>
+              <div class="org-rich-editor">
+                <div class="org-editor-toolbar">
+                  <select class="org-toolbar-select">
+                    <option>Bình thường</option>
+                    <option>Tiêu đề 1</option>
+                    <option>Tiêu đề 2</option>
+                  </select>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('bold')"><b>B</b></button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('italic')"><i>I</i></button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('underline')"><u>U</u></button>
+                  <span class="org-toolbar-divider"></span>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('insertUnorderedList')">•≡</button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('insertOrderedList')">1.≡</button>
+                  <span class="org-toolbar-divider"></span>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmdPrompt('createLink', 'Nhập liên kết web:')">🔗</button>
+                  <button type="button" class="org-toolbar-btn" onclick="document.getElementById('bannerFileInput').click()" title="Tải ảnh từ máy">🖼️</button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmdPrompt('insertVideo', 'Nhập liên kết video YouTube:')">▶️</button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('formatBlock', 'blockquote')">❝</button>
+                  <button type="button" class="org-toolbar-btn" onclick="useToast.show('Đã chèn bảng', 'info')">⊞</button>
+                  <span class="org-toolbar-divider"></span>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('undo')">↺</button>
+                  <button type="button" class="org-toolbar-btn" onclick="execCmd('redo')">↻</button>
+                </div>
+                <div id="evDetailedContent" class="org-editor-content" contenteditable="true" data-placeholder="Mô tả chi tiết về hoạt động, mục tiêu, ý nghĩa...">
+                  Chương trình nhằm mục đích trồng 1.000 cây xanh bản địa tại khu vực ven rừng ngập mặn Cần Giờ, giúp ngăn chặn xói mòn đất, phục hồi đa dạng sinh học và nâng cao nhận thức bảo vệ thiên nhiên cho thế hệ trẻ.
+                </div>
+              </div>
+            </div>
+
+            <!-- Chuyển bước nhanh -->
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+              <button type="button" class="org-btn-submit-next" style="width: auto; padding: 10px 24px;" onclick="switchStep(2)">
+                Tiếp tục: Lịch & Địa điểm &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- ================= BƯỚC 2: LỊCH & ĐỊA ĐIỂM ================= -->
+          <div class="wizard-pane" id="pane2">
+            <div class="org-card-header">
+              <div class="org-card-header-icon">📍</div>
+              <div>
+                <h3 class="org-card-header-title">Bước 2: Thời gian & Danh sách Địa điểm</h3>
+                <p class="org-card-header-sub">Hỗ trợ nhiều địa điểm (điểm tập trung xe đưa đón, trạm trồng cây, điểm trao quà).</p>
+              </div>
+            </div>
+
+            <div class="org-two-col" style="margin-bottom: 16px;">
+              <!-- Ngày diễn ra sự kiện + Lịch Themed Popup -->
+              <div class="org-form-group calendar-field-wrapper">
+                <label class="org-form-label">Ngày diễn ra sự kiện <span class="org-req-star">*</span></label>
+                <div class="calendar-input-group">
+                  <input type="text" id="evDate" class="org-input" placeholder="DD/MM/YYYY" value="24/10/2026" onchange="syncDatePreview(this.value)">
+                  <button type="button" class="calendar-toggle-btn" onclick="toggleCalendar('calDatePopup')" title="Mở lịch chọn nhanh">📅</button>
+                </div>
+
+                <!-- Khung lịch popup themed -->
+                <div class="custom-calendar-popup" id="calDatePopup">
+                  <div class="cal-shortcuts">
+                    <button type="button" class="cal-shortcut-btn" onclick="applyCalShortcut('evDate', 'calDatePopup', 7)">+7 ngày</button>
+                    <button type="button" class="cal-shortcut-btn" onclick="applyCalShortcut('evDate', 'calDatePopup', 14)">+14 ngày</button>
+                    <button type="button" class="cal-shortcut-btn" onclick="applyCalShortcut('evDate', 'calDatePopup', 30)">+1 tháng</button>
+                  </div>
+                  <div class="cal-header">
+                    <button type="button" class="cal-nav-btn" onclick="navMonth('evDate', 'calDatePopup', -1)">&lt;</button>
+                    <span class="cal-header-title" id="calDatePopupTitle">Tháng 10 / 2026</span>
+                    <button type="button" class="cal-nav-btn" onclick="navMonth('evDate', 'calDatePopup', 1)">&gt;</button>
+                  </div>
+                  <div class="cal-weekdays">
+                    <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+                  </div>
+                  <div class="cal-days-grid" id="calDatePopupDays"></div>
+                </div>
+              </div>
+
+              <!-- Khung giờ -->
+              <div class="org-form-group">
+                <label class="org-form-label">Khung giờ hoạt động <span class="org-req-star">*</span></label>
+                <input type="text" id="evTime" class="org-input" placeholder="VD: 07:30 - 16:30" value="07:30 - 16:30">
+              </div>
+            </div>
+
+            <!-- Quản lý nhiều địa điểm -->
+            <div style="border-top: 1px solid #f3f4f6; padding-top: 14px; margin-top: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <label class="org-form-label" style="margin: 0;">📍 Danh sách địa điểm tổ chức (Có thể thêm nhiều điểm):</label>
+                <button type="button" class="org-btn-preview" onclick="addLocationItem()">➕ Thêm địa điểm phụ</button>
+              </div>
+
+              <div id="locationsContainer">
+                <!-- Đổ danh sách địa điểm qua JS -->
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+              <button type="button" class="org-btn-draft" onclick="switchStep(1)">&larr; Quay lại</button>
+              <button type="button" class="org-btn-submit-next" style="width: auto; padding: 10px 24px;" onclick="switchStep(3)">Tiếp: Chỉ tiêu & Hạn chót &rarr;</button>
+            </div>
+          </div>
+
+          <!-- ================= BƯỚC 3: CHI TIẾT & HẠN CHÓT ================= -->
+          <div class="wizard-pane" id="pane3">
+            <div class="org-card-header">
+              <div class="org-card-header-icon">👥</div>
+              <div>
+                <h3 class="org-card-header-title">Bước 3: Chỉ tiêu tuyển & Hạn chót đăng ký</h3>
+                <p class="org-card-header-sub">Tự động chốt danh sách khi đủ chỉ tiêu hoặc hết thời hạn đăng ký.</p>
+              </div>
+            </div>
+
+            <div class="org-two-col" style="margin-bottom: 16px;">
+              <div class="org-form-group">
+                <label class="org-form-label">Chỉ tiêu tình nguyện viên (người) <span class="org-req-star">*</span></label>
+                <input type="number" id="evCapacity" class="org-input" value="50" min="1" oninput="syncCapacityPreview(this.value)">
+              </div>
+              <div class="org-form-group">
+                <label class="org-form-label">Số giờ công nhận thiện nguyện <span class="org-req-star">*</span></label>
+                <input type="number" id="evHours" class="org-input" value="6" min="1">
+              </div>
+            </div>
+
+            <!-- Hạn chót đăng ký + Lịch Themed Popup -->
+            <div class="org-form-group calendar-field-wrapper">
+              <label class="org-form-label">Hạn chót nhận đơn đăng ký <span class="org-req-star">*</span></label>
+              <div class="calendar-input-group">
+                <input type="text" id="evDeadline" class="org-input" placeholder="DD/MM/YYYY" value="20/10/2026">
+                <button type="button" class="calendar-toggle-btn" onclick="toggleCalendar('calDeadlinePopup')" title="Mở lịch chọn nhanh">📅</button>
+              </div>
+
+              <div class="custom-calendar-popup" id="calDeadlinePopup">
+                <div class="cal-shortcuts">
+                  <button type="button" class="cal-shortcut-btn" onclick="applyCalShortcut('evDeadline', 'calDeadlinePopup', 3)">+3 ngày</button>
+                  <button type="button" class="cal-shortcut-btn" onclick="applyCalShortcut('evDeadline', 'calDeadlinePopup', 7)">+1 tuần</button>
+                  <button type="button" class="cal-shortcut-btn" onclick="setDeadlineBeforeEvent(3)">Trước sự kiện 3 ngày</button>
+                </div>
+                <div class="cal-header">
+                  <button type="button" class="cal-nav-btn" onclick="navMonth('evDeadline', 'calDeadlinePopup', -1)">&lt;</button>
+                  <span class="cal-header-title" id="calDeadlinePopupTitle">Tháng 10 / 2026</span>
+                  <button type="button" class="cal-nav-btn" onclick="navMonth('evDeadline', 'calDeadlinePopup', 1)">&gt;</button>
+                </div>
+                <div class="cal-weekdays">
+                  <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+                </div>
+                <div class="cal-days-grid" id="calDeadlinePopupDays"></div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+              <button type="button" class="org-btn-draft" onclick="switchStep(2)">&larr; Quay lại</button>
+              <button type="button" class="org-btn-submit-next" style="width: auto; padding: 10px 24px;" onclick="switchStep(4)">Tiếp: Lịch trình & An toàn &rarr;</button>
+            </div>
+          </div>
+
+          <!-- ================= BƯỚC 4: LỊCH TRÌNH & AN TOÀN ================= -->
+          <div class="wizard-pane" id="pane4">
+            <div class="org-card-header">
+              <div class="org-card-header-icon">🛡️</div>
+              <div>
+                <h3 class="org-card-header-title">Bước 4: Tiêu chuẩn an toàn & Vật dụng mang theo</h3>
+                <p class="org-card-header-sub">Bảo đảm mọi tình nguyện viên được trang bị đầy đủ kiến thức và an toàn.</p>
+              </div>
+            </div>
+
+            <div class="org-form-group">
+              <label class="org-form-label">Yêu cầu tiêu chí tham gia:</label>
+              <input type="text" id="evReq" class="org-input" value="Sức khỏe tốt, có trách nhiệm, tuân thủ đúng nội quy và hướng dẫn của ban tổ chức.">
+            </div>
+
+            <div class="org-form-group">
+              <label class="org-form-label">Vật dụng cần chuẩn bị trước:</label>
+              <input type="text" id="evItems" class="org-input" value="Áo thun thoải mái, nón rộng vành, bình nước cá nhân, găng tay làm vườn.">
+            </div>
+
+            <div class="org-form-group">
+              <label class="org-form-label">Đầu mối liên hệ khẩn cấp:</label>
+              <input type="text" id="evContact" class="org-input" value="Chị Thu Thảo (Trưởng ban điều phối) - 0988 776 554">
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+              <button type="button" class="org-btn-draft" onclick="switchStep(3)">&larr; Quay lại</button>
+              <button type="button" class="org-btn-submit-next" style="width: auto; padding: 10px 24px;" onclick="switchStep(5)">Tiếp: Xem trước & Gửi duyệt &rarr;</button>
+            </div>
+          </div>
+
+          <!-- ================= BƯỚC 5: XEM TRƯỚC & GỬI ================= -->
+          <div class="wizard-pane" id="pane5">
+            <div class="org-card-header">
+              <div class="org-card-header-icon">🚀</div>
+              <div>
+                <h3 class="org-card-header-title">Bước 5: Xem trước toàn bộ & Gửi ban kiểm duyệt</h3>
+                <p class="org-card-header-sub">Kiểm tra thông tin trước khi chuyển sang hệ thống Admin duyệt công bố.</p>
+              </div>
+            </div>
+
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; margin-bottom: 20px;">
+              <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                <span class="badge badge-mint" id="prevCategory">Môi trường</span>
+                <span class="badge badge-warning" id="prevStatus">Trạng thái: Chờ kiểm duyệt</span>
+              </div>
+              <h2 id="prevTitle" style="font-size: 1.25rem; font-weight: 800; margin: 4px 0 8px 0; color: #0f172a;">Tiêu đề</h2>
+              <p id="prevDesc" style="font-size: 0.85rem; color: #475569; margin-bottom: 12px;">Mô tả</p>
+
+              <div style="font-size: 0.8rem; color: #64748b; display: flex; flex-direction: column; gap: 6px;">
+                <div>📅 <strong>Thời gian:</strong> <span id="prevTime">...</span></div>
+                <div>⏳ <strong>Hạn chót nhận đơn:</strong> <span id="prevDeadline">...</span></div>
+                <div>📍 <strong>Danh sách các địa điểm tổ chức:</strong>
+                  <div id="prevLocsList" style="margin-left: 14px; margin-top: 4px;"></div>
+                </div>
+                <div>👥 <strong>Chỉ tiêu tiếp nhận:</strong> <span id="prevCap">...</span> &bull; 📜 <strong>Giờ công nhận:</strong> <span id="prevHours">...</span></div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <button type="button" class="org-btn-draft" onclick="switchStep(4)">&larr; Chỉnh sửa lại</button>
+              <div style="display: flex; gap: 10px;">
+                <button type="button" class="org-btn-draft" onclick="saveEvent(true)">💾 Lưu Bản Nháp</button>
+                <button type="button" class="org-btn-submit-next" onclick="saveEvent(false)">🚀 Gửi Duyệt Lên Admin</button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- CỘT 3: HELPER VÀ BẢN XEM TRƯỚC BÊN PHẢI -->
+    <aside class="organizer-helper">
+
+      <!-- CARD 1: THÔNG TIN HỖ TRỢ -->
+      <div class="org-helper-card">
+        <div class="org-helper-header">
+          <span>💡</span>
+          <span>Thông tin hỗ trợ</span>
+        </div>
+        <ul class="org-helper-checklist">
+          <li class="org-helper-item">
+            <span class="org-check-icon">✓</span>
+            <span>Hoạt động nên có ý nghĩa rõ ràng</span>
+          </li>
+          <li class="org-helper-item">
+            <span class="org-check-icon">✓</span>
+            <span>Cung cấp đầy đủ thông tin</span>
+          </li>
+          <li class="org-helper-item">
+            <span class="org-check-icon">✓</span>
+            <span>Tuân thủ quy định cộng đồng</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- CARD 2: LƯU Ý QUAN TRỌNG -->
+      <div class="org-alert-card">
+        <div class="org-alert-header">
+          <span>⚠️</span>
+          <span>Lưu ý quan trọng</span>
+        </div>
+        <p class="org-alert-text">
+          Sau khi tạo, hoạt động sẽ được đội ngũ kiểm duyệt trong vòng 24 — 48 giờ trước khi công bố.
+        </p>
+      </div>
+
+      <!-- CARD 3: BẢN XEM TRƯỚC (LIVE CARD PREVIEW) -->
+      <div class="org-preview-card">
+        <h4 class="org-preview-title">Bản xem trước</h4>
+
+        <div class="org-live-card">
+          <div class="org-live-img-box">
+            <img id="previewCardImage" src="../images/act-tree.jpg" alt="Preview Thumbnail">
+            <span class="org-live-draft-badge">• Nháp</span>
+          </div>
+
+          <div class="org-live-body">
+            <h5 class="org-live-title" id="previewLiveTitle">Tên hoạt động của bạn sẽ hiển thị ở đây</h5>
+
+            <div class="org-live-meta">
+              <div class="org-live-meta-item">
+                <span>📅</span>
+                <span id="previewLiveDate">24/10/2026</span>
+              </div>
+              <div class="org-live-meta-item">
+                <span>📍</span>
+                <span id="previewLiveLocation">TP. Hồ Chí Minh</span>
+              </div>
+              <div class="org-live-meta-item">
+                <span>👥</span>
+                <span id="previewLiveCap">50 người tham gia</span>
+              </div>
+            </div>
+
+            <div class="org-live-avatars">
+              <img src="../images/profile-avatar.jpg" alt="TNV 1" class="org-avatar-circle">
+              <img src="../images/home-hero-volunteer.jpg" alt="TNV 2" class="org-avatar-circle">
+              <img src="../images/act-tree.jpg" alt="TNV 3" class="org-avatar-circle">
+              <img src="../images/sapling-soil.jpg" alt="TNV 4" class="org-avatar-circle">
+              <span class="org-avatar-count">+24</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NÚT THAO TÁC TIẾP TỤC & LƯU NHÁP -->
+      <div class="org-actions-box">
+        <button type="button" class="org-btn-submit-next" id="btnMainContinue" onclick="handleMainContinue()">
+          <span>Tiếp tục</span>
+          <span>&rarr;</span>
+        </button>
+        <button type="button" class="org-btn-draft" onclick="saveEvent(true)">
+          <span>💾 Lưu nháp</span>
+        </button>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- MODAL XEM TRƯỚC ẢNH -->
+  <div id="imageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center;" onclick="this.style.display='none'">
+    <div style="background: white; border-radius: 16px; padding: 16px; max-width: 600px; width: 90%;" onclick="event.stopPropagation()">
+      <h3 style="margin: 0 0 10px 0; font-size: 1rem;">Xem trước Banner hoạt động</h3>
+      <img id="modalImgTag" src="../images/sapling-soil.jpg" alt="Banner Full" style="width: 100%; height: 280px; object-fit: cover; border-radius: 10px;">
+      <div style="display: flex; justify-content: flex-end; margin-top: 12px;">
+        <button type="button" class="org-btn-draft" onclick="document.getElementById('imageModal').style.display='none'">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useToast.js"></script>
+  <script src="../shared/useTheme.js"></script>
+  <script src="../shared/useAuth.js"></script>
+  <script src="../shared/useNotification.js"></script>
+
+  <script>
+    let currentStep = 1;
+
+    // Quản lý danh sách địa điểm
+    let locations = [
+      {
+        type: "Điểm tập trung chính",
+        city: "TP. Hồ Chí Minh",
+        address: "Công viên Cần Giờ, Huyện Cần Giờ, TP. Hồ Chí Minh",
+        note: "Tập trung xe đưa đón lúc 06:30 sáng"
+      },
+      {
+        type: "Trạm trồng rừng ngập mặn",
+        city: "TP. Hồ Chí Minh",
+        address: "Khu dự trữ sinh quyển Cần Giờ",
+        note: "Trồng và bàn giao cây non"
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+      renderLocations();
+      initCalendarState('calDatePopup', 'evDate');
+      initCalendarState('calDeadlinePopup', 'evDeadline');
+
+      // Đồng bộ ban đầu
+      const titleInput = document.getElementById('evTitle');
+      if (titleInput) handleTitleInput(titleInput);
+
+      const descInput = document.getElementById('evDesc');
+      if (descInput) handleDescInput(descInput);
+
+      // Đóng popup lịch khi click ngoài
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.calendar-field-wrapper')) {
+          document.querySelectorAll('.custom-calendar-popup').forEach(p => p.classList.remove('open'));
+        }
+      });
+
+      // Kéo thả file từ máy tính
+      const dropzone = document.getElementById('dropzoneEl');
+      if (dropzone) {
+        dropzone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = '#10b981';
+          dropzone.style.backgroundColor = '#ecfdf5';
+        });
+        dropzone.addEventListener('dragleave', (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = '#93c5fd';
+          dropzone.style.backgroundColor = '#f8fafc';
+        });
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = '#93c5fd';
+          dropzone.style.backgroundColor = '#f8fafc';
+          if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            processLocalImage(e.dataTransfer.files[0]);
+          }
+        });
+      }
+    });
+
+    // 1. TẢI ẢNH TỪ MÁY TÍNH
+    function handleLocalFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        processLocalImage(file);
+      }
+    }
+
+    function processLocalImage(file) {
+      if (!file.type.startsWith('image/')) {
+        useToast.show('Vui lòng chọn file hình ảnh (JPG, PNG, WEBP)!', 'warning');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const imageUrl = e.target.result;
+        setPreviewImage(imageUrl);
+        useToast.show(`Đã chọn ảnh từ máy tính: ${file.name}`, 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function setPreviewImage(imgSrc) {
+      document.getElementById('mainBannerPreview').src = imgSrc;
+      document.getElementById('previewCardImage').src = imgSrc;
+      const modalImg = document.getElementById('modalImgTag');
+      if (modalImg) modalImg.src = imgSrc;
+    }
+
+    function openImageModal() {
+      const modal = document.getElementById('imageModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    // 2. COUNTERS & LIVE PREVIEW SYNC
+    function handleTitleInput(input) {
+      const val = input.value;
+      const counter = document.getElementById('titleCounter');
+      if (counter) counter.innerText = `${val.length}/100`;
+
+      const prevLive = document.getElementById('previewLiveTitle');
+      if (prevLive) {
+        prevLive.innerText = val.trim() || 'Tên hoạt động của bạn sẽ hiển thị ở đây';
+      }
+    }
+
+    function handleDescInput(input) {
+      const val = input.value;
+      const counter = document.getElementById('descCounter');
+      if (counter) counter.innerText = `${val.length}/255`;
+    }
+
+    function handleCategoryChange(cat) {
+      const prevCat = document.getElementById('prevCategory');
+      if (prevCat) prevCat.innerText = cat;
+    }
+
+    function syncDatePreview(dateVal) {
+      const liveDate = document.getElementById('previewLiveDate');
+      if (liveDate) liveDate.innerText = dateVal || '24/10/2026';
+    }
+
+    function syncCapacityPreview(capVal) {
+      const liveCap = document.getElementById('previewLiveCap');
+      if (liveCap) liveCap.innerText = `${capVal || 50} người tham gia`;
+    }
+
+    // 3. RICH-TEXT EDITOR COMMANDS
+    function execCmd(command, val = null) {
+      document.execCommand(command, false, val);
+    }
+
+    function execCmdPrompt(command, promptText) {
+      const val = prompt(promptText);
+      if (val) {
+        document.execCommand(command, false, val);
+      }
+    }
+
+    // 4. DANH SÁCH NHIỀU ĐỊA ĐIỂM
+    function renderLocations() {
+      const container = document.getElementById('locationsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      locations.forEach((loc, index) => {
+        const item = document.createElement('div');
+        item.className = 'location-item-card';
+        item.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span class="badge ${index === 0 ? 'badge-mint' : 'badge-warning'}">
+              📍 Địa điểm #${index + 1}: ${loc.type}
+            </span>
+            ${locations.length > 1 ? `
+              <button type="button" class="btn btn-sm btn-danger" style="padding: 2px 6px; font-size: 0.7rem;" onclick="removeLocationItem(${index})">
+                🗑️ Xóa
+              </button>
+            ` : ''}
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 8px; margin-bottom: 6px;">
+            <div>
+              <select class="org-select" style="padding: 6px 10px; font-size: 0.78rem;" onchange="updateLocationField(${index}, 'city', this.value)">
+                <option value="TP. Hồ Chí Minh" ${loc.city === 'TP. Hồ Chí Minh' ? 'selected' : ''}>TP. Hồ Chí Minh</option>
+                <option value="Đồng Nai" ${loc.city === 'Đồng Nai' ? 'selected' : ''}>Đồng Nai</option>
+                <option value="Bình Phước" ${loc.city === 'Bình Phước' ? 'selected' : ''}>Bình Phước</option>
+                <option value="Hà Nội" ${loc.city === 'Hà Nội' ? 'selected' : ''}>Hà Nội</option>
+              </select>
+            </div>
+            <div>
+              <input type="text" class="org-input" style="padding: 6px 10px; font-size: 0.78rem;" placeholder="Địa chỉ chi tiết..." value="${loc.address}" oninput="updateLocationField(${index}, 'address', this.value)">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 8px;">
+            <input type="text" class="org-input" style="padding: 6px 10px; font-size: 0.75rem;" placeholder="Loại địa điểm..." value="${loc.type}" oninput="updateLocationField(${index}, 'type', this.value)">
+            <input type="text" class="org-input" style="padding: 6px 10px; font-size: 0.75rem;" placeholder="Ghi chú di chuyển..." value="${loc.note}" oninput="updateLocationField(${index}, 'note', this.value)">
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      // Đồng bộ địa điểm thẻ preview
+      if (locations[0]) {
+        const liveLoc = document.getElementById('previewLiveLocation');
+        if (liveLoc) liveLoc.innerText = locations[0].city;
+      }
+    }
+
+    function addLocationItem() {
+      locations.push({
+        type: `Trạm dừng #${locations.length + 1}`,
+        city: "TP. Hồ Chí Minh",
+        address: "",
+        note: ""
+      });
+      renderLocations();
+      useToast.show('Đã thêm một địa điểm mới', 'info');
+    }
+
+    function removeLocationItem(index) {
+      if (locations.length <= 1) return;
+      locations.splice(index, 1);
+      renderLocations();
+    }
+
+    function updateLocationField(index, field, value) {
+      if (locations[index]) {
+        locations[index][field] = value;
+        if (field === 'city' && index === 0) {
+          const liveLoc = document.getElementById('previewLiveLocation');
+          if (liveLoc) liveLoc.innerText = value;
+        }
+      }
+    }
+
+    // 5. CUSTOM DATEPICKER CALENDAR POPUP
+    const calState = {
+      calDatePopup: { currentMonth: 9, currentYear: 2026 },
+      calDeadlinePopup: { currentMonth: 9, currentYear: 2026 }
+    };
+
+    function toggleCalendar(popupId) {
+      const popup = document.getElementById(popupId);
+      const isAlreadyOpen = popup.classList.contains('open');
+      document.querySelectorAll('.custom-calendar-popup').forEach(p => p.classList.remove('open'));
+      if (!isAlreadyOpen) {
+        popup.classList.add('open');
+      }
+    }
+
+    function initCalendarState(popupId, inputId) {
+      renderCalendarDays(popupId, inputId);
+    }
+
+    function navMonth(inputId, popupId, delta) {
+      let state = calState[popupId];
+      state.currentMonth += delta;
+      if (state.currentMonth < 0) {
+        state.currentMonth = 11;
+        state.currentYear--;
+      } else if (state.currentMonth > 11) {
+        state.currentMonth = 0;
+        state.currentYear++;
+      }
+      renderCalendarDays(popupId, inputId);
+    }
+
+    function renderCalendarDays(popupId, inputId) {
+      const state = calState[popupId];
+      const titleEl = document.getElementById(popupId + 'Title');
+      const gridEl = document.getElementById(popupId + 'Days');
+      const inputEl = document.getElementById(inputId);
+
+      const monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+      if (titleEl) {
+        titleEl.innerText = `${monthNames[state.currentMonth]} / ${state.currentYear}`;
+      }
+
+      if (!gridEl) return;
+      gridEl.innerHTML = '';
+
+      let curValDay = -1, curValMonth = -1, curValYear = -1;
+      if (inputEl && inputEl.value) {
+        const parts = inputEl.value.split('/');
+        if (parts.length === 3) {
+          curValDay = parseInt(parts[0], 10);
+          curValMonth = parseInt(parts[1], 10) - 1;
+          curValYear = parseInt(parts[2], 10);
+        }
+      }
+
+      const firstDayOfMonth = new Date(state.currentYear, state.currentMonth, 1).getDay();
+      const startOffset = (firstDayOfMonth === 0) ? 6 : (firstDayOfMonth - 1);
+      const daysInMonth = new Date(state.currentYear, state.currentMonth + 1, 0).getDate();
+
+      for (let i = 0; i < startOffset; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'cal-day-cell empty';
+        gridEl.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const cell = document.createElement('div');
+        cell.className = 'cal-day-cell';
+        cell.innerText = day;
+
+        if (day === curValDay && state.currentMonth === curValMonth && state.currentYear === curValYear) {
+          cell.classList.add('selected');
+        }
+
+        cell.onclick = () => selectDate(inputId, popupId, day, state.currentMonth + 1, state.currentYear);
+        gridEl.appendChild(cell);
+      }
+    }
+
+    function selectDate(inputId, popupId, day, month, year) {
+      const dd = String(day).padStart(2, '0');
+      const mm = String(month).padStart(2, '0');
+      const formatted = `${dd}/${mm}/${year}`;
+      document.getElementById(inputId).value = formatted;
+      document.getElementById(popupId).classList.remove('open');
+      syncDatePreview(formatted);
+      useToast.show(`Đã chọn: ${formatted}`, 'success');
+      renderCalendarDays(popupId, inputId);
+    }
+
+    function applyCalShortcut(inputId, popupId, addDays) {
+      const today = new Date();
+      today.setDate(today.getDate() + addDays);
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const yyyy = today.getFullYear();
+      const formatted = `${dd}/${mm}/${yyyy}`;
+      document.getElementById(inputId).value = formatted;
+      calState[popupId].currentMonth = today.getMonth();
+      calState[popupId].currentYear = yyyy;
+      document.getElementById(popupId).classList.remove('open');
+      syncDatePreview(formatted);
+      useToast.show(`Đã chọn: ${formatted} (+${addDays} ngày)`, 'info');
+      renderCalendarDays(popupId, inputId);
+    }
+
+    function setDeadlineBeforeEvent(daysBefore) {
+      const evDateVal = document.getElementById('evDate').value;
+      const parts = evDateVal.split('/');
+      if (parts.length === 3) {
+        const eventDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+        eventDate.setDate(eventDate.getDate() - daysBefore);
+        const dd = String(eventDate.getDate()).padStart(2, '0');
+        const mm = String(eventDate.getMonth() + 1).padStart(2, '0');
+        const yyyy = eventDate.getFullYear();
+        document.getElementById('evDeadline').value = `${dd}/${mm}/${yyyy}`;
+        calState.calDeadlinePopup.currentMonth = eventDate.getMonth();
+        calState.calDeadlinePopup.currentYear = yyyy;
+        document.getElementById('calDeadlinePopup').classList.remove('open');
+        useToast.show(`Đã đặt hạn chót: ${dd}/${mm}/${yyyy} (Trước sự kiện ${daysBefore} ngày)`, 'info');
+      }
+    }
+
+    // 6. WIZARD NAVIGATION
+    function switchStep(step) {
+      currentStep = step;
+      document.querySelectorAll('.wizard-pane').forEach(p => p.classList.remove('active'));
+      const activePane = document.getElementById('pane' + step);
+      if (activePane) activePane.classList.add('active');
+
+      // Cập nhật Stepper Bar
+      for (let i = 1; i <= 5; i++) {
+        const node = document.getElementById('stepNode' + i);
+        const div = document.getElementById('stepDiv' + (i - 1));
+        if (node) {
+          node.classList.remove('active', 'completed');
+          if (i === step) {
+            node.classList.add('active');
+          } else if (i < step) {
+            node.classList.add('completed');
+          }
+        }
+        if (div) {
+          div.classList.toggle('completed', i <= step);
+        }
+      }
+
+      // Đổi chữ nút Tiếp tục ở helper
+      const btnNext = document.getElementById('btnMainContinue');
+      if (btnNext) {
+        if (step === 5) {
+          btnNext.innerHTML = '<span>🚀 Gửi Duyệt</span>';
+        } else {
+          btnNext.innerHTML = '<span>Tiếp tục</span><span>&rarr;</span>';
+        }
+      }
+
+      if (step === 5) {
+        updateStep5Summary();
+      }
+    }
+
+    function handleMainContinue() {
+      if (currentStep < 5) {
+        switchStep(currentStep + 1);
+      } else {
+        saveEvent(false);
+      }
+    }
+
+    function updateStep5Summary() {
+      document.getElementById('prevTitle').innerText = document.getElementById('evTitle').value;
+      document.getElementById('prevCategory').innerText = document.getElementById('evCategory').value;
+      document.getElementById('prevDesc').innerText = document.getElementById('evDesc').value;
+      document.getElementById('prevTime').innerText = `${document.getElementById('evDate').value} (${document.getElementById('evTime').value})`;
+      document.getElementById('prevDeadline').innerText = document.getElementById('evDeadline').value;
+      document.getElementById('prevCap').innerText = `${document.getElementById('evCapacity').value} người`;
+      document.getElementById('prevHours').innerText = `+${document.getElementById('evHours').value} giờ`;
+
+      const locListEl = document.getElementById('prevLocsList');
+      if (locListEl) {
+        locListEl.innerHTML = locations.map((loc, idx) => `
+          <div style="margin-bottom: 2px;">
+            • <strong>Điểm ${idx + 1} [${loc.type}]:</strong> ${loc.address || 'Chưa điền'} (${loc.city})
+            ${loc.note ? `<em style="color:#059669"> — ${loc.note}</em>` : ''}
+          </div>
+        `).join('');
+      }
+    }
+
+    // 7. LƯU BẢN NHÁP HOẶC GỬI DUYỆT
+    function saveEvent(isDraft) {
+      const primaryLoc = locations[0] || { address: 'TP. Hồ Chí Minh', city: 'TP. Hồ Chí Minh' };
+      const newEvent = {
+        id: Date.now(),
+        title: document.getElementById('evTitle').value.trim() || 'Hoạt động thiện nguyện mới',
+        category: document.getElementById('evCategory').value,
+        organizer: document.getElementById('evOrganizer').value,
+        organizerVerified: true,
+        banner: document.getElementById('mainBannerPreview').src,
+        date: document.getElementById('evDate').value.trim(),
+        time: document.getElementById('evTime').value.trim(),
+        deadline: document.getElementById('evDeadline').value.trim(),
+        city: primaryLoc.city,
+        location: primaryLoc.address,
+        locations: locations,
+        capacity: parseInt(document.getElementById('evCapacity').value) || 50,
+        applied: 0,
+        verifiedHours: parseInt(document.getElementById('evHours').value) || 6,
+        status: isDraft ? 'Bản nháp' : 'Chờ Admin duyệt',
+        description: document.getElementById('evDesc').value.trim(),
+        detailedContent: document.getElementById('evDetailedContent').innerHTML,
+        requirements: document.getElementById('evReq').value.trim(),
+        itemsToBring: document.getElementById('evItems').value.trim(),
+        contact: document.getElementById('evContact').value.trim()
+      };
+
+      const pending = useStorage.get('vh_pending_events', []);
+      pending.unshift(newEvent);
+      useStorage.set('vh_pending_events', pending);
+
+      useToast.show(isDraft ? 'Đã lưu bản nháp hoạt động thành công!' : 'Đã gửi hoạt động lên Admin kiểm duyệt!', 'success');
+
+      setTimeout(() => {
+        window.location.href = 'manage.html';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+/* ==========================================================================
+   BASE.CSS — Design Tokens & Core Styles (Compact & Refined Edition)
+   Font: Be Vietnam Pro | Chuẩn Design System: VolunteerHub v1.1
+   Tối ưu không gian hiển thị gọn gàng, thoáng mắt, hiện đại
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+:root {
+  /* BIẾN MÀU THAY ĐỔI THEO THEME (Được quản lý bởi useTheme.js) */
+  --brand-primary: #12304A;    /* Màu thương hiệu chính */
+  --brand-cta: #087F78;        /* Nút hành động chính (Call To Action) */
+  --brand-cta-hover: #066963;  /* Hover nút bấm */
+  --brand-surface: #E9F7F3;    /* Nền thẻ nổi bật, badge, highlight */
+  
+  /* CÁC MÀU NỀN VÀ TRẠNG THÁI CHUẨN CỐ ĐỊNH (Mặc định: Light Mode) */
+  --canvas: #F4F7FA;           /* Nền trang web */
+  --surface-white: #FFFFFF;    /* Nền thẻ card, modal, bảng */
+  --text-primary: #172B3A;     /* Chữ tiêu đề & nội dung chính */
+  --text-secondary: #536779;   /* Chữ phụ đề, mô tả nhỏ */
+  --border-default: #DCE5EA;   /* Viền nhẹ nhàng */
+  --table-header-bg: #FAFBFD;  /* Nền header bảng */
+
+  /* TRẠNG THÁI NGHIỆP VỤ */
+  --status-success: #147D52;   /* Đã duyệt, thành công */
+  --status-warning: #9A5B00;   /* Chờ duyệt, cảnh báo */
+  --status-danger: #B42318;    /* Từ chối, hủy, lỗi */
+
+  /* KÍCH THƯỚC & BO GÓC SIÊU GỌN GÀNG (COMPACT DESIGN TOKENS) */
+  --radius-btn: 6px;
+  --radius-card: 8px;
+  --radius-modal: 10px;
+  --content-max: 1140px;
+  --shadow-sm: 0 1px 3px rgba(18, 48, 74, 0.05);
+  --shadow-md: 0 3px 8px rgba(18, 48, 74, 0.08);
+}
+
+/* RESET CƠ BẢN */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  line-height: 1.45;
+  font-size: 0.85rem;          /* Tối ưu cỡ chữ thanh thoát, gọn gàng */
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* KHUNG CHỨA TRUNG TÂM */
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+/* TYPOGRAPHY GỌN GÀNG, KHÔNG BỊ TO QUÁ KHỔ */
+h1, h2, h3, h4 {
+  color: var(--brand-primary);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h1 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+h2 { font-size: 1.08rem; margin-bottom: 0.2rem; }
+h3 { font-size: 0.94rem; margin-bottom: 0.15rem; }
+h4 { font-size: 0.84rem; margin-bottom: 0.15rem; }
+p { color: var(--text-secondary); margin-bottom: 0.25rem; font-size: 0.82rem; line-height: 1.4; }
+a { color: var(--brand-cta); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--brand-cta-hover); }
+
+code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+}
+:root[data-mode="dark"] code {
+  background: rgba(255, 255, 255, 0.1);
+}

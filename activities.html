@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Sách Hoạt Động Thiện Nguyện — VolunteerHub</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/activities.css">
+</head>
+<body class="act-page-wrapper">
+
+  <!-- THANH NAVBAR THỐNG NHẤT TOÀN HỆ THỐNG -->
+  <header class="vh-navbar-wrapper">
+    <div class="vh-navbar-container">
+      <a href="index.html" class="vh-brand-group">
+        <span class="vh-brand-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
+          </svg>
+        </span>
+        <div class="vh-brand-title-wrap">
+          <span class="vh-brand-name">VolunteerHub</span>
+          <span class="vh-brand-slogan">Cùng nhau lan tỏa giá trị tốt đẹp</span>
+        </div>
+      </a>
+
+      <!-- MENU ĐIỀU HƯỚNG THỐNG NHẤT -->
+      <ul class="vh-nav-menu-list">
+        <li class="vh-nav-item"><a href="index.html"><span>Trang chủ</span></a></li>
+        <li class="vh-nav-item"><a href="activities.html" class="active"><span>Hoạt động</span></a></li>
+        <li class="vh-nav-item"><a href="stories.html"><span>Stories</span></a></li>
+        <li class="vh-nav-item"><a href="about.html"><span>Giới thiệu</span></a></li>
+      </ul>
+
+      <div class="vh-nav-search-bar">
+        <span class="vh-nav-search-icon">🔍</span>
+        <input type="text" id="topNavSearch" placeholder="Tìm kiếm hoạt động, câu chuyện, địa điểm..." oninput="handleGlobalSearch(this.value)">
+      </div>
+
+      <div class="vh-nav-actions">
+        <!-- POPUP THÔNG BÁO DROPDOWN -->
+        <div class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+          </button>
+
+          <!-- DROPDOWN CONTENT -->
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <div class="vh-notif-header-title">🔔 Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList">
+              <!-- Nạp từ useNotification.js -->
+            </div>
+            <div class="vh-notif-footer">
+              <a href="notifications.html" class="vh-notif-view-all-btn">
+                <span>Xem tất cả thông báo</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+        <div id="vhUserNavWrap"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ACTIVITIES CONTAINER -->
+  <main class="act-container">
+
+    <!-- 1. HERO BANNER DANH SÁCH HOẠT ĐỘNG (CHUẨN MOCKUP HÌNH 3) -->
+    <section class="act-hero-banner-new">
+      <div class="act-breadcrumb-new">
+        <a href="index.html">Trang chủ</a> <span>&gt;</span> <span style="color: #059669; font-weight: 700;">Hoạt động</span>
+      </div>
+
+      <div class="act-hero-top-flex">
+        <div>
+          <h1 class="act-hero-heading-main">Danh sách hoạt động</h1>
+          <p class="act-hero-subtitle-main">Khám phá và tham gia các hoạt động thiện nguyện ý nghĩa trên khắp Việt Nam.</p>
+        </div>
+
+        <div class="act-hero-quote-side">
+          <div class="act-cursive-quote">
+            "Mỗi hành động nhỏ<br>đều tạo nên thay đổi lớn ♡"
+          </div>
+          <img src="images/home-hero-volunteer.jpg" alt="Volunteers in nature" class="act-hero-banner-photo">
+        </div>
+      </div>
+
+      <!-- Ô TÌM KIẾM NHÚNG TRONG BANNER -->
+      <div class="act-embedded-search-wrap">
+        <div class="act-embedded-search-inner">
+          <span style="color: #94a3b8; font-size: 0.9rem;">🔍</span>
+          <input type="text" id="embeddedActSearch" placeholder="Nhập tìm kiếm hoạt động (tên, địa điểm, tổ chức...)" oninput="filterActivitiesList()">
+        </div>
+        <button type="button" class="btn-embedded-search-submit" onclick="filterActivitiesList()">Tìm kiếm</button>
+      </div>
+    </section>
+
+    <!-- 2. LAYOUT 2 CỘT: BỘ LỌC BÊN TRÁI & DANH SÁCH BÊN PHẢI -->
+    <div class="act-main-layout">
+
+      <!-- CỘT TRÁI: BỘ LỌC ĐA TIÊU CHÍ -->
+      <aside class="act-filter-panel">
+        <div class="act-filter-panel-header">
+          <h3 class="act-filter-panel-title">
+            <span>📊</span>
+            <span>Bộ lọc</span>
+          </h3>
+          <button type="button" class="act-filter-clear-link" onclick="resetAllFilters()">Xóa lọc</button>
+        </div>
+
+        <!-- 1. LĨNH VỰC -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Lĩnh vực</div>
+          <div class="act-filter-items-list">
+            <label class="act-filter-label">
+              <input type="checkbox" id="catAll" checked onchange="toggleCategoryAll(this)">
+              <span>Tất cả</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Môi trường" onchange="applyFilters()">
+              <span>🌱 Môi trường</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Giáo dục" onchange="applyFilters()">
+              <span>📚 Giáo dục</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Y tế" onchange="applyFilters()">
+              <span>🩺 Y tế</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Cộng đồng" onchange="applyFilters()">
+              <span>🤝 Cộng đồng</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Hỗ trợ thiên tai" onchange="applyFilters()">
+              <span>🆘 Hỗ trợ thiên tai</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 2. ĐỊA ĐIỂM -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Địa điểm</div>
+          <select id="locationSelect" class="act-filter-select-city" onchange="applyFilters()">
+            <option value="all">📍 Tất cả tỉnh/thành</option>
+            <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+            <option value="Đồng Nai">Đồng Nai</option>
+            <option value="Bình Thuận">Bình Thuận</option>
+            <option value="Bình Phước">Bình Phước</option>
+            <option value="Thái Nguyên">Thái Nguyên</option>
+            <option value="Hà Nội">Hà Nội</option>
+          </select>
+        </div>
+
+        <!-- 3. THỜI GIAN -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Thời gian</div>
+          <div class="act-filter-items-list">
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="all" checked onchange="applyFilters()">
+              <span>Tất cả</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="7days" onchange="applyFilters()">
+              <span>Trong 7 ngày</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="30days" onchange="applyFilters()">
+              <span>Trong 30 ngày</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="3months" onchange="applyFilters()">
+              <span>Trong 3 tháng</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="custom" onchange="applyFilters()">
+              <span>📅 Tùy chọn</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. TRẠNG THÁI -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Trạng thái</div>
+          <div class="act-filter-items-list">
+            <label class="act-filter-label">
+              <input type="checkbox" id="statusAll" checked onchange="toggleStatusAll(this)">
+              <span>Tất cả</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="open" onchange="applyFilters()">
+              <span>Đang mở đăng ký</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="upcoming" onchange="applyFilters()">
+              <span>Sắp diễn ra</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="ongoing" onchange="applyFilters()">
+              <span>Đang diễn ra</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="closed" onchange="applyFilters()">
+              <span>Đã kết thúc</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="button" class="btn-reset-filters-full" onclick="resetAllFilters()">
+          <span>↺</span>
+          <span>Đặt lại bộ lọc</span>
+        </button>
+      </aside>
+
+      <!-- CỘT PHẢI: DANH SÁCH 5 THẺ HOẠT ĐỘNG NGANG (MOCKUP HÌNH 3) -->
+      <section class="act-list-container">
+
+        <!-- THANH HEADER ĐIỀU KHIỂN DANH SÁCH -->
+        <div class="act-list-header-bar">
+          <div class="act-total-count" id="actResultCount">12 hoạt động</div>
+
+          <div class="act-list-controls-right">
+            <div class="act-view-mode-toggle">
+              <button type="button" class="act-view-btn" title="Lưới">⊞</button>
+              <button type="button" class="act-view-btn active" title="Danh sách">≡</button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: #64748b;">
+              <span>Sắp xếp:</span>
+              <select class="act-sort-select" onchange="applyFilters()">
+                <option value="newest">Mới nhất</option>
+                <option value="upcoming">Sắp diễn ra</option>
+                <option value="progress">Tiến độ nhận đơn</option>
+              </select>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: #64748b;">
+              <span>Hiển thị:</span>
+              <select class="act-sort-select">
+                <option>10 hoạt động/trang</option>
+                <option>20 hoạt động/trang</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- DANH SÁCH THẺ HOẠT ĐỘNG NGANG -->
+        <div id="actCardsListContainer" style="display: flex; flex-direction: column; gap: 16px;">
+
+          <!-- HOẠT ĐỘNG 1: TRỒNG CÂY (MÔI TRƯỜNG - ĐANG MỞ ĐĂNG KÝ) -->
+          <article class="act-card-horizontal" data-cat="Môi trường" data-city="TP. Hồ Chí Minh" data-status="open">
+            <div class="act-card-thumb-area">
+              <img src="images/act-tree.jpg" alt="Ngày hội trồng 1.000 cây xanh">
+            </div>
+            <div class="act-card-content-area">
+              <div>
+                <div class="act-card-top-badges">
+                  <span class="badge-tag env">🌱 Môi trường</span>
+                  <span class="badge-status open">Đang mở đăng ký</span>
+                </div>
+                <h3 class="act-card-title-main">Ngày hội trồng 1.000 cây xanh</h3>
+                <p class="act-card-desc-snippet">Chung tay phủ xanh đồi trọc, bảo vệ môi trường sống cho cộng đồng.</p>
+                <div class="act-card-org-line">
+                  <span>👤</span>
+                  <span>Quỹ Xanh Việt Nam</span>
+                </div>
+                <div class="act-card-meta-flex">
+                  <div class="act-card-meta-item">
+                    <span>📅</span>
+                    <span>24/10/2026 (08:00 - 16:00)</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>📍</span>
+                    <span>TP. Hồ Chí Minh</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>👥</span>
+                    <span>38/50 người</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="act-progress-row">
+                <div class="act-progress-track">
+                  <div class="act-progress-fill" style="width: 76%;"></div>
+                </div>
+                <span class="act-progress-num">76%</span>
+              </div>
+            </div>
+
+            <div class="act-card-actions-col">
+              <a href="detail.html?id=ACT-001" class="btn-card-detail">Xem chi tiết</a>
+              <a href="detail.html?id=ACT-001" class="btn-card-apply">Đăng ký tham gia</a>
+            </div>
+          </article>
+
+          <!-- HOẠT ĐỘNG 2: TỦ SÁCH (GIÁO DỤC - SẮP DIỄN RA) -->
+          <article class="act-card-horizontal" data-cat="Giáo dục" data-city="Đồng Nai" data-status="upcoming">
+            <div class="act-card-thumb-area">
+              <img src="images/act-books.jpg" alt="Tủ sách trao em">
+            </div>
+            <div class="act-card-content-area">
+              <div>
+                <div class="act-card-top-badges">
+                  <span class="badge-tag edu">📚 Giáo dục</span>
+                  <span class="badge-status upcoming">Sắp diễn ra</span>
+                </div>
+                <h3 class="act-card-title-main">Tủ sách trao em – Hành trình của những cuốn sách biết đi</h3>
+                <p class="act-card-desc-snippet">Trao tặng 500 đầu sách cho học sinh vùng sâu vùng xa.</p>
+                <div class="act-card-org-line">
+                  <span>👤</span>
+                  <span>CLB Ánh Sáng Tương Lai</span>
+                </div>
+                <div class="act-card-meta-flex">
+                  <div class="act-card-meta-item">
+                    <span>📅</span>
+                    <span>02/11/2026 (08:00 - 11:00)</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>📍</span>
+                    <span>Đồng Nai</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>👥</span>
+                    <span>22/30 người</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="act-progress-row">
+                <div class="act-progress-track">
+                  <div class="act-progress-fill" style="width: 73%;"></div>
+                </div>
+                <span class="act-progress-num">73%</span>
+              </div>
+            </div>
+
+            <div class="act-card-actions-col">
+              <a href="detail.html?id=ACT-002" class="btn-card-detail">Xem chi tiết</a>
+              <a href="detail.html?id=ACT-002" class="btn-card-apply">Đăng ký tham gia</a>
+            </div>
+          </article>
+
+          <!-- HOẠT ĐỘNG 3: BỜ BIỂN (CỘNG ĐỒNG - ĐANG DIỄN RA) -->
+          <article class="act-card-horizontal" data-cat="Cộng đồng" data-city="Bình Thuận" data-status="ongoing">
+            <div class="act-card-thumb-area">
+              <img src="images/act-beach.jpg" alt="Làm sạch bờ biển">
+            </div>
+            <div class="act-card-content-area">
+              <div>
+                <div class="act-card-top-badges">
+                  <span class="badge-tag comm">🤝 Cộng đồng</span>
+                  <span class="badge-status ongoing">Đang diễn ra</span>
+                </div>
+                <h3 class="act-card-title-main">Làm sạch bờ biển – Trả lại màu xanh cho đại dương</h3>
+                <p class="act-card-desc-snippet">Thu gom rác thải nhựa, bảo vệ hệ sinh thái biển.</p>
+                <div class="act-card-org-line">
+                  <span>👤</span>
+                  <span>Nhóm Thiện Nguyện Hoa Sen</span>
+                </div>
+                <div class="act-card-meta-flex">
+                  <div class="act-card-meta-item">
+                    <span>📅</span>
+                    <span>18/10/2026 (07:00 - 12:00)</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>📍</span>
+                    <span>Bình Thuận</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>👥</span>
+                    <span>25/40 người</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="act-progress-row">
+                <div class="act-progress-track">
+                  <div class="act-progress-fill" style="width: 63%;"></div>
+                </div>
+                <span class="act-progress-num">63%</span>
+              </div>
+            </div>
+
+            <div class="act-card-actions-col">
+              <a href="detail.html?id=ACT-003" class="btn-card-detail">Xem chi tiết</a>
+              <span class="btn-card-disabled" style="background: #e6f9f0; color: #059669; border-color: #a7f3d0;">Đang diễn ra</span>
+            </div>
+          </article>
+
+          <!-- HOẠT ĐỘNG 4: Y TẾ (Y TẾ - ĐANG MỞ ĐĂNG KÝ) -->
+          <article class="act-card-horizontal" data-cat="Y tế" data-city="Bình Phước" data-status="open">
+            <div class="act-card-thumb-area">
+              <img src="images/act-medical.jpg" alt="Khám bệnh & phát thuốc">
+            </div>
+            <div class="act-card-content-area">
+              <div>
+                <div class="act-card-top-badges">
+                  <span class="badge-tag med">🩺 Y tế</span>
+                  <span class="badge-status open">Đang mở đăng ký</span>
+                </div>
+                <h3 class="act-card-title-main">Khám bệnh & cấp phát thuốc miễn phí</h3>
+                <p class="act-card-desc-snippet">Hỗ trợ khám bệnh, tư vấn sức khỏe và phát 300 phần thuốc.</p>
+                <div class="act-card-org-line">
+                  <span>👤</span>
+                  <span>Hội Thầy Thuốc Vì Cộng Đồng</span>
+                </div>
+                <div class="act-card-meta-flex">
+                  <div class="act-card-meta-item">
+                    <span>📅</span>
+                    <span>15/11/2026 (07:30 - 15:00)</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>📍</span>
+                    <span>Bình Phước</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>👥</span>
+                    <span>14/20 người</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="act-progress-row">
+                <div class="act-progress-track">
+                  <div class="act-progress-fill" style="width: 70%;"></div>
+                </div>
+                <span class="act-progress-num">70%</span>
+              </div>
+            </div>
+
+            <div class="act-card-actions-col">
+              <a href="detail.html?id=ACT-004" class="btn-card-detail">Xem chi tiết</a>
+              <a href="detail.html?id=ACT-004" class="btn-card-apply">Đăng ký tham gia</a>
+            </div>
+          </article>
+
+          <!-- HOẠT ĐỘNG 5: CỨU TRỢ (HỖ TRỢ THIÊN TAI - ĐÃ KẾT THÚC) -->
+          <article class="act-card-horizontal" data-cat="Hỗ trợ thiên tai" data-city="Thái Nguyên" data-status="closed">
+            <div class="act-card-thumb-area">
+              <img src="images/act-food.jpg" alt="Chung tay sau bão lũ">
+            </div>
+            <div class="act-card-content-area">
+              <div>
+                <div class="act-card-top-badges">
+                  <span class="badge-tag relief">🆘 Hỗ trợ thiên tai</span>
+                  <span class="badge-status closed">Đã kết thúc</span>
+                </div>
+                <h3 class="act-card-title-main">Chung tay sau bão lũ – Không ai bị bỏ lại phía sau</h3>
+                <p class="act-card-desc-snippet">Cứu trợ khẩn cấp, hỗ trợ người dân vùng lũ khắc phục hậu quả.</p>
+                <div class="act-card-org-line">
+                  <span>👤</span>
+                  <span>Quỹ Hỗ Trợ Cộng Đồng</span>
+                </div>
+                <div class="act-card-meta-flex">
+                  <div class="act-card-meta-item">
+                    <span>📅</span>
+                    <span>28/09/2026 (06:00 - 17:00)</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>📍</span>
+                    <span>Thái Nguyên</span>
+                  </div>
+                  <div class="act-card-meta-item">
+                    <span>👥</span>
+                    <span>50/50 người</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="act-progress-row">
+                <div class="act-progress-track">
+                  <div class="act-progress-fill" style="width: 100%; background: #94a3b8;"></div>
+                </div>
+                <span class="act-progress-num" style="color: #64748b;">100%</span>
+              </div>
+            </div>
+
+            <div class="act-card-actions-col">
+              <a href="detail.html?id=ACT-005" class="btn-card-detail">Xem chi tiết</a>
+              <span class="btn-card-disabled">Đã kết thúc</span>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- PHÂN TRANG CHUẨN DESIGN -->
+        <nav class="act-pagination" aria-label="Phân trang hoạt động">
+          <button type="button" class="act-page-btn" title="Trang trước">&lt;</button>
+          <button type="button" class="act-page-btn active">1</button>
+          <button type="button" class="act-page-btn">2</button>
+          <button type="button" class="act-page-btn">3</button>
+          <button type="button" class="act-page-btn" title="Trang sau">&gt;</button>
+        </nav>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>© 2026 VolunteerHub • Cổng Thông Tin Hoạt Động Thiện Nguyện Toàn Quốc</p>
+    </div>
+  </footer>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+
+  <script>
+    function toggleCategoryAll(el) {
+      const catCheckboxes = document.querySelectorAll('input[name="cat"]');
+      catCheckboxes.forEach(cb => cb.checked = false);
+      applyFilters();
+    }
+
+    function toggleStatusAll(el) {
+      const stCheckboxes = document.querySelectorAll('input[name="actStatus"]');
+      stCheckboxes.forEach(cb => cb.checked = false);
+      applyFilters();
+    }
+
+    function resetAllFilters() {
+      document.getElementById('catAll').checked = true;
+      document.querySelectorAll('input[name="cat"]').forEach(cb => cb.checked = false);
+      document.getElementById('locationSelect').value = 'all';
+      document.querySelector('input[name="timeFilter"][value="all"]').checked = true;
+      document.getElementById('statusAll').checked = true;
+      document.querySelectorAll('input[name="actStatus"]').forEach(cb => cb.checked = false);
+      document.getElementById('embeddedActSearch').value = '';
+      applyFilters();
+      useToast.show('Đã đặt lại toàn bộ bộ lọc!', 'info');
+    }
+
+    function applyFilters() {
+      const searchVal = document.getElementById('embeddedActSearch').value.toLowerCase().trim();
+      const cityVal = document.getElementById('locationSelect').value;
+
+      // Lấy danh sách category đã chọn
+      const selectedCats = Array.from(document.querySelectorAll('input[name="cat"]:checked')).map(cb => cb.value);
+      const isCatAll = document.getElementById('catAll').checked || selectedCats.length === 0;
+
+      // Lấy trạng thái đã chọn
+      const selectedStatus = Array.from(document.querySelectorAll('input[name="actStatus"]:checked')).map(cb => cb.value);
+      const isStatusAll = document.getElementById('statusAll').checked || selectedStatus.length === 0;
+
+      const cards = document.querySelectorAll('.act-card-horizontal');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.querySelector('.act-card-title-main').innerText.toLowerCase();
+        const desc = card.querySelector('.act-card-desc-snippet').innerText.toLowerCase();
+        const org = card.querySelector('.act-card-org-line').innerText.toLowerCase();
+        const cardCat = card.getAttribute('data-cat');
+        const cardCity = card.getAttribute('data-city');
+        const cardStatus = card.getAttribute('data-status');
+
+        const matchSearch = !searchVal || title.includes(searchVal) || desc.includes(searchVal) || org.includes(searchVal);
+        const matchCat = isCatAll || selectedCats.includes(cardCat);
+        const matchCity = cityVal === 'all' || cardCity === cityVal;
+        const matchStatus = isStatusAll || selectedStatus.includes(cardStatus);
+
+        if (matchSearch && matchCat && matchCity && matchStatus) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('actResultCount').innerText = `${visibleCount} hoạt động`;
+    }
+
+    function filterActivitiesList() {
+      applyFilters();
+    }
+
+    function handleGlobalSearch(q) {
+      document.getElementById('embeddedActSearch').value = q;
+      applyFilters();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thông Báo Hệ Thống — VolunteerHub</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+
+  <div class="profile-app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="profile-sidebar">
+      <a href="index.html" class="sidebar-brand-box">
+        <div class="sidebar-brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#10B981"/>
+            <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="sidebar-brand-title">VolunteerHub</span>
+      </a>
+
+      <ul class="sidebar-menu-list">
+        <li class="sidebar-menu-item"><a href="index.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🏠</span><span>Trang chủ</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="activities.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🧭</span><span>Hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="stories.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📖</span><span>Stories</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="about.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Giới thiệu</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="schedule.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📅</span><span>Lịch hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item active"><a href="notifications.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
+        <li class="sidebar-menu-item"><a href="profile.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👤</span><span>Hồ sơ cá nhân</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="volunteer/dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Hoạt động của tôi</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="certificates.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🎖️</span><span>Chứng nhận</span></span></a></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="profile-main-area">
+
+      <!-- TOPBAR -->
+      <div class="profile-topbar">
+        <div class="topbar-search-box">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm thông báo...">
+        </div>
+        <div class="topbar-right-actions">
+          <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+          <div id="vhUserNavWrap"></div>
+        </div>
+      </div>
+
+      <div class="notify-container-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-default); padding-bottom: 12px;">
+          <div>
+            <h1 style="margin: 0; font-size: 1.25rem; font-weight: 800;">Thông Báo Của Bạn 🔔</h1>
+            <span style="font-size: 0.74rem; color: var(--text-secondary);">Bạn có 3 thông báo mới chưa đọc</span>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline" onclick="useToast.show('Đã đánh dấu đọc tất cả thông báo!', 'success')">
+            ✓ Đánh dấu tất cả đã đọc
+          </button>
+        </div>
+
+        <div class="notify-list">
+
+          <!-- Thông báo 1 -->
+          <div class="notify-item-card unread">
+            <div class="notify-icon-circle success">🎉</div>
+            <div class="notify-body-text">
+              <strong>Đơn tham gia đã được Ban tổ chức phê duyệt!</strong>
+              <p>Ban Điều Phối Quỹ Xanh đã phê duyệt đơn đăng ký của bạn cho sự kiện <strong>"Ngày hội trồng cây xanh 2026"</strong>. Vui lòng có mặt đúng 07:00 ngày 24/10/2026 tại Rừng ngập mặn Cần Giờ.</p>
+              <span class="notify-time-stamp">⏱️ 10 phút trước • Ban Điều Phối</span>
+            </div>
+            <div>
+              <a href="detail.html?id=ACT-001" class="btn btn-sm btn-primary">Xem chi tiết</a>
+            </div>
+          </div>
+
+          <!-- Thông báo 2 -->
+          <div class="notify-item-card unread">
+            <div class="notify-icon-circle info">🎖️</div>
+            <div class="notify-body-text">
+              <strong>Chứng nhận điện tử mới đã được cấp</strong>
+              <p>Hệ thống vừa cấp mã <strong>CERT-2026-001</strong> ("Chiến Sĩ Môi Trường Xanh 2026") vào hồ sơ của bạn. Bạn đã tích lũy thêm +8 giờ công nhận.</p>
+              <span class="notify-time-stamp">⏱️ 2 giờ trước • Hệ thống chứng nhận</span>
+            </div>
+            <div>
+              <a href="certificates.html" class="btn btn-sm btn-outline">Xem chứng nhận</a>
+            </div>
+          </div>
+
+          <!-- Thông báo 3 -->
+          <div class="notify-item-card unread">
+            <div class="notify-icon-circle warning">⏰</div>
+            <div class="notify-body-text">
+              <strong>Nhắc nhở chuẩn bị ca trực thiện nguyện sắp tới</strong>
+              <p>Hoạt động "Sách Cho Em" sẽ bắt đầu sau 6 ngày nữa. Hãy kiểm tra các đồ dùng cần chuẩn bị trong cẩm nang hướng dẫn.</p>
+              <span class="notify-time-stamp">⏱️ 1 ngày trước • Ban Quản lý sự kiện</span>
+            </div>
+            <div>
+              <a href="schedule.html" class="btn btn-sm btn-outline">Xem lịch</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+    });
+  </script>
+</body>
+</html>

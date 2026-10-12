@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Hoạt Động & Điểm Danh — Ban Tổ Chức | VolunteerHub</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="container navbar">
+      <div class="nav-brand">
+        <span>VolunteerHub</span>
+        <span class="logo-badge">Organizer Portal</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../activities.html">Hoạt động</a></li>
+        <li><a href="../stories.html">Stories</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="manage.html" class="active">Ban tổ chức</a></li>
+        <li><a href="create-event.html">Tạo sự kiện</a></li>
+        <li class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-btn" id="vhNotifBtn" title="Xem thông báo" aria-expanded="false">
+            🔔
+            <span class="vh-notif-badge" id="vhNotifBadge">3</span>
+          </button>
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <span class="vh-notif-title">Thông báo mới</span>
+              <button type="button" class="vh-notif-markall" id="vhNotifMarkAll">Đã đọc tất cả</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList"></div>
+            <div class="vh-notif-footer">
+              <a href="../notifications.html" class="vh-notif-viewall-btn">Xem tất cả thông báo &rarr;</a>
+            </div>
+          </div>
+        </li>
+        <li id="navAuthBadge"></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 12px; padding-bottom: 28px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+      <div>
+        <h1 style="margin: 0; font-size: 1.25rem;">Ban Điều Phối — Quỹ Xanh Việt Nam</h1>
+        <p style="margin: 0; font-size: 0.78rem;">Quản lý ứng viên đăng ký, xét duyệt chỉ tiêu và quét điểm danh tại sự kiện.</p>
+      </div>
+      <a href="create-event.html" class="btn btn-sm btn-primary">
+        ➕ Tạo Hoạt Động Mới (Wizard)
+      </a>
+    </div>
+
+    <!-- DANH SÁCH DUYỆT ĐƠN & ĐIỂM DANH -->
+    <div class="card" style="padding: 8px 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h2 style="font-size: 0.95rem; margin: 0;">Danh Sách Tình Nguyện Viên Nộp Đơn</h2>
+        <span class="badge badge-mint">Chỉ tiêu còn lại: 12/50 chỗ</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Họ Tên & Email</th>
+              <th>Hoạt Động Tham Gia</th>
+              <th>Trạng Thái Duyệt</th>
+              <th>Trạng Thái Điểm Danh</th>
+              <th>Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody id="applicantsTableBody">
+            <!-- Đổ từ organizer.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>VolunteerHub Organizer Portal • Hỗ trợ chuyển đổi số cho các tổ chức thiện nguyện.</p>
+    </div>
+  </footer>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useToast.js"></script>
+  <script src="../shared/useTheme.js"></script>
+  <script src="../shared/useAuth.js"></script>
+  <script src="../shared/useNotification.js"></script>
+
+  <!-- LOGIC CỦA BAN TỔ CHỨC -->
+  <script src="organizer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useAuth.renderNavbarAuth('navAuthBadge');
+      if (window.useNotification) {
+        useNotification.init();
+      }
+    });
+  </script>
+</body>
+</html>

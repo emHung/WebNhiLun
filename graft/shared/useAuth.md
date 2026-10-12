@@ -1,0 +1,17 @@
+# shared/useAuth.js
+
+- resolvePath · method · L45-L55 — resolvePath(url)
+- getAllUsers · method · L57-L59 — getAllUsers()
+- getCurrentUser · method · L61-L63 — getCurrentUser()
+- hasRole · method · L65-L68 — hasRole(role)
+- login · method · L70-L88 — login(email, password)
+- logout · method · L91-L99 — logout()
+- switchRole · method · L102-L118 — switchRole(roleKey)
+- getRoleDashboardLink · method · L121-L131 — getRoleDashboardLink(role)
+- getRoleDashboardInfo · method · L134-L162 — getRoleDashboardInfo(role)
+- toggleUserDropdown · method · L164-L171 — toggleUserDropdown()
+- closeUserDropdown · method · L173-L180 — closeUserDropdown()
+- renderNavbarAuth · method · L183-L324 — renderNavbarAuth(elementIdOrSelector = 'navAuthBadge')
+- renderAllNavAuth · method · L327-L345 — renderAllNavAuth()
+- bindEvents · method · L347-L369 — bindEvents()
+- init · method · L371-L374 — init()

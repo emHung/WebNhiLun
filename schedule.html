@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lịch Hoạt Động Thiện Nguyện — VolunteerHub</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/schedule.css">
+</head>
+<body>
+
+  <div class="profile-app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="profile-sidebar">
+      <a href="index.html" class="sidebar-brand-box">
+        <div class="sidebar-brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#10B981"/>
+            <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="sidebar-brand-title">VolunteerHub</span>
+      </a>
+
+      <ul class="sidebar-menu-list">
+        <li class="sidebar-menu-item">
+          <a href="index.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🏠</span><span>Trang chủ</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="activities.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🧭</span><span>Hoạt động</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="stories.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📖</span><span>Stories</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="about.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Giới thiệu</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="dashboard.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item active">
+          <a href="schedule.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📅</span><span>Lịch hoạt động</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="notifications.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span>
+            <span class="sidebar-badge">3</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="profile.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">👤</span><span>Hồ sơ cá nhân</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="volunteer/dashboard.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Hoạt động của tôi</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="certificates.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🎖️</span><span>Chứng nhận</span></span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-mini-promo">
+        <div class="mini-promo-graphic">🌱</div>
+        <p class="mini-promo-title">Cùng nhau<br>lan tỏa giá trị tốt đẹp</p>
+        <a href="activities.html" class="mini-promo-btn">Tham gia ngay &rarr;</a>
+      </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="profile-main-area">
+
+      <!-- TOPBAR -->
+      <div class="profile-topbar">
+        <div class="topbar-search-box">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm theo ngày, sự kiện...">
+        </div>
+        <div class="topbar-right-actions">
+          <!-- POPUP THÔNG BÁO DROPDOWN -->
+          <div class="vh-notif-wrapper">
+            <button type="button" class="vh-notif-btn" id="vhNotifBtn" title="Xem thông báo" aria-expanded="false">
+              🔔
+              <span class="vh-notif-badge" id="vhNotifBadge">3</span>
+            </button>
+            <div class="vh-notif-dropdown" id="vhNotifDropdown">
+              <div class="vh-notif-header">
+                <span class="vh-notif-title">Thông báo mới</span>
+                <button type="button" class="vh-notif-markall" id="vhNotifMarkAll">Đã đọc tất cả</button>
+              </div>
+              <div class="vh-notif-list" id="vhNotifList"></div>
+              <div class="vh-notif-footer">
+                <a href="notifications.html" class="vh-notif-viewall-btn">Xem tất cả thông báo &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+          <div id="vhUserNavWrap"></div>
+        </div>
+      </div>
+
+      <!-- HEADER CONTROLS -->
+      <div class="schedule-header-controls">
+        <div>
+          <h1 style="margin: 0; font-size: 1.35rem; font-weight: 800;">Lịch Hoạt Động Thiện Nguyện 📅</h1>
+          <p style="margin: 2px 0 0 0; font-size: 0.78rem; color: var(--text-secondary);">Theo dõi các ca trực tình nguyện đã đăng ký và chuẩn bị tham gia.</p>
+        </div>
+        <div class="month-navigator-box">
+          <button class="btn btn-sm btn-outline" onclick="useToast.show('Đã chuyển về Tháng 09/2026', 'info')">&larr; Tháng trước</button>
+          <h2 class="current-month-label">Tháng 10 / 2026</h2>
+          <button class="btn btn-sm btn-outline" onclick="useToast.show('Đã chuyển sang Tháng 11/2026', 'info')">Tháng sau &rarr;</button>
+        </div>
+      </div>
+
+      <!-- CALENDAR MONTH GRID (THÁNG 10/2026) -->
+      <div class="calendar-month-grid">
+        <div class="cal-header-day">T2</div>
+        <div class="cal-header-day">T3</div>
+        <div class="cal-header-day">T4</div>
+        <div class="cal-header-day">T5</div>
+        <div class="cal-header-day">T6</div>
+        <div class="cal-header-day" style="color: #0d7052;">T7</div>
+        <div class="cal-header-day" style="color: #ef4444;">CN</div>
+
+        <!-- Row 1 -->
+        <div class="cal-date-slot" style="opacity: 0.4;"><span class="cal-date-num">28</span></div>
+        <div class="cal-date-slot" style="opacity: 0.4;"><span class="cal-date-num">29</span></div>
+        <div class="cal-date-slot" style="opacity: 0.4;"><span class="cal-date-num">30</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">1</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">2</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">3</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">4</span></div>
+
+        <!-- Row 2 -->
+        <div class="cal-date-slot"><span class="cal-date-num">5</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">6</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">7</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">8</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">9</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">10</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">11</span></div>
+
+        <!-- Row 3 -->
+        <div class="cal-date-slot today">
+          <span class="cal-date-num">12 (Hôm nay)</span>
+          <span class="cal-event-pill">Họp trực tuyến</span>
+        </div>
+        <div class="cal-date-slot"><span class="cal-date-num">13</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">14</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">15</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">16</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">17</span></div>
+        <div class="cal-date-slot has-event">
+          <span class="cal-date-num">18</span>
+          <span class="cal-event-pill pending">Sách cho em</span>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="cal-date-slot"><span class="cal-date-num">19</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">20</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">21</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">22</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">23</span></div>
+        <div class="cal-date-slot has-event">
+          <span class="cal-date-num">24</span>
+          <span class="cal-event-pill">Trồng cây xanh</span>
+        </div>
+        <div class="cal-date-slot"><span class="cal-date-num">25</span></div>
+
+        <!-- Row 5 -->
+        <div class="cal-date-slot"><span class="cal-date-num">26</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">27</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">28</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">29</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">30</span></div>
+        <div class="cal-date-slot"><span class="cal-date-num">31</span></div>
+        <div class="cal-date-slot has-event" style="opacity: 0.5;">
+          <span class="cal-date-num">1/11</span>
+        </div>
+      </div>
+
+      <!-- DANH SÁCH CA TRỰC SẮP DIỄN RA -->
+      <div class="shift-timeline-card">
+        <h3 style="margin: 0 0 12px 0; font-size: 1rem;">Chi tiết các ca trực sắp tới</h3>
+
+        <div class="shift-item-row">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="shift-date-badge">18/10<br><span style="font-size: 0.65rem; font-weight: normal;">Chủ nhật</span></div>
+            <div>
+              <strong style="font-size: 0.86rem; display: block;">Sách Cho Em — Trao Tri Thức Vùng Cao</strong>
+              <span style="font-size: 0.74rem; color: var(--text-secondary);">Ca sáng (07:30 - 11:30) • Đồng Nai • Phụ trách: Ban Khuyến học</span>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-warning">Chờ duyệt</span>
+          </div>
+        </div>
+
+        <div class="shift-item-row">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="shift-date-badge">24/10<br><span style="font-size: 0.65rem; font-weight: normal;">Thứ bảy</span></div>
+            <div>
+              <strong style="font-size: 0.86rem; display: block;">Ngày Hội Trồng Cây Xanh 2026</strong>
+              <span style="font-size: 0.74rem; color: var(--text-secondary);">Cả ngày (07:00 - 15:30) • Rừng ngập mặn Cần Giờ, TP.HCM</span>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-success">Đã duyệt (6 giờ)</span>
+          </div>
+        </div>
+
+        <div class="shift-item-row">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="shift-date-badge">05/11<br><span style="font-size: 0.65rem; font-weight: normal;">Thứ năm</span></div>
+            <div>
+              <strong style="font-size: 0.86rem; display: block;">Chiến Dịch Làm Sạch Bờ Biển</strong>
+              <span style="font-size: 0.74rem; color: var(--text-secondary);">Ca sáng (06:30 - 11:00) • Bãi Sau, Vũng Tàu</span>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-success">Đã duyệt (4 giờ)</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+      if (window.useNotification) {
+        useNotification.init();
+      }
+    });
+  </script>
+</body>
+</html>

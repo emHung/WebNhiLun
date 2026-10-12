@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập & Đăng Ký Tài Khoản — VolunteerHub</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+  <div class="auth-page-wrapper">
+
+    <!-- THANH ĐIỀU HƯỚNG TRÊN CÙNG -->
+    <header class="auth-top-nav">
+      <div class="nav-brand" style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-weight: 800; font-size: 1rem; color: #0b3d2c;">VolunteerHub</span>
+        <span class="logo-badge" style="background: rgba(16, 185, 129, 0.15); color: #0d7052; border-color: rgba(16, 185, 129, 0.3);">Xác thực tài khoản</span>
+      </div>
+      <ul class="auth-nav-links">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="activities.html">Hoạt động</a></li>
+        <li><a href="stories.html">Stories</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+      </ul>
+    </header>
+
+    <!-- TRÍCH DẪN NGHỆ THUẬT GÓC TRÊN BÊN PHẢI (MOCKUP) -->
+    <div class="ambient-top-quote" aria-hidden="true">
+      <span class="quote-mark">“</span>
+      <span>Một hành động nhỏ cũng có thể tạo nên thay đổi lớn.</span>
+      <span class="quote-heart">♡</span>
+    </div>
+
+    <!-- LOGO & SLOGAN TRÊN ĐẦU THẺ -->
+    <div class="auth-brand-banner">
+      <div class="brand-icon-leaf-heart">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#10B981"/>
+          <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="8" cy="9" r="1.5" fill="#FFFFFF"/>
+          <circle cx="16" cy="9" r="1.5" fill="#FFFFFF"/>
+        </svg>
+      </div>
+      <h1 class="auth-brand-name">Volunteer <span>Hub</span></h1>
+      <p class="auth-brand-slogan">Kết nối trái tim, lan tỏa hành động</p>
+    </div>
+
+    <!-- THẺ KÍNH CHÍNH (GLASSMORPHISM CONTAINER) -->
+    <div class="auth-glass-card">
+
+      <!-- THANH ĐĂNG NHẬP NHANH 1 CHẠM (DEMO) -->
+      <div class="demo-accounts-ribbon">
+        <div class="demo-ribbon-header">
+          <span class="demo-ribbon-title">
+            <span>🚀</span> Đăng nhập nhanh 1 chạm (Demo):
+          </span>
+          <span class="demo-ribbon-pwd">
+            Mật khẩu mặc định: <span class="demo-pass-pill">123</span>
+          </span>
+        </div>
+        <div class="demo-quick-buttons-row">
+          <button type="button" class="demo-quick-card-btn" onclick="quickLoginRole('volunteer')" title="Đăng nhập tài khoản Tình nguyện viên">
+            <div class="demo-avatar-circle tnv">🧑</div>
+            <div class="demo-btn-text">
+              <strong>TNV</strong>
+              <span>Nguyễn Văn An</span>
+            </div>
+          </button>
+          <button type="button" class="demo-quick-card-btn" onclick="quickLoginRole('organizer')" title="Đăng nhập tài khoản Ban tổ chức">
+            <div class="demo-avatar-circle btc">🏢</div>
+            <div class="demo-btn-text">
+              <strong>BTC</strong>
+              <span>Quỹ Xanh VN</span>
+            </div>
+          </button>
+          <button type="button" class="demo-quick-card-btn" onclick="quickLoginRole('admin')" title="Đăng nhập tài khoản Quản trị hệ thống">
+            <div class="demo-avatar-circle admin">🛡️</div>
+            <div class="demo-btn-text">
+              <strong>Admin</strong>
+              <span>Quản trị</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- TABS CHUYỂN ĐỔI: ĐĂNG NHẬP / ĐĂNG KÝ MỚI -->
+      <div class="auth-nav-tabs">
+        <button type="button" class="auth-nav-tab active" id="tabLogin" onclick="switchAuthTab('login')">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>Đăng Nhập</span>
+        </button>
+        <button type="button" class="auth-nav-tab" id="tabRegister" onclick="switchAuthTab('register')">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+          <span>Đăng Ký Mới</span>
+        </button>
+      </div>
+
+      <!-- 1. PANE: ĐĂNG NHẬP -->
+      <div class="auth-pane active" id="paneLogin">
+        <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+
+          <div class="auth-form-group">
+            <label class="auth-field-label" for="loginEmail">Email đăng nhập</label>
+            <div class="auth-input-wrapper">
+              <span class="input-icon-left">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </span>
+              <input type="email" id="loginEmail" class="auth-input" placeholder="an.nguyen@email.com" value="an.nguyen@email.com" required>
+            </div>
+          </div>
+
+          <div class="auth-form-group">
+            <div class="auth-label-row">
+              <label class="auth-field-label" for="loginPassword" style="margin: 0;">Mật khẩu</label>
+              <a href="javascript:void(0)" onclick="forgotPasswordAlert()" class="auth-forgot-link">Quên mật khẩu?</a>
+            </div>
+            <div class="auth-input-wrapper">
+              <span class="input-icon-left">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </span>
+              <input type="password" id="loginPassword" class="auth-input" placeholder="Nhập mật khẩu" value="123" required>
+              <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('loginPassword', this)" title="Hiện / Ẩn mật khẩu">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="auth-checkbox-row">
+            <label class="custom-checkbox-container">
+              <input type="checkbox" id="rememberMe" checked>
+              <span>Ghi nhớ phiên đăng nhập <span class="checkbox-info-tooltip" title="Lưu phiên đăng nhập tự động">ⓘ</span></span>
+            </label>
+          </div>
+
+          <button type="submit" class="auth-submit-btn">
+            <span>Đăng Nhập & Vào Hệ Thống</span>
+            <div class="btn-arrow-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </button>
+        </form>
+
+        <div class="auth-card-footer-link">
+          Chưa có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab('register')">Đăng ký ngay tại đây</a>
+        </div>
+      </div>
+
+      <!-- 2. PANE: ĐĂNG KÝ MỚI -->
+      <div class="auth-pane" id="paneRegister">
+        <form id="registerForm" onsubmit="handleRegisterSubmit(event)">
+
+          <!-- CHỌN VAI TRÒ (ROLE SELECTION CARDS) -->
+          <label class="auth-field-label">Chọn vai trò của bạn *</label>
+          <div class="role-selection-grid">
+            <div class="role-select-card selected" id="optVolunteer" onclick="selectRole('volunteer')">
+              <div class="role-check-badge">✓</div>
+              <div class="role-card-avatar volunteer">🙋</div>
+              <div class="role-card-body">
+                <strong>Tình nguyện viên</strong>
+                <p>Tìm kiếm chiến dịch, tích lũy giờ & nhận chứng nhận.</p>
+              </div>
+            </div>
+
+            <div class="role-select-card" id="optOrganizer" onclick="selectRole('organizer')">
+              <div class="role-check-badge">✓</div>
+              <div class="role-card-avatar organizer">🏢</div>
+              <div class="role-card-body">
+                <strong>Ban tổ chức / CLB</strong>
+                <p>Tạo hoạt động, duyệt đơn & quét QR điểm danh.</p>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="regRole" value="volunteer">
+
+          <!-- HỌ TÊN -->
+          <div class="auth-form-group">
+            <label class="auth-field-label" for="regName">Họ và tên / Tên tổ chức *</label>
+            <div class="auth-input-wrapper">
+              <span class="input-icon-left">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </span>
+              <input type="text" id="regName" class="auth-input" placeholder="VD: Lê Thị Hồng Nhung" required>
+            </div>
+          </div>
+
+          <!-- EMAIL -->
+          <div class="auth-form-group">
+            <label class="auth-field-label" for="regEmail">Email tài khoản *</label>
+            <div class="auth-input-wrapper">
+              <span class="input-icon-left">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </span>
+              <input type="email" id="regEmail" class="auth-input" placeholder="nhung.le@email.com" required>
+            </div>
+          </div>
+
+          <!-- MẬT KHẨU & XÁC NHẬN MẬT KHẨU (2 CỘT) -->
+          <div class="register-pwd-grid">
+            <div class="auth-form-group">
+              <label class="auth-field-label" for="regPassword">Mật khẩu *</label>
+              <div class="auth-input-wrapper">
+                <span class="input-icon-left">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="regPassword" class="auth-input" placeholder="Tối thiểu 6 ký tự" required minlength="3">
+                <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('regPassword', this)" title="Hiện / Ẩn mật khẩu">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="auth-form-group">
+              <label class="auth-field-label" for="regConfirmPassword">Xác nhận mật khẩu *</label>
+              <div class="auth-input-wrapper">
+                <span class="input-icon-left">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="regConfirmPassword" class="auth-input" placeholder="Nhập lại mật khẩu" required minlength="3">
+                <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('regConfirmPassword', this)" title="Hiện / Ẩn mật khẩu">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ĐỒNG Ý QUY TẮC -->
+          <div class="auth-checkbox-row" style="margin-top: 4px;">
+            <label class="custom-checkbox-container">
+              <input type="checkbox" id="regAgreement" checked required>
+              <span>Bằng việc bấm đăng ký, bạn đồng ý với <a href="javascript:void(0)" onclick="showTermsAlert()" style="color: #10b981; text-decoration: underline; font-weight: 600;">Quy tắc cộng đồng</a> của VolunteerHub.</span>
+            </label>
+          </div>
+
+          <!-- NÚT ĐĂNG KÝ -->
+          <button type="submit" class="auth-submit-btn">
+            <span>Tạo Tài Khoản & Bắt Đầu</span>
+            <div class="btn-arrow-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </button>
+        </form>
+
+        <div class="auth-card-footer-link">
+          Đã có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab('login')">Đăng nhập tại đây</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHỮ THƯ PHÁP DƯỚI ĐÁY (MOCKUP) -->
+    <div class="ambient-bottom-quote">
+      Cùng nhau làm nên những điều tốt đẹp hơn 💚
+    </div>
+
+  </div>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+    });
+
+    // Chuyển tab Đăng nhập / Đăng ký
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-nav-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.auth-pane').forEach(p => p.classList.remove('active'));
+
+      if (tab === 'login') {
+        document.getElementById('tabLogin').classList.add('active');
+        document.getElementById('paneLogin').classList.add('active');
+      } else {
+        document.getElementById('tabRegister').classList.add('active');
+        document.getElementById('paneRegister').classList.add('active');
+      }
+    }
+
+    // Chọn vai trò ở tab Đăng ký
+    function selectRole(role) {
+      document.getElementById('regRole').value = role;
+      document.getElementById('optVolunteer').classList.toggle('selected', role === 'volunteer');
+      document.getElementById('optOrganizer').classList.toggle('selected', role === 'organizer');
+    }
+
+    // Hiện / ẩn mật khẩu
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const isPwd = input.type === 'password';
+      input.type = isPwd ? 'text' : 'password';
+
+      // Cập nhật icon SVG
+      if (isPwd) {
+        btn.innerHTML = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+      } else {
+        btn.innerHTML = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+      }
+    }
+
+    // Xử lý gửi form đăng nhập
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPassword').value;
+
+      const res = useAuth.login(email, pass);
+      if (res.success) {
+        useToast.show(res.message, 'success');
+        setTimeout(() => {
+          window.location.href = res.redirectUrl;
+        }, 500);
+      } else {
+        useToast.show(res.message, 'error');
+      }
+    }
+
+    // Xử lý gửi form đăng ký
+    function handleRegisterSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('regConfirmPassword').value;
+      const role = document.getElementById('regRole').value;
+
+      if (password !== confirmPassword) {
+        useToast.show('Mật khẩu xác nhận không khớp, vui lòng kiểm tra lại!', 'error');
+        return;
+      }
+
+      const res = useAuth.register({ name, email, password, role });
+      if (res.success) {
+        useToast.show(res.message, 'success');
+        setTimeout(() => {
+          window.location.href = res.redirectUrl;
+        }, 600);
+      } else {
+        useToast.show(res.message, 'error');
+      }
+    }
+
+    // Đăng nhập nhanh 1 chạm theo vai trò (Demo)
+    function quickLoginRole(roleKey) {
+      const res = useAuth.quickLogin(roleKey);
+      if (res.success) {
+        useToast.show(res.message, 'success');
+        setTimeout(() => {
+          window.location.href = res.redirectUrl;
+        }, 450);
+      }
+    }
+
+    // Quên mật khẩu
+    function forgotPasswordAlert() {
+      const email = prompt('Nhập địa chỉ email của bạn để nhận liên kết khôi phục mật khẩu:', document.getElementById('loginEmail').value || 'an.nguyen@email.com');
+      if (email) {
+        useToast.show('Hệ thống đã gửi liên kết đặt lại mật khẩu về: ' + email, 'info');
+      }
+    }
+
+    // Thông báo Quy tắc cộng đồng
+    function showTermsAlert() {
+      alert('QUY TẮC CỘNG ĐỒNG VOLUNTEERHUB:\n\n1. Minh bạch và trung thực trong mọi hoạt động thiện nguyện.\n2. Tôn trọng người thụ hưởng và các thành viên tham gia.\n3. Tuân thủ tuyệt đối an toàn và sự điều phối của Ban tổ chức.');
+    }
+  </script>
+</body>
+</html>

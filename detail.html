@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khám Bệnh & Cấp Phát Túi Thuốc Gia Đình Miễn Phí — VolunteerHub</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/detail.css">
+</head>
+<body class="act-page-wrapper">
+
+  <!-- THANH NAVBAR THỐNG NHẤT TOÀN HỆ THỐNG -->
+  <header class="vh-navbar-wrapper">
+    <div class="vh-navbar-container">
+      <a href="index.html" class="vh-brand-group">
+        <span class="vh-brand-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
+          </svg>
+        </span>
+        <div class="vh-brand-title-wrap">
+          <span class="vh-brand-name">VolunteerHub</span>
+          <span class="vh-brand-slogan">Cùng nhau lan tỏa giá trị tốt đẹp</span>
+        </div>
+      </a>
+
+      <!-- MENU ĐIỀU HƯỚNG THỐNG NHẤT -->
+      <ul class="vh-nav-menu-list">
+        <li class="vh-nav-item"><a href="index.html"><span>Trang chủ</span></a></li>
+        <li class="vh-nav-item"><a href="activities.html" class="active"><span>Hoạt động</span></a></li>
+        <li class="vh-nav-item"><a href="stories.html"><span>Stories</span></a></li>
+        <li class="vh-nav-item"><a href="about.html"><span>Giới thiệu</span></a></li>
+      </ul>
+
+      <div class="vh-nav-search-bar">
+        <span class="vh-nav-search-icon">🔍</span>
+        <input type="text" placeholder="Tìm kiếm hoạt động, câu chuyện, địa điểm..." onkeydown="if(event.key==='Enter') window.location.href='activities.html?q='+encodeURIComponent(this.value)">
+      </div>
+
+      <div class="vh-nav-actions">
+        <!-- POPUP THÔNG BÁO DROPDOWN -->
+        <div class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+          </button>
+
+          <!-- DROPDOWN CONTENT -->
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <div class="vh-notif-header-title">🔔 Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList">
+              <!-- Nạp từ useNotification.js -->
+            </div>
+            <div class="vh-notif-footer">
+              <a href="notifications.html" class="vh-notif-view-all-btn">
+                <span>Xem tất cả thông báo</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+        <div id="vhUserNavWrap"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO BANNER KHÁM BỆNH (MOCKUP HÌNH 4) -->
+    <section class="detail-hero-banner">
+      <div>
+        <div class="detail-breadcrumb-row">
+          <a href="index.html">Trang chủ</a> &gt; <a href="activities.html">Hoạt động</a> &gt; <span>Khám bệnh & cấp phát túi thuốc gia đình miễn phí</span>
+        </div>
+
+        <div class="detail-badges-row">
+          <span class="badge" style="background: #e0f2fe; color: #0284c7; font-weight: 700;">💊 Y tế</span>
+          <span class="badge badge-success">Đang tuyển</span>
+          <span class="badge badge-mint">✔ Đã xác minh</span>
+        </div>
+
+        <h1 class="detail-title-h1">Khám bệnh & cấp phát túi thuốc gia đình miễn phí</h1>
+        <p class="detail-sub-desc">
+          Hỗ trợ các bác sĩ hướng dẫn người dân làm thủ tục khám bệnh, đo huyết áp và phát 300 phần thuốc thiết yếu cho đồng bào vùng biên giới.
+        </p>
+
+        <div class="detail-meta-icons-grid">
+          <div class="detail-meta-item">
+            <span>📅</span>
+            <div><strong>15/11/2026</strong> (07:30 - 15:00)</div>
+          </div>
+          <div class="detail-meta-item">
+            <span>📍</span>
+            <div>Trạm Y Tế Xã Đắk Ơ, H. Bù Gia Mập, Bình Phước</div>
+          </div>
+          <div class="detail-meta-item">
+            <span>👥</span>
+            <div><strong>14/20</strong> Đã đăng ký</div>
+          </div>
+          <div class="detail-meta-item">
+            <span>⭐</span>
+            <div><strong>4.9</strong> (32 đánh giá)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISUAL PHẢI -->
+      <div class="detail-hero-visual-right">
+        <div class="detail-quote-overlay">
+          “Lan tỏa yêu thương vì một cộng đồng khỏe mạnh hơn ♡”
+        </div>
+        <img src="images/act-medical.jpg" alt="Khám bệnh tình nguyện" class="detail-hero-main-img">
+
+        <div class="detail-gallery-strip">
+          <img src="images/act-tree.jpg" alt="Gallery" class="gallery-strip-thumb">
+          <img src="images/act-books.jpg" alt="Gallery" class="gallery-strip-thumb">
+          <img src="images/act-food.jpg" alt="Gallery" class="gallery-strip-thumb">
+          <img src="images/act-animal.jpg" alt="Gallery" class="gallery-strip-thumb">
+          <div class="gallery-more-badge" onclick="alert('Đang xem trọn bộ 16 hình ảnh phóng sự thực tế của sự kiện!')">+12 hình ảnh</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THANH TABS ĐIỀU HƯỚNG NỘI DUNG -->
+    <div class="detail-nav-tabs-bar">
+      <button type="button" class="detail-tab-btn active" onclick="switchDetailTab('overview')">🌿 Tổng quan</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('schedule')">📅 Lịch trình</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('location')">📍 Địa điểm</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('requirements')">🛡️ Yêu cầu & Chuẩn bị</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('organizer')">🏢 Đơn vị tổ chức</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('images')">📷 Hình ảnh</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('reviews')">⭐ Đánh giá</button>
+    </div>
+
+    <!-- BỐ CỤC 2 CỘT CHÍNH -->
+    <div class="detail-content-layout">
+
+      <!-- CỘT TRÁI: CHI TIẾT HOẠT ĐỘNG -->
+      <div class="detail-left-col">
+
+        <!-- 1. GIỚI THIỆU HOẠT ĐỘNG -->
+        <div class="card" style="padding: 16px;">
+          <h3 style="margin: 0 0 8px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+            <span>🌿</span> <span>Giới thiệu hoạt động</span>
+          </h3>
+          <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary); margin: 0;">
+            Chương trình nhằm hỗ trợ chăm sóc sức khỏe cho người dân tại các khu vực còn nhiều khó khăn, thông qua khám bệnh tổng quát, đo huyết áp, tư vấn sức khỏe và cấp phát 300 phần thuốc thiết yếu. Đây là hoạt động thiện nguyện ý nghĩa, góp phần nâng cao chất lượng cuộc sống cho bà con vùng biên giới.
+          </p>
+        </div>
+
+        <!-- 2. LỊCH TRÌNH CHI TIẾT -->
+        <div class="card" style="padding: 16px;">
+          <h3 style="margin: 0 0 8px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+            <span>📅</span> <span>Lịch trình chi tiết</span>
+          </h3>
+
+          <div class="detail-timeline-wrap">
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">07:30 - 08:30</span>
+              <div class="timeline-step-text">Tập trung tại trạm y tế, sắp xếp bàn ghế, phân công nhiệm vụ.</div>
+            </div>
+
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">08:30 - 11:30</span>
+              <div class="timeline-step-text">Hỗ trợ đo mạch, huyết áp và điều phối vào các phòng khám chuyên khoa.</div>
+            </div>
+
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">11:30 - 13:00</span>
+              <div class="timeline-step-text">Nghỉ trưa tại trạm y tế (Ban tổ chức hỗ trợ cơm trưa dinh dưỡng).</div>
+            </div>
+
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">13:00 - 15:00</span>
+              <div class="timeline-step-text">Đóng gói túi thuốc theo đơn và hướng dẫn bà con sử dụng thuốc an toàn.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. ĐỊA ĐIỂM HOẠT ĐỘNG -->
+        <div class="card" style="padding: 16px;">
+          <h3 style="margin: 0 0 4px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+            <span>📍</span> <span>Địa điểm hoạt động</span>
+          </h3>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 0 0 8px 0;">
+            Trạm Y Tế Xã Đắk Ơ, Huyện Bù Gia Mập, Tỉnh Bình Phước.
+          </p>
+
+          <div class="map-preview-box">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.5rem;">🗺️</span>
+              <div>
+                <strong style="font-size: 0.78rem; display: block;">Tọa độ GPS Trạm Y Tế Xã Đắk Ơ</strong>
+                <span style="font-size: 0.7rem; color: var(--text-secondary);">11.9654° N, 107.0321° E</span>
+              </div>
+            </div>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-sm btn-outline">
+              Xem trên Google Maps &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. YÊU CẦU & VẬT DỤNG (2 CỘT) -->
+        <div class="detail-two-cards-row">
+          <!-- Yêu cầu tham gia -->
+          <div class="card" style="padding: 16px;">
+            <h3 style="margin: 0 0 10px 0; font-size: 0.88rem; display: flex; align-items: center; gap: 6px;">
+              <span>🛡️</span> <span>Yêu cầu tham gia</span>
+            </h3>
+            <ul class="checklist-items-list">
+              <li><span>✔</span> <span>Ưu tiên sinh viên ngành Y/Dược hoặc tình nguyện viên có kinh nghiệm sơ cấp cứu.</span></li>
+              <li><span>✔</span> <span>Có tinh thần trách nhiệm, kiên nhẫn và tôn trọng người dân địa phương.</span></li>
+              <li><span>✔</span> <span>Tuân thủ tuyệt đối hướng dẫn và điều phối của ban tổ chức.</span></li>
+            </ul>
+          </div>
+
+          <!-- Vật dụng cần chuẩn bị -->
+          <div class="card" style="padding: 16px;">
+            <h3 style="margin: 0 0 10px 0; font-size: 0.88rem; display: flex; align-items: center; gap: 6px;">
+              <span>🎒</span> <span>Vật dụng cần chuẩn bị</span>
+            </h3>
+            <ul class="checklist-items-list">
+              <li><span>🥼</span> <span>Áo blouse trắng (nếu là khối ngành Y/Dược).</span></li>
+              <li><span>👟</span> <span>Giày thể thao, trang phục thoải mái, lịch sự.</span></li>
+              <li><span>🧢</span> <span>Nón, kem chống nắng, chai nước uống cá nhân.</span></li>
+              <li><span>🪪</span> <span>Giấy tờ tùy thân (CMND/CCCD) để đối chiếu danh sách.</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CỘT PHẢI: THẺ ĐĂNG KÝ (STICKY ACTION CARD) -->
+      <aside class="detail-action-card">
+        <div class="action-card-header-badge">
+          <span>⏰</span> <span>Còn 5 ngày đăng ký</span>
+        </div>
+
+        <div class="action-progress-box">
+          <div class="action-progress-labels">
+            <span>Tiến độ nhận đơn</span>
+            <span style="color: #10b981;">14 / 20 người (70%)</span>
+          </div>
+          <div class="action-progress-bar">
+            <div class="action-progress-fill"></div>
+          </div>
+        </div>
+
+        <a href="volunteer/apply.html?actId=ACT-005" class="btn-detail-main-apply">
+          <span>Đăng Ký Tham Gia Ngay</span>
+          <span>&rarr;</span>
+        </a>
+        <div class="action-sub-guarantee">
+          Miễn phí • Xác nhận tham gia qua điểm danh thực tế
+        </div>
+
+        <div class="action-info-rows-list">
+          <div class="action-info-single-row">
+            <span>📅</span>
+            <div><strong>Thời gian:</strong> 15/11/2026 (07:30 - 15:00)</div>
+          </div>
+          <div class="action-info-single-row">
+            <span>📍</span>
+            <div><strong>Địa điểm:</strong> Trạm Y Tế Xã Đắk Ơ, H. Bù Gia Mập, Bình Phước</div>
+          </div>
+          <div class="action-info-single-row">
+            <span>🏷️</span>
+            <div><strong>Lĩnh vực:</strong> Y tế cộng đồng</div>
+          </div>
+          <div class="action-info-single-row">
+            <span>👥</span>
+            <div><strong>Hình thức:</strong> Tình nguyện trực tiếp tại chỗ</div>
+          </div>
+          <div class="action-info-single-row">
+            <span>⏱️</span>
+            <div><strong>Giờ tình nguyện:</strong> <span style="color: #10b981; font-weight: 700;">+7 giờ (được xác nhận)</span></div>
+          </div>
+        </div>
+
+        <div class="action-bottom-buttons-row">
+          <button type="button" class="btn-action-outline-half" onclick="useToast.show('Đã lưu hoạt động vào danh sách yêu thích!', 'success')">
+            <span>🤍</span> <span>Lưu hoạt động</span>
+          </button>
+          <button type="button" class="btn-action-outline-half" onclick="alert('Đã sao chép link chia sẻ hoạt động tới bạn bè!')">
+            <span>🔗</span> <span>Chia sẻ</span>
+          </button>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+    });
+
+    function switchDetailTab(tabKey) {
+      document.querySelectorAll('.detail-tab-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      useToast.show('Đang xem phân mục: ' + event.target.textContent, 'info');
+    }
+  </script>
+</body>
+</html>

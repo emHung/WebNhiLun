@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hàng Đợi Kiểm Duyệt & Audit Logs — Admin Portal | VolunteerHub</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="profile-app-container">
+
+    <!-- SIDEBAR ADMIN (MOCKUP HÌNH 5) -->
+    <aside class="profile-sidebar">
+      <a href="../index.html" class="sidebar-brand-box">
+        <div class="sidebar-brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#10B981"/>
+            <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="sidebar-brand-title">VolunteerHub</span>
+      </a>
+
+      <ul class="sidebar-menu-list">
+        <li class="sidebar-menu-item"><a href="../dashboard.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Quản lý người dùng</span></span></a></li>
+        <li class="sidebar-menu-item active"><a href="moderation.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🛡️</span><span>Kiểm duyệt</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Quản lý hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🏢</span><span>Quản lý tổ chức</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">📈</span><span>Báo cáo & Thống kê</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="../notifications.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
+        <li class="sidebar-menu-item"><a href="theme-settings.html"><span class="sidebar-menu-label"><span class="sidebar-menu-icon">⚙️</span><span>Cài đặt hệ thống (Theme)</span></span></a></li>
+      </ul>
+
+      <div class="sidebar-mini-promo">
+        <div class="mini-promo-graphic">🌱</div>
+        <p class="mini-promo-title">Cùng nhau<br>lan tỏa giá trị tốt đẹp</p>
+        <a href="../index.html" class="mini-promo-btn">Quay về trang chủ &rarr;</a>
+      </div>
+    </aside>
+
+    <!-- NỘI DUNG CHÍNH (MAIN AREA) -->
+    <main class="profile-main-area">
+
+      <!-- TOPBAR -->
+      <div class="profile-topbar">
+        <div class="topbar-search-box">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm tổ chức, hoạt động, người dùng... (Ctrl K)">
+        </div>
+        <div class="topbar-right-actions">
+          <!-- POPUP THÔNG BÁO DROPDOWN -->
+          <div class="vh-notif-wrapper">
+            <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+              <span style="font-size: 1.1rem;">🔔</span>
+              <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+            </button>
+
+            <div class="vh-notif-dropdown" id="vhNotifDropdown">
+              <div class="vh-notif-header">
+                <div class="vh-notif-header-title">🔔 Thông báo mới</div>
+                <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+              </div>
+              <div class="vh-notif-list" id="vhNotifList">
+                <!-- Nạp từ useNotification.js -->
+              </div>
+              <div class="vh-notif-footer">
+                <a href="../notifications.html" class="vh-notif-view-all-btn">
+                  <span>Xem tất cả thông báo</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+          <div id="vhUserNavWrap"></div>
+        </div>
+      </div>
+
+      <!-- PAGE TITLE HEADER -->
+      <div style="margin-bottom: 16px;">
+        <h1 style="margin: 0 0 2px 0; font-size: 1.45rem; font-weight: 800;">Hàng Đợi Kiểm Duyệt & Audit Logs</h1>
+        <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);">
+          Bảo chứng danh tính tổ chức và tính minh bạch của các chiến dịch.
+        </p>
+      </div>
+
+      <!-- 4 THẺ CHỈ SỐ METRIC CARDS -->
+      <div class="admin-stats-row-four">
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon">🏢</div>
+          <div>
+            <span class="admin-stat-num">5</span>
+            <span class="admin-stat-lbl">Tổ chức chờ duyệt</span>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon">📅</div>
+          <div>
+            <span class="admin-stat-num">12</span>
+            <span class="admin-stat-lbl">Hoạt động chờ duyệt</span>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon">👥</div>
+          <div>
+            <span class="admin-stat-num">28</span>
+            <span class="admin-stat-lbl">Người dùng mới</span>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon">🛡️</div>
+          <div>
+            <span class="admin-stat-num" style="color: #10b981;">0</span>
+            <span class="admin-stat-lbl">Báo cáo vi phạm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHẦN 1: KIỂM DUYỆT TỔ CHỨC THIỆN NGUYỆN (5) -->
+      <div class="admin-section-block">
+        <div class="admin-section-header">
+          <h2 class="admin-sec-title">
+            <span>🏢</span> <span>1. Kiểm Duyệt Tổ Chức Thiện Nguyện (5)</span>
+          </h2>
+          <div class="admin-table-search-row">
+            <input type="text" placeholder="Tìm tên tổ chức..." class="quick-select-control" style="width: 160px;">
+            <select class="quick-select-control">
+              <option>Tất cả trạng thái ⌵</option>
+              <option>Chờ duyệt</option>
+              <option>Đã xác nhận</option>
+            </select>
+            <a href="javascript:void(0)" class="section-view-all-link">Xem tất cả &rarr;</a>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="table" style="font-size: 0.78rem;">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Tên tổ chức</th>
+                <th>Người đại diện</th>
+                <th>Lĩnh vực</th>
+                <th>Tài liệu đính kèm</th>
+                <th>Ngày đăng ký</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><strong>🌱 CLB Ánh Sáng Tương Lai</strong></td>
+                <td>Chị Thu Thảo (Chủ nhiệm)</td>
+                <td><span class="badge" style="background:#e0f2fe; color:#0284c7;">Giáo dục</span></td>
+                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Quyết định thành lập CLB.pdf</a></td>
+                <td>12/10/2026</td>
+                <td><span class="badge badge-warning">Chờ duyệt</span></td>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="btn btn-sm btn-primary" onclick="useToast.show('Đã duyệt cấp tích xanh cho CLB Ánh Sáng Tương Lai!', 'success')">Duyệt</button>
+                    <button class="btn btn-sm btn-outline" style="color:#ef4444;" onclick="alert('Nhập lý do từ chối hồ sơ pháp lý:')">Từ chối</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><strong>🌿 Quỹ Xanh Việt Nam</strong></td>
+                <td>Anh Minh Trí</td>
+                <td><span class="badge badge-mint">Môi trường</span></td>
+                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Giấy phép hoạt động.pdf</a></td>
+                <td>10/10/2026</td>
+                <td><span class="badge badge-success">Đã xác nhận</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline" onclick="alert('Hồ sơ pháp lý: Đã xác thực Bộ Nội Vụ')">Xem chi tiết</button>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><strong>🌸 Nhóm Thiện Nguyện Hoa Sen</strong></td>
+                <td>Nguyễn Thị Lan</td>
+                <td><span class="badge" style="background:#ffedd5; color:#c2410c;">Cộng đồng</span></td>
+                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Điều lệ tổ chức.pdf</a></td>
+                <td>08/10/2026</td>
+                <td><span class="badge badge-warning">Chờ duyệt</span></td>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="btn btn-sm btn-primary" onclick="useToast.show('Đã duyệt tổ chức Hoa Sen!', 'success')">Duyệt</button>
+                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><strong>⚕️ Hội Thầy Thuốc Vì Cộng Đồng</strong></td>
+                <td>Bác sĩ Hoàng Nam</td>
+                <td><span class="badge" style="background:#fee2e2; color:#b91c1c;">Y tế</span></td>
+                <td><a href="javascript:void(0)" style="color:#10b981;">📄 Giấy phép hành nghề.pdf</a></td>
+                <td>05/10/2026</td>
+                <td><span class="badge" style="background:#e0f2fe; color:#0369a1;">Đang xem xét</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline">Xem chi tiết</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PHẦN 2: KIỂM DUYỆT HOẠT ĐỘNG TRƯỚC KHI CÔNG BỐ (12) -->
+      <div class="admin-section-block">
+        <div class="admin-section-header">
+          <h2 class="admin-sec-title">
+            <span>📅</span> <span>2. Kiểm Duyệt Hoạt Động Trước Khi Công Bố (12)</span>
+          </h2>
+          <div class="admin-table-search-row">
+            <input type="text" placeholder="Tìm tên hoạt động..." class="quick-select-control" style="width: 160px;">
+            <select class="quick-select-control"><option>Tất cả trạng thái ⌵</option></select>
+            <select class="quick-select-control"><option>Tất cả lĩnh vực ⌵</option></select>
+            <a href="javascript:void(0)" class="section-view-all-link">Xem tất cả &rarr;</a>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="table" style="font-size: 0.78rem;">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Tên hoạt động</th>
+                <th>Đơn vị tổ chức</th>
+                <th>Thời gian & Địa điểm</th>
+                <th>Chỉ tiêu</th>
+                <th>Trạng thái</th>
+                <th>Quyết định</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="../images/act-books.jpg" alt="Activity" class="table-act-thumb-small">
+                    <strong>Chuyến xe yêu thương - Tặng quà trẻ em vùng lũ</strong>
+                  </div>
+                </td>
+                <td>Quỹ Xanh Việt Nam</td>
+                <td>📅 28/11/2026 (07:30 - 16:30)<br>📍 Bình Phước</td>
+                <td>👥 35 người</td>
+                <td><span class="badge badge-warning">Chờ duyệt</span></td>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="btn btn-sm btn-primary" onclick="useToast.show('Đã duyệt công bố hoạt động ra công khai!', 'success')">Công bố</button>
+                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="../images/act-tree.jpg" alt="Activity" class="table-act-thumb-small">
+                    <strong>Ngày hội trồng 1.000 cây xanh</strong>
+                  </div>
+                </td>
+                <td>Quỹ Xanh Việt Nam</td>
+                <td>📅 24/10/2026 (08:00 - 12:00)<br>📍 TP. Hồ Chí Minh</td>
+                <td>👥 50 người</td>
+                <td><span class="badge badge-success">Đã công bố</span></td>
+                <td><button class="btn btn-sm btn-outline">Xem chi tiết</button></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="../images/act-food.jpg" alt="Activity" class="table-act-thumb-small">
+                    <strong>Bữa cơm 0 đồng yêu thương</strong>
+                  </div>
+                </td>
+                <td>Bếp Ăn Nghĩa Tình</td>
+                <td>📅 18/10/2026 (10:00 - 14:00)<br>📍 TP. Hồ Chí Minh</td>
+                <td>👥 25 người</td>
+                <td><span class="badge" style="background:#e0f2fe; color:#0369a1;">Đang xem xét</span></td>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="btn btn-sm btn-primary">Công bố</button>
+                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="../images/act-books.jpg" alt="Activity" class="table-act-thumb-small">
+                    <strong>Tủ sách trao em - Đem tri thức...</strong>
+                  </div>
+                </td>
+                <td>CLB Ánh Sáng Tương Lai</td>
+                <td>📅 02/11/2026 (08:00 - 11:00)<br>📍 Đồng Nai</td>
+                <td>👥 30 người</td>
+                <td><span class="badge badge-warning">Chờ duyệt</span></td>
+                <td>
+                  <div style="display: flex; gap: 4px;">
+                    <button class="btn btn-sm btn-primary">Công bố</button>
+                    <button class="btn btn-sm btn-outline" style="color:#ef4444;">Từ chối</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PHẦN 3: NHẬT KÝ KIỂM TOÁN (AUDIT LOGS) -->
+      <div class="admin-section-block">
+        <div class="admin-section-header">
+          <h2 class="admin-sec-title">
+            <span>📋</span> <span>3. Nhật Ký Kiểm Toán (Audit Logs) <span style="font-size: 0.74rem; color: #10b981; font-weight: normal;">Hôm nay: 12</span></span>
+          </h2>
+          <div class="admin-table-search-row">
+            <select class="quick-select-control"><option>Tất cả hành động ⌵</option></select>
+            <span style="font-size: 0.74rem; color: var(--text-secondary);">📅 12/10/2026 - 15/11/2026</span>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="table" style="font-size: 0.74rem;">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Thời gian</th>
+                <th>Người thực hiện</th>
+                <th>Thao tác</th>
+                <th>Đối tượng</th>
+                <th>Chi tiết</th>
+                <th>Địa chỉ IP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>11:20:15 12/10/2026</td>
+                <td>System Admin</td>
+                <td><span class="audit-action-badge theme">THEME_SWITCH</span></td>
+                <td>Đại dương (Mặc định)</td>
+                <td>Áp dụng bảng màu toàn hệ thống</td>
+                <td><code>192.168.1.10</code></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>09:45:00 12/10/2026</td>
+                <td>System Admin</td>
+                <td><span class="audit-action-badge verify">VERIFY_ORGANIZATION</span></td>
+                <td>Quỹ Xanh Việt Nam</td>
+                <td>Cấp tích xanh xác minh pháp lý</td>
+                <td><code>192.168.1.10</code></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>08:30:22 12/10/2026</td>
+                <td>Nguyễn Văn An</td>
+                <td><span class="audit-action-badge theme">APPROVE_EVENT</span></td>
+                <td>Ngày hội trồng cây xanh</td>
+                <td>Duyệt hoạt động và công bố</td>
+                <td><code>192.168.1.15</code></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>07:12:10 12/10/2026</td>
+                <td>Trần Thu Hà</td>
+                <td><span class="audit-action-badge reject">REJECT_ORGANIZATION</span></td>
+                <td>Nhóm Nụ Cười Ấm Áp</td>
+                <td>Từ chối do thiếu giấy phép</td>
+                <td><code>192.168.1.12</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useToast.js"></script>
+  <script src="../shared/useTheme.js"></script>
+  <script src="../shared/useAuth.js"></script>
+  <script src="../shared/useNotification.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+    });
+  </script>
+</body>
+</html>

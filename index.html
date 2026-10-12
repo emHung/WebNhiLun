@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VolunteerHub — Nền Tảng Đăng Ký Hoạt Động Thiện Nguyện Toàn Quốc</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+  <!-- TOP DEMO RIBBON (TIỆN ÍCH CHẤM ĐIỂM / THUYẾT TRÌNH) -->
+  <div class="demo-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+      <span>🚀 <strong>Demo Thuyết Trình:</strong> Điều hướng nhanh các phân hệ:</span>
+      <div>
+        <a href="index.html" style="font-weight: 700; color: #10b981;">🏠 Trang chủ</a> |
+        <a href="activities.html">🔍 Hoạt động</a> |
+        <a href="dashboard.html">📊 Dashboard</a> |
+        <a href="profile.html">👤 Hồ sơ TNV</a> |
+        <a href="detail.html?id=ACT-001">📄 Chi tiết</a> |
+        <a href="organizer/create-event.html">➕ Thêm HĐ</a> |
+        <a href="admin/moderation.html">🛡️ Kiểm duyệt</a> |
+        <a href="auth.html">🔑 Auth</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- THANH NAVBAR THỐNG NHẤT TOÀN HỆ THỐNG -->
+  <header class="vh-navbar-wrapper">
+    <div class="vh-navbar-container">
+      <a href="index.html" class="vh-brand-group">
+        <span class="vh-brand-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
+          </svg>
+        </span>
+        <div class="vh-brand-title-wrap">
+          <span class="vh-brand-name">VolunteerHub</span>
+          <span class="vh-brand-slogan">Cùng nhau lan tỏa giá trị tốt đẹp</span>
+        </div>
+      </a>
+
+      <!-- MENU ĐIỀU HƯỚNG THỐNG NHẤT -->
+      <ul class="vh-nav-menu-list">
+        <li class="vh-nav-item"><a href="index.html" class="active"><span>Trang chủ</span></a></li>
+        <li class="vh-nav-item"><a href="activities.html"><span>Hoạt động</span></a></li>
+        <li class="vh-nav-item"><a href="stories.html"><span>Stories</span></a></li>
+        <li class="vh-nav-item"><a href="about.html"><span>Giới thiệu</span></a></li>
+      </ul>
+
+      <div class="vh-nav-search-bar">
+        <span class="vh-nav-search-icon">🔍</span>
+        <input type="text" placeholder="Tìm kiếm hoạt động, câu chuyện, địa điểm..." onkeydown="if(event.key==='Enter') window.location.href='activities.html?q='+encodeURIComponent(this.value)">
+      </div>
+
+      <div class="vh-nav-actions">
+        <!-- POPUP THÔNG BÁO DROPDOWN -->
+        <div class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+          </button>
+
+          <!-- DROPDOWN CONTENT -->
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <div class="vh-notif-header-title">🔔 Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList">
+              <!-- Nạp từ useNotification.js -->
+            </div>
+            <div class="vh-notif-footer">
+              <a href="notifications.html" class="vh-notif-view-all-btn">
+                <span>Xem tất cả thông báo</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+        <div id="vhUserNavWrap"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO BANNER -->
+    <section class="home-hero-wrap">
+      <div class="home-hero-content">
+        <div>
+          <div class="hero-pill-badge">
+            <span>🌿</span>
+            <span>Kết nối cộng đồng • Lan tỏa giá trị tốt đẹp</span>
+          </div>
+
+          <h1 class="home-hero-title">
+            Cùng nhau<br>
+            làm nên những điều<br>
+            tốt đẹp hơn ♡
+          </h1>
+
+          <p class="home-hero-desc">
+            Khám phá các hoạt động thiện nguyện, kết nối cộng đồng và tạo nên thay đổi tích cực cho xã hội.
+          </p>
+
+          <div class="home-hero-actions">
+            <a href="activities.html" class="btn-hero-primary">
+              <span>Khám phá hoạt động</span>
+              <span>&rarr;</span>
+            </a>
+            <a href="#stories" class="btn-hero-video">
+              <span>▶</span>
+              <span>Xem video giới thiệu</span>
+            </a>
+          </div>
+
+          <div class="hero-quote-art">
+            “Một hành động nhỏ cũng có thể tạo nên thay đổi lớn.” ♡
+          </div>
+        </div>
+
+        <div class="home-hero-visual">
+          <img src="images/home-hero-volunteer.jpg" alt="Tình nguyện viên trồng cây" class="hero-main-img">
+
+          <!-- FLOATING SOCIAL PROOF CARD -->
+          <div class="hero-social-proof-float">
+            <div class="social-proof-title">
+              Tham gia cùng hơn <span>2.500+</span> tình nguyện viên
+            </div>
+            <div class="social-avatars-row">
+              <img src="images/profile-avatar.jpg" alt="Volunteer" class="social-avatar-dot">
+              <img src="images/act-tree.jpg" alt="Volunteer" class="social-avatar-dot">
+              <img src="images/act-books.jpg" alt="Volunteer" class="social-avatar-dot">
+              <img src="images/act-food.jpg" alt="Volunteer" class="social-avatar-dot">
+              <div class="social-avatar-plus">+</div>
+            </div>
+            <div class="social-proof-sub">
+              và tạo ra những thay đổi tích cực trong cộng đồng.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS & QUICK FILTER BAR -->
+    <section class="home-stats-filter-bar">
+      <div class="stats-three-counters">
+        <div class="stat-single-box">
+          <div class="stat-single-icon">📅</div>
+          <div>
+            <span class="stat-single-num">120+</span>
+            <span class="stat-single-label">Hoạt động thiện nguyện</span>
+          </div>
+        </div>
+
+        <div class="stat-single-box">
+          <div class="stat-single-icon">👥</div>
+          <div>
+            <span class="stat-single-num">2.500+</span>
+            <span class="stat-single-label">Tình nguyện viên</span>
+          </div>
+        </div>
+
+        <div class="stat-single-box">
+          <div class="stat-single-icon">📍</div>
+          <div>
+            <span class="stat-single-num">35+</span>
+            <span class="stat-single-label">Địa điểm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BỘ LỌC TÌM KIẾM NHANH TRÊN HERO -->
+      <form class="quick-filter-form" onsubmit="event.preventDefault(); window.location.href='activities.html';">
+        <span class="quick-filter-title">Bạn muốn tham gia hoạt động gì?</span>
+        <select class="quick-select-control" id="homeCatSelect">
+          <option value="">Chọn lĩnh vực</option>
+          <option value="Môi trường">Môi trường</option>
+          <option value="Giáo dục">Giáo dục</option>
+          <option value="Cộng đồng">Cộng đồng</option>
+          <option value="Y tế">Y tế</option>
+        </select>
+        <select class="quick-select-control" id="homeCitySelect">
+          <option value="">Chọn địa điểm</option>
+          <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+          <option value="Đồng Nai">Đồng Nai</option>
+          <option value="Bình Phước">Bình Phước</option>
+          <option value="Vũng Tàu">Vũng Tàu</option>
+        </select>
+        <select class="quick-select-control">
+          <option value="">Chọn thời gian</option>
+          <option value="7d">Trong 7 ngày tới</option>
+          <option value="30d">Trong 30 ngày tới</option>
+        </select>
+        <button type="submit" class="btn-quick-search">
+          <span>🔍</span>
+          <span>Tìm kiếm</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- HOẠT ĐỘNG NỔI BẬT (FEATURED ACTIVITIES) -->
+    <section style="margin-bottom: 30px;">
+      <div class="section-header-row">
+        <h2 class="section-main-title">
+          <span>🔥</span>
+          <span>Hoạt động nổi bật</span>
+        </h2>
+        <a href="activities.html" class="section-view-all-link">Xem tất cả hoạt động &rarr;</a>
+      </div>
+
+      <div class="featured-activities-grid">
+
+        <!-- THẺ 1: NGÀY HỘI TRỒNG CÂY XANH -->
+        <div class="featured-act-card">
+          <div class="act-card-thumb-wrap">
+            <img src="images/act-tree.jpg" alt="Ngày hội trồng cây xanh 2026" class="act-card-thumb-img">
+            <span class="act-thumb-tag">🌿 Môi trường</span>
+            <span class="act-thumb-status">Sắp diễn ra</span>
+            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+          </div>
+          <div class="act-card-body">
+            <h3 class="act-card-name">Ngày hội trồng cây xanh 2026</h3>
+            <p class="act-card-excerpt">Cùng nhau phủ xanh những vùng đất và bảo vệ môi trường sống.</p>
+            <div class="act-card-meta-line">
+              <span>📅 24/10/2026 • 📍 TP. Hồ Chí Minh</span>
+              <span>👥 38 / 50 người đã đăng ký</span>
+            </div>
+            <a href="detail.html?id=ACT-001" class="act-card-btn-action primary">Đăng ký ngay &rarr;</a>
+          </div>
+        </div>
+
+        <!-- THẺ 2: SÁCH CHO EM -->
+        <div class="featured-act-card">
+          <div class="act-card-thumb-wrap">
+            <img src="images/act-books.jpg" alt="Sách cho em" class="act-card-thumb-img">
+            <span class="act-thumb-tag" style="color: #0284c7;">📘 Giáo dục</span>
+            <span class="act-thumb-status" style="background: rgba(16, 185, 129, 0.85);">Đang tuyển</span>
+            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+          </div>
+          <div class="act-card-body">
+            <h3 class="act-card-name">Sách cho em</h3>
+            <p class="act-card-excerpt">Trao tặng sách và đồ dùng học tập cho trẻ em vùng cao.</p>
+            <div class="act-card-meta-line">
+              <span>📅 18/10/2026 • 📍 Đồng Nai</span>
+              <span>👥 12 / 30 người đã đăng ký</span>
+            </div>
+            <a href="detail.html?id=ACT-002" class="act-card-btn-action outline">Xem chi tiết &rarr;</a>
+          </div>
+        </div>
+
+        <!-- THẺ 3: BỮA CƠM YÊU THƯƠNG -->
+        <div class="featured-act-card">
+          <div class="act-card-thumb-wrap">
+            <img src="images/act-food.jpg" alt="Bữa cơm yêu thương" class="act-card-thumb-img">
+            <span class="act-thumb-tag" style="color: #c2410c;">👥 Cộng đồng</span>
+            <span class="act-thumb-status">Sắp diễn ra</span>
+            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+          </div>
+          <div class="act-card-body">
+            <h3 class="act-card-name">Bữa cơm yêu thương</h3>
+            <p class="act-card-excerpt">Chung tay mang những bữa ăn ấm áp đến người có hoàn cảnh khó khăn.</p>
+            <div class="act-card-meta-line">
+              <span>📅 28/10/2026 • 📍 TP. Hồ Chí Minh</span>
+              <span>👥 20 / 40 người đã đăng ký</span>
+            </div>
+            <a href="detail.html?id=ACT-003" class="act-card-btn-action primary">Đăng ký ngay &rarr;</a>
+          </div>
+        </div>
+
+        <!-- THẺ 4: CHUNG TAY VÌ THÚ CƯNG -->
+        <div class="featured-act-card">
+          <div class="act-card-thumb-wrap">
+            <img src="images/act-animal.jpg" alt="Chung tay vì thú cưng" class="act-card-thumb-img">
+            <span class="act-thumb-tag" style="color: #7e22ce;">🐾 Động vật</span>
+            <span class="act-thumb-status" style="background: rgba(16, 185, 129, 0.85);">Đang tuyển</span>
+            <button class="act-thumb-heart-btn" title="Yêu thích">🤍</button>
+          </div>
+          <div class="act-card-body">
+            <h3 class="act-card-name">Chung tay vì thú cưng</h3>
+            <p class="act-card-excerpt">Chăm sóc, cứu hộ và tìm mái ấm cho các thú cưng bị bỏ rơi.</p>
+            <div class="act-card-meta-line">
+              <span>📅 05/11/2026 • 📍 Vũng Tàu</span>
+              <span>👥 15 / 25 người đã đăng ký</span>
+            </div>
+            <a href="detail.html?id=ACT-004" class="act-card-btn-action outline">Xem chi tiết &rarr;</a>
+          </div>
+        </div>
+
+        <!-- THẺ 5: PROMO BANNER TRỞ THÀNH TÌNH NGUYỆN VIÊN -->
+        <div class="featured-join-promo-card">
+          <div>
+            <h3 class="join-promo-title">Trở thành tình nguyện viên ngay hôm nay</h3>
+            <ul class="join-promo-list">
+              <li><span>🎁</span> <span>Đóng góp cho cộng đồng</span></li>
+              <li><span>⏱️</span> <span>Tích lũy giờ tình nguyện</span></li>
+              <li><span>🎖️</span> <span>Nhận chứng nhận tham gia</span></li>
+            </ul>
+          </div>
+          <div style="text-align: center; margin: 8px 0;">
+            <img src="images/sapling-soil.jpg" alt="Mầm non hy vọng" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.4);">
+          </div>
+          <a href="auth.html" class="btn-join-promo">Tạo tài khoản miễn phí &rarr;</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LĨNH VỰC HOẠT ĐỘNG (CATEGORIES) -->
+    <section style="margin-bottom: 30px;">
+      <h2 class="section-main-title" style="margin-bottom: 14px;">
+        <span>🌿</span>
+        <span>Lĩnh vực hoạt động</span>
+      </h2>
+
+      <div class="categories-card-grid">
+        <a href="activities.html?category=Môi trường" class="category-item-card">
+          <div class="category-icon-circle" style="color: #10b981;">🌿</div>
+          <div class="category-text-box">
+            <strong>Môi trường</strong>
+            <span>Trồng cây, dọn dẹp, bảo vệ thiên nhiên</span>
+          </div>
+        </a>
+
+        <a href="activities.html?category=Giáo dục" class="category-item-card">
+          <div class="category-icon-circle" style="color: #0284c7;">📘</div>
+          <div class="category-text-box">
+            <strong>Giáo dục</strong>
+            <span>Hỗ trợ học tập, trao tặng sách vở</span>
+          </div>
+        </a>
+
+        <a href="activities.html?category=Cộng đồng" class="category-item-card">
+          <div class="category-icon-circle" style="color: #c2410c;">👥</div>
+          <div class="category-text-box">
+            <strong>Cộng đồng</strong>
+            <span>Giúp đỡ người già, trẻ em khó khăn</span>
+          </div>
+        </a>
+
+        <a href="activities.html?category=Y tế" class="category-item-card">
+          <div class="category-icon-circle" style="color: #e11d48;">💖</div>
+          <div class="category-text-box">
+            <strong>Sức khỏe</strong>
+            <span>Hiến máu, chăm sóc sức khỏe cộng đồng</span>
+          </div>
+        </a>
+
+        <a href="activities.html?category=Động vật" class="category-item-card">
+          <div class="category-icon-circle" style="color: #7e22ce;">🐾</div>
+          <div class="category-text-box">
+            <strong>Động vật</strong>
+            <span>Cứu hộ, chăm sóc bảo vệ động vật</span>
+          </div>
+        </a>
+
+        <a href="activities.html" class="category-item-card">
+          <div class="category-icon-circle" style="color: #64748b;">💬</div>
+          <div class="category-text-box">
+            <strong>Khác</strong>
+            <span>Nhiều hoạt động ý nghĩa khác</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- BOTTOM SECTION: STORIES & TESTIMONIALS -->
+    <section class="home-bottom-grid" id="stories">
+
+      <!-- BANNER VIDEO CÂU CHUYỆN -->
+      <div class="story-video-card">
+        <div class="story-card-content">
+          <h3>Những câu chuyện lan tỏa yêu thương</h3>
+          <p>Cùng xem lại những khoảnh khắc ý nghĩa từ cộng đồng VolunteerHub</p>
+          <a href="javascript:void(0)" onclick="alert('Đang phát video phóng sự: Hành trình Trái Tim Ấm Áp 2026!')" class="btn btn-sm" style="background: rgba(255,255,255,0.9); color: #0b3d2c; font-weight: 700; border-radius: 999px;">
+            Xem video &rarr;
+          </a>
+        </div>
+        <div class="story-play-btn" onclick="alert('Đang phát video phóng sự: Hành trình Trái Tim Ấm Áp 2026!')">
+          ▶
+        </div>
+      </div>
+
+      <!-- TESTIMONIALS (CẢM NHẬN TỪ TÌNH NGUYỆN VIÊN) -->
+      <div class="testimonials-card-box">
+        <div class="section-header-row" style="margin-bottom: 6px;">
+          <h3 class="section-main-title" style="font-size: 0.95rem;">
+            <span>👥</span>
+            <span>Cảm nhận từ tình nguyện viên</span>
+          </h3>
+          <a href="javascript:void(0)" class="section-view-all-link">Xem tất cả &rarr;</a>
+        </div>
+
+        <div class="testimonials-grid-row">
+          <!-- Item 1 -->
+          <div class="testimonial-single-item">
+            <div class="testimonial-user-header">
+              <img src="images/profile-avatar.jpg" alt="Trần Thu Hà" class="testimonial-user-avatar">
+              <div class="testimonial-user-info">
+                <strong>Trần Thu Hà</strong>
+                <span>Sinh viên</span>
+              </div>
+            </div>
+            <div style="font-size: 0.7rem; color: #f59e0b;">★★★★★</div>
+            <p class="testimonial-quote-text">
+              “Tham gia các hoạt động ở đây giúp mình có thêm nhiều trải nghiệm quý giá và gặp gỡ những người bạn tuyệt vời.”
+            </p>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="testimonial-single-item">
+            <div class="testimonial-user-header">
+              <img src="images/act-tree.jpg" alt="Lê Minh Quân" class="testimonial-user-avatar">
+              <div class="testimonial-user-info">
+                <strong>Lê Minh Quân</strong>
+                <span>Tình nguyện viên</span>
+              </div>
+            </div>
+            <div style="font-size: 0.7rem; color: #f59e0b;">★★★★★</div>
+            <p class="testimonial-quote-text">
+              “Mình đã học được rất nhiều điều, không chỉ giúp đỡ cộng đồng mà còn phát triển bản thân toàn diện.”
+            </p>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="testimonial-single-item">
+            <div class="testimonial-user-header">
+              <img src="images/act-books.jpg" alt="Nguyễn Ngọc Mai" class="testimonial-user-avatar">
+              <div class="testimonial-user-info">
+                <strong>Nguyễn Ngọc Mai</strong>
+                <span>Giáo viên</span>
+              </div>
+            </div>
+            <div style="font-size: 0.7rem; color: #f59e0b;">★★★★★</div>
+            <p class="testimonial-quote-text">
+              “Một nền tảng rất ý nghĩa và chuyên nghiệp. Dễ dàng tìm kiếm và đăng ký các hoạt động thiện nguyện phù hợp.”
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <p style="margin: 0;">© 2026 VolunteerHub • Nền tảng kết nối hoạt động từ thiện & minh bạch giờ công nhận</p>
+      <div>
+        <a href="privacy.html" style="color: var(--text-secondary); margin-right: 12px; font-size: 0.76rem;">Chính sách bảo mật</a>
+        <a href="terms.html" style="color: var(--text-secondary); font-size: 0.76rem;">Quy tắc cộng đồng</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+    });
+  </script>
+</body>
+</html>

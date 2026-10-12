@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý Bảng Màu (Themes) — Admin Portal | VolunteerHub</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <!-- HEADER SIÊU GỌN -->
+  <header class="app-header">
+    <div class="container navbar">
+      <div class="nav-brand">
+        <span>VolunteerHub</span>
+        <span class="logo-badge">Admin Portal</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../activities.html">Hoạt động</a></li>
+        <li><a href="../stories.html">Stories</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="moderation.html">Kiểm duyệt</a></li>
+        <li><a href="theme-settings.html" class="active">Theme</a></li>
+        <li class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-btn" id="vhNotifBtn" title="Xem thông báo" aria-expanded="false">
+            🔔
+            <span class="vh-notif-badge" id="vhNotifBadge">3</span>
+          </button>
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <span class="vh-notif-title">Thông báo mới</span>
+              <button type="button" class="vh-notif-markall" id="vhNotifMarkAll">Đã đọc tất cả</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList"></div>
+            <div class="vh-notif-footer">
+              <a href="../notifications.html" class="vh-notif-viewall-btn">Xem tất cả thông báo &rarr;</a>
+            </div>
+          </div>
+        </li>
+        <li id="navAuthBadge"></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 12px; padding-bottom: 28px;">
+    <!-- TIÊU ĐỀ TRANG GỌN GÀNG -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+      <div>
+        <h1 style="margin: 0; font-size: 1.25rem;">Quản Lý Bảng Màu Hệ Thống</h1>
+        <p style="margin: 0; font-size: 0.78rem;">Đổi nhanh thương hiệu toàn bộ website, nhập mã HEX tùy biến giao diện sáng chuẩn.</p>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <a href="../index.html" class="btn btn-sm btn-outline">👁️ Xem trang chủ</a>
+      </div>
+    </div>
+
+    <!-- THANH XEM TRƯỚC LIVE PREVIEW GỌN GÀNG -->
+    <div style="background: var(--surface-white); border: 1px solid var(--border-default); border-radius: var(--radius-card); padding: 4px 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span style="font-weight: 700; font-size: 0.78rem; color: var(--brand-primary);">🎨 Live Preview:</span>
+        <span class="badge badge-mint">Thẻ mẫu</span>
+        <span style="font-size: 0.78rem; font-weight: 600; color: var(--brand-primary);">Tiêu đề minh họa</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <button class="btn btn-sm btn-primary">Nút chính (CTA)</button>
+        <button class="btn btn-sm btn-secondary">Nút phụ</button>
+      </div>
+    </div>
+
+    <div class="admin-layout">
+      <!-- CỘT TRÁI: DANH SÁCH BẢNG MÀU -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h2 style="font-size: 0.98rem; margin: 0;">Danh Sách Bảng Màu</h2>
+          <span style="font-size: 0.74rem; color: var(--text-secondary);">Bấm "Áp dụng" để kích hoạt ngay</span>
+        </div>
+        <div id="themesList">
+          <!-- Tải qua admin.js -->
+        </div>
+      </div>
+
+      <!-- CỘT PHẢI: FORM THÊM / SỬA (CRUD + NHẬP MÃ HEX + SÁNG TỐI) -->
+      <div>
+        <div class="card" style="position: sticky; top: 58px; padding: 10px 12px;">
+          <h3 id="formTitle" style="font-size: 0.92rem; margin-bottom: 1px;">Thêm bảng màu mới</h3>
+          <p style="font-size: 0.74rem; margin-bottom: 8px;">Chọn màu trực tiếp hoặc gõ mã HEX.</p>
+
+          <form id="themeForm">
+            <input type="hidden" id="themeId">
+
+            <!-- 1. TÊN CHỦ ĐỀ -->
+            <div class="form-group">
+              <label class="form-label" for="themeName">Tên chủ đề:</label>
+              <input type="text" id="themeName" class="form-control" placeholder="VD: Mầm Xanh Mùa Thu" required>
+            </div>
+
+            <!-- 2. CHẾ ĐỘ SÁNG CHUẨN (LIGHT MODE) -->
+            <div class="form-group">
+              <label class="form-label" style="display: block; margin-bottom: 3px;">Chế độ giao diện:</label>
+              <span class="badge badge-mint" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700;">☀️ Giao diện Sáng Chuẩn (Light Mode)</span>
+              <input type="hidden" name="themeMode" value="light">
+            </div>
+
+            <!-- 3. MÀU CHÍNH & MÀU CTA (KÈM Ô NHẬP HEX) -->
+            <div class="color-inputs-grid">
+              <div class="form-group">
+                <label class="form-label" for="primaryHex">Màu chính:</label>
+                <div class="color-picker-wrapper">
+                  <input type="color" id="primaryColor" value="#12304A" title="Bấm để chọn màu">
+                  <input type="text" id="primaryHex" class="hex-input" value="#12304A" maxlength="7" placeholder="#12304A" spellcheck="false">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ctaHex">Nút CTA:</label>
+                <div class="color-picker-wrapper">
+                  <input type="color" id="ctaColor" value="#087F78" title="Bấm để chọn màu">
+                  <input type="text" id="ctaHex" class="hex-input" value="#087F78" maxlength="7" placeholder="#087F78" spellcheck="false">
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. MÀU NỀN THẺ (KÈM Ô NHẬP HEX) -->
+            <div class="form-group">
+              <label class="form-label" for="surfaceHex">Màu nền thẻ:</label>
+              <div class="color-picker-wrapper">
+                <input type="color" id="surfaceColor" value="#E9F7F3" title="Bấm để chọn màu">
+                <input type="text" id="surfaceHex" class="hex-input" value="#E9F7F3" maxlength="7" placeholder="#E9F7F3" spellcheck="false">
+              </div>
+            </div>
+
+            <!-- 5. Ý NGHĨA -->
+            <div class="form-group">
+              <label class="form-label" for="themeMeaning">Ý nghĩa / Mục đích:</label>
+              <textarea id="themeMeaning" class="form-control" rows="2" placeholder="VD: Dành cho chiến dịch trồng rừng tháng 10..."></textarea>
+            </div>
+
+            <div style="display: flex; gap: 6px; margin-top: 10px;">
+              <button type="submit" class="btn btn-primary" style="flex: 1;">💾 Lưu bảng màu</button>
+              <button type="button" class="btn btn-outline" onclick="resetThemeForm()">Hủy</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="container">
+      <p>VolunteerHub Admin Portal • Hỗ trợ nhập mã màu HEX & Chế độ Sáng / Tối.</p>
+    </div>
+  </footer>
+
+  <!-- NHÚNG CÁC HOOK DÙNG CHUNG -->
+  <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useToast.js"></script>
+  <script src="../shared/useTheme.js"></script>
+  <script src="../shared/useAuth.js"></script>
+  <script src="../shared/useNotification.js"></script>
+
+  <!-- NHÚNG LOGIC RIÊNG CỦA ADMIN -->
+  <script src="admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useAuth.renderNavbarAuth('navAuthBadge');
+      if (window.useNotification) {
+        useNotification.init();
+      }
+    });
+  </script>
+</body>
+</html>

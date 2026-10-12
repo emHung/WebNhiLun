@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ Sơ Cá Nhân — Nguyễn Văn An | VolunteerHub</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+  <div class="profile-app-container">
+
+    <!-- 1. SIDEBAR TRÁI (LEFT NAVIGATION) -->
+    <aside class="profile-sidebar">
+      <a href="index.html" class="sidebar-brand-box">
+        <div class="sidebar-brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#10B981"/>
+            <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="sidebar-brand-title">VolunteerHub</span>
+      </a>
+
+      <ul class="sidebar-menu-list">
+        <li class="sidebar-menu-item">
+          <a href="index.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🏠</span><span>Trang chủ</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="activities.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🧭</span><span>Hoạt động</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="stories.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📖</span><span>Stories</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="about.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">👥</span><span>Giới thiệu</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="dashboard.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item active">
+          <a href="profile.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">👤</span><span>Hồ sơ cá nhân</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="volunteer/dashboard.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📋</span><span>Hoạt động của tôi</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="schedule.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">📅</span><span>Lịch hoạt động</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="certificates.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🎖️</span><span>Chứng nhận</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="notifications.html">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🔔</span><span>Thông báo</span></span>
+            <span class="sidebar-badge">3</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="activities.html?filter=saved">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">🤍</span><span>Yêu thích</span></span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="javascript:void(0)" onclick="switchProfileTab('settings')">
+            <span class="sidebar-menu-label"><span class="sidebar-menu-icon">⚙️</span><span>Cài đặt</span></span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- BANNER DƯỚI ĐÁY SIDEBAR -->
+      <div class="sidebar-mini-promo">
+        <div class="mini-promo-graphic">🌱</div>
+        <p class="mini-promo-title">Cùng nhau<br>lan tỏa giá trị tốt đẹp</p>
+        <a href="activities.html" class="mini-promo-btn">Tham gia ngay &rarr;</a>
+      </div>
+    </aside>
+
+    <!-- 2. KHU VỰC CHÍNH (MAIN AREA) -->
+    <main class="profile-main-area">
+
+      <!-- TOP BAR TÌM KIẾM & NGƯỜI DÙNG -->
+      <div class="profile-topbar">
+        <div class="topbar-search-box">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm hoạt động, địa điểm, chủ đề..." onkeydown="if(event.key==='Enter') window.location.href='activities.html?q='+encodeURIComponent(this.value)">
+        </div>
+
+        <div class="topbar-right-actions">
+          <!-- POPUP THÔNG BÁO DROPDOWN -->
+          <div class="vh-notif-wrapper">
+            <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+              <span style="font-size: 1.1rem;">🔔</span>
+              <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+            </button>
+
+            <div class="vh-notif-dropdown" id="vhNotifDropdown">
+              <div class="vh-notif-header">
+                <div class="vh-notif-header-title">🔔 Thông báo mới</div>
+                <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()">✓ Đánh dấu đã đọc</button>
+              </div>
+              <div class="vh-notif-list" id="vhNotifList">
+                <!-- Nạp từ useNotification.js -->
+              </div>
+              <div class="vh-notif-footer">
+                <a href="notifications.html" class="vh-notif-view-all-btn">
+                  <span>Xem tất cả thông báo</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+          <div id="vhUserNavWrap"></div>
+        </div>
+      </div>
+
+      <!-- BANNER ẢNH BÌA & THÔNG TIN HỒ SƠ CÁ NHÂN -->
+      <div class="profile-hero-card">
+        <div class="profile-cover-banner" id="coverBanner">
+          <div class="cover-quote-art" aria-hidden="true">
+            “Một hành động nhỏ cũng có thể tạo nên thay đổi lớn.” ♡
+          </div>
+          <button type="button" class="btn-change-cover" onclick="changeCoverPrompt()">
+            <span>📷</span>
+            <span>Thay đổi ảnh bìa</span>
+          </button>
+        </div>
+
+        <div class="profile-meta-bar">
+          <div class="profile-avatar-wrap">
+            <img src="images/profile-avatar.jpg" alt="Nguyễn Văn An" class="profile-avatar-img" id="profileAvatarImg">
+            <button type="button" class="avatar-cam-badge" onclick="changeAvatarPrompt()" title="Đổi ảnh đại diện">
+              📷
+            </button>
+          </div>
+
+          <div class="profile-info-content">
+            <div class="profile-name-row">
+              <h1 class="profile-user-fullname" id="profileFullname">Nguyễn Văn An</h1>
+              <span class="verified-badge" title="Tài khoản đã xác minh danh tính">✔</span>
+            </div>
+            <div class="profile-id-sub" id="profileRoleBadge">
+              Tình nguyện viên • ID: #TV00124
+            </div>
+            <div class="profile-contact-details">
+              <span class="profile-contact-item">
+                <span>✉</span>
+                <span id="profileEmail">an.nguyen@email.com</span>
+              </span>
+              <span class="profile-contact-item">
+                <span>📞</span>
+                <span id="profilePhone">0901 234 567</span>
+              </span>
+              <span class="profile-contact-item">
+                <span>📍</span>
+                <span id="profileCity">TP. Hồ Chí Minh</span>
+              </span>
+              <span class="profile-contact-item">
+                <span>🎂</span>
+                <span id="profileDob">12/05/2003</span>
+              </span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-edit-profile-link" onclick="openEditProfileModal()">
+            Chỉnh sửa hồ sơ &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- THANH TAB ĐIỀU HƯỚNG NGANG -->
+      <div class="profile-nav-tabs-bar">
+        <button type="button" class="profile-tab-button active" id="tabBtnOverview" onclick="switchProfileTab('overview')">
+          <span>🏠</span>
+          <span>Tổng quan</span>
+        </button>
+        <button type="button" class="profile-tab-button" id="tabBtnInfo" onclick="switchProfileTab('info')">
+          <span>👤</span>
+          <span>Thông tin cá nhân</span>
+        </button>
+        <button type="button" class="profile-tab-button" id="tabBtnSkills" onclick="switchProfileTab('skills')">
+          <span>🛠️</span>
+          <span>Kỹ năng</span>
+        </button>
+        <button type="button" class="profile-tab-button" id="tabBtnHistory" onclick="switchProfileTab('history')">
+          <span>📋</span>
+          <span>Hoạt động đã tham gia</span>
+        </button>
+        <button type="button" class="profile-tab-button" id="tabBtnCerts" onclick="switchProfileTab('certs')">
+          <span>🎖️</span>
+          <span>Chứng nhận</span>
+        </button>
+        <button type="button" class="profile-tab-button" id="tabBtnSettings" onclick="switchProfileTab('settings')">
+          <span>⚙️</span>
+          <span>Cài đặt</span>
+        </button>
+      </div>
+
+      <!-- ========================================================
+           TAB 1: TỔNG QUAN (KHỚP 100% GIAO DIỆN MOCKUP HÌNH ẢNH)
+           ======================================================== -->
+      <div class="profile-tab-pane active" id="paneOverview">
+        <div class="profile-content-grid">
+
+          <!-- CỘT TRÁI (LEFT MAIN COLUMN) -->
+          <div class="profile-left-col">
+
+            <!-- 1. 4 THẺ THỐNG KÊ KPI -->
+            <div class="profile-kpi-grid">
+              <div class="profile-kpi-card">
+                <div class="kpi-icon-bubble green">📅</div>
+                <div class="kpi-text-box">
+                  <span class="kpi-stat-number" id="statActsCount">08</span>
+                  <span class="kpi-stat-label">Hoạt động<br>đã tham gia</span>
+                </div>
+              </div>
+
+              <div class="profile-kpi-card">
+                <div class="kpi-icon-bubble blue">⏱️</div>
+                <div class="kpi-text-box">
+                  <span class="kpi-stat-number" id="statHoursCount">32 giờ</span>
+                  <span class="kpi-stat-label">Thời gian<br>đóng góp</span>
+                </div>
+              </div>
+
+              <div class="profile-kpi-card">
+                <div class="kpi-icon-bubble amber">🎖️</div>
+                <div class="kpi-text-box">
+                  <span class="kpi-stat-number" id="statCertsCount">03</span>
+                  <span class="kpi-stat-label">Chứng nhận<br>đã nhận</span>
+                </div>
+              </div>
+
+              <div class="profile-kpi-card">
+                <div class="kpi-icon-bubble red">🤍</div>
+                <div class="kpi-text-box">
+                  <span class="kpi-stat-number" id="statPointsCount">120</span>
+                  <span class="kpi-stat-label">Điểm thiện<br>nguyện</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. GIỚI THIỆU BẢN THÂN -->
+            <div class="profile-box-card">
+              <div class="box-card-header">
+                <h3 class="box-card-title">
+                  <span>🌿</span>
+                  <span>Giới thiệu bản thân</span>
+                </h3>
+                <button type="button" class="btn-box-action" onclick="openEditProfileModal()">
+                  <span>✎</span>
+                  <span>Chỉnh sửa</span>
+                </button>
+              </div>
+              <p class="box-bio-desc" id="profileBioText">
+                Mình là sinh viên yêu thích các hoạt động xã hội và môi trường. Mình mong muốn được tham gia nhiều chương trình thiện nguyện để đóng góp cho cộng đồng, học hỏi và kết nối với những người cùng chí hướng.
+              </p>
+              <div class="box-interest-tags-row">
+                <span class="interest-tag-pill green">🌿 Môi trường</span>
+                <span class="interest-tag-pill blue">📘 Giáo dục</span>
+                <span class="interest-tag-pill orange">👥 Cộng đồng</span>
+                <span class="interest-tag-pill pink">💖 Trẻ em</span>
+                <span class="interest-tag-pill purple">🐾 Động vật</span>
+              </div>
+            </div>
+
+            <!-- 3. KỸ NĂNG & THẾ MẠNH -->
+            <div class="profile-box-card">
+              <div class="box-card-header">
+                <h3 class="box-card-title">
+                  <span>🧰</span>
+                  <span>Kỹ năng & Thế mạnh</span>
+                </h3>
+                <button type="button" class="btn-box-action" onclick="openSkillModal()">
+                  <span>✎</span>
+                  <span>Chỉnh sửa</span>
+                </button>
+              </div>
+              <div class="box-skills-wrap" id="skillsTagContainer">
+                <span class="skill-item-tag">Làm việc nhóm</span>
+                <span class="skill-item-tag">Giao tiếp</span>
+                <span class="skill-item-tag">Tổ chức sự kiện</span>
+                <span class="skill-item-tag">Thiết kế</span>
+                <span class="skill-item-tag">Chụp ảnh</span>
+                <span class="skill-item-tag">Hỗ trợ giảng dạy</span>
+                <button type="button" class="btn-add-skill-tag" onclick="promptAddSkill()">
+                  + Thêm kỹ năng
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. HOẠT ĐỘNG SẮP TỚI -->
+            <div class="profile-box-card">
+              <div class="box-card-header">
+                <h3 class="box-card-title">
+                  <span>📅</span>
+                  <span>Hoạt động sắp tới</span>
+                </h3>
+                <a href="volunteer/dashboard.html" class="btn-box-action" style="color: #10b981; border-color: transparent;">
+                  Xem tất cả &rarr;
+                </a>
+              </div>
+              <div class="upcoming-activities-grid">
+                <!-- Thẻ 1 -->
+                <div class="upcoming-act-card">
+                  <img src="images/act-tree.jpg" alt="Ngày hội trồng cây xanh" class="upcoming-act-thumb">
+                  <div class="upcoming-act-body">
+                    <h4 class="upcoming-act-name">Ngày hội trồng cây xanh</h4>
+                    <div class="upcoming-act-meta">
+                      <span>📅 24/10/2026</span>
+                      <span>📍 TP. Hồ Chí Minh</span>
+                    </div>
+                    <div class="upcoming-act-footer">
+                      <span class="act-status-badge approved">✔ Đã duyệt</span>
+                      <a href="detail.html?id=ACT-001" class="btn-view-act-arrow" title="Xem chi tiết">&rarr;</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Thẻ 2 -->
+                <div class="upcoming-act-card">
+                  <img src="images/act-books.jpg" alt="Sách cho em" class="upcoming-act-thumb">
+                  <div class="upcoming-act-body">
+                    <h4 class="upcoming-act-name">Sách cho em</h4>
+                    <div class="upcoming-act-meta">
+                      <span>📅 18/10/2026</span>
+                      <span>📍 Đồng Nai</span>
+                    </div>
+                    <div class="upcoming-act-footer">
+                      <span class="act-status-badge pending">🕒 Chờ duyệt</span>
+                      <a href="detail.html?id=ACT-002" class="btn-view-act-arrow" title="Xem chi tiết">&rarr;</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Thẻ 3 -->
+                <div class="upcoming-act-card">
+                  <img src="images/act-beach.jpg" alt="Làm sạch bờ biển" class="upcoming-act-thumb">
+                  <div class="upcoming-act-body">
+                    <h4 class="upcoming-act-name">Làm sạch bờ biển</h4>
+                    <div class="upcoming-act-meta">
+                      <span>📅 05/11/2026</span>
+                      <span>📍 Vũng Tàu</span>
+                    </div>
+                    <div class="upcoming-act-footer">
+                      <span class="act-status-badge approved">✔ Đã duyệt</span>
+                      <a href="detail.html?id=ACT-003" class="btn-view-act-arrow" title="Xem chi tiết">&rarr;</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CỘT PHẢI (RIGHT SIDEBAR COLUMN) -->
+          <div class="profile-right-col">
+
+            <!-- 1. CẤP BẬC TÌNH NGUYỆN -->
+            <div class="profile-box-card">
+              <div class="box-card-header">
+                <h3 class="box-card-title">
+                  <span>🎖️</span>
+                  <span>Cấp bậc tình nguyện ⓘ</span>
+                </h3>
+              </div>
+              <div class="rank-card-box">
+                <div class="rank-medal-icon">🏅</div>
+                <div class="rank-details-text">
+                  <strong>Tình nguyện viên tích cực</strong>
+                  <span style="font-size: 0.72rem; color: var(--text-secondary);">Huy hiệu Vàng cấp 2</span>
+                </div>
+              </div>
+              <div class="rank-progress-bar-wrap">
+                <div class="rank-progress-fill" style="width: 60%;"></div>
+              </div>
+              <div class="rank-progress-notes">
+                <strong>120 / 200 điểm</strong>
+                <span>Còn 80 điểm để lên cấp tiếp theo</span>
+              </div>
+            </div>
+
+            <!-- 2. THÀNH TÍCH (ACHIEVEMENTS TIMELINE) -->
+            <div class="profile-box-card">
+              <div class="box-card-header">
+                <h3 class="box-card-title">
+                  <span>⭐</span>
+                  <span>Thành tích</span>
+                </h3>
+                <a href="certificates.html" class="btn-box-action" style="color: #10b981; border-color: transparent;">
+                  Xem tất cả &rarr;
+                </a>
+              </div>
+              <ul class="achievement-timeline-list">
+                <li class="achievement-timeline-item">
+                  <div class="achieve-icon-circle">🛡️</div>
+                  <div class="achieve-content">
+                    <strong>Hoàn thành 5 hoạt động</strong>
+                    <span>10/08/2026</span>
+                  </div>
+                </li>
+                <li class="achievement-timeline-item">
+                  <div class="achieve-icon-circle">⏱️</div>
+                  <div class="achieve-content">
+                    <strong>Đạt 20 giờ đóng góp</strong>
+                    <span>15/07/2026</span>
+                  </div>
+                </li>
+                <li class="achievement-timeline-item">
+                  <div class="achieve-icon-circle">🌿</div>
+                  <div class="achieve-content">
+                    <strong>Tham gia hoạt động môi trường</strong>
+                    <span>02/06/2026</span>
+                  </div>
+                </li>
+                <li class="achievement-timeline-item">
+                  <div class="achieve-icon-circle">🎖️</div>
+                  <div class="achieve-content">
+                    <strong>Nhận chứng nhận đầu tiên</strong>
+                    <span>20/05/2026</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 3. TÀI LIỆU CỦA TÔI (VERIFIED DOCUMENTS) -->
+            <div class="profile-box-card">
+              <div class="box-card-header">
+                <h3 class="box-card-title">
+                  <span>📋</span>
+                  <span>Tài liệu của tôi</span>
+                </h3>
+                <a href="javascript:void(0)" onclick="alert('Tính năng tải lên hồ sơ pháp lý & bảo mật đang mở!')" class="btn-box-action" style="color: #10b981; border-color: transparent;">
+                  Quản lý &rarr;
+                </a>
+              </div>
+              <div class="verified-docs-list">
+                <div class="doc-verify-row">
+                  <div class="doc-info-left">
+                    <span class="doc-icon">🪪</span>
+                    <div class="doc-text-meta">
+                      <strong>CMND/CCCD</strong>
+                      <span>Đã xác minh</span>
+                    </div>
+                  </div>
+                  <div class="doc-status-icon check" title="Đã xác thực định danh">✔</div>
+                </div>
+
+                <div class="doc-verify-row">
+                  <div class="doc-info-left">
+                    <span class="doc-icon">📄</span>
+                    <div class="doc-text-meta">
+                      <strong>Giấy xác nhận sinh viên</strong>
+                      <span>Đã xác minh</span>
+                    </div>
+                  </div>
+                  <div class="doc-status-icon check" title="Đã xác thực trường học">✔</div>
+                </div>
+
+                <div class="doc-verify-row">
+                  <div class="doc-info-left">
+                    <span class="doc-icon">📑</span>
+                    <div class="doc-text-meta">
+                      <strong>Giấy chứng nhận khác</strong>
+                      <span>Chưa cập nhật</span>
+                    </div>
+                  </div>
+                  <button type="button" class="doc-status-icon add" onclick="promptUploadDoc()" title="Tải lên tài liệu mới">+</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================================
+           TAB 2: THÔNG TIN CÁ NHÂN (PERSONAL INFO FORM)
+           ======================================================== -->
+      <div class="profile-tab-pane" id="paneInfo">
+        <div class="profile-box-card">
+          <div class="box-card-header">
+            <h3 class="box-card-title">
+              <span>👤</span>
+              <span>Cập nhật thông tin cá nhân chi tiết</span>
+            </h3>
+          </div>
+          <form onsubmit="handleSaveProfileDetails(event)" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Họ và tên *</label>
+              <input type="text" id="editFormName" class="form-control" value="Nguyễn Văn An" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Địa chỉ Email *</label>
+              <input type="email" id="editFormEmail" class="form-control" value="an.nguyen@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Số điện thoại *</label>
+              <input type="tel" id="editFormPhone" class="form-control" value="0901 234 567" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ngày sinh *</label>
+              <input type="date" id="editFormDob" class="form-control" value="2003-05-12" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tỉnh / Thành phố *</label>
+              <select id="editFormCity" class="form-control">
+                <option value="TP. Hồ Chí Minh" selected>TP. Hồ Chí Minh</option>
+                <option value="Hà Nội">Hà Nội</option>
+                <option value="Đà Nẵng">Đà Nẵng</option>
+                <option value="Cần Thơ">Cần Thơ</option>
+                <option value="Đồng Nai">Đồng Nai</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Trường / Đơn vị công tác</label>
+              <input type="text" id="editFormSchool" class="form-control" value="Đại học Quốc gia TP.HCM">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label">Giới thiệu ngắn (Bio)</label>
+              <textarea id="editFormBio" class="form-control" rows="3">Mình là sinh viên yêu thích các hoạt động xã hội và môi trường. Mình mong muốn được tham gia nhiều chương trình thiện nguyện để đóng góp cho cộng đồng, học hỏi và kết nối với những người cùng chí hướng.</textarea>
+            </div>
+            <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 8px;">
+              <button type="button" class="btn btn-outline" onclick="switchProfileTab('overview')">Hủy bỏ</button>
+              <button type="submit" class="btn btn-primary">Lưu thay đổi hồ sơ</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           TAB 3: KỸ NĂNG & THẾ MẠNH (SKILLS TAB)
+           ======================================================== -->
+      <div class="profile-tab-pane" id="paneSkills">
+        <div class="profile-box-card">
+          <div class="box-card-header">
+            <h3 class="box-card-title">
+              <span>🛠️</span>
+              <span>Quản lý Kỹ năng & Lĩnh vực quan tâm</span>
+            </h3>
+            <button type="button" class="btn btn-sm btn-primary" onclick="promptAddSkill()">+ Thêm kỹ năng mới</button>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+            Các kỹ năng sẽ được hệ thống gợi ý phù hợp tới các Ban tổ chức khi bạn nộp đơn đăng ký hoạt động thiện nguyện.
+          </p>
+          <div class="box-skills-wrap" id="paneSkillsFullList" style="margin-bottom: 20px;">
+            <!-- Render động bằng JS -->
+          </div>
+          <hr style="border: 0; border-top: 1px solid var(--border-default); margin: 16px 0;">
+          <h4 style="font-size: 0.86rem; margin-bottom: 8px;">Lĩnh vực yêu thích:</h4>
+          <div class="box-interest-tags-row">
+            <span class="interest-tag-pill green">🌿 Môi trường (Trồng cây, dọn rác, bảo tồn)</span>
+            <span class="interest-tag-pill blue">📘 Giáo dục (Dạy học vùng cao, sách vở)</span>
+            <span class="interest-tag-pill orange">👥 Cộng đồng (Bếp ăn 0 đồng, mái ấm)</span>
+            <span class="interest-tag-pill pink">💖 Trẻ em (Khám chữa bệnh, tết thiếu nhi)</span>
+            <span class="interest-tag-pill purple">🐾 Động vật (Cứu trợ thú cưng)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           TAB 4: HOẠT ĐỘNG ĐÃ THAM GIA (HISTORY TAB)
+           ======================================================== -->
+      <div class="profile-tab-pane" id="paneHistory">
+        <div class="profile-box-card">
+          <div class="box-card-header">
+            <h3 class="box-card-title">
+              <span>📋</span>
+              <span>Lịch sử 8 hoạt động đã tham gia</span>
+            </h3>
+            <a href="volunteer/dashboard.html" class="btn btn-sm btn-outline">Xem quản lý chi tiết</a>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="table" style="font-size: 0.8rem;">
+              <thead>
+                <tr>
+                  <th>Tên hoạt động</th>
+                  <th>Thời gian</th>
+                  <th>Địa điểm</th>
+                  <th>Số giờ</th>
+                  <th>Trạng thái</th>
+                  <th>Điểm danh</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                <tr>
+                  <td><strong>Ngày hội trồng cây xanh 2026</strong></td>
+                  <td>24/10/2026</td>
+                  <td>Cần Giờ, TP.HCM</td>
+                  <td>6 giờ</td>
+                  <td><span class="badge badge-success">Đã duyệt</span></td>
+                  <td><span style="color: var(--status-success); font-weight: 700;">✓ Đã xác nhận</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Bếp ăn yêu thương 0 đồng</strong></td>
+                  <td>15/09/2026</td>
+                  <td>Quận 10, TP.HCM</td>
+                  <td>8 giờ</td>
+                  <td><span class="badge badge-success">Hoàn thành</span></td>
+                  <td><span style="color: var(--status-success); font-weight: 700;">✓ Đã xác nhận</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Áo ấm mùa đông cho em</strong></td>
+                  <td>05/08/2026</td>
+                  <td>Lâm Đồng</td>
+                  <td>10 giờ</td>
+                  <td><span class="badge badge-success">Hoàn thành</span></td>
+                  <td><span style="color: var(--status-success); font-weight: 700;">✓ Đã xác nhận</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Chiến dịch nhặt rác bờ sông Sài Gòn</strong></td>
+                  <td>20/07/2026</td>
+                  <td>Bình Thạnh, TP.HCM</td>
+                  <td>4 giờ</td>
+                  <td><span class="badge badge-success">Hoàn thành</span></td>
+                  <td><span style="color: var(--status-success); font-weight: 700;">✓ Đã xác nhận</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Tiếp sức mùa thi THPT 2026</strong></td>
+                  <td>28/06/2026</td>
+                  <td>Quận 5, TP.HCM</td>
+                  <td>4 giờ</td>
+                  <td><span class="badge badge-success">Hoàn thành</span></td>
+                  <td><span style="color: var(--status-success); font-weight: 700;">✓ Đã xác nhận</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           TAB 5: CHỨNG NHẬN ĐIỆN TỬ (CERTIFICATES TAB)
+           ======================================================== -->
+      <div class="profile-tab-pane" id="paneCerts">
+        <div class="profile-box-card">
+          <div class="box-card-header">
+            <h3 class="box-card-title">
+              <span>🎖️</span>
+              <span>Bộ sưu tập 3 Chứng nhận điện tử có giá trị</span>
+            </h3>
+            <a href="certificates.html" class="btn btn-sm btn-primary">Xem toàn bộ chứng nhận</a>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 10px;">
+            <div class="card" style="padding: 12px; border-left: 4px solid var(--brand-cta);">
+              <div style="font-size: 0.72rem; color: var(--text-secondary);">Mã: CERT-2026-001</div>
+              <strong style="font-size: 0.86rem; display: block; margin: 4px 0;">Chứng nhận Chiến sĩ Môi trường Xanh</strong>
+              <div style="font-size: 0.74rem; color: var(--text-secondary);">Cấp bởi: Quỹ Xanh Việt Nam • 15/09/2026</div>
+              <div style="margin-top: 8px;">
+                <button class="btn btn-sm btn-outline" onclick="alert('Đang tải file PDF Chứng nhận có chữ ký số điện tử!')">Tải PDF (Bản in)</button>
+              </div>
+            </div>
+
+            <div class="card" style="padding: 12px; border-left: 4px solid #d97706;">
+              <div style="font-size: 0.72rem; color: var(--text-secondary);">Mã: CERT-2026-002</div>
+              <strong style="font-size: 0.86rem; display: block; margin: 4px 0;">Chứng nhận 20 Giờ Cống Hiến Cộng Đồng</strong>
+              <div style="font-size: 0.74rem; color: var(--text-secondary);">Cấp bởi: Thành Đoàn TP.HCM • 15/07/2026</div>
+              <div style="margin-top: 8px;">
+                <button class="btn btn-sm btn-outline" onclick="alert('Đang tải file PDF Chứng nhận có chữ ký số điện tử!')">Tải PDF (Bản in)</button>
+              </div>
+            </div>
+
+            <div class="card" style="padding: 12px; border-left: 4px solid #2563eb;">
+              <div style="font-size: 0.72rem; color: var(--text-secondary);">Mã: CERT-2026-003</div>
+              <strong style="font-size: 0.86rem; display: block; margin: 4px 0;">Giấy khen Tiếp Sức Mùa Thi 2026</strong>
+              <div style="font-size: 0.74rem; color: var(--text-secondary);">Cấp bởi: Hội Sinh Viên ĐHQG • 01/07/2026</div>
+              <div style="margin-top: 8px;">
+                <button class="btn btn-sm btn-outline" onclick="alert('Đang tải file PDF Chứng nhận có chữ ký số điện tử!')">Tải PDF (Bản in)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           TAB 6: CÀI ĐẶT (SETTINGS TAB)
+           ======================================================== -->
+      <div class="profile-tab-pane" id="paneSettings">
+        <div class="profile-box-card">
+          <div class="box-card-header">
+            <h3 class="box-card-title">
+              <span>⚙️</span>
+              <span>Cài đặt tài khoản & Quyền riêng tư</span>
+            </h3>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px; max-width: 500px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border-default);">
+              <div>
+                <strong style="font-size: 0.84rem; display: block;">Nhận thông báo qua Email</strong>
+                <span style="font-size: 0.72rem; color: var(--text-secondary);">Thông báo khi đơn tham gia được Ban tổ chức phê duyệt.</span>
+              </div>
+              <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #10b981;">
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border-default);">
+              <div>
+                <strong style="font-size: 0.84rem; display: block;">Hiển thị hồ sơ công khai</strong>
+                <span style="font-size: 0.72rem; color: var(--text-secondary);">Cho phép các Ban tổ chức xem thành tích và liên hệ trực tiếp.</span>
+              </div>
+              <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #10b981;">
+            </div>
+
+            <div>
+              <strong style="font-size: 0.84rem; display: block; margin-bottom: 6px;">Đổi mật khẩu tài khoản</strong>
+              <div style="display: flex; gap: 8px;">
+                <input type="password" placeholder="Mật khẩu mới (tối thiểu 6 ký tự)" class="form-control" style="font-size: 0.8rem;">
+                <button type="button" class="btn btn-sm btn-primary" onclick="useToast.show('Đã cập nhật mật khẩu mới thành công!', 'success')">Cập nhật</button>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px;">
+              <button type="button" class="btn btn-sm btn-outline" style="color: var(--status-danger); border-color: var(--status-danger);" onclick="useAuth.logout(); window.location.href='auth.html';">
+                🚪 Đăng xuất khỏi hệ thống
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+
+  <script>
+    // Danh sách kỹ năng mặc định lưu trên state
+    let volunteerSkills = [
+      "Làm việc nhóm",
+      "Giao tiếp",
+      "Tổ chức sự kiện",
+      "Thiết kế",
+      "Chụp ảnh",
+      "Hỗ trợ giảng dạy"
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+      loadProfileData();
+      renderSkills();
+    });
+
+    // Tải dữ liệu hồ sơ từ useAuth & useStorage
+    function loadProfileData() {
+      const user = useAuth.getCurrentUser();
+      if (user) {
+        if (user.name) {
+          document.getElementById('profileFullname').textContent = user.name;
+          document.getElementById('navNameTop').textContent = user.name;
+          document.getElementById('editFormName').value = user.name;
+        }
+        if (user.email) {
+          document.getElementById('profileEmail').textContent = user.email;
+          document.getElementById('editFormEmail').value = user.email;
+        }
+      }
+
+      // Tải từ lưu trữ profile nếu có
+      const savedProfile = useStorage.get('vh_user_profile_detail', null);
+      if (savedProfile) {
+        if (savedProfile.phone) document.getElementById('profilePhone').textContent = savedProfile.phone;
+        if (savedProfile.city) document.getElementById('profileCity').textContent = savedProfile.city;
+        if (savedProfile.dob) document.getElementById('profileDob').textContent = savedProfile.dob;
+        if (savedProfile.bio) document.getElementById('profileBioText').textContent = savedProfile.bio;
+        if (savedProfile.skills) volunteerSkills = savedProfile.skills;
+      }
+    }
+
+    // Chuyển tab ngang
+    function switchProfileTab(tabKey) {
+      document.querySelectorAll('.profile-tab-button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.profile-tab-pane').forEach(pane => pane.classList.remove('active'));
+
+      const map = {
+        'overview': { btn: 'tabBtnOverview', pane: 'paneOverview' },
+        'info': { btn: 'tabBtnInfo', pane: 'paneInfo' },
+        'skills': { btn: 'tabBtnSkills', pane: 'paneSkills' },
+        'history': { btn: 'tabBtnHistory', pane: 'paneHistory' },
+        'certs': { btn: 'tabBtnCerts', pane: 'paneCerts' },
+        'settings': { btn: 'tabBtnSettings', pane: 'paneSettings' }
+      };
+
+      if (map[tabKey]) {
+        document.getElementById(map[tabKey].btn).classList.add('active');
+        document.getElementById(map[tabKey].pane).classList.add('active');
+      }
+    }
+
+    // Hiển thị danh sách kỹ năng
+    function renderSkills() {
+      const c1 = document.getElementById('skillsTagContainer');
+      const c2 = document.getElementById('paneSkillsFullList');
+
+      if (c1) {
+        c1.innerHTML = volunteerSkills.map((s, idx) => `
+          <span class="skill-item-tag">
+            <span>${s}</span>
+            <span class="btn-remove-skill" onclick="removeSkill(${idx})" title="Xóa">✕</span>
+          </span>
+        `).join('') + `
+          <button type="button" class="btn-add-skill-tag" onclick="promptAddSkill()">+ Thêm kỹ năng</button>
+        `;
+      }
+
+      if (c2) {
+        c2.innerHTML = volunteerSkills.map((s, idx) => `
+          <span class="skill-item-tag" style="padding: 7px 12px; font-size: 0.8rem;">
+            <span>${s}</span>
+            <span class="btn-remove-skill" onclick="removeSkill(${idx})" title="Xóa">✕</span>
+          </span>
+        `).join('');
+      }
+    }
+
+    // Thêm kỹ năng mới
+    function promptAddSkill() {
+      const skill = prompt('Nhập tên kỹ năng hoặc thế mạnh bạn muốn thêm:', 'Sơ cấp cứu');
+      if (skill && skill.trim()) {
+        const trimmed = skill.trim();
+        if (!volunteerSkills.includes(trimmed)) {
+          volunteerSkills.push(trimmed);
+          saveSkills();
+          renderSkills();
+          useToast.show('Đã thêm kỹ năng: ' + trimmed, 'success');
+        } else {
+          useToast.show('Kỹ năng này đã có trong hồ sơ!', 'info');
+        }
+      }
+    }
+
+    // Xóa kỹ năng
+    function removeSkill(idx) {
+      const removed = volunteerSkills.splice(idx, 1);
+      saveSkills();
+      renderSkills();
+      useToast.show('Đã xóa kỹ năng: ' + removed, 'info');
+    }
+
+    function saveSkills() {
+      const profile = useStorage.get('vh_user_profile_detail', {});
+      profile.skills = volunteerSkills;
+      useStorage.set('vh_user_profile_detail', profile);
+    }
+
+    // Mở tab chỉnh sửa thông tin
+    function openEditProfileModal() {
+      switchProfileTab('info');
+      useToast.show('Vui lòng cập nhật các trường thông tin bên dưới', 'info');
+    }
+
+    // Lưu thông tin chi tiết
+    function handleSaveProfileDetails(e) {
+      e.preventDefault();
+      const name = document.getElementById('editFormName').value.trim();
+      const email = document.getElementById('editFormEmail').value.trim();
+      const phone = document.getElementById('editFormPhone').value.trim();
+      const dobVal = document.getElementById('editFormDob').value;
+      const city = document.getElementById('editFormCity').value;
+      const bio = document.getElementById('editFormBio').value.trim();
+
+      // Format ngày sinh DD/MM/YYYY
+      let dobFormatted = '12/05/2003';
+      if (dobVal) {
+        const parts = dobVal.split('-');
+        if (parts.length === 3) dobFormatted = `${parts[2]}/${parts[1]}/${parts[0]}`;
+      }
+
+      document.getElementById('profileFullname').textContent = name;
+      document.getElementById('navNameTop').textContent = name;
+      document.getElementById('profileEmail').textContent = email;
+      document.getElementById('profilePhone').textContent = phone;
+      document.getElementById('profileCity').textContent = city;
+      document.getElementById('profileDob').textContent = dobFormatted;
+      document.getElementById('profileBioText').textContent = bio;
+
+      // Lưu storage
+      const user = useAuth.getCurrentUser();
+      if (user) {
+        user.name = name;
+        user.email = email;
+        useStorage.set('vh_current_user', user);
+      }
+
+      useStorage.set('vh_user_profile_detail', {
+        phone, city, dob: dobFormatted, bio, skills: volunteerSkills
+      });
+
+      useToast.show('Cập nhật hồ sơ cá nhân thành công!', 'success');
+      switchProfileTab('overview');
+    }
+
+    // Đổi ảnh bìa
+    function changeCoverPrompt() {
+      const url = prompt('Nhập đường dẫn URL ảnh bìa mới (hoặc để trống để hoàn nguyên ảnh mặc định):');
+      if (url && url.trim()) {
+        document.getElementById('coverBanner').style.backgroundImage = `url('${url.trim()}')`;
+        useToast.show('Đã cập nhật ảnh bìa mới!', 'success');
+      } else if (url === '') {
+        document.getElementById('coverBanner').style.backgroundImage = `url('images/profile-cover.jpg')`;
+        useToast.show('Đã khôi phục ảnh bìa mặc định!', 'info');
+      }
+    }
+
+    // Đổi avatar
+    function changeAvatarPrompt() {
+      const url = prompt('Nhập đường dẫn URL ảnh đại diện mới:');
+      if (url && url.trim()) {
+        document.getElementById('profileAvatarImg').src = url.trim();
+        document.getElementById('navAvatarTop').src = url.trim();
+        useToast.show('Đã cập nhật ảnh đại diện mới!', 'success');
+      }
+    }
+
+    // Tải tài liệu
+    function promptUploadDoc() {
+      const docName = prompt('Nhập tên chứng chỉ / tài liệu bạn muốn tải lên:', 'Chứng chỉ Sơ cấp cứu Hội Chữ Thập Đỏ');
+      if (docName) {
+        useToast.show('Hệ thống đã nhận tài liệu "' + docName + '", đang chờ Admin xác minh!', 'success');
+      }
+    }
+  </script>
+
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+</body>
+</html>
