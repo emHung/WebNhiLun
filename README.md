@@ -203,18 +203,21 @@ DEMO_PASSWORD_USR_003=123456
 
 #### Bước 2.3: Khởi tạo CSDL & Nạp dữ liệu mẫu (Database Schema & Seed Data)
 
-Dự án cung cấp sẵn file SQL trọn gói giúp bất kỳ ai cũng có thể thiết lập CSDL Supabase mới chỉ trong vài giây:
+Dự án cung cấp sẵn file SQL **Tất cả trong 1 (All-In-One)** giúp bất kỳ ai cũng có thể thiết lập CSDL Supabase mới chỉ trong 1 bước:
 
-##### Cách 1: Chạy trực tiếp qua Supabase Dashboard SQL Editor (Khuyên dùng - Nhanh nhất)
+##### Cách 1: Nhanh nhất — 1 File duy nhất qua Supabase SQL Editor (Khuyên dùng)
 1. Mở dự án Supabase của bạn tại [supabase.com/dashboard](https://supabase.com/dashboard).
-2. Vào mục **SQL Editor** -> chọn **New query**.
-3. Mở file [supabase/full_schema.sql](file:///d:/WebNhiLun/supabase/full_schema.sql), sao chép toàn bộ nội dung, dán vào SQL Editor và nhấn **Run** (Tạo toàn bộ bảng, hàm, trigger và chính sách bảo mật RLS).
-4. Tạo thêm một query mới, mở file [supabase/seed.sql](file:///d:/WebNhiLun/supabase/seed.sql), dán toàn bộ và nhấn **Run** (Nạp tài khoản demo, các tổ chức, 6 hoạt động mẫu, đơn đăng ký, chứng nhận, bảng màu hệ thống và bài viết).
+2. Vào mục **SQL Editor** bên trái -> chọn **New query**.
+3. Mở file [supabase/full_setup.sql](file:///d:/WebNhiLun/supabase/full_setup.sql), sao chép toàn bộ nội dung, dán vào SQL Editor và nhấn **Run**.
+   - File này đã gộp toàn bộ **Cấu trúc CSDL (Schema, RLS, Triggers)** + **Dữ liệu mẫu (Seed Data, tài khoản demo, hoạt động, tổ chức, bài viết)**.
+   - Chỉ 1 lần chạy là xong 100% CSDL.
 
-> 💡 **Tài khoản mẫu đăng nhập sau khi import seed.sql (Mật khẩu: `Demo@123456`):**
+> 💡 **Tài khoản mẫu đăng nhập sau khi import (Mật khẩu: `Demo@123456`):**
 > - **Tình nguyện viên:** `an.nguyen@email.com`
 > - **Ban tổ chức (BTC):** `coordinator@quyxanh.vn`
 > - **Quản trị viên (Admin):** `admin@volunteerhub.vn`
+
+*(Nếu bạn muốn chạy riêng từng phần: dùng [supabase/full_schema.sql](file:///d:/WebNhiLun/supabase/full_schema.sql) để chỉ tạo bảng trắng, hoặc [supabase/seed.sql](file:///d:/WebNhiLun/supabase/seed.sql) để chỉ nạp dữ liệu mẫu).*
 
 ##### Cách 2: Dùng Supabase CLI (Dành cho Developer)
 ```bash
