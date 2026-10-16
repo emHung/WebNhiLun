@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 import { apiRequest } from "@/lib/api";
 import {
   EmptyState,
@@ -10,6 +11,35 @@ import {
   formatDate,
   useLoad,
 } from "./shared";
+
+function AdminNavTabs({ current }: { current: "moderation" | "themes" }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: "10px",
+        marginBottom: "20px",
+        borderBottom: "1px solid var(--border-color, #e2e8f0)",
+        paddingBottom: "14px",
+      }}
+    >
+      <Link
+        href="/admin/moderation"
+        className={`btn ${current === "moderation" ? "btn-primary" : "btn-outline"} btn-sm`}
+        style={{ display: "inline-flex", alignItems: "center", gap: "6px", textDecoration: "none" }}
+      >
+        <i className="ri-shield-check-line" /> Kiểm duyệt & Nhật ký
+      </Link>
+      <Link
+        href="/admin/theme-settings"
+        className={`btn ${current === "themes" ? "btn-primary" : "btn-outline"} btn-sm`}
+        style={{ display: "inline-flex", alignItems: "center", gap: "6px", textDecoration: "none" }}
+      >
+        <i className="ri-palette-line" /> Bảng màu & Giao diện
+      </Link>
+    </div>
+  );
+}
 
 type Organization = {
   id: string;
@@ -101,6 +131,7 @@ export function AdminModerationPage() {
           title="Kiểm duyệt & nhật ký"
           description="Duyệt hồ sơ tổ chức, hoạt động công khai và theo dõi thao tác quản trị."
         />
+        <AdminNavTabs current="moderation" />
         <StatusMessage error={error || undefined} loading={loading} />
         {message && (
           <div className="portal-message" role="status">
@@ -385,6 +416,7 @@ export function ThemeSettingsPage() {
           title="Bảng màu toàn trang"
           description="Tạo và áp dụng theme động cho toàn bộ giao diện."
         />
+        <AdminNavTabs current="themes" />
         <StatusMessage error={error || undefined} loading={loading} />
         {message && (
           <div className="portal-message" role="status">

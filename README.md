@@ -99,6 +99,8 @@ graph TD
     AUTH -->|Đăng nhập TNV| VDASH
     AUTH -->|Đăng nhập BTC| OMANAGE
     AUTH -->|Đăng nhập Admin| AMOD
+    AMOD <-->|Thanh Menu & Tab Giao diện| ATHEME
+    ATHEME -.->|Áp dụng bảng màu động toàn trang| HOME
 
     VDASH --> SCHED
     VDASH --> CERT
