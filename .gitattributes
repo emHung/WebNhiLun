@@ -1,0 +1,10 @@
+# GitHub Linguist language statistics overrides
+# Hide legacy CSS, seed data, and documentation from language bar
+# Focus repository statistics on primary application code: TypeScript (Next.js) & Python (FastAPI)
+
+frontend/public/legacy/** linguist-vendored
+*.css linguist-vendored
+docs/** linguist-documentation
+VolunteerHub_Docs/** linguist-documentation
+data/** linguist-data
+scripts/** linguist-vendored
