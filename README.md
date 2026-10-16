@@ -208,7 +208,7 @@ Dự án cung cấp sẵn file SQL **Tất cả trong 1 (All-In-One)** giúp b�
 ##### Cách 1: Nhanh nhất — 1 File duy nhất qua Supabase SQL Editor (Khuyên dùng)
 1. Mở dự án Supabase của bạn tại [supabase.com/dashboard](https://supabase.com/dashboard).
 2. Vào mục **SQL Editor** bên trái -> chọn **New query**.
-3. Mở file [supabase/full_setup.sql](file:///d:/WebNhiLun/supabase/full_setup.sql), sao chép toàn bộ nội dung, dán vào SQL Editor và nhấn **Run**.
+3. Mở file [supabase/full_setup.sql](file://d:/WebNhiLun/supabase/full_setup.sql), sao chép toàn bộ nội dung, dán vào SQL Editor và nhấn **Run**.
    - File này đã gộp toàn bộ **Cấu trúc CSDL (Schema, RLS, Triggers)** + **Dữ liệu mẫu (Seed Data, tài khoản demo, hoạt động, tổ chức, bài viết)**.
    - Chỉ 1 lần chạy là xong 100% CSDL.
 
