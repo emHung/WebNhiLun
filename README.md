@@ -201,12 +201,33 @@ DEMO_PASSWORD_USR_003=123456
 
 > ⚠️ **LƯU Ý BẢO MẬT:** `SUPABASE_SECRET_KEY` (service role) chỉ được đặt tại `backend/.env` cho các nghiệp vụ nội bộ (Storage, cấp PDF, seed). **Tuyệt đối không đưa key này vào Frontend**.
 
-#### Bước 2.3: Áp dụng CSDL & Nạp dữ liệu mẫu (Database Migration & Seed)
+#### Bước 2.3: Khởi tạo CSDL & Nạp dữ liệu mẫu (Database Schema & Seed Data)
+
+Dự án cung cấp sẵn file SQL trọn gói giúp bất kỳ ai cũng có thể thiết lập CSDL Supabase mới chỉ trong vài giây:
+
+##### Cách 1: Chạy trực tiếp qua Supabase Dashboard SQL Editor (Khuyên dùng - Nhanh nhất)
+1. Mở dự án Supabase của bạn tại [supabase.com/dashboard](https://supabase.com/dashboard).
+2. Vào mục **SQL Editor** -> chọn **New query**.
+3. Mở file [supabase/full_schema.sql](file:///d:/WebNhiLun/supabase/full_schema.sql), sao chép toàn bộ nội dung, dán vào SQL Editor và nhấn **Run** (Tạo toàn bộ bảng, hàm, trigger và chính sách bảo mật RLS).
+4. Tạo thêm một query mới, mở file [supabase/seed.sql](file:///d:/WebNhiLun/supabase/seed.sql), dán toàn bộ và nhấn **Run** (Nạp tài khoản demo, các tổ chức, 6 hoạt động mẫu, đơn đăng ký, chứng nhận, bảng màu hệ thống và bài viết).
+
+> 💡 **Tài khoản mẫu đăng nhập sau khi import seed.sql (Mật khẩu: `Demo@123456`):**
+> - **Tình nguyện viên:** `an.nguyen@email.com`
+> - **Ban tổ chức (BTC):** `coordinator@quyxanh.vn`
+> - **Quản trị viên (Admin):** `admin@volunteerhub.vn`
+
+##### Cách 2: Dùng Supabase CLI (Dành cho Developer)
 ```bash
-# 1. Áp dụng schema migration lên Supabase (chạy từ thư mục gốc của dự án)
+# Tự động thực thi toàn bộ thư mục supabase/migrations và nạp supabase/seed.sql:
+supabase db reset
+```
+
+##### Cách 3: Nạp tự động qua Python Script (Yêu cầu cấu hình backend/.env)
+```bash
+# 1. Áp dụng schema migration lên CSDL
 python backend/scripts/apply_migration.py
 
-# 2. Nạp dữ liệu mẫu chuẩn hóa từ data/seedData.js lên Supabase
+# 2. Nạp dữ liệu mẫu chuẩn hóa vào Supabase
 python backend/scripts/seed_supabase.py --apply
 ```
 
