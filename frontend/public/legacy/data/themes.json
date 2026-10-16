@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Đại dương & Hy vọng (Mặc định)",
+    "primary": "#12304A",
+    "cta": "#087F78",
+    "surface": "#E9F7F3",
+    "mode": "light",
+    "meaning": "Nền tảng tổng quát, kết nối minh bạch, đáng tin cậy"
+  },
+  {
+    "id": 2,
+    "name": "Mầm Xanh Tươi",
+    "primary": "#1B4332",
+    "cta": "#2D6A4F",
+    "surface": "#E8F5E9",
+    "mode": "light",
+    "meaning": "Môi trường, phủ xanh đồi trọc, nhặt rác bờ biển"
+  },
+  {
+    "id": 3,
+    "name": "Trái Tim Ấm Áp",
+    "primary": "#4A1521",
+    "cta": "#E05D5D",
+    "surface": "#FDF2F0",
+    "mode": "light",
+    "meaning": "Bếp ăn 0 đồng, mái ấm tình thương, chăm sóc người già & trẻ em"
+  },
+  {
+    "id": 4,
+    "name": "Nắng Mai Hy Vọng",
+    "primary": "#1E293B",
+    "cta": "#D97706",
+    "surface": "#FEF3C7",
+    "mode": "light",
+    "meaning": "Giáo dục vùng cao, quyên góp sách vở, khuyến học"
+  },
+  {
+    "id": 5,
+    "name": "Bình Yên & Chữa Lành",
+    "primary": "#1E3A8A",
+    "cta": "#0284C7",
+    "surface": "#F0F9FF",
+    "mode": "light",
+    "meaning": "Cứu trợ thiên tai, túi thuốc nghĩa tình, khám chữa bệnh miễn phí"
+  },
+  {
+    "id": 6,
+    "name": "Dạ Yến Huyền Bí (Dark Mode)",
+    "primary": "#818CF8",
+    "cta": "#10B981",
+    "surface": "#1E293B",
+    "mode": "dark",
+    "meaning": "Chế độ nền tối bảo vệ mắt, phong cách hiện đại và huyền bí"
+  }
+]

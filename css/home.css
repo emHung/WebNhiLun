@@ -836,12 +836,16 @@
 .story-card-content h3 {
   font-size: 1.1rem;
   font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
   margin: 0 0 6px 0;
 }
 
 .story-card-content p {
   font-size: 0.75rem;
-  opacity: 0.9;
+  color: #f8fafc;
+  opacity: 1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
   margin: 0 0 14px 0;
 }
 

@@ -1,2 +1,17 @@
 # graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
 
+# Environment secrets and local build artifacts
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+.next-dev/
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.gstack/
+backend/logs/
+supabase/.temp/

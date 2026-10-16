@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Hoạt Động Thiện Nguyện — NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/detail.css">
+  <style>
+    /* Lightbox Modal */
+    .vh-lightbox-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .vh-lightbox-overlay.active {
+      display: flex;
+    }
+    .vh-lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .vh-lightbox-img {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .vh-lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.25);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .vh-lightbox-nav:hover {
+      background: rgba(255,255,255,0.6);
+      color: #000;
+    }
+    .vh-lightbox-prev { left: -54px; }
+    .vh-lightbox-next { right: -54px; }
+    .vh-lightbox-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .vh-lightbox-counter {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body class="act-page-wrapper">
+
+  <!-- THANH NAVBAR THỐNG NHẤT TOÀN HỆ THỐNG -->
+  <header class="vh-navbar-wrapper">
+    <div class="vh-navbar-container">
+      <a href="index.html" class="vh-brand-group">
+        <span class="vh-brand-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
+          </svg>
+        </span>
+        <div class="vh-brand-title-wrap">
+          <span class="vh-brand-name">NhiLun</span>
+          <span class="vh-brand-slogan">Cùng nhau lan tỏa giá trị tốt đẹp</span>
+        </div>
+      </a>
+
+      <!-- MENU ĐIỀU HƯỚNG THỐNG NHẤT -->
+      <ul class="vh-nav-menu-list">
+        <li class="vh-nav-item"><a href="index.html"><span>Trang chủ</span></a></li>
+        <li class="vh-nav-item"><a href="activities.html" class="active"><span>Hoạt động</span></a></li>
+        <li class="vh-nav-item"><a href="stories.html"><span>Stories</span></a></li>
+        <li class="vh-nav-item"><a href="about.html"><span>Giới thiệu</span></a></li>
+        <li class="vh-nav-item"><a href="volunteer/dashboard.html"><span>Hoạt động của tôi</span></a></li>
+      </ul>
+
+      <div class="vh-nav-search-bar">
+        <i class="ri-search-line vh-nav-search-icon"></i>
+        <input type="text" placeholder="Tìm kiếm hoạt động, câu chuyện, địa điểm..." onkeydown="if(event.key==='Enter') window.location.href='activities.html?q='+encodeURIComponent(this.value)">
+      </div>
+
+      <div class="vh-nav-actions">
+        <!-- POPUP THÔNG BÁO DROPDOWN -->
+        <div class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+            <i class="ri-notification-3-line" style="font-size: 1.25rem;"></i>
+            <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+          </button>
+
+          <!-- DROPDOWN CONTENT -->
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()"><i class="ri-check-double-line"></i> Đánh dấu đã đọc</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList">
+              <!-- Nạp từ useNotification.js -->
+            </div>
+            <div class="vh-notif-footer">
+              <a href="notifications.html" class="vh-notif-view-all-btn">
+                <span>Xem tất cả thông báo</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+        <div id="vhUserNavWrap"></div>
+
+        <!-- NÚT MENU THU GỌN TRÊN MOBILE -->
+        <button type="button" class="vh-mobile-toggle-btn" id="vhMobileToggle" aria-label="Menu điều hướng" aria-expanded="false" onclick="useAuth.toggleMobileMenu()">
+          <i class="ri-menu-line" id="vhMobileToggleIcon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO BANNER (DYNAMIC) -->
+    <section class="detail-hero-banner">
+      <div>
+        <div class="detail-breadcrumb-row">
+          <a href="index.html">Trang chủ</a> &gt; <a href="activities.html">Hoạt động</a> &gt; <span id="detailBreadcrumbTitle">Khám bệnh & cấp phát túi thuốc</span>
+        </div>
+
+        <div class="detail-badges-row" id="detailBadgesWrap">
+          <span class="badge" id="detailBadgeCat" style="background: #e0f2fe; color: #0284c7; font-weight: 700;"><i class="ri-heart-pulse-line"></i> Y tế</span>
+          <span class="badge badge-success" id="detailBadgeStatus">Đang tuyển</span>
+          <span class="badge badge-mint"><i class="ri-checkbox-circle-line"></i> Đã xác minh</span>
+        </div>
+
+        <h1 class="detail-title-h1" id="detailTitleH1">Đang tải tên hoạt động...</h1>
+        <p class="detail-sub-desc" id="detailSubDesc">Đang tải mô tả tóm tắt hoạt động...</p>
+
+        <div class="detail-meta-icons-grid">
+          <div class="detail-meta-item">
+            <i class="ri-calendar-line" style="color: #2563eb; font-size: 1.2rem;"></i>
+            <div id="detailMetaDate">--/--/----</div>
+          </div>
+          <div class="detail-meta-item">
+            <i class="ri-map-pin-line" style="color: #ea580c; font-size: 1.2rem;"></i>
+            <div id="detailMetaLoc">Địa điểm</div>
+          </div>
+          <div class="detail-meta-item">
+            <i class="ri-group-line" style="color: #059669; font-size: 1.2rem;"></i>
+            <div id="detailMetaApplied"><strong>0/0</strong> Đã đăng ký</div>
+          </div>
+          <div class="detail-meta-item">
+            <i class="ri-star-fill" style="color: #f59e0b; font-size: 1.2rem;"></i>
+            <div id="detailMetaRating"><strong>4.9</strong> (32 đánh giá)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISUAL PHẢI -->
+      <div class="detail-hero-visual-right">
+        <div class="detail-quote-overlay" id="detailQuoteOverlay">
+          “Lan tỏa yêu thương vì một cộng đồng tốt đẹp hơn ♡”
+        </div>
+        <img src="images/act-medical.jpg" alt="Hoạt động tình nguyện" id="detailHeroMainImg" class="detail-hero-main-img" onerror="this.src='images/act-medical.jpg'">
+
+        <div class="detail-gallery-strip" id="detailGalleryStrip">
+          <img src="images/act-tree.jpg" alt="Gallery 1" class="gallery-strip-thumb" onclick="openLightbox(0)">
+          <img src="images/act-books.jpg" alt="Gallery 2" class="gallery-strip-thumb" onclick="openLightbox(1)">
+          <img src="images/act-food.jpg" alt="Gallery 3" class="gallery-strip-thumb" onclick="openLightbox(2)">
+          <img src="images/act-animal.jpg" alt="Gallery 4" class="gallery-strip-thumb" onclick="openLightbox(3)">
+          <div class="gallery-more-badge" onclick="openLightbox(0)">+12 hình ảnh</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THANH TABS ĐIỀU HƯỚNG NỘI DUNG -->
+    <div class="detail-nav-tabs-bar">
+      <button type="button" class="detail-tab-btn active" onclick="switchDetailTab('overview', this)"><i class="ri-information-line"></i> Tổng quan</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('schedule', this)"><i class="ri-calendar-event-line"></i> Lịch trình</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('location', this)"><i class="ri-map-pin-2-line"></i> Địa điểm</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('requirements', this)"><i class="ri-shield-check-line"></i> Yêu cầu & Chuẩn bị</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('organizer', this)"><i class="ri-building-line"></i> Đơn vị tổ chức</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('images', this)"><i class="ri-image-line"></i> Hình ảnh</button>
+      <button type="button" class="detail-tab-btn" onclick="switchDetailTab('reviews', this)"><i class="ri-star-line"></i> Đánh giá</button>
+    </div>
+
+    <!-- BỐ CỤC 2 CỘT CHÍNH -->
+    <div class="detail-content-layout">
+
+      <!-- CỘT TRÁI: CHI TIẾT HOẠT ĐỘNG -->
+      <div class="detail-left-col">
+
+        <!-- 1. GIỚI THIỆU HOẠT ĐỘNG -->
+        <section id="tab-pane-overview" class="card" style="padding: 16px;">
+          <h3 style="margin: 0 0 8px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+            <i class="ri-file-text-line" style="color: #059669;"></i> <span>Giới thiệu hoạt động</span>
+          </h3>
+          <p id="detailFullDesc" style="font-size: 0.82rem; line-height: 1.6; color: var(--text-secondary); margin: 0;">
+            Chương trình nhằm hỗ trợ chăm sóc sức khỏe cho người dân tại các khu vực còn nhiều khó khăn, thông qua khám bệnh tổng quát, đo huyết áp, tư vấn sức khỏe và cấp phát phần quà thiết yếu.
+          </p>
+        </section>
+
+        <!-- 2. LỊCH TRÌNH CHI TIẾT -->
+        <section id="tab-pane-schedule" class="card" style="padding: 20px; border-radius: 16px;">
+          <h3 style="margin: 0 0 12px 0; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+            <i class="ri-calendar-todo-line" style="color: #059669; font-size: 1.3rem;"></i> <span>Lịch trình chi tiết</span>
+          </h3>
+
+          <div class="detail-timeline-wrap" id="detailScheduleWrap">
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">07:30 - 08:30</span>
+              <div class="timeline-step-text">Tập trung tại địa điểm, sắp xếp cơ sở vật chất, phân công nhiệm vụ.</div>
+            </div>
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">08:30 - 11:30</span>
+              <div class="timeline-step-text">Triển khai công tác chuyên môn và hỗ trợ người dân theo khu vực.</div>
+            </div>
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">11:30 - 13:00</span>
+              <div class="timeline-step-text">Nghỉ ngơi dùng cơm trưa dinh dưỡng do ban tổ chức chu cấp.</div>
+            </div>
+            <div class="detail-timeline-step">
+              <span class="timeline-time-badge">13:00 - 15:30</span>
+              <div class="timeline-step-text">Tiếp tục ca chiều, tổng kết số lượng, dọn dẹp vệ sinh và cấp chứng nhận.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. ĐỊA ĐIỂM HOẠT ĐỘNG -->
+        <section id="tab-pane-location" class="card" style="padding: 16px;">
+          <h3 style="margin: 0 0 4px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+            <i class="ri-map-pin-user-line" style="color: #ea580c;"></i> <span>Địa điểm hoạt động</span>
+          </h3>
+          <p id="detailLocAddress" style="font-size: 0.8rem; color: var(--text-secondary); margin: 0 0 10px 0;">
+            Địa điểm cụ thể
+          </p>
+
+          <div class="map-preview-box">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i class="ri-map-2-line" style="font-size: 1.5rem; color: #059669;"></i>
+              <div>
+                <strong id="detailLocName" style="font-size: 0.8rem; display: block;">Tọa độ GPS điểm tập kết</strong>
+                <span id="detailLocCoords" style="font-size: 0.72rem; color: var(--text-secondary);">11.9654° N, 107.0321° E</span>
+              </div>
+            </div>
+            <a id="detailMapLink" href="https://maps.google.com" target="_blank" class="btn btn-sm btn-outline">
+              Xem trên Google Maps &rarr;
+            </a>
+          </div>
+        </section>
+
+        <!-- 4. YÊU CẦU & VẬT DỤNG (2 CỘT) -->
+        <section id="tab-pane-requirements" class="detail-two-cards-row">
+          <!-- Yêu cầu tham gia -->
+          <div class="card" style="padding: 16px;">
+            <h3 style="margin: 0 0 10px 0; font-size: 0.88rem; display: flex; align-items: center; gap: 6px;">
+              <i class="ri-shield-check-line" style="color: #059669;"></i> <span>Yêu cầu tham gia</span>
+            </h3>
+            <ul class="checklist-items-list" id="detailRequirementsList">
+              <li><i class="ri-checkbox-circle-fill" style="color: #10b981;"></i> <span>Có tinh thần trách nhiệm, đúng giờ và nhiệt tình với công việc chung.</span></li>
+              <li><i class="ri-checkbox-circle-fill" style="color: #10b981;"></i> <span>Thái độ hòa nhã, tôn trọng người dân địa phương và các tình nguyện viên khác.</span></li>
+              <li><i class="ri-checkbox-circle-fill" style="color: #10b981;"></i> <span>Tuân thủ tuyệt đối quy định và hướng dẫn của ban tổ chức.</span></li>
+            </ul>
+          </div>
+
+          <!-- Vật dụng cần chuẩn bị -->
+          <div class="card" style="padding: 16px;">
+            <h3 style="margin: 0 0 10px 0; font-size: 0.88rem; display: flex; align-items: center; gap: 6px;">
+              <i class="ri-shopping-bag-line" style="color: #2563eb;"></i> <span>Vật dụng cần chuẩn bị</span>
+            </h3>
+            <ul class="checklist-items-list">
+              <li><i class="ri-footprint-line" style="color: #059669;"></i> <span>Giày thể thao, trang phục thoải mái, lịch sự.</span></li>
+              <li><i class="ri-t-shirt-line" style="color: #0284c7;"></i> <span>Nón rộng vành, kem chống nắng, chai nước uống cá nhân.</span></li>
+              <li><i class="ri-id-card-line" style="color: #7c3aed;"></i> <span>Giấy tờ tùy thân (CCCD/thẻ HSSV) để đối chiếu điểm danh.</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 5. ĐƠN VỊ TỔ CHỨC -->
+        <section id="tab-pane-organizer" class="card" style="padding: 16px;">
+          <h3 style="margin: 0 0 10px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+            <i class="ri-building-line" style="color: #0284c7;"></i> <span>Đơn vị tổ chức</span>
+          </h3>
+          <div style="display: flex; gap: 14px; align-items: center;">
+            <div style="width: 52px; height: 52px; border-radius: 12px; background: #e0f2fe; color: #0284c7; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700;" id="detailOrgAvatar">
+              <i class="ri-government-line"></i>
+            </div>
+            <div>
+              <h4 id="detailOrgName" style="margin: 0 0 4px 0; font-size: 0.95rem; color: #0f172a;">Tổ chức tình nguyện</h4>
+              <p id="detailOrgDesc" style="margin: 0; font-size: 0.78rem; color: var(--text-secondary);">Tổ chức hoạt động vì sự phát triển bền vững và lan tỏa tinh thần trách nhiệm xã hội.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. THƯ VIỆN HÌNH ẢNH -->
+        <section id="tab-pane-images" class="card" style="padding: 16px;">
+          <h3 style="margin: 0 0 10px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+            <i class="ri-image-line" style="color: #10b981;"></i> <span>Thư viện hình ảnh thực tế</span>
+          </h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;" id="detailImagesGrid">
+            <img src="images/act-tree.jpg" alt="Gallery" style="width: 100%; height: 90px; object-fit: cover; border-radius: 8px; cursor: pointer;" onclick="openLightbox(0)">
+            <img src="images/act-books.jpg" alt="Gallery" style="width: 100%; height: 90px; object-fit: cover; border-radius: 8px; cursor: pointer;" onclick="openLightbox(1)">
+            <img src="images/act-food.jpg" alt="Gallery" style="width: 100%; height: 90px; object-fit: cover; border-radius: 8px; cursor: pointer;" onclick="openLightbox(2)">
+            <img src="images/act-animal.jpg" alt="Gallery" style="width: 100%; height: 90px; object-fit: cover; border-radius: 8px; cursor: pointer;" onclick="openLightbox(3)">
+          </div>
+        </section>
+
+        <!-- 7. ĐÁNH GIÁ TỪ TNV -->
+        <section id="tab-pane-reviews" class="card" style="padding: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="margin: 0; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+              <i class="ri-star-line" style="color: #f59e0b;"></i> <span>Đánh giá từ tình nguyện viên</span>
+            </h3>
+            <span style="font-size: 0.8rem; color: #059669; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="ri-star-fill" style="color: #eab308;"></i> 4.9 / 5.0 (32 đánh giá)</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <strong style="font-size: 0.8rem;">Nguyễn Văn An</strong>
+                <span style="color: #eab308; font-size: 0.75rem;"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></span>
+              </div>
+              <p style="margin: 0; font-size: 0.78rem; color: var(--text-secondary);">Chuyến đi rất ý nghĩa, các anh chị ban tổ chức hỗ trợ chu đáo từ khâu di chuyển đến bữa ăn.</p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <strong style="font-size: 0.8rem;">Trần Thị Mai</strong>
+                <span style="color: #eab308; font-size: 0.75rem;"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></span>
+              </div>
+              <p style="margin: 0; font-size: 0.78rem; color: var(--text-secondary);">Trải nghiệm tuyệt vời! Mình học hỏi thêm nhiều kỹ năng thực tế và kết nối được nhiều bạn mới.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- CỘT PHẢI: THẺ ĐĂNG KÝ (STICKY ACTION CARD) -->
+      <aside class="detail-action-card">
+        <div class="action-card-header-badge" id="actionDaysBadge">
+          <i class="ri-timer-line"></i> <span>Còn 5 ngày đăng ký</span>
+        </div>
+
+        <div class="action-progress-box">
+          <div class="action-progress-labels">
+            <span>Tiến độ nhận đơn</span>
+            <span id="actionProgressLabel" style="color: #10b981;">14 / 20 người (70%)</span>
+          </div>
+          <div class="action-progress-bar">
+            <div class="action-progress-fill" id="actionProgressFill" style="width: 70%;"></div>
+          </div>
+        </div>
+
+        <a href="volunteer/apply.html" id="detailApplyBtn" class="btn-detail-main-apply">
+          <span>Đăng Ký Tham Gia Ngay</span>
+          <span>&rarr;</span>
+        </a>
+        <div class="action-sub-guarantee">
+          Miễn phí • Xác nhận tham gia qua điểm danh thực tế
+        </div>
+
+        <div class="action-info-rows-list">
+          <div class="action-info-single-row">
+            <i class="ri-calendar-line" style="color: #2563eb; font-size: 1.1rem;"></i>
+            <div><strong>Thời gian:</strong> <span id="actionTimeText">15/11/2026 (07:30 - 15:00)</span></div>
+          </div>
+          <div class="action-info-single-row">
+            <i class="ri-map-pin-line" style="color: #ea580c; font-size: 1.1rem;"></i>
+            <div><strong>Địa điểm:</strong> <span id="actionLocText">Bình Phước</span></div>
+          </div>
+          <div class="action-info-single-row">
+            <i class="ri-price-tag-3-line" style="color: #10b981; font-size: 1.1rem;"></i>
+            <div><strong>Lĩnh vực:</strong> <span id="actionCategoryText">Y tế</span></div>
+          </div>
+          <div class="action-info-single-row">
+            <i class="ri-team-line" style="color: #7c3aed; font-size: 1.1rem;"></i>
+            <div><strong>Hình thức:</strong> Tình nguyện trực tiếp tại chỗ</div>
+          </div>
+          <div class="action-info-single-row">
+            <i class="ri-time-line" style="color: #059669; font-size: 1.1rem;"></i>
+            <div><strong>Giờ tình nguyện:</strong> <span id="actionHoursText" style="color: #10b981; font-weight: 700;">+7 giờ (được xác nhận)</span></div>
+          </div>
+        </div>
+
+        <div class="action-bottom-buttons-row">
+          <button type="button" class="btn-action-outline-half" id="detailFavBtn" onclick="handleDetailFavorite()">
+            <span id="detailFavIcon"><i class="ri-heart-line"></i></span> <span>Lưu hoạt động</span>
+          </button>
+          <button type="button" class="btn-action-outline-half" onclick="handleDetailShare()">
+            <i class="ri-share-line"></i> <span>Chia sẻ</span>
+          </button>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- LIGHTBOX GALLERY MODAL -->
+  <div class="vh-lightbox-overlay" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="vh-lightbox-content" onclick="event.stopPropagation()">
+      <button type="button" class="vh-lightbox-close" onclick="closeLightbox()">&times;</button>
+      <button type="button" class="vh-lightbox-nav vh-lightbox-prev" onclick="changeLightbox(-1)">&#10094;</button>
+      <img src="images/act-medical.jpg" id="lightboxImg" alt="Xem ảnh phóng to" class="vh-lightbox-img">
+      <button type="button" class="vh-lightbox-nav vh-lightbox-next" onclick="changeLightbox(1)">&#10095;</button>
+      <div class="vh-lightbox-counter" id="lightboxCounter">Ảnh 1/4</div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>© 2026 NhiLun • Cổng Thông Tin Hoạt Động Thiện Nguyện Toàn Quốc</p>
+    </div>
+  </footer>
+
+  <script src="data/seedData.js"></script>
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useRepository.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+
+  <script>
+    let currentAct = null;
+    let galleryImages = [
+      'images/act-medical.jpg',
+      'images/act-tree.jpg',
+      'images/act-books.jpg',
+      'images/act-food.jpg',
+      'images/act-animal.jpg'
+    ];
+    let currentLightboxIdx = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const actId = urlParams.get('id') || urlParams.get('actId') || 'ACT-004';
+
+      currentAct = useRepository.getActivityById(actId);
+      if (!currentAct) {
+        const all = useRepository.getActivities();
+        currentAct = all[0] || null;
+      }
+
+      if (currentAct) {
+        populateActivityDetail(currentAct);
+      }
+    });
+
+    function populateActivityDetail(act) {
+      document.title = `${act.title} — NhiLun`;
+      document.getElementById('detailBreadcrumbTitle').textContent = act.title;
+      document.getElementById('detailTitleH1').textContent = act.title;
+      document.getElementById('detailSubDesc').textContent = act.summary || act.description || '';
+      document.getElementById('detailFullDesc').textContent = act.description || act.summary || '';
+
+      // Category badge
+      const catEl = document.getElementById('detailBadgeCat');
+      catEl.textContent = (act.category || 'Môi trường');
+
+      // Status badge
+      const stEl = document.getElementById('detailBadgeStatus');
+      stEl.textContent = act.status || 'Đang tuyển';
+      if (act.status === 'Đã hoàn thành' || act.status === 'Đã kết thúc') {
+        stEl.className = 'badge badge-gray';
+      }
+
+      // Meta grid
+      const formattedDate = act.startDate ? new Date(act.startDate).toLocaleDateString('vi-VN') : '15/11/2026';
+      document.getElementById('detailMetaDate').innerHTML = `<strong>${formattedDate}</strong> (${act.time || '08:00 - 16:00'})`;
+      document.getElementById('detailMetaLoc').textContent = act.location || act.city || 'TP. Hồ Chí Minh';
+      document.getElementById('detailMetaApplied').innerHTML = `<strong>${act.applied || 0}/${act.slots || 20}</strong> Đã đăng ký`;
+
+      // Photo
+      if (act.image) {
+        document.getElementById('detailHeroMainImg').src = act.image;
+        if (!galleryImages.includes(act.image)) {
+          galleryImages.unshift(act.image);
+        }
+      }
+
+      // Address
+      document.getElementById('detailLocAddress').textContent = act.location || act.city || '';
+      document.getElementById('detailLocName').textContent = act.title;
+      document.getElementById('detailMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.location || act.city || 'Việt Nam')}`;
+
+      // Org
+      document.getElementById('detailOrgName').textContent = act.orgName || 'Tổ chức thiện nguyện';
+
+      // Action card
+      const pct = Math.min(100, Math.round(((act.applied || 0) / (act.slots || 1)) * 100));
+      document.getElementById('actionProgressLabel').textContent = `${act.applied || 0} / ${act.slots || 0} người (${pct}%)`;
+      document.getElementById('actionProgressFill').style.width = pct + '%';
+      document.getElementById('actionTimeText').textContent = `${formattedDate} (${act.time || '08:00 - 16:00'})`;
+      document.getElementById('actionLocText').textContent = act.location || act.city || '';
+      document.getElementById('actionCategoryText').textContent = act.category || '';
+      document.getElementById('actionHoursText').textContent = `+${act.volunteerHours || 7} giờ (được xác nhận)`;
+
+      // Apply button
+      const applyBtn = document.getElementById('detailApplyBtn');
+      if (act.status === 'Đã hoàn thành' || act.status === 'Đã kết thúc') {
+        applyBtn.innerHTML = '<span>Đã kết thúc nhận đơn</span>';
+        applyBtn.style.background = '#94a3b8';
+        applyBtn.style.pointerEvents = 'none';
+      } else {
+        applyBtn.href = `volunteer/apply.html?id=${act.id}`;
+      }
+
+      // Favorite state
+      const isFav = useRepository.isFavorite(act.id);
+      document.getElementById('detailFavIcon').innerHTML = isFav ? '<i class="ri-heart-fill" style="color: #ef4444;"></i>' : '<i class="ri-heart-line"></i>';
+    }
+
+    function switchDetailTab(tabKey, btn) {
+      document.querySelectorAll('.detail-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const targetPane = document.getElementById(`tab-pane-${tabKey}`);
+      if (targetPane) {
+        targetPane.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function handleDetailFavorite() {
+      if (!currentAct) return;
+      const isFav = useRepository.toggleFavorite(currentAct.id);
+      document.getElementById('detailFavIcon').innerHTML = isFav ? '<i class="ri-heart-fill" style="color: #ef4444;"></i>' : '<i class="ri-heart-line"></i>';
+      useToast.show(isFav ? 'Đã lưu hoạt động vào danh sách yêu thích!' : 'Đã bỏ lưu hoạt động.', 'success');
+    }
+
+    function handleDetailShare() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        useToast.show('Đã sao chép liên kết hoạt động vào bộ nhớ tạm!', 'success');
+      }).catch(() => {
+        useToast.show('Liên kết: ' + window.location.href, 'info');
+      });
+    }
+
+    // Lightbox Modal functions
+    function openLightbox(idx) {
+      currentLightboxIdx = (idx >= 0 && idx < galleryImages.length) ? idx : 0;
+      updateLightboxImg();
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    function changeLightbox(delta) {
+      currentLightboxIdx = (currentLightboxIdx + delta + galleryImages.length) % galleryImages.length;
+      updateLightboxImg();
+    }
+
+    function updateLightboxImg() {
+      document.getElementById('lightboxImg').src = galleryImages[currentLightboxIdx];
+      document.getElementById('lightboxCounter').textContent = `Ảnh ${currentLightboxIdx + 1} / ${galleryImages.length}`;
+    }
+  </script>
+</body>
+</html>

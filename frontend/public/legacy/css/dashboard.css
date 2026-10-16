@@ -1,0 +1,352 @@
+/* ==========================================================================
+   DASHBOARD.CSS — Bảng Điều Khiển Trung Tâm (Khớp 100% Mockup Hình 3)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&display=swap');
+
+/* --- HERO WELCOME CARD --- */
+.dash-welcome-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #f7fee7 100%);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  border-radius: 20px;
+  padding: 22px 28px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+:root[data-mode="dark"] .dash-welcome-card {
+  background: linear-gradient(135deg, #06241a 0%, #0f172a 60%, #064e3b 100%);
+  border-color: rgba(52, 211, 153, 0.2);
+}
+
+.dash-welcome-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0b3d2c;
+  margin: 0 0 4px 0;
+}
+
+:root[data-mode="dark"] .dash-welcome-title {
+  color: #f8fafc;
+}
+
+.dash-welcome-quote {
+  font-family: 'Caveat', 'Dancing Script', cursive;
+  font-size: 1.25rem;
+  color: #15803d;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+:root[data-mode="dark"] .dash-welcome-quote {
+  color: #86efac;
+}
+
+.dash-welcome-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dash-welcome-thumb-wrap {
+  position: relative;
+}
+
+.dash-welcome-thumb {
+  width: 140px;
+  height: 110px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  display: block;
+}
+
+.dash-badge-community-round {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #0b3d2c;
+  border: 1px solid #10b981;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* --- CAROUSEL HOẠT ĐỘNG SẮP TỚI --- */
+.dash-act-carousel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.dash-carousel-card {
+  border: 1px solid var(--border-default);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface-white);
+  transition: all 0.2s;
+}
+
+.dash-carousel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: #10b981;
+}
+
+.dash-carousel-thumb-wrap {
+  position: relative;
+  height: 100px;
+}
+
+.dash-carousel-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dash-carousel-status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.dash-carousel-status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.dash-carousel-body {
+  padding: 10px 12px;
+}
+
+.dash-carousel-date-box {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 6px;
+  background: var(--canvas);
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.76rem;
+  color: var(--text-primary);
+  margin-right: 6px;
+}
+
+.dash-carousel-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.dash-carousel-meta {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-default);
+}
+
+/* --- BIỂU ĐỒ THỐNG KÊ HOẠT ĐỘNG (CHART) --- */
+.chart-box-card {
+  background: var(--surface-white);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 14px;
+}
+
+.chart-header-tabs {
+  display: flex;
+  gap: 6px;
+  font-size: 0.74rem;
+}
+
+.chart-tab-pill {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--canvas);
+  color: var(--text-secondary);
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+.chart-tab-pill.active {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.chart-svg-container {
+  width: 100%;
+  height: 120px;
+  margin: 14px 0 8px;
+}
+
+.chart-legend-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+/* --- GỢI Ý HOẠT ĐỘNG (RECOMMENDATIONS) --- */
+.dash-recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dash-rec-item {
+  background: var(--canvas);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.dash-rec-item:hover {
+  border-color: #10b981;
+  background: var(--surface-white);
+}
+
+.dash-rec-thumb {
+  width: 100%;
+  height: 65px;
+  object-fit: cover;
+  display: block;
+}
+
+.dash-rec-body {
+  padding: 6px 8px;
+}
+
+.dash-rec-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dash-rec-sub {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+
+/* --- MINI LỊCH CỦA TÔI TRÊN SIDEBAR PHẢI --- */
+.mini-cal-card {
+  background: var(--surface-white);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.mini-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  font-size: 0.7rem;
+  margin: 8px 0;
+}
+
+.mini-cal-day-cell {
+  padding: 4px 0;
+  border-radius: 6px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.mini-cal-day-cell.active {
+  background: #10b981;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.mini-cal-selected-event {
+  background: var(--canvas);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.mini-cal-event-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* THÔNG BÁO MỚI TRÊN RIGHT SIDEBAR */
+.dash-notify-item-compact {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-default);
+  font-size: 0.74rem;
+}
+
+.dash-notify-item-compact:last-child {
+  border-bottom: none;
+}
+
+.dash-notify-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .dash-act-carousel-grid {
+    grid-template-columns: 1fr;
+  }
+  .dash-recommend-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .dash-recommend-grid {
+    grid-template-columns: 1fr;
+  }
+  .dash-welcome-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .dash-welcome-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+}

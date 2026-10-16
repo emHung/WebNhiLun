@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Hoạt Động & Điểm Danh — Ban Tổ Chức | NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="container navbar">
+      <div class="nav-brand">
+        <a href="../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
+          <span style="font-weight: 800; color: #10b981;">NhiLun</span>
+          <span class="logo-badge">Organizer Portal</span>
+        </a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../activities.html">Hoạt động</a></li>
+        <li><a href="../stories.html">Stories</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="manage.html" class="active">Ban tổ chức</a></li>
+        <li><a href="create-event.html">Tạo sự kiện</a></li>
+        <li class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" id="vhNotifBtn" title="Xem thông báo" aria-expanded="false" onclick="useNotification.toggle()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="vh-notif-badge" id="vhNotifBadge">3</span>
+          </button>
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <span class="vh-notif-title">Thông báo mới</span>
+              <button type="button" class="vh-notif-markall" id="vhNotifMarkAll" onclick="useNotification.markAllRead()">Đã đọc tất cả</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList"></div>
+            <div class="vh-notif-footer">
+              <a href="../notifications.html" class="vh-notif-viewall-btn">Xem tất cả thông báo &rarr;</a>
+            </div>
+          </div>
+        </li>
+        <li id="navAuthBadge"></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 16px; padding-bottom: 36px;">
+    <!-- TOP HEADER -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h1 style="margin: 0; font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 6px;">
+          <i class="ri-plant-line" style="color: #10b981;"></i> Ban Điều Phối — Quỹ Xanh Việt Nam
+        </h1>
+        <p style="margin: 4px 0 0; font-size: 0.8rem; color: var(--text-secondary);">Quản lý hồ sơ tình nguyện viên, xét duyệt chỉ tiêu, quét QR điểm danh và cấp chứng nhận tự động.</p>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button type="button" class="btn btn-sm btn-outline" onclick="exportApplicantsCSV()" style="display: inline-flex; align-items: center; gap: 6px;">
+          <i class="ri-download-2-line"></i> Xuất Báo Cáo CSV
+        </button>
+        <a href="create-event.html" class="btn btn-sm btn-primary" style="display: inline-flex; align-items: center; gap: 6px;">
+          <i class="ri-add-line"></i> Tạo Hoạt Động Mới (Wizard)
+        </a>
+      </div>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px;">
+      <div class="card" style="padding: 14px; border-left: 4px solid #10b981;">
+        <span style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Tổng hoạt động</span>
+        <div style="font-size: 1.5rem; font-weight: 800; margin-top: 4px;" id="statMyActs">0</div>
+        <small style="font-size: 0.72rem; color: #10b981;">Đang điều phối trên hệ thống</small>
+      </div>
+      <div class="card" style="padding: 14px; border-left: 4px solid #3b82f6;">
+        <span style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Tổng đơn đăng ký</span>
+        <div style="font-size: 1.5rem; font-weight: 800; margin-top: 4px;" id="statTotalApps">0</div>
+        <small style="font-size: 0.72rem; color: #3b82f6;">Tình nguyện viên đã nộp</small>
+      </div>
+      <div class="card" style="padding: 14px; border-left: 4px solid #f59e0b;">
+        <span style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Đã phê duyệt</span>
+        <div style="font-size: 1.5rem; font-weight: 800; margin-top: 4px;" id="statApprovedApps">0</div>
+        <small style="font-size: 0.72rem; color: #f59e0b;">Được nhận vào danh sách</small>
+      </div>
+      <div class="card" style="padding: 14px; border-left: 4px solid #8b5cf6;">
+        <span style="font-size: 0.74rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Điểm danh (+Cert)</span>
+        <div style="font-size: 1.5rem; font-weight: 800; margin-top: 4px;" id="statCheckedIn">0</div>
+        <small style="font-size: 0.72rem; color: #8b5cf6;">Đã quét QR & cấp chứng nhận</small>
+      </div>
+    </div>
+
+    <!-- FILTER & SEARCH BAR -->
+    <div class="card" style="padding: 12px 16px; margin-bottom: 16px;">
+      <div style="display: grid; grid-template-columns: 2fr 1.2fr 1fr; gap: 10px; align-items: center;">
+        <div>
+          <input type="text" id="searchApplicantInput" class="form-control" placeholder="Tìm theo họ tên, email, hoạt động, mã đơn..." style="font-size: 0.82rem;">
+        </div>
+        <div>
+          <select id="filterActivitySelect" class="form-control" style="font-size: 0.82rem;">
+            <option value="">-- Tất cả hoạt động --</option>
+          </select>
+        </div>
+        <div>
+          <select id="filterStatusSelect" class="form-control" style="font-size: 0.82rem;">
+            <option value="">-- Trạng thái --</option>
+            <option value="pending">Chờ duyệt</option>
+            <option value="approved">Đã duyệt</option>
+            <option value="rejected">Từ chối</option>
+            <option value="cancelled">Đã hủy</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- DANH SÁCH DUYỆT ĐƠN & ĐIỂM DANH -->
+    <div class="card" style="padding: 12px 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border-default); padding-bottom: 8px;">
+        <h2 style="font-size: 1rem; margin: 0; font-weight: 800;">Danh Sách Tình Nguyện Viên Nộp Đơn</h2>
+        <span style="font-size: 0.74rem; color: var(--text-secondary);">Dữ liệu cập nhật theo thời gian thực từ Repository</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table" style="font-size: 0.8rem;">
+          <thead>
+            <tr>
+              <th>Mã Đơn</th>
+              <th>Tình Nguyện Viên</th>
+              <th>Hoạt Động Tham Gia</th>
+              <th>Ca Trực</th>
+              <th>Trạng Thái Duyệt</th>
+              <th>Điểm Danh</th>
+              <th style="min-width: 140px;">Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody id="applicantsTableBody">
+            <!-- Đổ từ organizer.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL TỪ CHỐI ĐƠN -->
+  <div id="rejectModal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="max-width: 480px; width: 90%; background: var(--bg-surface); border-radius: 12px; padding: 20px; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+      <h3 style="margin: 0 0 10px 0; font-size: 1.05rem; color: var(--status-danger);">Từ Chối Đơn Đăng Ký</h3>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">Vui lòng nêu lý do từ chối để hệ thống gửi thông báo phản hồi minh bạch tới tình nguyện viên:</p>
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label class="form-label" style="font-size: 0.78rem;">Lý do từ chối *</label>
+        <textarea id="rejectReasonInput" class="form-control" rows="3" style="font-size: 0.82rem;"></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn btn-outline" onclick="closeRejectModal()">Hủy</button>
+        <button type="button" class="btn btn-danger" onclick="confirmRejectApp()">Xác Nhận Từ Chối</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL QUÉT QR ĐIỂM DANH -->
+  <div id="qrModal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="max-width: 440px; width: 90%; background: var(--bg-surface); border-radius: 12px; padding: 20px; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.3); text-align: center;">
+      <h3 style="margin: 0 0 6px 0; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 8px;"><i class="ri-camera-line" style="color: #10b981;"></i> Quét Mã QR Điểm Danh</h3>
+      <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">Mô phỏng máy quét mã QR thẻ tình nguyện viên tại điểm tập trung.</p>
+      <div style="width: 220px; height: 220px; margin: 0 auto 16px; border: 3px solid #10b981; border-radius: 12px; position: relative; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff;">
+        <div style="font-size: 3rem; margin-bottom: 6px; color: #10b981;"><i class="ri-qr-scan-2-line"></i></div>
+        <div style="font-size: 0.76rem; color: #10b981; font-family: monospace;">SCANNING...</div>
+        <div style="font-size: 0.72rem; color: #cbd5e1; margin-top: 4px;">Mã đơn: <strong id="qrTargetCode">APP-001</strong></div>
+      </div>
+      <div style="display: flex; justify-content: center; gap: 10px;">
+        <button type="button" class="btn btn-outline" onclick="closeQrModal()">Hủy Bỏ</button>
+        <button type="button" class="btn btn-primary" onclick="confirmQrCheckin()"><i class="ri-check-line"></i> Xác Nhận Điểm Danh & Cấp Cert</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHI TIẾT ĐƠN ỨNG VIÊN -->
+  <div id="appDetailModal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="max-width: 520px; width: 90%; background: var(--bg-surface); border-radius: 12px; padding: 22px; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 6px;"><i class="ri-file-list-3-line" style="color: #059669;"></i> Chi Tiết Đơn Đăng Ký</h3>
+        <button type="button" class="btn btn-sm btn-ghost" onclick="closeAppDetailModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div id="appDetailModalBody" style="margin-bottom: 16px;">
+        <!-- Đổ từ organizer.js -->
+      </div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button type="button" class="btn btn-outline" onclick="closeAppDetailModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>NhiLun Organizer Portal • Hỗ trợ chuyển đổi số cho các tổ chức thiện nguyện.</p>
+    </div>
+  </footer>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="../data/seedData.js"></script>
+  <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useRepository.js"></script>
+  <script src="../shared/useToast.js"></script>
+  <script src="../shared/useTheme.js"></script>
+  <script src="../shared/useAuth.js"></script>
+  <script src="../shared/useNotification.js"></script>
+
+  <!-- LOGIC CỦA BAN TỔ CHỨC -->
+  <script src="organizer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useAuth.renderNavbarAuth('navAuthBadge');
+      if (window.useNotification) {
+        useNotification.init();
+      }
+    });
+  </script>
+</body>
+
+</html>

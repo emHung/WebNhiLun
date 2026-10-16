@@ -1,0 +1,735 @@
+/* ==========================================================================
+   AUTH.CSS — Giao Diện Xác Thực NhiLun (Premium Glassmorphism Nature)
+   Khớp 100% Mockup: Đăng Nhập & Đăng Ký, Background Mầm Xanh, Hộp Quick Demo
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&display=swap');
+
+/* --- KHUNG TRANG TOÀN CẢNH (FULLPAGE NATURE WRAPPER) --- */
+.auth-page-wrapper {
+  min-height: 100vh;
+  position: relative;
+  background: url('../images/optimized/auth-bg-1376.webp') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 12px 16px 40px;
+  overflow-x: hidden;
+}
+
+/* Overlay làm mượt sáng / tối */
+.auth-page-wrapper::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.35) 0%, rgba(240, 253, 244, 0.15) 60%, rgba(220, 245, 230, 0.3) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+:root[data-mode="dark"] .auth-page-wrapper::before {
+  background: radial-gradient(circle at 50% 30%, rgba(15, 23, 42, 0.75) 0%, rgba(13, 35, 26, 0.88) 100%);
+}
+
+/* --- HEADER THANH ĐIỀU HƯỚNG MỜ SANG TRỌNG --- */
+.auth-top-nav {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1080px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 14px;
+}
+
+:root[data-mode="dark"] .auth-top-nav {
+  background: rgba(20, 32, 28, 0.75);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.auth-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.auth-nav-links a {
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.15s;
+}
+
+.auth-nav-links a:hover {
+  color: #10b981;
+}
+
+/* --- KHU VỰC LOGO & SLOGAN TRÊN ĐẦU THẺ --- */
+.auth-brand-banner {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.brand-icon-leaf-heart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.22);
+  margin-bottom: 6px;
+  transition: transform 0.3s ease;
+}
+
+.brand-icon-leaf-heart:hover {
+  transform: scale(1.08) rotate(4deg);
+}
+
+.auth-brand-name {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #0b3d2c;
+  letter-spacing: -0.5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.auth-brand-name span {
+  color: #10b981;
+}
+
+:root[data-mode="dark"] .auth-brand-name {
+  color: #f8fafc;
+}
+:root[data-mode="dark"] .auth-brand-name span {
+  color: #34d399;
+}
+
+.auth-brand-slogan {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #2d6a4f;
+  margin: 3px 0 0 0;
+}
+
+:root[data-mode="dark"] .auth-brand-slogan {
+  color: #94a3b8;
+}
+
+/* --- TRÍCH DẪN NGHỆ THUẬT (AMBIENT SCRIPT QUOTES) --- */
+.ambient-top-quote {
+  position: absolute;
+  top: 75px;
+  right: calc(50% - 460px);
+  z-index: 5;
+  font-family: 'Caveat', 'Dancing Script', cursive;
+  font-size: 1.35rem;
+  color: #164e3f;
+  line-height: 1.3;
+  max-width: 250px;
+  text-align: left;
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+
+.ambient-top-quote .quote-mark {
+  font-size: 2rem;
+  line-height: 0;
+  vertical-align: -0.3em;
+  color: #10b981;
+}
+
+.ambient-top-quote .quote-heart {
+  display: inline-block;
+  font-size: 1.1rem;
+  color: #10b981;
+  margin-left: 4px;
+}
+
+@media (max-width: 992px) {
+  .ambient-top-quote {
+    display: none;
+  }
+}
+
+.ambient-bottom-quote {
+  position: relative;
+  z-index: 10;
+  font-family: 'Caveat', 'Dancing Script', cursive;
+  font-size: 1.45rem;
+  color: #1b4332;
+  text-align: center;
+  margin-top: 14px;
+  letter-spacing: 0.5px;
+}
+
+:root[data-mode="dark"] .ambient-bottom-quote {
+  color: #86efac;
+}
+
+/* --- THẺ THỦ CÔNG FROSTED GLASS (MAIN AUTH CARD) --- */
+.auth-glass-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 490px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 28px;
+  box-shadow: 0 24px 60px rgba(11, 61, 44, 0.14), 0 4px 16px rgba(0, 0, 0, 0.04);
+  padding: 22px 26px 24px;
+  transition: all 0.3s ease;
+}
+
+:root[data-mode="dark"] .auth-glass-card {
+  background: rgba(20, 32, 28, 0.88);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* --- THANH DEMO ĐĂNG NHẬP NHANH 1 CHẠM --- */
+.demo-accounts-ribbon {
+  background: rgba(238, 248, 242, 0.88);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  border-radius: 16px;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+}
+
+:root[data-mode="dark"] .demo-accounts-ribbon {
+  background: rgba(30, 48, 40, 0.85);
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+.demo-ribbon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.76rem;
+}
+
+.demo-ribbon-title {
+  font-weight: 700;
+  color: #1b4332;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+:root[data-mode="dark"] .demo-ribbon-title {
+  color: #a7f3d0;
+}
+
+.demo-ribbon-pwd {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.demo-pass-pill {
+  display: inline-block;
+  padding: 1px 7px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-left: 3px;
+}
+
+:root[data-mode="dark"] .demo-pass-pill {
+  background: #334155;
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.demo-quick-buttons-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.demo-quick-card-btn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-mode="dark"] .demo-quick-card-btn {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.demo-quick-card-btn:hover {
+  transform: translateY(-2px);
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.18);
+}
+
+.demo-avatar-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.demo-avatar-circle.tnv {
+  background: #ffedd5;
+}
+
+.demo-avatar-circle.btc {
+  background: #dbeafe;
+}
+
+.demo-avatar-circle.admin {
+  background: #fee2e2;
+}
+
+.demo-btn-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.demo-btn-text strong {
+  font-size: 0.74rem;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.demo-btn-text span {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- TAB CHUYỂN ĐỔI ĐĂNG NHẬP / ĐĂNG KÝ --- */
+.auth-nav-tabs {
+  display: flex;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 18px;
+}
+
+:root[data-mode="dark"] .auth-nav-tabs {
+  border-bottom-color: #334155;
+}
+
+.auth-nav-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #64748b;
+  border: none;
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+:root[data-mode="dark"] .auth-nav-tab {
+  color: #94a3b8;
+}
+
+.auth-nav-tab.active {
+  color: #0d7052;
+  border-bottom-color: #10b981;
+}
+
+:root[data-mode="dark"] .auth-nav-tab.active {
+  color: #34d399;
+  border-bottom-color: #34d399;
+}
+
+.auth-pane {
+  display: none;
+}
+
+.auth-pane.active {
+  display: block;
+  animation: authFadeIn 0.25s ease-out;
+}
+
+@keyframes authFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- CÁC FORM CONTROLS VỚI ICON TRONG SUỐT --- */
+.auth-form-group {
+  margin-bottom: 14px;
+}
+
+.auth-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.auth-field-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: block;
+  margin-bottom: 6px;
+}
+
+:root[data-mode="dark"] .auth-field-label {
+  color: #f1f5f9;
+}
+
+.auth-forgot-link {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #10b981;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.auth-forgot-link:hover {
+  color: #059669;
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  font-size: 0.95rem;
+}
+
+.auth-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 42px 0 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+:root[data-mode="dark"] .auth-input {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #10b981;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
+}
+
+:root[data-mode="dark"] .auth-input:focus {
+  background: #1e293b;
+  border-color: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.toggle-password-btn:hover {
+  color: #0d7052;
+}
+
+:root[data-mode="dark"] .toggle-password-btn:hover {
+  color: #34d399;
+}
+
+/* --- GHI NHỚ PHIÊN ĐĂNG NHẬP & QUY TẮC CỘNG ĐỒNG --- */
+.auth-checkbox-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.custom-checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox-container input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: #10b981;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.checkbox-info-tooltip {
+  display: inline-block;
+  margin-left: 2px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  cursor: help;
+}
+
+/* --- NÚT HÀNH ĐỘNG GRADIENT HOÀN HẢO --- */
+.auth-submit-btn {
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0d7052 0%, #10b981 100%);
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.32);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 6px;
+}
+
+.auth-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(16, 185, 129, 0.42);
+  filter: brightness(1.05);
+}
+
+.auth-submit-btn:active {
+  transform: translateY(0);
+}
+
+.auth-submit-btn .btn-arrow-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.auth-submit-btn:hover .btn-arrow-icon {
+  transform: translateX(3px);
+}
+
+.auth-card-footer-link {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.auth-card-footer-link a {
+  color: #10b981;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.auth-card-footer-link a:hover {
+  color: #059669;
+}
+
+/* --- TAB ĐĂNG KÝ: CHỌN VAI TRÒ (ROLE CARDS) --- */
+.role-selection-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.role-select-card {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 12px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-mode="dark"] .role-select-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.role-select-card:hover {
+  border-color: #10b981;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+}
+
+.role-select-card.selected {
+  border: 2px solid #10b981;
+  background: rgba(235, 248, 242, 0.95);
+}
+
+:root[data-mode="dark"] .role-select-card.selected {
+  background: rgba(30, 50, 42, 0.95);
+  border-color: #34d399;
+}
+
+.role-check-badge {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10b981;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  align-items: center;
+  justify-content: center;
+}
+
+.role-select-card.selected .role-check-badge {
+  display: flex;
+}
+
+.role-card-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.role-card-avatar.volunteer {
+  background: #fef3c7;
+}
+
+.role-card-avatar.organizer {
+  background: #dbeafe;
+}
+
+.role-card-body {
+  overflow: hidden;
+  padding-right: 12px;
+}
+
+.role-card-body strong {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.role-card-body p {
+  font-size: 0.67rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.25;
+}
+
+/* 2 Cột Mật khẩu ở form Đăng Ký */
+.register-pwd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .register-pwd-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .demo-quick-buttons-row {
+    grid-template-columns: 1fr;
+  }
+  .role-selection-grid {
+    grid-template-columns: 1fr;
+  }
+}

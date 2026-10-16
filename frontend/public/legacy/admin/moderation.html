@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hàng Đợi Kiểm Duyệt & Audit Logs — Admin Portal | NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="profile-app-container">
+
+    <!-- SIDEBAR ADMIN -->
+    <aside class="profile-sidebar">
+      <a href="../index.html" class="sidebar-brand-box">
+        <div class="sidebar-brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#10B981"/>
+            <path d="M9 13c1.5-1.5 4.5-1.5 6 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="sidebar-brand-title">NhiLun</span>
+      </a>
+
+      <ul class="sidebar-menu-list">
+        <li class="sidebar-menu-item"><a href="../dashboard.html"><span class="sidebar-menu-label"><i class="ri-dashboard-line sidebar-menu-icon"></i><span>Dashboard</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-user-line sidebar-menu-icon"></i><span>Quản lý người dùng</span></span></a></li>
+        <li class="sidebar-menu-item active"><a href="moderation.html"><span class="sidebar-menu-label"><i class="ri-checkbox-circle-line sidebar-menu-icon"></i><span>Kiểm duyệt</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-calendar-event-line sidebar-menu-icon"></i><span>Quản lý hoạt động</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-building-line sidebar-menu-icon"></i><span>Quản lý tổ chức</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="javascript:void(0)"><span class="sidebar-menu-label"><i class="ri-bar-chart-box-line sidebar-menu-icon"></i><span>Báo cáo & Thống kê</span></span></a></li>
+        <li class="sidebar-menu-item"><a href="../notifications.html"><span class="sidebar-menu-label"><i class="ri-notification-3-line sidebar-menu-icon"></i><span>Thông báo</span></span><span class="sidebar-badge">3</span></a></li>
+        <li class="sidebar-menu-item"><a href="theme-settings.html"><span class="sidebar-menu-label"><i class="ri-settings-3-line sidebar-menu-icon"></i><span>Cài đặt hệ thống</span></span></a></li>
+      </ul>
+
+      <div class="sidebar-mini-promo">
+        <div class="mini-promo-graphic"><i class="ri-leaf-line" style="font-size: 2rem; color: #10b981;"></i></div>
+        <p class="mini-promo-title">Cùng nhau<br>lan tỏa giá trị tốt đẹp<br><small style="font-weight: 500; opacity: 0.85;">cho cộng đồng</small></p>
+        <a href="../index.html" class="mini-promo-btn">Quay về trang chủ &rarr;</a>
+      </div>
+    </aside>
+
+    <!-- NỘI DUNG CHÍNH (MAIN AREA) -->
+    <main class="profile-main-area">
+
+      <!-- TOPBAR -->
+      <div class="profile-topbar">
+        <div class="topbar-search-box">
+          <i class="ri-search-line topbar-search-icon"></i>
+          <input type="text" class="topbar-search-input" placeholder="Tìm kiếm tổ chức, hoạt động, người dùng...">
+        </div>
+        <div class="topbar-right-actions">
+          <!-- POPUP THÔNG BÁO DROPDOWN -->
+          <div class="vh-notif-wrapper">
+            <button type="button" class="vh-notif-bell-btn" id="vhNotifBtn" onclick="useNotification.toggle()" title="Thông báo mới" aria-expanded="false">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="vh-notif-badge" id="vhNotifBadge">3</span>
+            </button>
+
+            <div class="vh-notif-dropdown" id="vhNotifDropdown">
+              <div class="vh-notif-header">
+                <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+                <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()"><i class="ri-check-line"></i> Đánh dấu đã đọc</button>
+              </div>
+              <div class="vh-notif-list" id="vhNotifList">
+                <!-- Nạp từ useNotification.js -->
+              </div>
+              <div class="vh-notif-footer">
+                <a href="../notifications.html" class="vh-notif-view-all-btn">
+                  <span>Xem tất cả thông báo</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div id="vhUserNavWrap"></div>
+        </div>
+      </div>
+
+      <!-- PAGE TITLE HERO BANNER (CHUẨN THEO MOCKUP HÌNH 5 CÓ NỀN LÁ VÀ QUOTE) -->
+      <div class="admin-hero-nature-banner">
+        <div class="admin-hero-text-col">
+          <h1 class="admin-hero-main-title">Hàng Đợi Kiểm Duyệt & Audit Logs</h1>
+          <p class="admin-hero-main-sub">Bảo chứng danh tính tổ chức và tính minh bạch của các chiến dịch.</p>
+          <div class="admin-hero-quote-box">
+            <em>&ldquo;Minh bạch hôm nay vì cộng đồng bền vững ngày mai&rdquo;</em>
+          </div>
+        </div>
+        <div class="admin-hero-badge-col">
+          <div class="admin-hero-shield-pill">
+            <i class="ri-shield-check-fill"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 THẺ CHỈ SỐ METRIC CARDS -->
+      <div class="admin-stats-row-four">
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="ri-building-line"></i></div>
+          <div>
+            <span class="admin-stat-num" id="statMetricPendingOrgs">0</span>
+            <span class="admin-stat-lbl">Tổ chức chờ duyệt</span>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="ri-calendar-line"></i></div>
+          <div>
+            <span class="admin-stat-num" id="statMetricPendingActs">0</span>
+            <span class="admin-stat-lbl">Hoạt động chờ duyệt</span>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="ri-user-3-line"></i></div>
+          <div>
+            <span class="admin-stat-num" id="statMetricUsers">28</span>
+            <span class="admin-stat-lbl">Người dùng hệ thống</span>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="ri-shield-check-line"></i></div>
+          <div>
+            <span class="admin-stat-num" style="color: #10b981;" id="statMetricAuditCount">0</span>
+            <span class="admin-stat-lbl">Nhật ký Audit Logs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHẦN 1: KIỂM DUYỆT TỔ CHỨC THIỆN NGUYỆN -->
+      <div class="admin-section-block">
+        <div class="admin-section-header">
+          <h2 class="admin-sec-title">
+            <i class="ri-building-line"></i> <span>1. Kiểm Duyệt Tổ Chức Thiện Nguyện</span>
+          </h2>
+          <div class="admin-table-search-row">
+            <input type="text" id="searchOrgInput" placeholder="Tìm tên tổ chức..." class="quick-select-control" style="width: 170px;">
+            <select id="filterOrgStatus" class="quick-select-control">
+              <option value="">Tất cả trạng thái ⌵</option>
+              <option value="pending">Chờ duyệt</option>
+              <option value="verified">Đã xác nhận</option>
+              <option value="rejected">Từ chối</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="table" style="font-size: 0.78rem;">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Tên tổ chức</th>
+                <th>Người đại diện</th>
+                <th>Lĩnh vực</th>
+                <th>Tài liệu đính kèm</th>
+                <th>Ngày đăng ký</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="orgTableBody">
+              <!-- Render dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PHẦN 2: KIỂM DUYỆT HOẠT ĐỘNG TRƯỚC KHI CÔNG BỐ -->
+      <div class="admin-section-block">
+        <div class="admin-section-header">
+          <h2 class="admin-sec-title">
+            <i class="ri-calendar-event-line"></i> <span>2. Kiểm Duyệt Hoạt Động Trước Khi Công Bố</span>
+          </h2>
+          <div class="admin-table-search-row">
+            <input type="text" id="searchActInput" placeholder="Tìm tên hoạt động..." class="quick-select-control" style="width: 170px;">
+            <select id="filterActStatus" class="quick-select-control">
+              <option value="">Tất cả trạng thái ⌵</option>
+              <option value="pending">Chờ Admin duyệt</option>
+              <option value="published">Đã công bố</option>
+              <option value="rejected">Từ chối</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="table" style="font-size: 0.78rem;">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Tên hoạt động</th>
+                <th>Đơn vị tổ chức</th>
+                <th>Thời gian & Địa điểm</th>
+                <th>Chỉ tiêu</th>
+                <th>Trạng thái</th>
+                <th>Quyết định</th>
+              </tr>
+            </thead>
+            <tbody id="actModerationTableBody">
+              <!-- Render dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PHẦN 3: NHẬT KÝ KIỂM TOÁN (AUDIT LOGS) -->
+      <div class="admin-section-block">
+        <div class="admin-section-header">
+          <h2 class="admin-sec-title">
+            <i class="ri-file-list-3-line"></i> <span>3. Nhật Ký Kiểm Toán (Audit Logs) <span style="font-size: 0.74rem; color: #10b981; font-weight: normal;" id="auditTodayCount">Hôm nay: 0</span></span>
+          </h2>
+          <div class="admin-table-search-row">
+            <select id="filterAuditAction" class="quick-select-control">
+              <option value="">Tất cả hành động ⌵</option>
+              <option value="Tạo hoạt động">Tạo hoạt động</option>
+              <option value="Chuyển trạng thái">Chuyển trạng thái</option>
+              <option value="Cập nhật trạng thái tổ chức">Xác minh tổ chức</option>
+              <option value="Quét điểm danh">Điểm danh & Cert</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="table" style="font-size: 0.74rem;">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Thời gian</th>
+                <th>Người thực hiện</th>
+                <th>Thao tác</th>
+                <th>Đối tượng</th>
+                <th>Chi tiết</th>
+                <th>Địa chỉ IP</th>
+              </tr>
+            </thead>
+            <tbody id="auditLogsTableBody">
+              <!-- Render dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PHÂN TRANG (PAGINATION) CHUẨN MOCKUP HÌNH 5 -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-default);">
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;"><i class="ri-arrow-left-s-line"></i></button>
+          <button type="button" class="btn btn-sm btn-primary" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">1</button>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">2</button>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">3</button>
+          <span style="font-size: 0.8rem; color: #94a3b8; padding: 0 4px;">...</span>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;">10</button>
+          <button type="button" class="btn btn-sm btn-outline" style="width: 28px; height: 28px; padding: 0; border-radius: 50%;"><i class="ri-arrow-right-s-line"></i></button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL TỪ CHỐI ADMIN -->
+  <div id="adminRejectModal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="max-width: 480px; width: 90%; background: var(--bg-surface); border-radius: 12px; padding: 22px; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+      <h3 id="rejectModalTitle" style="margin: 0 0 10px 0; font-size: 1.1rem; color: var(--status-danger);">Từ Chối Phê Duyệt</h3>
+      <p id="rejectModalLabel" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">Vui lòng nêu lý do từ chối:</p>
+      <div class="form-group" style="margin-bottom: 16px;">
+        <textarea id="rejectModalInput" class="form-control" rows="3" style="font-size: 0.82rem;"></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn btn-outline" onclick="closeAdminRejectModal()">Hủy Bỏ</button>
+        <button type="button" class="btn btn-danger" onclick="confirmAdminReject()">Xác Nhận Từ Chối</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHI TIẾT TỔ CHỨC -->
+  <div id="adminDetailModal" class="modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="max-width: 520px; width: 90%; background: var(--bg-surface); border-radius: 12px; padding: 22px; border: 1px solid var(--border-default); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 id="adminDetailModalTitle" style="margin: 0; font-size: 1.1rem;">Hồ Sơ Chi Tiết</h3>
+        <button type="button" class="btn btn-sm btn-ghost" onclick="closeAdminDetailModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div id="adminDetailModalBody" style="margin-bottom: 16px;"></div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button type="button" class="btn btn-outline" onclick="closeAdminDetailModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../data/seedData.js"></script>
+  <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useRepository.js"></script>
+  <script src="../shared/useToast.js"></script>
+  <script src="../shared/useTheme.js"></script>
+  <script src="../shared/useAuth.js"></script>
+  <script src="../shared/useNotification.js"></script>
+  <script src="moderation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+      if (window.useAuth) {
+        useAuth.renderNavbarAuth('vhUserNavWrap');
+      }
+      if (window.useNotification) {
+        useNotification.init();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Sách Hoạt Động Thiện Nguyện — NhiLun</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/activities.css">
+</head>
+<body class="act-page-wrapper">
+
+  <!-- THANH NAVBAR THỐNG NHẤT TOÀN HỆ THỐNG -->
+  <header class="vh-navbar-wrapper">
+    <div class="vh-navbar-container">
+      <a href="index.html" class="vh-brand-group">
+        <span class="vh-brand-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#059669"/>
+          </svg>
+        </span>
+        <div class="vh-brand-title-wrap">
+          <span class="vh-brand-name">NhiLun</span>
+          <span class="vh-brand-slogan">Cùng nhau lan tỏa giá trị tốt đẹp</span>
+        </div>
+      </a>
+
+      <!-- MENU ĐIỀU HƯỚNG THỐNG NHẤT -->
+      <ul class="vh-nav-menu-list">
+        <li class="vh-nav-item"><a href="index.html"><span>Trang chủ</span></a></li>
+        <li class="vh-nav-item"><a href="activities.html" class="active"><span>Hoạt động</span></a></li>
+        <li class="vh-nav-item"><a href="stories.html"><span>Stories</span></a></li>
+        <li class="vh-nav-item"><a href="about.html"><span>Giới thiệu</span></a></li>
+        <li class="vh-nav-item"><a href="volunteer/dashboard.html"><span>Hoạt động của tôi</span></a></li>
+      </ul>
+
+      <div class="vh-nav-search-bar">
+        <i class="ri-search-line vh-nav-search-icon"></i>
+        <input type="text" id="topNavSearch" placeholder="Tìm kiếm hoạt động, câu chuyện, địa điểm..." oninput="handleGlobalSearch(this.value)">
+      </div>
+
+      <div class="vh-nav-actions">
+        <!-- POPUP THÔNG BÁO DROPDOWN -->
+        <div class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" onclick="useNotification.toggle()" title="Thông báo mới">
+            <i class="ri-notification-3-line" style="font-size: 1.25rem;"></i>
+            <span class="vh-notif-badge-dot" id="vhNotifBadge">3</span>
+          </button>
+
+          <!-- DROPDOWN CONTENT -->
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <div class="vh-notif-header-title"><i class="ri-notification-3-line"></i> Thông báo mới</div>
+              <button type="button" class="vh-notif-header-mark-all" onclick="useNotification.markAllRead()"><i class="ri-check-double-line"></i> Đánh dấu đã đọc</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList">
+              <!-- Nạp từ useNotification.js -->
+            </div>
+            <div class="vh-notif-footer">
+              <a href="notifications.html" class="vh-notif-view-all-btn">
+                <span>Xem tất cả thông báo</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- POPUP AVATAR NGƯỜI DÙNG KÈM DASHBOARD PHÂN ROLE, PROFILE, CÀI ĐẶT, ĐĂNG XUẤT -->
+        <div id="vhUserNavWrap"></div>
+
+        <!-- NÚT MENU THU GỌN TRÊN MOBILE -->
+        <button type="button" class="vh-mobile-toggle-btn" id="vhMobileToggle" aria-label="Menu điều hướng" aria-expanded="false" onclick="useAuth.toggleMobileMenu()">
+          <i class="ri-menu-line" id="vhMobileToggleIcon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ACTIVITIES CONTAINER -->
+  <main class="act-container">
+
+    <!-- 1. HERO BANNER DANH SÁCH HOẠT ĐỘNG (CHUẨN MOCKUP HÌNH 3) -->
+    <section class="act-hero-banner-new">
+      <div class="act-breadcrumb-new">
+        <a href="index.html">Trang chủ</a> <span>&gt;</span> <span style="color: #059669; font-weight: 700;">Hoạt động</span>
+      </div>
+
+      <div class="act-hero-top-flex">
+        <div>
+          <h1 class="act-hero-heading-main">Danh sách hoạt động</h1>
+          <p class="act-hero-subtitle-main">Khám phá và tham gia các hoạt động thiện nguyện ý nghĩa trên khắp Việt Nam.</p>
+        </div>
+
+        <div class="act-hero-quote-side">
+          <div class="act-cursive-quote">
+            "Mỗi hành động nhỏ<br>đều tạo nên thay đổi lớn ♡"
+          </div>
+          <img src="images/home-hero-volunteer.jpg" alt="Volunteers in nature" class="act-hero-banner-photo">
+        </div>
+      </div>
+
+      <!-- Ô TÌM KIẾM NHÚNG TRONG BANNER -->
+      <div class="act-embedded-search-wrap">
+        <div class="act-embedded-search-inner">
+          <i class="ri-search-line" style="color: #94a3b8; font-size: 1rem;"></i>
+          <input type="text" id="embeddedActSearch" placeholder="Nhập tìm kiếm hoạt động (tên, địa điểm, tổ chức...)" oninput="filterActivitiesList()">
+        </div>
+        <button type="button" class="btn-embedded-search-submit" onclick="filterActivitiesList()">Tìm kiếm</button>
+      </div>
+    </section>
+
+    <!-- 2. LAYOUT 2 CỘT: BỘ LỌC BÊN TRÁI & DANH SÁCH BÊN PHẢI -->
+    <div class="act-main-layout">
+
+      <!-- CỘT TRÁI: BỘ LỌC ĐA TIÊU CHÍ (DESKTOP: SIDEBAR / MOBILE: POPUP MODAL) -->
+      <div class="act-filter-backdrop" id="actFilterBackdrop" onclick="toggleMobileFilter(false)"></div>
+      <aside class="act-filter-panel" id="actFilterPanel">
+        <div class="act-filter-panel-header">
+          <h3 class="act-filter-panel-title">
+            <i class="ri-filter-3-line" style="color: #059669;"></i>
+            <span>Bộ lọc nâng cao</span>
+          </h3>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" class="act-filter-clear-link" onclick="resetAllFilters()">Xóa lọc</button>
+            <button type="button" class="act-filter-close-btn" id="actFilterCloseBtn" onclick="toggleMobileFilter(false)" title="Đóng bộ lọc">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. LĨNH VỰC -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Lĩnh vực</div>
+          <div class="act-filter-items-list">
+            <label class="act-filter-label">
+              <input type="checkbox" id="catAll" checked onchange="toggleCategoryAll(this)">
+              <span>Tất cả</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Môi trường" onchange="applyFilters()">
+              <span><i class="ri-leaf-line" style="color: #10b981;"></i> Môi trường</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Giáo dục" onchange="applyFilters()">
+              <span><i class="ri-book-read-line" style="color: #0284c7;"></i> Giáo dục</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Y tế" onchange="applyFilters()">
+              <span><i class="ri-heart-pulse-line" style="color: #e11d48;"></i> Y tế</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Cộng đồng" onchange="applyFilters()">
+              <span><i class="ri-heart-3-line" style="color: #c2410c;"></i> Cộng đồng</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="cat" value="Hỗ trợ thiên tai" onchange="applyFilters()">
+              <span><i class="ri-lifebuoy-line" style="color: #ef4444;"></i> Hỗ trợ thiên tai</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 2. ĐỊA ĐIỂM -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Địa điểm</div>
+          <select id="locationSelect" class="act-filter-select-city" onchange="applyFilters()">
+            <option value="all">Tất cả tỉnh/thành</option>
+            <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+            <option value="Đồng Nai">Đồng Nai</option>
+            <option value="Bình Thuận">Bình Thuận</option>
+            <option value="Bình Phước">Bình Phước</option>
+            <option value="Thái Nguyên">Thái Nguyên</option>
+            <option value="Hà Nội">Hà Nội</option>
+          </select>
+        </div>
+
+        <!-- 3. THỜI GIAN -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Thời gian</div>
+          <div class="act-filter-items-list">
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="all" checked onchange="applyFilters()">
+              <span>Tất cả</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="7days" onchange="applyFilters()">
+              <span>Trong 7 ngày</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="30days" onchange="applyFilters()">
+              <span>Trong 30 ngày</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="3months" onchange="applyFilters()">
+              <span>Trong 3 tháng</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="radio" name="timeFilter" value="custom" onchange="applyFilters()">
+              <span><i class="ri-calendar-line"></i> Tùy chọn</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. TRẠNG THÁI -->
+        <div class="act-filter-group">
+          <div class="act-filter-group-title">Trạng thái</div>
+          <div class="act-filter-items-list">
+            <label class="act-filter-label">
+              <input type="checkbox" id="statusAll" checked onchange="toggleStatusAll(this)">
+              <span>Tất cả</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="open" onchange="applyFilters()">
+              <span>Đang mở đăng ký</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="upcoming" onchange="applyFilters()">
+              <span>Sắp diễn ra</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="ongoing" onchange="applyFilters()">
+              <span>Đang diễn ra</span>
+            </label>
+            <label class="act-filter-label">
+              <input type="checkbox" name="actStatus" value="closed" onchange="applyFilters()">
+              <span>Đã kết thúc</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="act-filter-actions-bottom">
+          <button type="button" class="btn-reset-filters-full" onclick="resetAllFilters()">
+            <i class="ri-refresh-line"></i>
+            <span>Đặt lại</span>
+          </button>
+          <button type="button" class="btn-apply-filters-mobile" onclick="toggleMobileFilter(false)">
+            <span>Áp dụng lọc</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- CỘT PHẢI: DANH SÁCH 5 THẺ HOẠT ĐỘNG NGANG (MOCKUP HÌNH 3) -->
+      <section class="act-list-container">
+
+        <!-- THANH HEADER ĐIỀU KHIỂN DANH SÁCH -->
+        <div class="act-list-header-bar">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <!-- NÚT MỞ BỘ LỌC DẠNG POPUP TRÊN MOBILE -->
+            <button type="button" class="btn-mobile-filter-trigger" id="btnOpenMobileFilter" onclick="toggleMobileFilter(true)" title="Mở bộ lọc">
+              <i class="ri-filter-3-line"></i>
+              <span>Bộ lọc</span>
+              <span class="filter-count-badge" id="filterCountBadge" style="display: none;">0</span>
+            </button>
+            <div class="act-total-count" id="actResultCount">Đang tải hoạt động...</div>
+          </div>
+
+          <div class="act-list-controls-right">
+            <div class="act-view-mode-toggle">
+              <button type="button" class="act-view-btn" id="viewGridBtn" onclick="setViewMode('grid')" title="Lưới"><i class="ri-grid-fill"></i></button>
+              <button type="button" class="act-view-btn active" id="viewListBtn" onclick="setViewMode('list')" title="Danh sách"><i class="ri-list-check"></i></button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: #64748b;">
+              <span>Sắp xếp:</span>
+              <select class="act-sort-select" id="sortSelect" onchange="applyFilters()">
+                <option value="newest">Mới nhất</option>
+                <option value="upcoming">Sắp diễn ra</option>
+                <option value="progress">Tiến độ nhận đơn</option>
+              </select>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: #64748b;">
+              <span>Hiển thị:</span>
+              <select class="act-sort-select" id="perPageSelect" onchange="applyFilters()">
+                <option value="10">10 hoạt động/trang</option>
+                <option value="20">20 hoạt động/trang</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- DANH SÁCH THẺ HOẠT ĐỘNG NGANG (DYNAMIC) -->
+        <div id="actCardsListContainer" style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Nạp động qua useRepository -->
+        </div>
+
+        <!-- PHÂN TRANG CHUẨN DESIGN -->
+        <nav class="act-pagination" id="actPagination" aria-label="Phân trang hoạt động"></nav>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>© 2026 NhiLun • Cổng Thông Tin Hoạt Động Thiện Nguyện Toàn Quốc</p>
+    </div>
+  </footer>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="data/seedData.js"></script>
+  <script src="shared/useStorage.js"></script>
+  <script src="shared/useRepository.js"></script>
+  <script src="shared/useToast.js"></script>
+  <script src="shared/useTheme.js"></script>
+  <script src="shared/useAuth.js"></script>
+  <script src="shared/useNotification.js"></script>
+
+  <script>
+    let currentPage = 1;
+    let currentViewMode = 'list';
+
+    function toggleMobileFilter(open) {
+      const shouldOpen = typeof open === 'boolean'
+        ? open
+        : !document.body.classList.contains('act-filter-open');
+      document.body.classList.toggle('act-filter-open', shouldOpen);
+      document.getElementById('actFilterPanel').setAttribute('aria-hidden', String(!shouldOpen));
+      document.getElementById('actFilterBackdrop').setAttribute('aria-hidden', String(!shouldOpen));
+      document.getElementById('btnOpenMobileFilter').setAttribute('aria-expanded', String(shouldOpen));
+    }
+
+    function getCategoryBadge(cat) {
+      if (!cat) return { tag: '<i class="ri-leaf-line"></i> Môi trường', cls: 'env' };
+      if (cat.includes('Môi trường')) return { tag: '<i class="ri-leaf-line"></i> Môi trường', cls: 'env' };
+      if (cat.includes('Giáo dục')) return { tag: '<i class="ri-book-read-line"></i> Giáo dục', cls: 'edu' };
+      if (cat.includes('Y tế')) return { tag: '<i class="ri-heart-pulse-line"></i> Y tế', cls: 'med' };
+      if (cat.includes('Cộng đồng')) return { tag: '<i class="ri-heart-3-line"></i> Cộng đồng', cls: 'comm' };
+      if (cat.includes('thiên tai') || cat.includes('Cứu trợ')) return { tag: '<i class="ri-lifebuoy-line"></i> Hỗ trợ thiên tai', cls: 'relief' };
+      return { tag: '<i class="ri-leaf-line"></i> ' + cat, cls: 'comm' };
+    }
+
+    function getStatusBadge(st) {
+      if (st === 'Đang tuyển' || st === 'open') return { label: 'Đang mở đăng ký', cls: 'open' };
+      if (st === 'Sắp diễn ra' || st === 'upcoming') return { label: 'Sắp diễn ra', cls: 'upcoming' };
+      if (st === 'Đang diễn ra' || st === 'ongoing') return { label: 'Đang diễn ra', cls: 'ongoing' };
+      if (st === 'Đã hoàn thành' || st === 'closed' || st === 'Đã kết thúc') return { label: 'Đã kết thúc', cls: 'closed' };
+      return { label: st || 'Đang mở đăng ký', cls: 'open' };
+    }
+
+    function toggleCategoryAll(el) {
+      if (el.checked) {
+        document.querySelectorAll('input[name="cat"]').forEach(cb => cb.checked = false);
+      }
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function toggleStatusAll(el) {
+      if (el.checked) {
+        document.querySelectorAll('input[name="actStatus"]').forEach(cb => cb.checked = false);
+      }
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      const container = document.getElementById('actCardsListContainer');
+      const gridBtn = document.getElementById('viewGridBtn');
+      const listBtn = document.getElementById('viewListBtn');
+
+      if (mode === 'grid') {
+        container.classList.add('grid-mode');
+        gridBtn.classList.add('active');
+        listBtn.classList.remove('active');
+      } else {
+        container.classList.remove('grid-mode');
+        gridBtn.classList.remove('active');
+        listBtn.classList.add('active');
+      }
+    }
+
+    function resetAllFilters() {
+      document.getElementById('catAll').checked = true;
+      document.querySelectorAll('input[name="cat"]').forEach(cb => cb.checked = false);
+      document.getElementById('locationSelect').value = 'all';
+      document.querySelector('input[name="timeFilter"][value="all"]').checked = true;
+      document.getElementById('statusAll').checked = true;
+      document.querySelectorAll('input[name="actStatus"]').forEach(cb => cb.checked = false);
+      document.getElementById('embeddedActSearch').value = '';
+      currentPage = 1;
+      applyFilters();
+      useToast.show('Đã đặt lại toàn bộ bộ lọc!', 'info');
+    }
+
+    function handleToggleFav(e, actId) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isFav = useRepository.toggleFavorite(actId);
+      const heartBtn = e.currentTarget;
+      if (heartBtn) {
+        heartBtn.innerHTML = isFav ? '<i class="ri-heart-fill" style="color: #ef4444;"></i>' : '<i class="ri-heart-line" style="color: #64748b;"></i>';
+      }
+      useToast.show(isFav ? 'Đã lưu vào danh sách yêu thích!' : 'Đã bỏ lưu hoạt động.', 'success');
+    }
+
+    function applyFilters() {
+      const searchVal = document.getElementById('embeddedActSearch').value.toLowerCase().trim();
+      const cityVal = document.getElementById('locationSelect').value;
+
+      // Category filter
+      const selectedCats = Array.from(document.querySelectorAll('input[name="cat"]:checked')).map(cb => cb.value);
+      const isCatAll = document.getElementById('catAll').checked || selectedCats.length === 0;
+
+      // Status filter
+      const selectedStatus = Array.from(document.querySelectorAll('input[name="actStatus"]:checked')).map(cb => cb.value);
+      const isStatusAll = document.getElementById('statusAll').checked || selectedStatus.length === 0;
+
+      // Time filter
+      const timeFilterEl = document.querySelector('input[name="timeFilter"]:checked');
+      const timeVal = timeFilterEl ? timeFilterEl.value : 'all';
+
+      // Load all published activities
+      const allActs = useRepository.getActivities({ publicOnly: true });
+
+      const filtered = allActs.filter(act => {
+        // Search
+        const title = (act.title || '').toLowerCase();
+        const desc = (act.summary || act.description || '').toLowerCase();
+        const org = (act.orgName || '').toLowerCase();
+        const loc = (act.location || '').toLowerCase();
+        const matchSearch = !searchVal || title.includes(searchVal) || desc.includes(searchVal) || org.includes(searchVal) || loc.includes(searchVal);
+
+        // Category
+        const matchCat = isCatAll || selectedCats.some(c => (act.category || '').toLowerCase().includes(c.toLowerCase()));
+
+        // City
+        const matchCity = (cityVal === 'all') || (act.city && act.city.includes(cityVal)) || (act.location && act.location.includes(cityVal));
+
+        // Status
+        let actState = 'open';
+        if (act.status === 'Sắp diễn ra') actState = 'upcoming';
+        else if (act.status === 'Đang diễn ra') actState = 'ongoing';
+        else if (act.status === 'Đã hoàn thành' || act.status === 'Đã kết thúc') actState = 'closed';
+        const matchStatus = isStatusAll || selectedStatus.includes(actState);
+
+        // Time
+        let matchTime = true;
+        if (timeVal !== 'all' && act.startDate) {
+          const actDate = new Date(act.startDate);
+          const now = new Date();
+          const diffDays = (actDate - now) / (1000 * 60 * 60 * 24);
+          if (timeVal === '7days') matchTime = diffDays >= 0 && diffDays <= 7;
+          else if (timeVal === '30days') matchTime = diffDays >= 0 && diffDays <= 30;
+          else if (timeVal === '3months') matchTime = diffDays >= 0 && diffDays <= 90;
+        }
+
+        return matchSearch && matchCat && matchCity && matchStatus && matchTime;
+      });
+
+      // Sorting
+      const sortVal = document.getElementById('sortSelect').value;
+      if (sortVal === 'newest') {
+        filtered.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+      } else if (sortVal === 'upcoming') {
+        filtered.sort((a, b) => (a.startDate || '').localeCompare(b.startDate || ''));
+      } else if (sortVal === 'progress') {
+        filtered.sort((a, b) => {
+          const pA = (a.applied || 0) / (a.slots || 1);
+          const pB = (b.applied || 0) / (b.slots || 1);
+          return pB - pA;
+        });
+      }
+
+      // Pagination calculation
+      const perPage = parseInt(document.getElementById('perPageSelect').value, 10) || 10;
+      const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * perPage;
+      const pageItems = filtered.slice(startIndex, startIndex + perPage);
+
+      // Render count
+      document.getElementById('actResultCount').innerText = `${filtered.length} hoạt động`;
+
+      // Render cards
+      const container = document.getElementById('actCardsListContainer');
+      if (pageItems.length === 0) {
+        container.innerHTML = `
+          <div style="background: #ffffff; border: 1.5px dashed #cbd5e1; border-radius: 18px; padding: 48px 24px; text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 12px; color: #94a3b8;"><i class="ri-search-eye-line"></i></div>
+            <h3 style="font-size: 1.1rem; color: #0f172a; margin: 0 0 8px 0;">Không tìm thấy hoạt động phù hợp</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin: 0 0 18px 0;">Hãy thử điều chỉnh từ khóa tìm kiếm hoặc bỏ bớt các bộ lọc tiêu chí.</p>
+            <button type="button" class="btn btn-outline" onclick="resetAllFilters()" style="padding: 8px 18px; border-radius: 10px; display: inline-flex; align-items: center; gap: 6px;"><i class="ri-refresh-line"></i> Xóa tất cả bộ lọc</button>
+          </div>
+        `;
+      } else {
+        const favorites = useRepository.getFavorites();
+        container.innerHTML = pageItems.map(act => {
+          const catBadge = getCategoryBadge(act.category);
+          const stBadge = getStatusBadge(act.status);
+          const progressPercent = Math.min(100, Math.round(((act.applied || 0) / (act.slots || 1)) * 100));
+          const isFavorited = favorites.includes(act.id);
+          const isClosed = stBadge.cls === 'closed';
+
+          return `
+            <article class="act-card-horizontal" data-cat="${act.category}" data-city="${act.city || ''}" data-status="${stBadge.cls}">
+              <div class="act-card-thumb-area">
+                <img src="${act.image || 'images/act-tree.jpg'}" alt="${act.title}" onerror="this.src='images/act-tree.jpg'">
+                <button type="button" class="btn-fav-card-heart" onclick="handleToggleFav(event, '${act.id}')" title="Lưu hoạt động" style="position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                  ${isFavorited ? '<i class="ri-heart-fill" style="color: #ef4444;"></i>' : '<i class="ri-heart-line" style="color: #64748b;"></i>'}
+                </button>
+              </div>
+              <div class="act-card-content-area">
+                <div>
+                  <div class="act-card-top-badges">
+                    <span class="badge-tag ${catBadge.cls}">${catBadge.tag}</span>
+                    <span class="badge-status ${stBadge.cls}">${stBadge.label}</span>
+                  </div>
+                  <h3 class="act-card-title-main">
+                    <a href="detail.html?id=${act.id}" style="color: inherit; text-decoration: none;">${act.title}</a>
+                  </h3>
+                  <p class="act-card-desc-snippet">${act.summary || act.description || ''}</p>
+                  <div class="act-card-org-line">
+                    <i class="ri-user-heart-line" style="color: #059669;"></i>
+                    <span>${act.orgName || 'Tổ chức tình nguyện'}</span>
+                  </div>
+                  <div class="act-card-meta-flex">
+                    <div class="act-card-meta-item">
+                      <i class="ri-calendar-line" style="color: #64748b;"></i>
+                      <span>${act.startDate ? new Date(act.startDate).toLocaleDateString('vi-VN') : ''} ${act.time ? '(' + act.time + ')' : ''}</span>
+                    </div>
+                    <div class="act-card-meta-item">
+                      <i class="ri-map-pin-line" style="color: #64748b;"></i>
+                      <span>${act.location || act.city || ''}</span>
+                    </div>
+                    <div class="act-card-meta-item">
+                      <i class="ri-group-line" style="color: #64748b;"></i>
+                      <span>${act.applied || 0}/${act.slots || 0} người</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="act-progress-row">
+                  <div class="act-progress-track">
+                    <div class="act-progress-fill" style="width: ${progressPercent}%; ${isClosed ? 'background: #94a3b8;' : ''}"></div>
+                  </div>
+                  <span class="act-progress-num" style="${isClosed ? 'color: #64748b;' : ''}">${progressPercent}%</span>
+                </div>
+              </div>
+
+              <div class="act-card-actions-col">
+                <a href="detail.html?id=${act.id}" class="btn-card-detail">Xem chi tiết</a>
+                ${isClosed 
+                  ? '<span class="btn-card-disabled">Đã kết thúc</span>' 
+                  : `<a href="volunteer/apply.html?id=${act.id}" class="btn-card-apply">Đăng ký tham gia</a>`
+                }
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      // Render Pagination
+      const paginationNav = document.getElementById('actPagination');
+      if (totalPages <= 1) {
+        paginationNav.innerHTML = '';
+      } else {
+        let pagHtml = `
+          <button type="button" class="act-page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''} title="Trang trước">&lt;</button>
+        `;
+        for (let p = 1; p <= totalPages; p++) {
+          pagHtml += `
+            <button type="button" class="act-page-btn ${p === currentPage ? 'active' : ''}" onclick="changePage(${p})">${p}</button>
+          `;
+        }
+        pagHtml += `
+          <button type="button" class="act-page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''} title="Trang sau">&gt;</button>
+        `;
+        paginationNav.innerHTML = pagHtml;
+      }
+    }
+
+    function changePage(p) {
+      currentPage = p;
+      applyFilters();
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+    }
+
+    function filterActivitiesList() {
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function handleGlobalSearch(q) {
+      document.getElementById('embeddedActSearch').value = q;
+      currentPage = 1;
+      applyFilters();
+    }
+
+    // Khởi tạo trên DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+      useTheme.init();
+
+      // Đọc URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramCat = urlParams.get('category');
+      const paramCity = urlParams.get('city');
+      const paramTime = urlParams.get('time');
+      const paramQ = urlParams.get('q');
+      const paramStatus = urlParams.get('status');
+
+      if (paramCat) {
+        document.getElementById('catAll').checked = false;
+        const catCb = document.querySelector(`input[name="cat"][value="${paramCat}"]`);
+        if (catCb) catCb.checked = true;
+      }
+
+      if (paramCity && paramCity !== 'all') {
+        const citySelect = document.getElementById('locationSelect');
+        // Check if option exists, or create option
+        let exists = Array.from(citySelect.options).some(o => o.value === paramCity);
+        if (!exists) {
+          const opt = document.createElement('option');
+          opt.value = paramCity;
+          opt.textContent = paramCity;
+          citySelect.appendChild(opt);
+        }
+        citySelect.value = paramCity;
+      }
+
+      if (paramTime) {
+        const timeRadio = document.querySelector(`input[name="timeFilter"][value="${paramTime}"]`);
+        if (timeRadio) timeRadio.checked = true;
+      }
+
+      if (paramQ) {
+        document.getElementById('embeddedActSearch').value = paramQ;
+      }
+
+      if (paramStatus) {
+        document.getElementById('statusAll').checked = false;
+        const stCb = document.querySelector(`input[name="actStatus"][value="${paramStatus}"]`);
+        if (stCb) stCb.checked = true;
+      }
+
+      // Checkbox listener logic: uncheck "All" when a specific item is checked
+      document.querySelectorAll('input[name="cat"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+          const anyChecked = document.querySelectorAll('input[name="cat"]:checked').length > 0;
+          document.getElementById('catAll').checked = !anyChecked;
+          currentPage = 1;
+          applyFilters();
+        });
+      });
+
+      document.querySelectorAll('input[name="actStatus"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+          const anyChecked = document.querySelectorAll('input[name="actStatus"]:checked').length > 0;
+          document.getElementById('statusAll').checked = !anyChecked;
+          currentPage = 1;
+          applyFilters();
+        });
+      });
+
+      applyFilters();
+    });
+  </script>
+</body>
+</html>

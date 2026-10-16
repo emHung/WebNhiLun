@@ -1,0 +1,332 @@
+{
+  "act-animal.jpg": {
+    "original": "/legacy/images/act-animal.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/act-animal-120.webp",
+        "width": 120,
+        "height": 90
+      },
+      {
+        "src": "/legacy/images/optimized/act-animal-240.webp",
+        "width": 240,
+        "height": 179
+      },
+      {
+        "src": "/legacy/images/optimized/act-animal-480.webp",
+        "width": 480,
+        "height": 358
+      },
+      {
+        "src": "/legacy/images/optimized/act-animal-960.webp",
+        "width": 960,
+        "height": 717
+      },
+      {
+        "src": "/legacy/images/optimized/act-animal-1200.webp",
+        "width": 1200,
+        "height": 896
+      }
+    ]
+  },
+  "act-beach.jpg": {
+    "original": "/legacy/images/act-beach.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/act-beach-120.webp",
+        "width": 120,
+        "height": 90
+      },
+      {
+        "src": "/legacy/images/optimized/act-beach-240.webp",
+        "width": 240,
+        "height": 179
+      },
+      {
+        "src": "/legacy/images/optimized/act-beach-480.webp",
+        "width": 480,
+        "height": 358
+      },
+      {
+        "src": "/legacy/images/optimized/act-beach-960.webp",
+        "width": 960,
+        "height": 717
+      },
+      {
+        "src": "/legacy/images/optimized/act-beach-1200.webp",
+        "width": 1200,
+        "height": 896
+      }
+    ]
+  },
+  "act-books.jpg": {
+    "original": "/legacy/images/act-books.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/act-books-120.webp",
+        "width": 120,
+        "height": 90
+      },
+      {
+        "src": "/legacy/images/optimized/act-books-240.webp",
+        "width": 240,
+        "height": 179
+      },
+      {
+        "src": "/legacy/images/optimized/act-books-480.webp",
+        "width": 480,
+        "height": 358
+      },
+      {
+        "src": "/legacy/images/optimized/act-books-960.webp",
+        "width": 960,
+        "height": 717
+      },
+      {
+        "src": "/legacy/images/optimized/act-books-1200.webp",
+        "width": 1200,
+        "height": 896
+      }
+    ]
+  },
+  "act-food.jpg": {
+    "original": "/legacy/images/act-food.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/act-food-120.webp",
+        "width": 120,
+        "height": 90
+      },
+      {
+        "src": "/legacy/images/optimized/act-food-240.webp",
+        "width": 240,
+        "height": 179
+      },
+      {
+        "src": "/legacy/images/optimized/act-food-480.webp",
+        "width": 480,
+        "height": 358
+      },
+      {
+        "src": "/legacy/images/optimized/act-food-960.webp",
+        "width": 960,
+        "height": 717
+      },
+      {
+        "src": "/legacy/images/optimized/act-food-1200.webp",
+        "width": 1200,
+        "height": 896
+      }
+    ]
+  },
+  "act-medical.jpg": {
+    "original": "/legacy/images/act-medical.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/act-medical-120.webp",
+        "width": 120,
+        "height": 67
+      },
+      {
+        "src": "/legacy/images/optimized/act-medical-240.webp",
+        "width": 240,
+        "height": 134
+      },
+      {
+        "src": "/legacy/images/optimized/act-medical-480.webp",
+        "width": 480,
+        "height": 268
+      },
+      {
+        "src": "/legacy/images/optimized/act-medical-960.webp",
+        "width": 960,
+        "height": 536
+      },
+      {
+        "src": "/legacy/images/optimized/act-medical-1376.webp",
+        "width": 1376,
+        "height": 768
+      }
+    ]
+  },
+  "act-tree.jpg": {
+    "original": "/legacy/images/act-tree.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/act-tree-120.webp",
+        "width": 120,
+        "height": 90
+      },
+      {
+        "src": "/legacy/images/optimized/act-tree-240.webp",
+        "width": 240,
+        "height": 179
+      },
+      {
+        "src": "/legacy/images/optimized/act-tree-480.webp",
+        "width": 480,
+        "height": 358
+      },
+      {
+        "src": "/legacy/images/optimized/act-tree-960.webp",
+        "width": 960,
+        "height": 717
+      },
+      {
+        "src": "/legacy/images/optimized/act-tree-1200.webp",
+        "width": 1200,
+        "height": 896
+      }
+    ]
+  },
+  "auth-bg.jpg": {
+    "original": "/legacy/images/auth-bg.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/auth-bg-120.webp",
+        "width": 120,
+        "height": 67
+      },
+      {
+        "src": "/legacy/images/optimized/auth-bg-240.webp",
+        "width": 240,
+        "height": 134
+      },
+      {
+        "src": "/legacy/images/optimized/auth-bg-480.webp",
+        "width": 480,
+        "height": 268
+      },
+      {
+        "src": "/legacy/images/optimized/auth-bg-960.webp",
+        "width": 960,
+        "height": 536
+      },
+      {
+        "src": "/legacy/images/optimized/auth-bg-1376.webp",
+        "width": 1376,
+        "height": 768
+      }
+    ]
+  },
+  "home-hero-volunteer.jpg": {
+    "original": "/legacy/images/home-hero-volunteer.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/home-hero-volunteer-120.webp",
+        "width": 120,
+        "height": 67
+      },
+      {
+        "src": "/legacy/images/optimized/home-hero-volunteer-240.webp",
+        "width": 240,
+        "height": 134
+      },
+      {
+        "src": "/legacy/images/optimized/home-hero-volunteer-480.webp",
+        "width": 480,
+        "height": 268
+      },
+      {
+        "src": "/legacy/images/optimized/home-hero-volunteer-960.webp",
+        "width": 960,
+        "height": 536
+      },
+      {
+        "src": "/legacy/images/optimized/home-hero-volunteer-1376.webp",
+        "width": 1376,
+        "height": 768
+      }
+    ]
+  },
+  "profile-avatar.jpg": {
+    "original": "/legacy/images/profile-avatar.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/profile-avatar-120.webp",
+        "width": 120,
+        "height": 120
+      },
+      {
+        "src": "/legacy/images/optimized/profile-avatar-240.webp",
+        "width": 240,
+        "height": 240
+      },
+      {
+        "src": "/legacy/images/optimized/profile-avatar-480.webp",
+        "width": 480,
+        "height": 480
+      },
+      {
+        "src": "/legacy/images/optimized/profile-avatar-960.webp",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "src": "/legacy/images/optimized/profile-avatar-1024.webp",
+        "width": 1024,
+        "height": 1024
+      }
+    ]
+  },
+  "profile-cover.jpg": {
+    "original": "/legacy/images/profile-cover.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/profile-cover-120.webp",
+        "width": 120,
+        "height": 67
+      },
+      {
+        "src": "/legacy/images/optimized/profile-cover-240.webp",
+        "width": 240,
+        "height": 134
+      },
+      {
+        "src": "/legacy/images/optimized/profile-cover-480.webp",
+        "width": 480,
+        "height": 268
+      },
+      {
+        "src": "/legacy/images/optimized/profile-cover-960.webp",
+        "width": 960,
+        "height": 536
+      },
+      {
+        "src": "/legacy/images/optimized/profile-cover-1376.webp",
+        "width": 1376,
+        "height": 768
+      }
+    ]
+  },
+  "sapling-soil.jpg": {
+    "original": "/legacy/images/sapling-soil.jpg",
+    "variants": [
+      {
+        "src": "/legacy/images/optimized/sapling-soil-120.webp",
+        "width": 120,
+        "height": 67
+      },
+      {
+        "src": "/legacy/images/optimized/sapling-soil-240.webp",
+        "width": 240,
+        "height": 134
+      },
+      {
+        "src": "/legacy/images/optimized/sapling-soil-480.webp",
+        "width": 480,
+        "height": 268
+      },
+      {
+        "src": "/legacy/images/optimized/sapling-soil-960.webp",
+        "width": 960,
+        "height": 536
+      },
+      {
+        "src": "/legacy/images/optimized/sapling-soil-1376.webp",
+        "width": 1376,
+        "height": 768
+      }
+    ]
+  }
+}

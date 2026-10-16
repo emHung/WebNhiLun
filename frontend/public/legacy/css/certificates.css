@@ -1,0 +1,98 @@
+/* ==========================================================================
+   CERTIFICATES.CSS — Bộ Sưu Tập Chứng Nhận & Giấy Khen Điện Tử
+   ========================================================================== */
+
+.cert-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.cert-card-item {
+  background: var(--surface-white);
+  border: 1px solid var(--border-default);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cert-card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: #10b981;
+}
+
+.cert-gold-header {
+  background: linear-gradient(135deg, #0d7052 0%, #10b981 100%);
+  color: #ffffff;
+  padding: 16px 18px;
+  position: relative;
+}
+
+.cert-header-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.cert-badge-type {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.cert-main-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 3px 0 0 0;
+  line-height: 1.3;
+}
+
+.cert-body-content {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.cert-meta-table {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.cert-qr-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--canvas);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+
+.cert-qr-box {
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 1px solid var(--border-default);
+}
+
+.cert-footer-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-default);
+}

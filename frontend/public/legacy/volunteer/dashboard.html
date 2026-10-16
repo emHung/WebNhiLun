@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển Tình Nguyện Viên — NhiLun</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/volunteer.css">
+  <style>
+    /* Bổ sung tinh chỉnh header và layout thanh điều hướng cho đồng bộ ảnh mẫu */
+    .v-nav-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 0 16px;
+      flex: 1;
+      max-width: 320px;
+    }
+
+    @media (max-width: 992px) {
+      .v-nav-search-box {
+        display: none;
+      }
+    }
+
+    .v-nav-search-input {
+      width: 100%;
+      padding: 7px 14px 7px 32px;
+      border-radius: 999px;
+      border: 1px solid var(--border-default, #e2e8f0);
+      background: #f8fafc;
+      font-size: 0.78rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .v-nav-search-input:focus {
+      background: #ffffff;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+    }
+
+    .v-nav-search-icon {
+      position: absolute;
+      left: 11px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .v-nav-user-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      padding: 4px 10px 4px 6px;
+      border-radius: 999px;
+      transition: background 0.15s;
+    }
+
+    .v-nav-user-chip:hover {
+      background: #f1f5f9;
+    }
+
+    .v-nav-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #10b981;
+    }
+
+    .v-nav-user-details {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .v-nav-user-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .v-nav-user-role {
+      font-size: 0.7rem;
+      color: #059669;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER CHUẨN VOLUNTEER PORTAL -->
+  <header class="app-header">
+    <div class="container navbar" style="max-width: 1280px;">
+      <div class="nav-brand" style="display: flex; align-items: center; gap: 8px;">
+        <a href="../index.html"
+          style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: inherit;">
+          <i class="ri-plant-line" style="font-size: 1.4rem; color: #10b981;"></i>
+          <span
+            style="font-size: 1.22rem; font-weight: 800; color: #0f172a; letter-spacing: -0.3px;">NhiLun</span>
+        </a>
+        <span class="badge"
+          style="background: #ecfdf5; color: #059669; font-size: 0.7rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 1px solid #a7f3d0;">Volunteer
+          Portal</span>
+      </div>
+
+      <ul class="nav-menu"
+        style="display: flex; align-items: center; gap: 14px; margin: 0; padding: 0; list-style: none;">
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../activities.html">Hoạt động</a></li>
+        <li><a href="../stories.html">Stories</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="dashboard.html" class="active" style="color: #059669; font-weight: 700;">Hoạt động của tôi</a></li>
+      </ul>
+
+      <!-- THANH TÌM KIẾM NHANH TRÊN HEADER -->
+      <div class="v-nav-search-box">
+        <i class="ri-search-line v-nav-search-icon"></i>
+        <input type="text" class="v-nav-search-input" placeholder="Tìm kiếm hoạt động, địa điểm, tổ chức..."
+          onkeydown="if(event.key==='Enter') window.location.href='../activities.html?search='+encodeURIComponent(this.value)">
+      </div>
+
+      <!-- KHU VỰC THÔNG BÁO VÀ THÔNG TIN USER -->
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <!-- Nút Chuông Thông Báo với Popup -->
+        <div class="vh-notif-wrapper">
+          <button type="button" class="vh-notif-bell-btn" id="vhNotifBtn" title="Xem thông báo" aria-expanded="false"
+            onclick="useNotification.toggle()">
+            <i class="ri-notification-3-line"></i>
+            <span class="vh-notif-badge" id="vhNotifBadge">3</span>
+          </button>
+
+          <div class="vh-notif-dropdown" id="vhNotifDropdown">
+            <div class="vh-notif-header">
+              <span class="vh-notif-title"><i class="ri-notification-3-line"></i> Thông báo mới</span>
+              <button type="button" class="vh-notif-markall" id="vhNotifMarkAll"
+                onclick="useNotification.markAllRead()">Đã đọc tất cả</button>
+            </div>
+            <div class="vh-notif-list" id="vhNotifList"></div>
+            <div class="vh-notif-footer">
+              <a href="../notifications.html" class="vh-notif-viewall-btn">Xem tất cả thông báo &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avatar & Name Chip -->
+        <a href="../profile.html" class="v-nav-user-chip" title="Xem hồ sơ cá nhân">
+          <img src="../images/profile-avatar.jpg" alt="Nguyễn Văn An" class="v-nav-user-avatar"
+            onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'">
+          <div class="v-nav-user-details">
+            <span class="v-nav-user-name">Nguyễn Văn An</span>
+            <span class="v-nav-user-role">Tình nguyện viên</span>
+          </div>
+        </a>
+
+        <!-- Nút Hamburger Menu Thu Gọn Trên Mobile -->
+        <button type="button" class="vh-mobile-toggle-btn" id="vhMobileToggle" aria-label="Menu điều hướng" aria-expanded="false" onclick="useAuth.toggleMobileMenu()">
+          <i class="ri-menu-line" id="vhMobileToggleIcon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH (2 CỘT CHUẨN GIAO DIỆN) -->
+  <main class="container" style="max-width: 1280px; padding: 16px 12px; box-sizing: border-box;">
+
+    <div class="v-dash-layout">
+
+      <!-- ================= CỘT TRÁI (~68%) ================= -->
+      <div class="v-dash-main-col">
+
+        <!-- 1. HERO BANNER CHÀO MỪNG -->
+        <section class="v-hero-banner">
+          <div class="v-hero-content">
+            <h1 class="v-hero-title">Xin chào, Nguyễn Văn An! <i class="ri-hand-wave-line"
+                style="font-weight: normal; color: #f59e0b;"></i></h1>
+            <p class="v-hero-subtitle">Cùng nhau tạo nên những giá trị tốt đẹp cho cộng đồng.</p>
+
+            <div class="v-hero-quote-row">
+              <p class="v-hero-quote">
+                <span>“Mỗi hành động nhỏ đều tạo nên thay đổi lớn.”</span>
+                <i class="ri-heart-3-line" style="color: #f87171; font-size: 1.05rem;"></i>
+              </p>
+              <a href="../activities.html" class="v-hero-cta">
+                <span>Khám phá thêm hoạt động</span>
+                <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Glassmorphism Card Nổi Bên Phải Banner -->
+          <div class="v-hero-glass-card">
+            <div class="v-hero-glass-icon">
+              <i class="ri-hand-heart-line" style="color: #34d399; font-size: 1.25rem;"></i>
+            </div>
+            <div class="v-hero-glass-text">
+              <span>Tiếp tục hành trình thiện nguyện</span>
+              <strong>Lan tỏa yêu thương</strong>
+              <span>Vì một cộng đồng tốt đẹp hơn!</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. HÀNG 4 STATS CARDS -->
+        <section class="v-stats-row">
+          <!-- Stat 1: Tổng đơn -->
+          <div class="v-stat-card">
+            <div class="v-stat-icon-box v-stat-icon-blue">
+              <i class="ri-file-list-3-line"></i>
+            </div>
+            <div class="v-stat-info">
+              <div class="v-stat-label">Tổng đơn đăng ký</div>
+              <div class="v-stat-num" id="statTotalApps">2</div>
+              <div class="v-stat-sub">Tất cả chiến dịch</div>
+            </div>
+          </div>
+
+          <!-- Stat 2: Số giờ xác nhận -->
+          <div class="v-stat-card">
+            <div class="v-stat-icon-box v-stat-icon-mint">
+              <i class="ri-time-line"></i>
+            </div>
+            <div class="v-stat-info">
+              <div class="v-stat-label">Số giờ được xác nhận</div>
+              <div class="v-stat-num" id="statTotalHours">30 giờ</div>
+              <div class="v-stat-sub">
+                <span class="v-stat-pill-green">↑ +12 giờ so với tháng trước</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat 3: Chứng nhận điện tử -->
+          <div class="v-stat-card">
+            <div class="v-stat-icon-box v-stat-icon-green">
+              <i class="ri-award-line"></i>
+            </div>
+            <div class="v-stat-info">
+              <div class="v-stat-label">Chứng nhận điện tử</div>
+              <div class="v-stat-num" id="statTotalCerts">3</div>
+              <div class="v-stat-sub">Được bảo chứng minh bạch</div>
+            </div>
+          </div>
+
+          <!-- Stat 4: Hoạt động sắp tới -->
+          <div class="v-stat-card">
+            <div class="v-stat-icon-box v-stat-icon-orange">
+              <i class="ri-calendar-event-line"></i>
+            </div>
+            <div class="v-stat-info">
+              <div class="v-stat-label">Hoạt động sắp tới</div>
+              <div class="v-stat-num" id="statUpcomingCount">1</div>
+              <div class="v-stat-sub">
+                <a href="../schedule.html" class="v-link-all" style="font-size: 0.72rem;">Xem lịch hoạt động &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. DANH SÁCH HOẠT ĐỘNG ĐÃ ĐĂNG KÝ (TABS + RICH CARDS) -->
+        <section class="v-card-box">
+          <div class="v-card-header">
+            <h2 class="v-card-title">
+              <i class="ri-file-text-line" style="color: #059669;"></i>
+              Danh Sách Hoạt Động Đã Đăng Ký
+            </h2>
+
+            <div class="v-filter-bar">
+              <input type="text" class="v-input-search" id="regSearchInput" placeholder="Tìm kiếm hoạt động...">
+              <select class="v-select-sort" id="regSortSelect">
+                <option value="newest">Sắp xếp: Mới nhất ▾</option>
+                <option value="oldest">Sắp xếp: Cũ nhất ▾</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Thanh Tabs Bộ Lọc Trạng Thái -->
+          <div class="v-tabs-nav">
+            <button type="button" class="v-tab-btn active" data-tab="all" data-label="Tất cả">Tất cả (2)</button>
+            <button type="button" class="v-tab-btn" data-tab="pending" data-label="Chờ duyệt">Chờ duyệt (1)</button>
+            <button type="button" class="v-tab-btn" data-tab="accepted" data-label="Đã chấp nhận">Đã chấp nhận
+              (0)</button>
+            <button type="button" class="v-tab-btn" data-tab="in_progress" data-label="Đang diễn ra">Đang diễn ra
+              (0)</button>
+            <button type="button" class="v-tab-btn" data-tab="completed" data-label="Đã hoàn thành">Đã hoàn thành
+              (1)</button>
+            <button type="button" class="v-tab-btn" data-tab="cancelled" data-label="Đã hủy">Đã hủy (0)</button>
+          </div>
+
+          <!-- Danh Sách Rich Cards Đơn Đăng Ký -->
+          <div class="v-reg-list" id="registeredAppsList">
+            <!-- Đổ dữ liệu động từ volunteer.js -->
+          </div>
+
+          <!-- Fallback bảng ẩn cho tương thích các script cũ -->
+          <table style="display: none;">
+            <tbody id="applicationsTableBody"></tbody>
+          </table>
+        </section>
+
+        <!-- 4. HOẠT ĐỘNG GỢI Ý CHO BẠN (3 CARDS GRID) -->
+        <section class="v-card-box">
+          <div class="v-card-header">
+            <div>
+              <h2 class="v-card-title">
+                <i class="ri-compass-3-line" style="color: #059669;"></i>
+                Hoạt Động Gợi Ý Cho Bạn
+              </h2>
+              <div class="v-card-subtitle">Dựa trên sở thích và hoạt động đã tham gia</div>
+            </div>
+            <a href="../activities.html" class="v-link-all">Xem tất cả &rarr;</a>
+          </div>
+
+          <div class="v-suggest-grid">
+            <!-- Card Gợi Ý 1: Làm sạch bờ biển -->
+            <div class="v-sug-card">
+              <div class="v-sug-img-wrap">
+                <img src="../images/act-beach.jpg" alt="Làm sạch bờ biển" class="v-sug-img"
+                  onerror="this.src='https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&w=400&q=80'">
+                <span class="v-sug-badge green">Môi trường</span>
+                <button type="button" class="v-sug-heart" onclick="toggleBookmark(this)" title="Lưu hoạt động"><i
+                    class="ri-heart-line"></i></button>
+              </div>
+              <div class="v-sug-body">
+                <h3 class="v-sug-title">Làm sạch bờ biển – Trả lại màu xanh cho đại dương</h3>
+                <div class="v-sug-meta">
+                  <span><i class="ri-calendar-line"></i> 18/10/2026</span>
+                  <span><i class="ri-map-pin-line"></i> Bình Thuận</span>
+                </div>
+                <div class="v-sug-footer">
+                  <span class="v-sug-slots">Còn 25/40 người</span>
+                  <a href="../detail.html?id=ACT-006" class="btn btn-xs btn-outline">Xem chi tiết</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Gợi Ý 2: Dạy kỹ năng sống -->
+            <div class="v-sug-card">
+              <div class="v-sug-img-wrap">
+                <img src="../images/act-books.jpg" alt="Dạy kỹ năng sống" class="v-sug-img"
+                  onerror="this.src='https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80'">
+                <span class="v-sug-badge orange">Giáo dục</span>
+                <button type="button" class="v-sug-heart" onclick="toggleBookmark(this)" title="Lưu hoạt động"><i
+                    class="ri-heart-line"></i></button>
+              </div>
+              <div class="v-sug-body">
+                <h3 class="v-sug-title">Dạy kỹ năng sống cho trẻ em vùng cao</h3>
+                <div class="v-sug-meta">
+                  <span><i class="ri-calendar-line"></i> 12/11/2026</span>
+                  <span><i class="ri-map-pin-line"></i> Lâm Đồng</span>
+                </div>
+                <div class="v-sug-footer">
+                  <span class="v-sug-slots">Còn 18/25 người</span>
+                  <a href="../detail.html?id=ACT-002" class="btn btn-xs btn-outline">Xem chi tiết</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Gợi Ý 3: Khám bệnh & cấp phát thuốc -->
+            <div class="v-sug-card">
+              <div class="v-sug-img-wrap">
+                <img src="../images/act-medical.jpg" alt="Khám bệnh miễn phí" class="v-sug-img"
+                  onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=400&q=80'">
+                <span class="v-sug-badge blue">Y tế</span>
+                <button type="button" class="v-sug-heart" onclick="toggleBookmark(this)" title="Lưu hoạt động"><i
+                    class="ri-heart-line"></i></button>
+              </div>
+              <div class="v-sug-body">
+                <h3 class="v-sug-title">Khám bệnh & Cấp phát thuốc miễn phí</h3>
+                <div class="v-sug-meta">
+                  <span><i class="ri-calendar-line"></i> 15/11/2026</span>
+                  <span><i class="ri-map-pin-line"></i> Bình Phước</span>
+                </div>
+                <div class="v-sug-footer">
+                  <span class="v-sug-slots">Còn 14/30 người</span>
+                  <a href="../detail.html?id=ACT-005" class="btn btn-xs btn-outline">Xem chi tiết</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ================= CỘT PHẢI WIDGETS (~32%) ================= -->
+      <aside class="v-dash-side-col" style="display: flex; flex-direction: column; gap: 18px;">
+
+        <!-- WIDGET 1: HỒ SƠ TÌNH NGUYỆN VIÊN & CẤP ĐỘ -->
+        <div class="v-profile-card">
+          <div class="v-prof-header">
+            <img src="../images/profile-avatar.jpg" alt="Nguyễn Văn An" class="v-prof-avatar"
+              onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'">
+            <div class="v-prof-info">
+              <h3 class="v-prof-name">Nguyễn Văn An</h3>
+              <div class="v-prof-email">an.nguyen@email.com</div>
+              <span class="v-prof-role-badge"><i class="ri-star-fill" style="color: #10b981;"></i> Tình nguyện viên tích
+                cực</span>
+            </div>
+            <a href="../profile.html" class="v-prof-edit-btn" title="Chỉnh sửa thông tin cá nhân">
+              <i class="ri-edit-line"></i> Chỉnh sửa
+            </a>
+          </div>
+
+          <div class="v-prof-level-block">
+            <div class="v-prof-level-row">
+              <span class="v-prof-level-name">Cấp độ 2 - Người lan tỏa</span>
+              <span class="v-prof-level-score">320/500 điểm</span>
+            </div>
+            <div class="v-prof-level-bar">
+              <div class="v-prof-level-fill"></div>
+            </div>
+          </div>
+
+          <div class="v-prof-actions-grid">
+            <a href="../profile.html" class="v-prof-action-item">
+              <div class="v-prof-action-icon"><i class="ri-user-3-line"></i></div>
+              <span class="v-prof-action-label">Hồ sơ</span>
+            </a>
+            <a href="../profile.html#skills" class="v-prof-action-item">
+              <div class="v-prof-action-icon"><i class="ri-sparkling-line"></i></div>
+              <span class="v-prof-action-label">Kỹ năng</span>
+            </a>
+            <a href="../certificates.html" class="v-prof-action-item">
+              <div class="v-prof-action-icon"><i class="ri-award-line"></i></div>
+              <span class="v-prof-action-label">Chứng nhận</span>
+            </a>
+            <a href="../profile.html#settings" class="v-prof-action-item">
+              <div class="v-prof-action-icon"><i class="ri-settings-3-line"></i></div>
+              <span class="v-prof-action-label">Cài đặt</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- WIDGET 2: LỊCH HOẠT ĐỘNG CỦA TÔI (MINI CALENDAR) -->
+        <div class="v-profile-card">
+          <div class="v-card-header" style="margin-bottom: 8px;">
+            <h3 class="v-card-title" style="font-size: 0.92rem;">
+              <i class="ri-calendar-line" style="color: #059669;"></i>
+              Lịch Hoạt Động Của Tôi
+            </h3>
+          </div>
+
+          <div class="v-cal-header-row">
+            <span class="v-cal-month-title">Tháng 10, 2026</span>
+            <div class="v-cal-nav-btns">
+              <button type="button" class="v-cal-nav-btn"
+                onclick="useToast.show('Đang hiển thị Tháng 10/2026', 'info')"><i
+                  class="ri-arrow-left-s-line"></i></button>
+              <button type="button" class="v-cal-nav-btn"
+                onclick="useToast.show('Đang hiển thị Tháng 10/2026', 'info')"><i
+                  class="ri-arrow-right-s-line"></i></button>
+            </div>
+          </div>
+
+          <div class="v-cal-week-row">
+            <div>T2</div>
+            <div>T3</div>
+            <div>T4</div>
+            <div>T5</div>
+            <div>T6</div>
+            <div>T7</div>
+            <div>CN</div>
+          </div>
+
+          <div class="v-cal-days-grid" id="miniCalendarDays">
+            <!-- Đổ ngày tháng động từ volunteer.js -->
+          </div>
+
+          <div class="v-cal-legend">
+            <div class="v-cal-legend-item">
+              <span class="v-cal-dot green"></span>
+              <span>Đã tham gia</span>
+            </div>
+            <div class="v-cal-legend-item">
+              <span class="v-cal-dot teal"></span>
+              <span>Sắp diễn ra</span>
+            </div>
+            <div class="v-cal-legend-item">
+              <span class="v-cal-dot yellow"></span>
+              <span>Chờ duyệt</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- WIDGET 3: CHỨNG NHẬN CỦA TÔI -->
+        <div class="v-profile-card">
+          <div class="v-card-header" style="margin-bottom: 12px;">
+            <h3 class="v-card-title" style="font-size: 0.92rem;">
+              <i class="ri-medal-line" style="color: #059669;"></i>
+              Chứng Nhận Của Tôi
+            </h3>
+            <a href="../certificates.html" class="v-link-all">Xem tất cả &rarr;</a>
+          </div>
+
+          <!-- Khung Chứng Nhận Mạ Viền Sang Trọng -->
+          <div class="v-cert-frame">
+            <div class="v-cert-badge-type" id="widgetCertType">Chứng nhận tham gia</div>
+            <h4 class="v-cert-name" id="widgetCertTitle">Ngày hội trồng 1.000 cây xanh</h4>
+            <div class="v-cert-meta">
+              <span id="widgetCertDate"><i class="ri-calendar-line"></i> 24/10/2026</span> • <strong
+                id="widgetCertHours">6 giờ tình nguyện</strong>
+            </div>
+            <div class="v-cert-actions">
+              <button type="button" class="btn btn-xs btn-primary"
+                style="display:inline-flex; align-items:center; gap:4px;" onclick="window.print()">
+                <i class="ri-download-2-line"></i> Tải PDF
+              </button>
+              <button type="button" class="btn btn-xs btn-outline"
+                style="display:inline-flex; align-items:center; gap:4px;" onclick="previewCurrentCert()"
+                title="Xem chi tiết chứng chỉ">
+                <i class="ri-eye-line"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="v-cert-carousel-ctrl">
+            <button type="button" class="v-cal-nav-btn" id="prevCertBtn" title="Chứng chỉ trước"><i
+                class="ri-arrow-left-s-line"></i></button>
+            <div class="v-cert-dots" id="widgetCertDots">
+              <div class="v-cert-dot active"></div>
+              <div class="v-cert-dot"></div>
+              <div class="v-cert-dot"></div>
+            </div>
+            <button type="button" class="v-cal-nav-btn" id="nextCertBtn" title="Chứng chỉ kế tiếp"><i
+                class="ri-arrow-right-s-line"></i></button>
+          </div>
+        </div>
+
+        <!-- WIDGET 4: THÔNG BÁO MỚI (SIDEBAR) -->
+        <div class="v-profile-card">
+          <div class="v-card-header" style="margin-bottom: 10px;">
+            <h3 class="v-card-title" style="font-size: 0.92rem;">
+              <i class="ri-notification-3-line" style="color: #059669;"></i>
+              Thông Báo Mới
+            </h3>
+            <a href="../notifications.html" class="v-link-all">Xem tất cả &rarr;</a>
+          </div>
+
+          <div class="v-side-notif-list" id="sideNotifList">
+            <!-- Đổ dữ liệu từ volunteer.js -->
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <footer class="app-footer">
+    <div class="container"
+      style="max-width: 1280px; text-align: center; font-size: 0.8rem; color: #64748b; padding: 20px 0;">
+      <p style="margin: 0;">NhiLun • Nền tảng kết nối tình nguyện viên và tổ chức thiện nguyện minh bạch</p>
+    </div>
+  </footer>
+
+  <!-- CÁC HOOK DÙNG CHUNG -->
+  <script src="../data/seedData.js"></script>
+  <script src="../shared/useStorage.js"></script>
+  <script src="../shared/useRepository.js"></script>
+  <script src="../shared/useToast.js"></script>
+  <script src="../shared/useTheme.js"></script>
+  <script src="../shared/useAuth.js"></script>
+  <script src="../shared/useNotification.js"></script>
+
+  <!-- LOGIC CỦA TNV -->
+  <script src="volunteer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.useNotification) {
+        useNotification.init();
+      }
+    });
+  </script>
+</body>
+
+</html>
