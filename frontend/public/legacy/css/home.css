@@ -728,6 +728,26 @@
   gap: 6px;
 }
 
+.join-promo-avatar-wrap {
+  text-align: center;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.featured-join-promo-card img,
+.join-promo-avatar-wrap img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  display: block;
+}
+
 .btn-join-promo {
   background: #ffffff;
   color: #0b3d2c;

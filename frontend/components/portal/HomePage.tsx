@@ -267,10 +267,12 @@ export function HomePage() {
                   </li>
                 </ul>
               </div>
-              <MediaImage
-                src="/legacy/images/sapling-soil.jpg"
-                alt="Mầm non hy vọng"
-              />
+              <div className="join-promo-avatar-wrap">
+                <MediaImage
+                  src="/legacy/images/sapling-soil.jpg"
+                  alt="Mầm non hy vọng"
+                />
+              </div>
               <Link href="/auth?mode=register" className="btn-join-promo">
                 Tạo tài khoản miễn phí →
               </Link>
