@@ -311,18 +311,161 @@ export function HomePage() {
           </div>
         </section>
         <section className="home-bottom-grid" id="stories">
+          {/* BANNER VIDEO CÂU CHUYỆN */}
           <div className="story-video-card">
             <div className="story-card-content">
               <h3>Những câu chuyện lan tỏa yêu thương</h3>
               <p>Cùng xem lại những khoảnh khắc ý nghĩa từ cộng đồng NhiLun</p>
-              <Link href="/stories" className="btn btn-sm">
-                Khám phá câu chuyện →
-              </Link>
+              <button
+                type="button"
+                onClick={() => setVideoOpen(true)}
+                className="btn btn-sm"
+                style={{
+                  background: "rgba(255, 255, 255, 0.9)",
+                  color: "#0b3d2c",
+                  fontWeight: 700,
+                  borderRadius: 999,
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "6px 14px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                Xem video →
+              </button>
+            </div>
+            <div
+              className="story-play-btn"
+              onClick={() => setVideoOpen(true)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") setVideoOpen(true);
+              }}
+              aria-label="Xem video câu chuyện"
+            >
+              <i className="ri-play-fill" />
             </div>
           </div>
-          <Link href="/stories" className="section-view-all-link">
-            Xem câu chuyện cộng đồng →
-          </Link>
+
+          {/* TESTIMONIALS (CẢM NHẬN TỪ TÌNH NGUYỆN VIÊN) */}
+          <div className="testimonials-card-box">
+            <div className="section-header-row" style={{ marginBottom: 6 }}>
+              <h3 className="section-main-title" style={{ fontSize: "0.95rem" }}>
+                <i
+                  className="ri-message-3-line"
+                  style={{ color: "#059669", fontSize: "1.15rem" }}
+                />
+                <span>Cảm nhận từ tình nguyện viên</span>
+              </h3>
+              <Link href="/stories" className="section-view-all-link">
+                Xem tất cả →
+              </Link>
+            </div>
+
+            <div className="testimonials-grid-row">
+              {/* Item 1 */}
+              <div className="testimonial-single-item">
+                <div className="testimonial-user-header">
+                  <MediaImage
+                    src="/legacy/images/profile-avatar.jpg"
+                    alt="Trần Thu Hà"
+                    className="testimonial-user-avatar"
+                  />
+                  <div className="testimonial-user-info">
+                    <strong>Trần Thu Hà</strong>
+                    <span>Sinh viên</span>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "#f59e0b",
+                    display: "flex",
+                    gap: 2,
+                  }}
+                >
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                </div>
+                <p className="testimonial-quote-text">
+                  “Tham gia các hoạt động ở đây giúp mình có thêm nhiều trải nghiệm
+                  quý giá và gặp gỡ những người bạn tuyệt vời.”
+                </p>
+              </div>
+
+              {/* Item 2 */}
+              <div className="testimonial-single-item">
+                <div className="testimonial-user-header">
+                  <MediaImage
+                    src="/legacy/images/act-tree.jpg"
+                    alt="Lê Minh Quân"
+                    className="testimonial-user-avatar"
+                  />
+                  <div className="testimonial-user-info">
+                    <strong>Lê Minh Quân</strong>
+                    <span>Tình nguyện viên</span>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "#f59e0b",
+                    display: "flex",
+                    gap: 2,
+                  }}
+                >
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                </div>
+                <p className="testimonial-quote-text">
+                  “Mình đã học được rất nhiều điều, không chỉ giúp đỡ cộng đồng mà
+                  còn phát triển bản thân toàn diện.”
+                </p>
+              </div>
+
+              {/* Item 3 */}
+              <div className="testimonial-single-item">
+                <div className="testimonial-user-header">
+                  <MediaImage
+                    src="/legacy/images/act-books.jpg"
+                    alt="Nguyễn Ngọc Mai"
+                    className="testimonial-user-avatar"
+                  />
+                  <div className="testimonial-user-info">
+                    <strong>Nguyễn Ngọc Mai</strong>
+                    <span>Giáo viên</span>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "#f59e0b",
+                    display: "flex",
+                    gap: 2,
+                  }}
+                >
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                  <i className="ri-star-fill" />
+                </div>
+                <p className="testimonial-quote-text">
+                  “Một nền tảng rất ý nghĩa và chuyên nghiệp. Dễ dàng tìm kiếm và
+                  đăng ký các hoạt động thiện nguyện phù hợp.”
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
         {videoOpen && (
           <div
@@ -367,6 +510,15 @@ export function HomePage() {
                   type="button"
                   onClick={() => setVideoOpen(false)}
                   aria-label="Đóng video"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "white",
+                    fontSize: "1.4rem",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
                   <i className="ri-close-line" />
                 </button>
