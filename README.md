@@ -14,7 +14,106 @@
 
 ---
 
-## 🏗️ Kiến Trúc Hệ Thống (Tech Stack)
+## 🗺️ Sơ Đồ Cấu Trúc Trang & Điều Hướng (Site Map)
+
+Hệ thống được tổ chức phân quyền chặt chẽ theo mô hình **RBAC (Role-Based Access Control)** với 4 cấp độ: **Khách vãng lai (Public)**, **Tình nguyện viên (Volunteer)**, **Ban tổ chức (Organizer)** và **Quản trị viên (Admin)**.
+
+### 1. Bảng Danh Mục Route & Phân Quyền
+
+| STT | Tuyến đường (Route) | Tên trang / Chức năng | Phân quyền truy cập | Mô tả nghiệp vụ |
+|:---:|:---|:---|:---:|:---|
+| **I** | **CỔNG CÔNG KHAI** | | | |
+| 1 | `/` | Trang chủ (Home) | Public | Banner chiến dịch, tìm kiếm nhanh, số liệu tác động, hoạt động tiêu biểu. |
+| 2 | `/activities` | Danh mục hoạt động | Public | Bộ lọc đa chiều (địa bàn, lĩnh vực, hạn nộp), xem Grid/List, yêu thích. |
+| 3 | `/activities/[identifier]` | Chi tiết hoạt động | Public | Timeline lịch trình, chỉ tiêu, yêu cầu, đơn vị tổ chức có tích xanh. |
+| 4 | `/stories` | Câu chuyện cộng đồng | Public | Bài viết truyền cảm hứng, phóng sự, cảm nhận thực tế của TNV. |
+| 5 | `/about` | Giới thiệu dự án | Public | Tầm nhìn, sứ mệnh, giá trị cốt lõi và ban cố vấn nền tảng. |
+| 6 | `/auth` | Xác thực tài khoản | Public | Đăng nhập, đăng ký theo vai trò, nút đăng nhập nhanh 1 chạm Demo. |
+| 7 | `/auth/reset` | Đặt lại mật khẩu | Public | Nhận liên kết và xác lập mật khẩu mới qua email. |
+| 8 | `/certificates/verify` | Tra cứu chứng nhận | Public | Quét QR hoặc nhập mã tra cứu chứng nhận thật giả công khai. |
+| 9 | `/privacy` | Chính sách bảo mật | Public | Quy định thu thập, sử dụng và bảo vệ dữ liệu cá nhân. |
+| 10 | `/terms` | Quy tắc cộng đồng | Public | Điều khoản sử dụng, tiêu chuẩn an toàn cho TNV và BTC. |
+| **II** | **CỔNG TÌNH NGUYỆN VIÊN** | | | *(Yêu cầu đăng nhập tài khoản TNV)* |
+| 11 | `/volunteer/dashboard` | Bảng điều khiển TNV | Volunteer | Thống kê giờ cống hiến, tiến độ, theo dõi trạng thái các đơn đã nộp. |
+| 12 | `/volunteer/apply/[activityId]` | Đơn ứng tuyển | Volunteer | Form nộp đơn 4 bước, chọn ca trực, kiểm tra sức chứa & chống nộp trùng. |
+| 13 | `/schedule` | Lịch hoạt động cá nhân | Volunteer | Lịch trực theo tháng/tuần các hoạt động đã được BTC duyệt tham gia. |
+| 14 | `/certificates` | Thư viện chứng nhận | Volunteer | Xem, in ấn và tải chứng nhận điện tử chính thức (`CERT-2026-XXX`). |
+| 15 | `/favorites` | Hoạt động đã lưu | Volunteer | Quản lý danh sách các hoạt động thiện nguyện đã đánh dấu yêu thích. |
+| 16 | `/notifications` | Trung tâm thông báo | Authenticated | Thông báo xét duyệt đơn, điểm danh thành công, phát hành chứng nhận. |
+| 17 | `/profile` | Hồ sơ cá nhân | Authenticated | Cập nhật thông tin, ảnh đại diện, tiểu sử, bộ kỹ năng chuyên môn. |
+| **III**| **CỔNG BAN TỔ CHỨC** | | | *(Yêu cầu vai trò Organizer)* |
+| 18 | `/organizer/manage` | Quản lý chiến dịch | Organizer | Quản lý hồ sơ ứng viên: duyệt đơn, từ chối, quét QR điểm danh, xuất CSV. |
+| 19 | `/organizer/create-event` | Tạo hoạt động mới | Organizer | Wizard 5 bước thiết lập chiến dịch, lịch trình, tải banner và nộp duyệt. |
+| **IV** | **CỔNG QUẢN TRỊ VIÊN** | | | *(Yêu cầu vai trò Admin)* |
+| 20 | `/admin/moderation` | Kiểm duyệt hệ thống | Admin | Duyệt pháp nhân tổ chức (tích xanh), duyệt hoạt động, tra cứu Audit Logs. |
+| 21 | `/admin/theme-settings` | Cấu hình bảng màu | Admin | Quản lý bảng màu động CSS Variables, đổi theme toàn trang 1 chạm. |
+| **V** | **HỆ THỐNG ĐIỀU HƯỚNG PHỤ** | | | |
+| 22 | `/dashboard` | Phễu điều hướng thông minh | Authenticated | Tự động chuyển tiếp đến trang tương ứng với Role của tài khoản. |
+| 23 | `/forbidden` | Báo lỗi 403 Forbidden | Authenticated | Chặn truy cập khi tài khoản không đủ quyền hạn nghiệp vụ. |
+| 24 | `/[...legacy]` | Chuyển tiếp URL cũ | Public | Tự động bắt link `.html` cũ (VD: `detail.html?id=...`) ➔ React route mới. |
+
+---
+
+### 2. Sơ Đồ Luồng Nghiệp Vụ (Navigation Flowchart)
+
+```mermaid
+graph TD
+    classDef public fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0369a1;
+    classDef volunteer fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#15803d;
+    classDef organizer fill:#fefce8,stroke:#ca8a04,stroke-width:2px,color:#a16207;
+    classDef admin fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#b91c1c;
+
+    subgraph PUBLIC["🌐 CỔNG CÔNG KHAI"]
+        HOME["Trang chủ (/)"]:::public
+        ACT["Danh sách hoạt động (/activities)"]:::public
+        DETAIL["Chi tiết hoạt động (/activities/:id)"]:::public
+        STORIES["Câu chuyện (/stories)"]:::public
+        ABOUT["Giới thiệu (/about)"]:::public
+        VERIFY["Xác minh QR (/certificates/verify)"]:::public
+        AUTH["Xác thực (/auth)"]:::public
+    end
+
+    subgraph VOLUNTEER["💚 CỔNG TÌNH NGUYỆN VIÊN (TNV)"]
+        VDASH["Dashboard (/volunteer/dashboard)"]:::volunteer
+        APPLY["Nộp đơn (/volunteer/apply/:id)"]:::volunteer
+        SCHED["Lịch hoạt động (/schedule)"]:::volunteer
+        CERT["Chứng nhận (/certificates)"]:::volunteer
+        PROF["Hồ sơ cá nhân (/profile)"]:::volunteer
+        NOTIF["Thông báo (/notifications)"]:::volunteer
+    end
+
+    subgraph ORGANIZER["🏢 CỔNG BAN TỔ CHỨC (BTC)"]
+        OMANAGE["Quản lý & Điểm danh (/organizer/manage)"]:::organizer
+        OCREATE["Khởi tạo sự kiện (/organizer/create-event)"]:::organizer
+    end
+
+    subgraph ADMIN["🛡️ CỔNG QUẢN TRỊ VIÊN (ADMIN)"]
+        AMOD["Kiểm duyệt & Audit Logs (/admin/moderation)"]:::admin
+        ATHEME["Bảng màu & Theme (/admin/theme-settings)"]:::admin
+    end
+
+    HOME --> ACT --> DETAIL --> APPLY
+    HOME --> STORIES
+    HOME --> ABOUT
+    DETAIL --> VERIFY
+    AUTH -->|Đăng nhập TNV| VDASH
+    AUTH -->|Đăng nhập BTC| OMANAGE
+    AUTH -->|Đăng nhập Admin| AMOD
+
+    VDASH --> SCHED
+    VDASH --> CERT
+    VDASH --> PROF
+    VDASH --> NOTIF
+
+    OCREATE -->|Gửi duyệt| AMOD
+    AMOD -->|Phê duyệt| ACT
+    APPLY -->|Nộp hồ sơ| OMANAGE
+    OMANAGE -->|Duyệt & Quét QR Điểm danh| CERT
+```
+
+---
+
+## 🏗️ Kiến Trúc Kỹ Thuật (Architecture)
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -22,13 +121,13 @@
 │    App Router • Server/Client Components • Realtime     │
 │    Vanilla CSS Design System • Dynamic Theme Palettes   │
 └───────────────────────────┬────────────────────────────┘
-                            │ REST API / JWT Session
+                            │ REST API / Bearer JWT Session
 ┌───────────────────────────▼────────────────────────────┐
 │                    BACKEND (FastAPI)                   │
-│    Async Python • RBAC Authorization • Validation       │
-│    Audit Logging • Media & Storage Handler             │
+│    Async Python • RBAC Middleware • ACID Transactions   │
+│    Audit Trail • Server Storage & PDF Generation       │
 └───────────────────────────┬────────────────────────────┘
-                            │ AsyncPG / PostgREST
+                            │ AsyncPG Connection Pool
 ┌───────────────────────────▼────────────────────────────┐
 │                  DATABASE & AUTH (Supabase)            │
 │    PostgreSQL • Row Level Security • Supabase Auth     │
@@ -38,89 +137,147 @@
 
 ---
 
-## 📸 Giao Diện & Kịch Bản Sử Dụng (Screenshots)
+## 🛠️ Hướng Dẫn Cài Đặt Môi Trường & Khởi Chạy (Step-by-Step)
 
-### I. Cổng Công Khai (Public Portal)
-
-#### 1. Trang Chủ (Home Page)
-Giao diện tiếp đón với Hero banner truyền cảm hứng, bộ lọc tìm kiếm nhanh theo tỉnh thành/lĩnh vực, thống kê số liệu tác động cộng đồng theo thời gian thực và danh sách hoạt động nổi bật.
-![Trang Chủ - Home Page](docs/screenshots/01_home.png)
-
-#### 2. Danh Sách Hoạt Động (Activities Catalog)
-Bộ lọc đa chiều (địa bàn, danh mục môi trường, giáo dục, cứu trợ, trạng thái tuyển còn chỗ/hết hạn), hỗ trợ chế độ xem Grid / List và lưu yêu thích.
-![Danh Sách Hoạt Động](docs/screenshots/02_activities.png)
-
-#### 3. Chi Tiết Hoạt Động (Activity Detail)
-Thông tin chuyên sâu về chiến dịch: timeline lịch trình chi tiết, yêu cầu kỹ năng, vật dụng mang theo, số lượng chỉ tiêu còn lại, thông tin đơn vị tổ chức có tích xanh xác thực.
-![Chi Tiết Hoạt Động](docs/screenshots/03_activity_detail.png)
-
-#### 4. Câu Chuyện Tình Nguyện (Community Stories)
-Khu vực lan tỏa tinh thần thiện nguyện: các bài viết cảm nhận thực tế, nhật ký cống hiến và video clip phóng sự từ tình nguyện viên.
-![Câu Chuyện Tình Nguyện](docs/screenshots/04_stories.png)
-
-#### 5. Giới Thiệu Dự Án (About Us)
-Sứ mệnh, tầm nhìn, giá trị cốt lõi và tiêu chuẩn minh bạch của nền tảng NhiLun / VolunteerHub.
-![Giới Thiệu](docs/screenshots/05_about.png)
-
-#### 6. Xác Thực Tài Khoản (Authentication)
-Trang Đăng ký / Đăng nhập tích hợp Supabase Auth, hỗ trợ phân quyền tự động theo vai trò (TNV, BTC) và thanh **Đăng nhập nhanh 1 chạm (Demo Accounts)** phục vụ kiểm thử.
-![Xác Thực Tài Khoản](docs/screenshots/06_auth.png)
+### 1. Yêu Cầu Tiên Quyết (Prerequisites)
+- **Node.js**: v18.18+ hoặc v20+ (Khuyên dùng v20 LTS) & **npm**
+- **Python**: v3.11+ (Khuyên dùng 3.11 hoặc 3.12)
+- **Git**
+- Một tài khoản hoặc dự án **Supabase** (Cloud hoặc Local Docker)
 
 ---
 
-### II. Cổng Tình Nguyện Viên (Volunteer Portal)
+### 2. Thiết Lập & Khởi Chạy Backend (FastAPI)
 
-#### 7. Bảng Điều Khiển Tình Nguyện Viên (Volunteer Dashboard)
-Tổng quan số giờ cống hiến đã xác nhận, số hoạt động tham gia, danh mục đơn đăng ký đang chờ duyệt / đã duyệt và chứng nhận gần nhất.
-![Bảng Điều Khiển TNV](docs/screenshots/07_volunteer_dashboard.png)
+#### Bước 2.1: Tạo môi trường ảo Python & cài đặt thư viện
+```bash
+# Di chuyển vào thư mục backend
+cd backend
 
-#### 8. Lịch Hoạt Động Cá Nhân (Schedule & Calendar)
-Lịch trình trực quan theo tháng/tuần hiển thị các ca trực thiện nguyện đã được ban tổ chức phê duyệt tham gia.
-![Lịch Hoạt Động TNV](docs/screenshots/08_volunteer_schedule.png)
+# Khởi tạo virtual environment
+python -m venv .venv
 
-#### 9. Thư Viện Chứng Nhận Điện Tử (Certificates)
-Bộ sưu tập chứng nhận điện tử chính thức được cấp sau khi hoàn thành hoạt động, tích hợp mã định danh duy nhất (`CERT-2026-XXX`) và mã QR xác thực công khai.
-![Chứng Nhận Điện Tử](docs/screenshots/09_certificates.png)
+# Kích hoạt virtual environment:
+# Trên Windows (PowerShell):
+.venv\Scripts\Activate.ps1
+# Trên Windows (Command Prompt):
+.venv\Scripts\activate.bat
+# Trên macOS / Linux:
+source .venv/bin/activate
 
-#### 10. Trung Tâm Thông Báo (Notifications)
-Theo dõi trạng thái xét duyệt đơn nộp, nhắc nhở lịch trình sắp diễn ra, thông báo điểm danh thành công từ BTC.
-![Trung Tâm Thông Báo](docs/screenshots/10_notifications.png)
+# Nâng cấp pip và cài đặt dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+```
 
-#### 11. Hồ Sơ Cá Nhân & Kỹ Năng (Profile & Settings)
-Quản lý thông tin liên hệ, tiểu sử, bộ kỹ năng chuyên môn (sơ cấp cứu, ngoại ngữ, tổ chức, chụp ảnh) và đổi mật khẩu.
-![Hồ Sơ Cá Nhân](docs/screenshots/11_profile.png)
+#### Bước 2.2: Cấu hình biến môi trường Backend (`backend/.env`)
+Sao chép file mẫu:
+```bash
+cp .env.example .env
+```
+Mở file `backend/.env` và thiết lập các biến sau:
+```env
+# 1. Supabase Project Credentials
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_your_anon_key_here
+SUPABASE_SECRET_KEY=sb_secret_your_service_role_key_here
+SUPABASE_JWKS_URL=https://your-project.supabase.co/auth/v1/.well-known/jwks.json
+
+# 2. Kết nối PostgreSQL trực tiếp qua asyncpg
+SUPABASE_DB_URL=postgresql://postgres:your_password@db.your-project.supabase.co:5432/postgres
+
+# 3. Cấu hình CORS & Môi trường
+FRONTEND_ORIGINS=http://localhost:3000
+APP_ENV=development
+
+# 4. Bật chế độ Đăng nhập nhanh Demo (Chỉ dùng khi DEV)
+DEMO_LOGIN_ENABLED=true
+DEMO_PASSWORD_USR_001=123456
+DEMO_PASSWORD_USR_002=123456
+DEMO_PASSWORD_USR_003=123456
+```
+
+> ⚠️ **LƯU Ý BẢO MẬT:** `SUPABASE_SECRET_KEY` (service role) chỉ được đặt tại `backend/.env` cho các nghiệp vụ nội bộ (Storage, cấp PDF, seed). **Tuyệt đối không đưa key này vào Frontend**.
+
+#### Bước 2.3: Áp dụng CSDL & Nạp dữ liệu mẫu (Database Migration & Seed)
+```bash
+# 1. Áp dụng schema migration lên Supabase (chạy từ thư mục gốc của dự án)
+python backend/scripts/apply_migration.py
+
+# 2. Nạp dữ liệu mẫu chuẩn hóa từ data/seedData.js lên Supabase
+python backend/scripts/seed_supabase.py --apply
+```
+
+#### Bước 2.4: Khởi chạy máy chủ FastAPI
+```bash
+cd backend
+uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+- **API URL:** `http://127.0.0.1:8000`
+- **Tài liệu Swagger OpenAPI:** `http://127.0.0.1:8000/docs`
+- **Kiểm tra Health:** `http://127.0.0.1:8000/api/v1/health`
 
 ---
 
-### III. Cổng Ban Tổ Chức (Organizer Workspace)
+### 3. Thiết Lập & Khởi Chạy Frontend (Next.js 15)
 
-#### 12. Quản Lý Hoạt Động & Ứng Viên (Organizer Management)
-Bảng kiểm soát danh sách ứng viên đăng ký theo từng hoạt động: Duyệt đơn, Từ chối kèm lý do, Quét mã QR điểm danh tại chỗ, kích hoạt cấp chứng nhận tức thì và xuất báo cáo CSV UTF-8.
-![Quản Lý Hoạt Động & Điểm Danh](docs/screenshots/12_organizer_manage.png)
+Mở một cửa sổ Terminal mới:
 
-#### 13. Khởi Tạo Chiến Dịch Mới (Create Activity Wizard)
-Quy trình Wizard 5 bước chuyên nghiệp: Thông tin cơ bản ➔ Thời gian & Địa điểm ➔ Chỉ tiêu & Yêu cầu ➔ Lịch trình Timeline chi tiết ➔ Xem trước & Gửi Admin duyệt.
-![Tạo Hoạt Động Mới](docs/screenshots/13_organizer_create_event.png)
+#### Bước 3.1: Cài đặt gói npm
+```bash
+# Di chuyển vào thư mục frontend
+cd frontend
+
+# Cài đặt các thư viện React, Next.js, Supabase SSR
+npm install
+```
+
+#### Bước 3.2: Cấu hình biến môi trường Frontend (`frontend/.env.local`)
+Sao chép file mẫu:
+```bash
+cp .env.example .env.local
+```
+Chỉnh sửa `frontend/.env.local`:
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_your_anon_key_here
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
+API_INTERNAL_URL=http://127.0.0.1:8000
+```
+
+#### Bước 3.3: Khởi chạy môi trường phát triển (Development)
+```bash
+npm run dev
+```
+Truy cập giao diện tại: **`http://localhost:3000`**
+
+#### Bước 3.4: Biên dịch Production (Optional)
+```bash
+# Kiểm tra Type, Lint và build production bundle:
+npm run build
+
+# Khởi chạy server production:
+npm run start
+```
 
 ---
 
-### IV. Cổng Quản Trị Hệ Thống (Admin Portal)
+### 4. Các Lệnh Tiện Ích & Script Tự Động Hóa
 
-#### 14. Kiểm Duyệt Hệ Thống (Moderation & Audit Logs)
-Phê duyệt pháp nhân tổ chức (cấp tích xanh xác thực), duyệt xuất bản các hoạt động ra cộng đồng và tra cứu nhật ký kiểm toán (Audit Trail) chi tiết mọi hành vi nhạy cảm.
-![Kiểm Duyệt Hệ Thống Admin](docs/screenshots/14_admin_moderation.png)
-
-#### 15. Quản Lý Giao Diện & Bảng Màu (Dynamic Theme Settings)
-Cấu hình và kích hoạt các bảng màu giao diện toàn trang theo mùa chiến dịch (Xanh Mầm Non, Cam Năng Động, Tím Cộng Đồng, Hồng Tình Nguyện) cập nhật tức thì qua CSS Variables.
-![Cài Đặt Theme Toàn Trang](docs/screenshots/15_admin_theme_settings.png)
+| Tác vụ | Câu lệnh thực thi | Mô tả |
+| :--- | :--- | :--- |
+| **Chụp ảnh tự động 15 màn hình** | `python scripts/take_screenshots.py` | Dùng Playwright tự động đăng nhập 3 vai trò và chụp toàn bộ trang vào `docs/screenshots/`. |
+| **Tối ưu hóa ảnh WebP** | `cd frontend && python scripts/optimize-images.py` | Đọc ảnh JPG gốc, tạo variants WebP đa kích thước (120, 240, 480, 960, 1600px). |
+| **Kiểm thử hệ thống Backend** | `cd backend && python scripts/verify_system.py` | Kiểm thử tự động 42 assertion về luồng tạo đơn, khóa sức chứa, duyệt đơn và điểm danh. |
+| **Kiểm tra kết nối Realtime** | `cd frontend && node scripts/verify-realtime.mjs` | Kiểm tra channel phát tín hiệu Realtime qua Supabase WebSocket. |
 
 ---
 
 ## 👥 Tài Khoản Kiểm Thử (Demo Accounts)
 
-Hệ thống tích hợp sẵn nút bấm đăng nhập nhanh 1 chạm tại trang `/auth`, hoặc có thể đăng nhập bằng thông tin sau:
+Tại màn hình đăng nhập (`http://localhost:3000/auth`), bạn có thể bấm trực tiếp các nút trong thanh **"Đăng nhập nhanh 1 chạm (Demo)"**, hoặc nhập thông tin sau:
 
-| Vai trò | Họ tên / Đơn vị | Email | Mật khẩu mặc định | Trang chuyển tiếp |
+| Vai trò | Tên tài khoản | Email đăng nhập | Mật khẩu | Trang hạ cánh (Landing) |
 | :--- | :--- | :--- | :---: | :--- |
 | **Tình nguyện viên (TNV)** | Nguyễn Văn An | `an.nguyen@email.com` | `123456` | `/volunteer/dashboard` |
 | **Ban tổ chức (BTC)** | Quỹ Xanh Việt Nam | `coordinator@quyxanh.vn` | `123456` | `/organizer/manage` |
@@ -128,67 +285,89 @@ Hệ thống tích hợp sẵn nút bấm đăng nhập nhanh 1 chạm tại tra
 
 ---
 
-## 🚀 Hướng Dẫn Cài Đặt & Chạy Cục Bộ
+## 📸 Bộ Ảnh Chụp Màn Hình Minh Họa 15 Trang
 
-### 1. Yêu Cầu Tiên Quyết
-- **Node.js** v18+ & **npm**
-- **Python** 3.11+
-- Tài khoản và cơ sở dữ liệu **Supabase**
+### I. Cổng Công Khai (Public Portal)
+#### 1. Trang Chủ (Home Page)
+![Trang Chủ - Home Page](docs/screenshots/01_home.png)
 
----
+#### 2. Danh Sách Hoạt Động (Activities Catalog)
+![Danh Sách Hoạt Động](docs/screenshots/02_activities.png)
 
-### 2. Khởi Chạy Backend (FastAPI)
-```bash
-cd backend
-python -m venv .venv
-# Trên Windows:
-.venv\Scripts\activate
-# Trên Linux/macOS:
-source .venv/bin/activate
+#### 3. Chi Tiết Hoạt Động (Activity Detail)
+![Chi Tiết Hoạt Động](docs/screenshots/03_activity_detail.png)
 
-pip install -r requirements.txt
-cp .env.example .env
-# Điền thông tin SUPABASE_URL, SUPABASE_DB_URL, SUPABASE_SECRET_KEY vào .env
+#### 4. Câu Chuyện Tình Nguyện (Community Stories)
+![Câu Chuyện Tình Nguyện](docs/screenshots/04_stories.png)
 
-uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
-```
+#### 5. Giới Thiệu Dự Án (About Us)
+![Giới Thiệu](docs/screenshots/05_about.png)
+
+#### 6. Xác Thực Tài Khoản (Authentication & Demo Buttons)
+![Xác Thực Tài Khoản](docs/screenshots/06_auth.png)
 
 ---
 
-### 3. Khởi Chạy Frontend (Next.js)
-```bash
-cd frontend
-npm install
-cp .env.example .env.local
-# Cấu hình NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, NEXT_PUBLIC_API_BASE_URL
+### II. Cổng Tình Nguyện Viên (Volunteer Portal)
+#### 7. Bảng Điều Khiển Tình Nguyện Viên (Volunteer Dashboard)
+![Bảng Điều Khiển TNV](docs/screenshots/07_volunteer_dashboard.png)
 
-npm run dev
-```
+#### 8. Lịch Hoạt Động Cá Nhân (Schedule & Calendar)
+![Lịch Hoạt Động TNV](docs/screenshots/08_volunteer_schedule.png)
 
-Truy cập hệ thống tại: **`http://localhost:3000`**
+#### 9. Thư Viện Chứng Nhận Điện Tử (Certificates Library)
+![Chứng Nhận Điện Tử](docs/screenshots/09_certificates.png)
+
+#### 10. Trung Tâm Thông Báo (Notifications Center)
+![Trung Tâm Thông Báo](docs/screenshots/10_notifications.png)
+
+#### 11. Hồ Sơ Cá Nhân & Kỹ Năng (Profile & Skills)
+![Hồ Sơ Cá Nhân](docs/screenshots/11_profile.png)
 
 ---
 
-## 📁 Cấu Trúc Thư Mục Dự Án
+### III. Cổng Ban Tổ Chức (Organizer Workspace)
+#### 12. Quản Lý Hoạt Động & Điểm Danh (Organizer Management)
+![Quản Lý Hoạt Động & Điểm Danh](docs/screenshots/12_organizer_manage.png)
+
+#### 13. Khởi Tạo Chiến Dịch Mới (Create Activity Wizard)
+![Tạo Hoạt Động Mới](docs/screenshots/13_organizer_create_event.png)
+
+---
+
+### IV. Cổng Quản Trị Hệ Thống (Admin Portal)
+#### 14. Kiểm Duyệt Hệ Thống (Moderation & Audit Logs)
+![Kiểm Duyệt Hệ Thống Admin](docs/screenshots/14_admin_moderation.png)
+
+#### 15. Quản Lý Bảng Màu Giao Diện (Dynamic Theme Settings)
+![Cài Đặt Theme Toàn Trang](docs/screenshots/15_admin_theme_settings.png)
+
+---
+
+## 📁 Cấu Trúc Thư Mục Dự Án (Directory Structure)
 
 ```
 WebNhiLun/
 ├── frontend/                     # Ứng dụng Next.js 15 (App Router)
 │   ├── app/                      # Các route trang (page.tsx, layout.tsx, middleware.ts)
-│   ├── components/portal/        # UI Components & Frames dùng chung
-│   ├── lib/                      # Supabase client, API client, media helper
-│   ├── public/legacy/            # CSS Design System & Assets tối ưu
-│   └── scripts/                  # Scripts tối ưu hóa ảnh & build helpers
-├── backend/                      # Dịch vụ API FastAPI (Python)
-│   ├── app/                      # API router, models, schemas, auth middleware
-│   ├── scripts/                  # Migration, seed dữ liệu Supabase, kiểm thử
+│   ├── components/portal/        # UI Components & Frames dùng chung cho từng trang
+│   ├── hooks/                    # Custom React hooks (useApiQuery, useNotifications)
+│   ├── lib/                      # Supabase client/server, API fetcher, media helper
+│   ├── public/legacy/            # CSS Design System (base.css, components.css,...) & WebP images
+│   └── scripts/                  # Scripts tối ưu ảnh (optimize-images.py) & test Realtime
+├── backend/                      # Dịch vụ API nghiệp vụ FastAPI (Python)
+│   ├── app/                      # API router, models, schemas, RBAC middleware
+│   ├── scripts/                  # Migration runner, seed dữ liệu Supabase, verify QA
 │   └── requirements.txt          # Danh sách thư viện Python
-├── supabase/                     # Quản lý Database
-│   └── migrations/               # Các file schema migration PostgreSQL & RLS
-├── VolunteerHub_Docs/            # Bộ tài liệu phân tích kỹ thuật & nghiệp vụ chi tiết
-├── docs/screenshots/             # Bộ ảnh chụp màn hình 15 trang chức năng
-├── data/                         # Dữ liệu hạt giống chuẩn hóa (seedData.js)
-└── README.md                     # Tài liệu giới thiệu & hướng dẫn dự án
+├── supabase/                     # Quản lý Database & Migrations
+│   └── migrations/               # Các file schema migration PostgreSQL, RLS, Indexes
+├── VolunteerHub_Docs/            # Bộ tài liệu phân tích kỹ thuật, ERD & đánh giá hiệu năng
+├── docs/screenshots/             # Bộ ảnh chụp màn hình chất lượng cao 15 trang
+├── data/                         # Dữ liệu hạt giống chuẩn hóa (seedData.js, themes.json)
+├── scripts/                      # Tool tự động chụp ảnh màn hình (take_screenshots.py)
+├── .gitattributes                # Quy tắc thống kê ngôn ngữ GitHub Linguist
+├── .gitignore                    # Cấu hình bỏ qua cache, build artifacts và file nhạy cảm
+└── README.md                     # Tài liệu giới thiệu & hướng dẫn chi tiết
 ```
 
 ---
