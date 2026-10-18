@@ -100,6 +100,8 @@ class StoryInput(BaseModel):
     title: str = Field(min_length=3, max_length=200)
     body: str = Field(min_length=10, max_length=10000)
     category: str = Field(default="all", max_length=100)
+    thumbnail_url: str | None = Field(default=None, max_length=2048)
+
 
 
 class AdminDecision(BaseModel):

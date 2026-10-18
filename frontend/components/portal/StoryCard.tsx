@@ -7,6 +7,10 @@ export type Story = {
   category: string;
   likes: number;
   author?: string;
+  author_name?: string;
+  author_avatar?: string;
+  thumbnail_url?: string;
+  created_at?: string;
 };
 export function StoryCard({
   story,

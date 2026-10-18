@@ -1456,7 +1456,7 @@ async def admin_stories(
     user: CurrentUser = Depends(require_roles("admin")),
     db=Depends(get_db),
 ):
-    where = "where ($1='all' or s.category=$1) and ($2='' or concat_ws(' ', s.title, s.body, p.name, p.email) ilike $2)"
+    where = "where ($1='all' or s.category=$1) and ($2='' or concat_ws(' ', s.title, s.body, coalesce(p.name, s.author_name), p.email) ilike $2)"
     source = "from public.stories s left join public.profiles p on p.id=s.user_id"
     args = [category, f"%{search.strip()}%" if search.strip() else ""]
     async with (
@@ -1467,9 +1467,10 @@ async def admin_stories(
         rows = await conn.fetch(
             f"""select s.*,
                 s.legacy_likes + (select count(*) from public.story_likes l where l.story_id=s.id) as likes,
-                p.name as author_name,
-                p.email as author_email,
-                p.avatar_url as author_avatar
+                coalesce(p.name, s.author_name, 'Tình nguyện viên') as author_name,
+                coalesce(p.email, '') as author_email,
+                coalesce(p.avatar_url, s.author_avatar, '/legacy/images/profile-avatar.jpg') as author_avatar,
+                s.thumbnail_url
                 {source} {where}
                 order by s.created_at desc, s.id desc
                 limit $3 offset $4""",
@@ -1704,7 +1705,7 @@ async def stories(
     category: str = Query("all", max_length=100),
     db=Depends(get_db),
 ):
-    where = "where ($1='all' or s.category=$1) and ($2='' or concat_ws(' ',s.title,s.body,p.name) ilike $2)"
+    where = "where ($1='all' or s.category=$1) and ($2='' or concat_ws(' ', s.title, s.body, coalesce(p.name, s.author_name)) ilike $2)"
     source = "from public.stories s left join public.profiles p on p.id=s.user_id"
     args = [category, f"%{search.strip()}%" if search.strip() else ""]
     async with (
@@ -1713,7 +1714,15 @@ async def stories(
     ):
         total = await conn.fetchval(f"select count(*) {source} {where}", *args)
         rows = await conn.fetch(
-            f"select s.*,s.legacy_likes+(select count(*) from public.story_likes l where l.story_id=s.id) as likes,p.name as author {source} {where} order by s.created_at desc,s.id desc limit $3 offset $4",
+            f"""select s.*,
+                s.legacy_likes + (select count(*) from public.story_likes l where l.story_id=s.id) as likes,
+                coalesce(p.name, s.author_name, 'Tình nguyện viên') as author,
+                coalesce(p.name, s.author_name, 'Tình nguyện viên') as author_name,
+                coalesce(p.avatar_url, s.author_avatar, '/legacy/images/profile-avatar.jpg') as author_avatar,
+                s.thumbnail_url
+                {source} {where}
+                order by s.created_at desc, s.id desc
+                limit $3 offset $4""",
             *args,
             limit,
             (page - 1) * limit,
@@ -1730,11 +1739,15 @@ async def share_story(
     if not payload.title.strip() or not payload.body.strip():
         raise HTTPException(422, "Nội dung không được để trống.")
     row = await db.fetchrow(
-        "insert into public.stories(user_id,title,body,category) values($1,$2,$3,$4) returning *",
+        """insert into public.stories(user_id, title, body, category, author_name, author_avatar, thumbnail_url)
+           values($1, $2, $3, $4, $5, $6, $7) returning *""",
         user.id,
         payload.title.strip(),
         payload.body.strip(),
         payload.category,
+        user.name,
+        user.avatar_url or "/legacy/images/profile-avatar.jpg",
+        payload.thumbnail_url or "/legacy/images/profile-cover.jpg",
     )
     return ok(dict(row))
 

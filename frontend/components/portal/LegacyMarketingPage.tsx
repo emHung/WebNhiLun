@@ -11,11 +11,20 @@ import DOMPurify from "dompurify";
 import { apiRequest } from "@/lib/api";
 import { optimizeHtmlImages } from "@/lib/media";
 import { useDebouncedValue } from "@/hooks/use-api-query";
-import { PortalShell, useLoad, StatusMessage } from "./shared";
+import { PortalShell, useLoad, StatusMessage, formatDate } from "./shared";
 import { Pagination, type PageResult } from "./Pagination";
 import { Modal } from "./Modal";
 import { LegacyMarkup } from "./LegacyMarkup";
 import { StoryCard, type Story } from "./StoryCard";
+
+const categoryLabels: Record<string, string> = {
+  all: "Tất cả",
+  article: "Bài viết",
+  image: "Hình ảnh",
+  video: "Video",
+  inspire: "Truyền cảm hứng",
+};
+
 type MarketingPage = "about" | "stories";
 export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
   const rootRef = useRef<HTMLElement>(null);
@@ -54,6 +63,7 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
   const [title, setTitle] = useState(""),
     [body, setBody] = useState(""),
     [category, setCategory] = useState("article"),
+    [thumbnailUrl, setThumbnailUrl] = useState(""),
     [busy, setBusy] = useState(false);
   const close = useCallback(() => setModal(null), []);
   useEffect(() => {
@@ -148,13 +158,19 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
     try {
       await apiRequest("/stories", {
         method: "POST",
-        body: JSON.stringify({ title, body, category }),
+        body: JSON.stringify({
+          title,
+          body,
+          category,
+          thumbnail_url: thumbnailUrl.trim() || undefined,
+        }),
       });
       close();
       setTitle("");
       setBody("");
+      setThumbnailUrl("");
       setCurrentPage(1);
-      setMessage("Đã chia sẻ câu chuyện.");
+      setMessage("Đã chia sẻ câu chuyện thành công.");
       refresh();
     } catch (error) {
       setMessage(
@@ -223,42 +239,138 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
       {modal && (
         <Modal label="Câu chuyện cộng đồng" onClose={close}>
           {modal === "share" ? (
-            <form className="portal-form" onSubmit={share}>
-              <h2>Chia sẻ câu chuyện</h2>
-              <label>
-                Tiêu đề
+            <form className="portal-form" onSubmit={share} style={{ gap: "16px" }}>
+              <div style={{ marginBottom: "6px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                  <div
+                    style={{
+                      width: "38px",
+                      height: "38px",
+                      borderRadius: "10px",
+                      background: "rgba(16, 185, 129, 0.12)",
+                      color: "#10b981",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "1.25rem",
+                    }}
+                  >
+                    <i className="ri-quill-pen-line" />
+                  </div>
+                  <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "var(--text-primary, #0f172a)" }}>
+                    Chia sẻ câu chuyện
+                  </h2>
+                </div>
+                <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-secondary, #64748b)", lineHeight: 1.5 }}>
+                  Lan tỏa những khoảnh khắc đẹp, câu chuyện ý nghĩa và tinh thần thiện nguyện đến với cộng đồng.
+                </p>
+              </div>
+
+              <label style={{ display: "grid", gap: "6px", fontWeight: 600, color: "var(--text-primary, #1e293b)", fontSize: "0.88rem" }}>
+                <span>Tiêu đề câu chuyện <span style={{ color: "#ef4444" }}>*</span></span>
                 <input
                   autoFocus
                   required
                   minLength={3}
                   maxLength={200}
+                  placeholder="Ví dụ: Một ngày làm tình nguyện viên vùng cao..."
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
+                  style={{
+                    padding: "10px 14px",
+                    borderRadius: "10px",
+                    border: "1px solid var(--border-default, #cbd5e1)",
+                    fontSize: "0.92rem",
+                  }}
                 />
               </label>
-              <label>
-                Loại câu chuyện
-                <select
-                  value={category}
-                  onChange={(event) => setCategory(event.target.value)}
-                >
-                  <option value="article">Bài viết</option>
-                  <option value="inspire">Truyền cảm hứng</option>
-                </select>
-              </label>
-              <label>
-                Nội dung
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
+                <label style={{ display: "grid", gap: "6px", fontWeight: 600, color: "var(--text-primary, #1e293b)", fontSize: "0.88rem" }}>
+                  <span>Loại câu chuyện</span>
+                  <select
+                    value={category}
+                    onChange={(event) => setCategory(event.target.value)}
+                    style={{
+                      padding: "10px 14px",
+                      borderRadius: "10px",
+                      border: "1px solid var(--border-default, #cbd5e1)",
+                      fontSize: "0.92rem",
+                      background: "#fff",
+                    }}
+                  >
+                    <option value="article">Bài viết</option>
+                    <option value="inspire">Truyền cảm hứng</option>
+                    <option value="image">Hình ảnh</option>
+                    <option value="video">Video</option>
+                  </select>
+                </label>
+
+                <label style={{ display: "grid", gap: "6px", fontWeight: 600, color: "var(--text-primary, #1e293b)", fontSize: "0.88rem" }}>
+                  <span>Link ảnh minh họa <span style={{ fontWeight: 400, color: "#94a3b8", fontSize: "0.8rem" }}>(tùy chọn)</span></span>
+                  <input
+                    type="url"
+                    placeholder="https://images.unsplash.com/..."
+                    value={thumbnailUrl}
+                    onChange={(event) => setThumbnailUrl(event.target.value)}
+                    style={{
+                      padding: "10px 14px",
+                      borderRadius: "10px",
+                      border: "1px solid var(--border-default, #cbd5e1)",
+                      fontSize: "0.92rem",
+                    }}
+                  />
+                </label>
+              </div>
+
+              <label style={{ display: "grid", gap: "6px", fontWeight: 600, color: "var(--text-primary, #1e293b)", fontSize: "0.88rem" }}>
+                <span>Nội dung câu chuyện <span style={{ color: "#ef4444" }}>*</span></span>
                 <textarea
                   required
                   minLength={10}
                   maxLength={10000}
+                  rows={5}
+                  placeholder="Kể câu chuyện, cảm xúc và trải nghiệm đáng nhớ của bạn..."
                   value={body}
                   onChange={(event) => setBody(event.target.value)}
+                  style={{
+                    padding: "12px 14px",
+                    borderRadius: "10px",
+                    border: "1px solid var(--border-default, #cbd5e1)",
+                    fontSize: "0.92rem",
+                    lineHeight: 1.6,
+                    minHeight: "130px",
+                    resize: "vertical",
+                  }}
                 />
               </label>
-              <button className="btn btn-primary" disabled={busy}>
-                {busy ? "Đang chia sẻ…" : "Chia sẻ"}
-              </button>
+
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "8px" }}>
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={close}
+                  disabled={busy}
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={busy}
+                  style={{ minWidth: "120px" }}
+                >
+                  {busy ? (
+                    <>
+                      <i className="ri-loader-4-line ri-spin" /> Đang gửi…
+                    </>
+                  ) : (
+                    <>
+                      <i className="ri-send-plane-fill" /> Chia sẻ
+                    </>
+                  )}
+                </button>
+              </div>
             </form>
           ) : modal === "video" ? (
             <iframe
@@ -269,9 +381,178 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
               title="Video cộng đồng"
             />
           ) : (
-            <article>
-              <h2>{selected?.title}</h2>
-              <p className="story-detail-body">{selected?.body}</p>
+            <article style={{ position: "relative" }}>
+              {selected?.thumbnail_url && (
+                <div
+                  style={{
+                    position: "relative",
+                    width: "calc(100% + 56px)",
+                    margin: "-28px -28px 20px -28px",
+                    height: "220px",
+                    overflow: "hidden",
+                    borderTopLeftRadius: "20px",
+                    borderTopRightRadius: "20px",
+                    background: "#0f172a",
+                  }}
+                >
+                  <img
+                    src={selected.thumbnail_url}
+                    alt={selected.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)",
+                    }}
+                  />
+                  <div style={{ position: "absolute", bottom: "16px", left: "24px" }}>
+                    <span
+                      style={{
+                        padding: "5px 14px",
+                        borderRadius: "999px",
+                        fontSize: "0.78rem",
+                        fontWeight: 700,
+                        background: "rgba(255,255,255,0.95)",
+                        color: "#0f172a",
+                        boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+                        backdropFilter: "blur(4px)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px",
+                      }}
+                    >
+                      {categoryLabels[selected.category] || selected.category}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {!selected?.thumbnail_url && (
+                <div style={{ marginBottom: "12px" }}>
+                  <span
+                    style={{
+                      padding: "4px 12px",
+                      borderRadius: "999px",
+                      fontSize: "0.76rem",
+                      fontWeight: 700,
+                      background: "#ecfdf5",
+                      color: "#059669",
+                      display: "inline-block",
+                    }}
+                  >
+                    {categoryLabels[selected?.category || ""] || selected?.category}
+                  </span>
+                </div>
+              )}
+
+              <h2
+                style={{
+                  fontSize: "1.35rem",
+                  fontWeight: 800,
+                  lineHeight: 1.4,
+                  color: "var(--text-primary, #0f172a)",
+                  margin: "0 0 16px 0",
+                }}
+              >
+                {selected?.title}
+              </h2>
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "12px",
+                  paddingBottom: "16px",
+                  marginBottom: "20px",
+                  borderBottom: "1px solid var(--border-default, #e2e8f0)",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <img
+                    src={selected?.author_avatar || "/legacy/images/profile-avatar.jpg"}
+                    alt={selected?.author_name || selected?.author || "Tác giả"}
+                    style={{
+                      width: "42px",
+                      height: "42px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      border: "2px solid #fff",
+                      boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+                    }}
+                  />
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--text-primary, #0f172a)" }}>
+                      {selected?.author_name || selected?.author || "Tình nguyện viên"}
+                    </div>
+                    <div style={{ fontSize: "0.78rem", color: "var(--text-secondary, #64748b)", display: "flex", alignItems: "center", gap: "6px" }}>
+                      <i className="ri-calendar-line" />
+                      <span>{selected?.created_at ? formatDate(selected.created_at) : "Gần đây"}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (selected) {
+                      void like(selected);
+                      const isLiked = Boolean(likes?.includes(selected.id));
+                      setSelected({
+                        ...selected,
+                        likes: isLiked ? Math.max(0, (selected.likes || 1) - 1) : (selected.likes || 0) + 1,
+                      });
+                    }
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "7px 16px",
+                    borderRadius: "999px",
+                    border: Boolean(likes?.includes(selected?.id || "")) ? "1px solid #fecaca" : "1px solid #e2e8f0",
+                    background: Boolean(likes?.includes(selected?.id || "")) ? "#fef2f2" : "#f8fafc",
+                    color: Boolean(likes?.includes(selected?.id || "")) ? "#ef4444" : "#64748b",
+                    fontSize: "0.85rem",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <i className={Boolean(likes?.includes(selected?.id || "")) ? "ri-heart-fill" : "ri-heart-line"} style={{ color: "#ef4444", fontSize: "1rem" }} />
+                  <span>{selected?.likes || 0} lượt thích</span>
+                </button>
+              </div>
+
+              <div
+                style={{
+                  fontSize: "0.98rem",
+                  lineHeight: 1.85,
+                  color: "var(--text-primary, #334155)",
+                  whiteSpace: "pre-line",
+                  maxHeight: "380px",
+                  overflowY: "auto",
+                  paddingRight: "6px",
+                }}
+              >
+                {selected?.body}
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginTop: "24px",
+                  paddingTop: "14px",
+                  borderTop: "1px solid var(--border-default, #f1f5f9)",
+                }}
+              >
+                <button type="button" className="btn btn-outline" onClick={close}>
+                  Đóng
+                </button>
+              </div>
             </article>
           )}
         </Modal>

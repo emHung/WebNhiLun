@@ -569,6 +569,7 @@ type AdminStory = {
   author_name?: string;
   author_email?: string;
   author_avatar?: string;
+  thumbnail_url?: string;
   created_at: string;
 };
 
@@ -913,21 +914,39 @@ export function AdminStoriesPage() {
                       }}
                     >
                       <td style={{ padding: "12px 10px" }}>
-                        <div style={{ fontWeight: 700, color: "var(--text-primary, #0f172a)", marginBottom: "3px" }}>
-                          {story.title}
-                        </div>
-                        <div
-                          style={{
-                            fontSize: "0.76rem",
-                            color: "var(--text-secondary, #64748b)",
-                            display: "-webkit-box",
-                            WebkitLineClamp: 2,
-                            WebkitBoxOrient: "vertical",
-                            overflow: "hidden",
-                            lineHeight: 1.35,
-                          }}
-                        >
-                          {story.body}
+                        <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                          {story.thumbnail_url && (
+                            <img
+                              src={story.thumbnail_url}
+                              alt={story.title}
+                              style={{
+                                width: "54px",
+                                height: "42px",
+                                borderRadius: "8px",
+                                objectFit: "cover",
+                                flexShrink: 0,
+                                border: "1px solid var(--border-default, #e2e8f0)",
+                              }}
+                            />
+                          )}
+                          <div>
+                            <div style={{ fontWeight: 700, color: "var(--text-primary, #0f172a)", marginBottom: "3px" }}>
+                              {story.title}
+                            </div>
+                            <div
+                              style={{
+                                fontSize: "0.76rem",
+                                color: "var(--text-secondary, #64748b)",
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                                lineHeight: 1.35,
+                              }}
+                            >
+                              {story.body}
+                            </div>
+                          </div>
                         </div>
                       </td>
 
@@ -958,14 +977,30 @@ export function AdminStoriesPage() {
                       </td>
 
                       <td style={{ padding: "12px 10px" }}>
-                        <div style={{ fontWeight: 600 }}>
-                          {story.author_name || "Ẩn danh"}
-                        </div>
-                        {story.author_email && (
-                          <div style={{ fontSize: "0.74rem", color: "var(--text-secondary, #64748b)" }}>
-                            {story.author_email}
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                          <img
+                            src={story.author_avatar || "/legacy/images/profile-avatar.jpg"}
+                            alt={story.author_name || "Tác giả"}
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              borderRadius: "50%",
+                              objectFit: "cover",
+                              border: "1px solid var(--border-default, #e2e8f0)",
+                              flexShrink: 0,
+                            }}
+                          />
+                          <div>
+                            <div style={{ fontWeight: 600 }}>
+                              {story.author_name || "Ẩn danh"}
+                            </div>
+                            {story.author_email && (
+                              <div style={{ fontSize: "0.74rem", color: "var(--text-secondary, #64748b)" }}>
+                                {story.author_email}
+                              </div>
+                            )}
                           </div>
-                        )}
+                        </div>
                       </td>
 
                       <td style={{ padding: "12px 10px", textAlign: "center" }}>
@@ -1035,67 +1070,150 @@ export function AdminStoriesPage() {
         {/* MODAL XEM CHI TIẾT CÂU CHUYỆN */}
         {viewStory && (
           <Modal label="Chi tiết câu chuyện" onClose={() => setViewStory(null)}>
-            <div style={{ padding: "10px 0" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px", marginBottom: "12px" }}>
-                <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800, color: "var(--text-primary, #0f172a)" }}>
-                  {viewStory.title}
-                </h3>
-                <span
+            <div style={{ position: "relative" }}>
+              {viewStory.thumbnail_url && (
+                <div
                   style={{
-                    padding: "4px 10px",
-                    borderRadius: "999px",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    background: "#ecfdf5",
-                    color: "#059669",
-                    flexShrink: 0,
+                    position: "relative",
+                    width: "calc(100% + 56px)",
+                    margin: "-28px -28px 18px -28px",
+                    height: "200px",
+                    overflow: "hidden",
+                    borderTopLeftRadius: "20px",
+                    borderTopRightRadius: "20px",
+                    background: "#0f172a",
                   }}
                 >
-                  {categoryLabels[viewStory.category] || viewStory.category}
-                </span>
-              </div>
+                  <img
+                    src={viewStory.thumbnail_url}
+                    alt={viewStory.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
+                    }}
+                  />
+                  <div style={{ position: "absolute", bottom: "14px", left: "20px" }}>
+                    <span
+                      style={{
+                        padding: "4px 12px",
+                        borderRadius: "999px",
+                        fontSize: "0.75rem",
+                        fontWeight: 700,
+                        background: "rgba(255,255,255,0.95)",
+                        color: "#0f172a",
+                        boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {categoryLabels[viewStory.category] || viewStory.category}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {!viewStory.thumbnail_url && (
+                <div style={{ marginBottom: "10px" }}>
+                  <span
+                    style={{
+                      padding: "4px 10px",
+                      borderRadius: "999px",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      background: "#ecfdf5",
+                      color: "#059669",
+                      display: "inline-block",
+                    }}
+                  >
+                    {categoryLabels[viewStory.category] || viewStory.category}
+                  </span>
+                </div>
+              )}
+
+              <h3 style={{ margin: "0 0 14px 0", fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary, #0f172a)", lineHeight: 1.4 }}>
+                {viewStory.title}
+              </h3>
 
               <div
                 style={{
                   display: "flex",
-                  gap: "14px",
-                  fontSize: "0.8rem",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "12px",
+                  fontSize: "0.82rem",
                   color: "var(--text-secondary, #64748b)",
                   borderBottom: "1px solid var(--border-default, #e2e8f0)",
-                  paddingBottom: "12px",
+                  paddingBottom: "14px",
                   marginBottom: "16px",
-                  flexWrap: "wrap",
                 }}
               >
-                <span>
-                  <strong>Tác giả:</strong> {viewStory.author_name || "Ẩn danh"} {viewStory.author_email && `(${viewStory.author_email})`}
-                </span>
-                <span>
-                  <strong>Ngày đăng:</strong> {formatDate(viewStory.created_at)}
-                </span>
-                <span>
-                  <i className="ri-heart-fill" style={{ color: "#ef4444" }} /> {viewStory.likes || 0} lượt thích
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <img
+                    src={viewStory.author_avatar || "/legacy/images/profile-avatar.jpg"}
+                    alt={viewStory.author_name || "Tác giả"}
+                    style={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      border: "1px solid var(--border-default, #e2e8f0)",
+                    }}
+                  />
+                  <div>
+                    <div style={{ fontWeight: 700, color: "var(--text-primary, #0f172a)" }}>
+                      {viewStory.author_name || "Ẩn danh"}
+                    </div>
+                    {viewStory.author_email && (
+                      <div style={{ fontSize: "0.74rem", color: "var(--text-secondary, #64748b)" }}>
+                        {viewStory.author_email}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    <i className="ri-calendar-line" /> {formatDate(viewStory.created_at)}
+                  </span>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      background: "#fef2f2",
+                      color: "#ef4444",
+                      padding: "4px 10px",
+                      borderRadius: "999px",
+                      fontWeight: 700,
+                    }}
+                  >
+                    <i className="ri-heart-fill" /> {viewStory.likes || 0}
+                  </span>
+                </div>
               </div>
 
               <div
                 style={{
-                  fontSize: "0.9rem",
-                  lineHeight: 1.7,
+                  fontSize: "0.92rem",
+                  lineHeight: 1.8,
                   color: "var(--text-primary, #1e293b)",
                   whiteSpace: "pre-line",
-                  maxHeight: "360px",
+                  maxHeight: "340px",
                   overflowY: "auto",
-                  padding: "10px",
+                  padding: "12px 14px",
                   background: "var(--canvas, #f8fafc)",
-                  borderRadius: "8px",
+                  borderRadius: "10px",
                   border: "1px solid var(--border-default, #e2e8f0)",
                 }}
               >
                 {viewStory.body}
               </div>
 
-              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "16px", gap: "10px" }}>
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "20px", gap: "10px" }}>
                 <button
                   type="button"
                   className="btn btn-outline"
