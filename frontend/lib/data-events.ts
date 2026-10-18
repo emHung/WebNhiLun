@@ -32,10 +32,15 @@ export function queryEntities(path: string): string[] {
   if (route.startsWith("/me/documents")) return ["profile_documents"];
   if (route.includes("notifications")) return ["notifications"];
   if (route.includes("story-likes")) return ["story_likes"];
-  if (route === "/stories") return ["stories", "story_likes", "profiles"];
+  if (route.includes("stories")) return ["stories", "story_likes", "profiles"];
   if (route.includes("favorites")) return ["favorites", "activities"];
-  if (route.includes("certificates")) return ["certificates"];
-  if (route.includes("applicants") || route.includes("applications"))
+  if (route.includes("certificates"))
+    return ["certificates", "applications", "activities"];
+  if (
+    route.includes("applicants") ||
+    route.includes("applications") ||
+    route.includes("schedule")
+  )
     return ["applications", "activities", "profiles"];
   if (route.includes("audit-logs"))
     return [
@@ -44,18 +49,20 @@ export function queryEntities(path: string): string[] {
       "organizations",
       "activities",
       "system_themes",
+      "stories",
     ];
-  if (route === "/admin/metrics")
-    return ["activities", "applications", "organizations"];
-  if (route === "/home/metrics") return ["activities", "profiles"];
-  if (route.includes("organization")) return ["organizations", "profiles"];
+  if (route.includes("admin/metrics") || route === "/admin/metrics")
+    return ["activities", "applications", "organizations", "stories", "audit_logs"];
+  if (route === "/home/metrics") return ["activities", "profiles", "organizations"];
+  if (route.includes("organization")) return ["organizations", "profiles", "audit_logs"];
   if (route.includes("activities"))
-    return ["activities", "activity_schedules", "organizations"];
+    return ["activities", "activity_schedules", "organizations", "audit_logs"];
   return [];
 }
 export function mutationEntities(path: string): string[] {
-  if (path.startsWith("/auth")) return ["profiles"];
-  if (path.includes("checkin"))
+  const route = path.split("?")[0];
+  if (route.startsWith("/auth")) return ["profiles"];
+  if (route.includes("checkin"))
     return [
       "applications",
       "certificates",
@@ -63,12 +70,30 @@ export function mutationEntities(path: string): string[] {
       "notifications",
       "audit_logs",
     ];
-  if (path.includes("/applications/") || path.endsWith("/apply"))
+  if (route.includes("/applications/") || route.includes("/apply"))
     return ["applications", "activities", "notifications", "audit_logs"];
-  if (path.includes("/like")) return ["story_likes"];
-  if (path === "/stories") return ["stories"];
-  if (path.includes("/me/favorites")) return ["favorites"];
-  if (path.includes("/me/avatar")) return ["profiles"];
+  if (route.includes("/like")) return ["story_likes", "stories"];
+  if (route.includes("stories")) return ["stories", "story_likes", "audit_logs"];
+  if (route.includes("favorites")) return ["favorites", "activities"];
+  if (route.includes("/avatar") || route.includes("/profile"))
+    return ["profiles"];
+  if (route.includes("themes")) return ["system_themes", "audit_logs"];
+  if (route.includes("review"))
+    return [
+      "activities",
+      "organizations",
+      "applications",
+      "notifications",
+      "audit_logs",
+    ];
+  if (route.includes("organization"))
+    return ["organizations", "profiles", "audit_logs"];
+  if (route.includes("documents"))
+    return ["profile_documents", "organizations", "audit_logs"];
+  if (route.includes("certificates"))
+    return ["certificates", "profiles", "applications"];
+  if (route.includes("activities"))
+    return ["activities", "organizations", "audit_logs"];
   return queryEntities(path).concat(
     path.startsWith("/admin") ? ["audit_logs"] : [],
   );
