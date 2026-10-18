@@ -1752,6 +1752,51 @@ async def share_story(
     return ok(dict(row))
 
 
+@router.post("/stories/upload-image")
+async def upload_story_image(
+    file: UploadFile = File(...),
+    user: CurrentUser = Depends(get_current_user),
+):
+    settings = get_settings()
+    if not settings.supabase_secret_key:
+        raise HTTPException(503, "Storage chưa được cấu hình ở backend.")
+    mime = (file.content_type or "").lower()
+    allowed = {
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image/webp": "webp",
+        "image/gif": "gif",
+    }
+    if mime not in allowed:
+        raise HTTPException(415, "Chỉ chấp nhận ảnh định dạng JPG, PNG, WebP hoặc GIF.")
+    content = await file.read(10 * 1024 * 1024 + 1)
+    if len(content) > 10 * 1024 * 1024:
+        raise HTTPException(413, "Ảnh vượt quá dung lượng tối đa 10 MB.")
+    object_path = f"stories/{user.id}/{uuid4().hex}.{allowed[mime]}"
+    url = f"{settings.supabase_url.rstrip('/')}/storage/v1/object/activity-banners/{quote(object_path, safe='/')}"
+    upload = urllib.request.Request(
+        url,
+        data=content,
+        method="POST",
+        headers={
+            "apikey": settings.supabase_secret_key,
+            "Content-Type": mime,
+            "x-upsert": "false",
+        },
+    )
+    try:
+        await asyncio.to_thread(
+            lambda: urllib.request.urlopen(upload, timeout=20).read()
+        )
+    except urllib.error.HTTPError as exc:
+        raise HTTPException(502, "Supabase Storage từ chối tải ảnh lên.") from exc
+    except (urllib.error.URLError, TimeoutError) as exc:
+        raise HTTPException(502, "Không thể kết nối Supabase Storage.") from exc
+    public_url = f"{settings.supabase_url.rstrip('/')}/storage/v1/object/public/activity-banners/{quote(object_path, safe='/')}"
+    return ok({"path": object_path, "url": public_url}, "Đã tải ảnh câu chuyện lên thành công.")
+
+
+
 @router.put("/stories/{story_id}/like")
 async def like_story(
     story_id: str,

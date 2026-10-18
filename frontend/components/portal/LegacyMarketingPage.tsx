@@ -1,6 +1,7 @@
 "use client";
 import {
   type FormEvent,
+  type ChangeEvent,
   useCallback,
   useEffect,
   useRef,
@@ -60,12 +61,20 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
   const [modal, setModal] = useState<"share" | "video" | "detail" | null>(null),
     [selected, setSelected] = useState<Story | null>(null),
     [video, setVideo] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState(""),
     [body, setBody] = useState(""),
     [category, setCategory] = useState("article"),
     [thumbnailUrl, setThumbnailUrl] = useState(""),
+    [previewUrl, setPreviewUrl] = useState(""),
+    [uploadingImage, setUploadingImage] = useState(false),
+    [useUrlInput, setUseUrlInput] = useState(false),
     [busy, setBusy] = useState(false);
-  const close = useCallback(() => setModal(null), []);
+  const close = useCallback(() => {
+    setModal(null);
+    setPreviewUrl("");
+    setUploadingImage(false);
+  }, []);
   useEffect(() => {
     setCurrentPage(1);
   }, [filter, search]);
@@ -152,6 +161,51 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
       );
     }
   }
+  async function handleImageSelect(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      setMessage("Ảnh vượt quá dung lượng tối đa 10 MB.");
+      return;
+    }
+    const localUrl = URL.createObjectURL(file);
+    setPreviewUrl(localUrl);
+    setUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await apiRequest<{ path: string; url: string }>(
+        "/stories/upload-image",
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+      if (res?.url) {
+        setThumbnailUrl(res.url);
+      }
+    } catch {
+      // Fallback base64 Data URL so selected photo works reliably
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          setThumbnailUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    } finally {
+      setUploadingImage(false);
+    }
+  }
+
+  function handleRemoveImage() {
+    setPreviewUrl("");
+    setThumbnailUrl("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
+
   async function share(event: FormEvent) {
     event.preventDefault();
     setBusy(true);
@@ -169,6 +223,7 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
       setTitle("");
       setBody("");
       setThumbnailUrl("");
+      setPreviewUrl("");
       setCurrentPage(1);
       setMessage("Đã chia sẻ câu chuyện thành công.");
       refresh();
@@ -305,14 +360,45 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
                     <option value="video">Video</option>
                   </select>
                 </label>
+              </div>
 
-                <label style={{ display: "grid", gap: "6px", fontWeight: 600, color: "var(--text-primary, #1e293b)", fontSize: "0.88rem" }}>
-                  <span>Link ảnh minh họa <span style={{ fontWeight: 400, color: "#94a3b8", fontSize: "0.8rem" }}>(tùy chọn)</span></span>
+              <div style={{ display: "grid", gap: "8px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontWeight: 600, color: "var(--text-primary, #1e293b)", fontSize: "0.88rem" }}>
+                    Hình ảnh minh họa <span style={{ fontWeight: 400, color: "#94a3b8", fontSize: "0.8rem" }}>(tùy chọn)</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUseUrlInput(!useUrlInput);
+                      if (!useUrlInput) {
+                        setPreviewUrl(thumbnailUrl);
+                      }
+                    }}
+                    style={{
+                      background: "none",
+                      border: 0,
+                      color: "#059669",
+                      fontSize: "0.78rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      padding: 0,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    {useUrlInput ? "Chọn ảnh từ máy tính" : "Dán link URL ảnh"}
+                  </button>
+                </div>
+
+                {useUrlInput ? (
                   <input
                     type="url"
                     placeholder="https://images.unsplash.com/..."
                     value={thumbnailUrl}
-                    onChange={(event) => setThumbnailUrl(event.target.value)}
+                    onChange={(event) => {
+                      setThumbnailUrl(event.target.value);
+                      setPreviewUrl(event.target.value);
+                    }}
                     style={{
                       padding: "10px 14px",
                       borderRadius: "10px",
@@ -320,7 +406,139 @@ export function LegacyMarketingPage({ page }: { page: MarketingPage }) {
                       fontSize: "0.92rem",
                     }}
                   />
-                </label>
+                ) : (
+                  <div>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/gif"
+                      style={{ display: "none" }}
+                      onChange={handleImageSelect}
+                    />
+                    {previewUrl || thumbnailUrl ? (
+                      <div
+                        style={{
+                          position: "relative",
+                          borderRadius: "12px",
+                          overflow: "hidden",
+                          border: "1px solid var(--border-default, #cbd5e1)",
+                          background: "#0f172a",
+                          height: "160px",
+                        }}
+                      >
+                        <img
+                          src={previewUrl || thumbnailUrl}
+                          alt="Ảnh câu chuyện"
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                        <div
+                          style={{
+                            position: "absolute",
+                            bottom: "10px",
+                            left: "12px",
+                            background: "rgba(15, 23, 42, 0.75)",
+                            color: "#fff",
+                            padding: "4px 10px",
+                            borderRadius: "999px",
+                            fontSize: "0.75rem",
+                            fontWeight: 600,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            backdropFilter: "blur(4px)",
+                          }}
+                        >
+                          {uploadingImage ? (
+                            <>
+                              <i className="ri-loader-4-line ri-spin" /> Đang tải ảnh lên…
+                            </>
+                          ) : (
+                            <>
+                              <i className="ri-checkbox-circle-fill" style={{ color: "#10b981" }} /> Đã chọn ảnh từ máy
+                            </>
+                          )}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleRemoveImage}
+                          style={{
+                            position: "absolute",
+                            top: "10px",
+                            right: "10px",
+                            background: "rgba(239, 68, 68, 0.9)",
+                            color: "#fff",
+                            border: 0,
+                            borderRadius: "8px",
+                            padding: "5px 12px",
+                            fontSize: "0.78rem",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "4px",
+                            boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                            backdropFilter: "blur(4px)",
+                          }}
+                        >
+                          <i className="ri-delete-bin-line" /> Chọn ảnh khác
+                        </button>
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => fileInputRef.current?.click()}
+                        style={{
+                          border: "2px dashed var(--border-default, #cbd5e1)",
+                          borderRadius: "12px",
+                          padding: "16px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          background: "var(--canvas, #f8fafc)",
+                          transition: "all 0.2s ease",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "14px",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = "#10b981";
+                          e.currentTarget.style.background = "#f0fdf4";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = "var(--border-default, #cbd5e1)";
+                          e.currentTarget.style.background = "var(--canvas, #f8fafc)";
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "44px",
+                            height: "44px",
+                            borderRadius: "12px",
+                            background: "#ecfdf5",
+                            color: "#059669",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "1.4rem",
+                            flexShrink: 0,
+                          }}
+                        >
+                          <i className="ri-image-add-line" />
+                        </div>
+                        <div style={{ textAlign: "left" }}>
+                          <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text-primary, #0f172a)", display: "flex", alignItems: "center", gap: "6px" }}>
+                            <span>Chọn ảnh từ máy tính</span>
+                            <span style={{ fontSize: "0.72rem", padding: "2px 8px", borderRadius: "999px", background: "#dcfce7", color: "#15803d", fontWeight: 700 }}>
+                              Tải lên
+                            </span>
+                          </div>
+                          <div style={{ fontSize: "0.76rem", color: "var(--text-secondary, #64748b)", marginTop: "2px" }}>
+                            Bấm vào đây để chọn tệp ảnh JPG, PNG, WebP hoặc GIF từ máy (tối đa 10 MB)
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <label style={{ display: "grid", gap: "6px", fontWeight: 600, color: "var(--text-primary, #1e293b)", fontSize: "0.88rem" }}>
