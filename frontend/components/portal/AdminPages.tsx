@@ -11,8 +11,10 @@ import {
   formatDate,
   useLoad,
 } from "./shared";
+import { Pagination, type PageResult } from "./Pagination";
+import { Modal } from "./Modal";
 
-function AdminNavTabs({ current }: { current: "moderation" | "themes" }) {
+export function AdminNavTabs({ current }: { current: "moderation" | "stories" | "themes" }) {
   return (
     <div
       style={{
@@ -21,6 +23,7 @@ function AdminNavTabs({ current }: { current: "moderation" | "themes" }) {
         marginBottom: "20px",
         borderBottom: "1px solid var(--border-color, #e2e8f0)",
         paddingBottom: "14px",
+        flexWrap: "wrap",
       }}
     >
       <Link
@@ -29,6 +32,13 @@ function AdminNavTabs({ current }: { current: "moderation" | "themes" }) {
         style={{ display: "inline-flex", alignItems: "center", gap: "6px", textDecoration: "none" }}
       >
         <i className="ri-shield-check-line" /> Kiểm duyệt & Nhật ký
+      </Link>
+      <Link
+        href="/admin/stories"
+        className={`btn ${current === "stories" ? "btn-primary" : "btn-outline"} btn-sm`}
+        style={{ display: "inline-flex", alignItems: "center", gap: "6px", textDecoration: "none" }}
+      >
+        <i className="ri-book-read-line" /> Quản lý Câu chuyện
       </Link>
       <Link
         href="/admin/theme-settings"
@@ -547,3 +557,651 @@ export function ThemeSettingsPage() {
     </PortalShell>
   );
 }
+
+type AdminStory = {
+  id: string;
+  user_id?: string;
+  title: string;
+  body: string;
+  category: string;
+  legacy_likes: number;
+  likes: number;
+  author_name?: string;
+  author_email?: string;
+  author_avatar?: string;
+  created_at: string;
+};
+
+type StoryStats = {
+  total_stories: number;
+  total_likes: number;
+  categories: { category: string; count: number }[];
+};
+
+export function AdminStoriesPage() {
+  const [page, setPage] = useState(1);
+  const [category, setCategory] = useState("all");
+  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  // Modals state
+  const [viewStory, setViewStory] = useState<AdminStory | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AdminStory | null>(null);
+  const [deleteReason, setDeleteReason] = useState("");
+
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: "10",
+    category,
+    search,
+  });
+
+  const { data, loading, error, refresh } = useLoad<PageResult<AdminStory>>(
+    `/admin/stories?${params.toString()}`
+  );
+  const { data: stats, refresh: refreshStats } = useLoad<StoryStats>(
+    "/admin/stories/stats"
+  );
+
+  function handleSearchSubmit(e: FormEvent) {
+    e.preventDefault();
+    setSearch(query.trim());
+    setPage(1);
+  }
+
+  function handleResetFilter() {
+    setQuery("");
+    setSearch("");
+    setCategory("all");
+    setPage(1);
+  }
+
+  async function handleDeleteStory(e: FormEvent) {
+    e.preventDefault();
+    if (!deleteTarget) return;
+    setBusy(true);
+    setMessage("");
+    try {
+      await apiRequest(`/admin/stories/${deleteTarget.id}`, {
+        method: "DELETE",
+        body: JSON.stringify({ reason: deleteReason.trim() }),
+      });
+      setMessage(`Đã xóa bài viết "${deleteTarget.title}" và lưu nhật ký thành công.`);
+      setDeleteTarget(null);
+      setDeleteReason("");
+      refresh();
+      refreshStats();
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : "Không thể xóa bài viết.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const categoryLabels: Record<string, string> = {
+    all: "Tất cả",
+    article: "Bài viết",
+    image: "Hình ảnh",
+    video: "Video",
+    inspire: "Truyền cảm hứng",
+  };
+
+  return (
+    <PortalShell>
+      <div className="container">
+        <PageIntro
+          eyebrow="Quản trị hệ thống"
+          title="Quản lý câu chuyện cộng đồng"
+          description="Giám sát, kiểm duyệt và quản lý các bài viết, câu chuyện do cộng đồng và tình nguyện viên chia sẻ."
+        />
+        <AdminNavTabs current="stories" />
+        {message && (
+          <div className="portal-message" role="status" style={{ marginBottom: "16px" }}>
+            {message}
+          </div>
+        )}
+        <StatusMessage error={error || undefined} loading={loading} />
+
+        {/* THỐNG KÊ NHANH */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "16px",
+            marginBottom: "24px",
+          }}
+        >
+          <div
+            style={{
+              background: "var(--surface-white, #fff)",
+              border: "1px solid var(--border-default, #e2e8f0)",
+              borderRadius: "14px",
+              padding: "16px 20px",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+            }}
+          >
+            <div
+              style={{
+                width: "44px",
+                height: "44px",
+                borderRadius: "12px",
+                background: "#ecfdf5",
+                color: "#059669",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.4rem",
+              }}
+            >
+              <i className="ri-book-read-line" />
+            </div>
+            <div>
+              <div style={{ fontSize: "0.8rem", color: "var(--text-secondary, #64748b)" }}>
+                Tổng câu chuyện
+              </div>
+              <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--text-primary, #0f172a)" }}>
+                {stats?.total_stories ?? 0}
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: "var(--surface-white, #fff)",
+              border: "1px solid var(--border-default, #e2e8f0)",
+              borderRadius: "14px",
+              padding: "16px 20px",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+            }}
+          >
+            <div
+              style={{
+                width: "44px",
+                height: "44px",
+                borderRadius: "12px",
+                background: "#fef2f2",
+                color: "#ef4444",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.4rem",
+              }}
+            >
+              <i className="ri-heart-3-line" />
+            </div>
+            <div>
+              <div style={{ fontSize: "0.8rem", color: "var(--text-secondary, #64748b)" }}>
+                Tổng lượt yêu thích
+              </div>
+              <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--text-primary, #0f172a)" }}>
+                {stats?.total_likes ?? 0}
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: "var(--surface-white, #fff)",
+              border: "1px solid var(--border-default, #e2e8f0)",
+              borderRadius: "14px",
+              padding: "16px 20px",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+            }}
+          >
+            <div
+              style={{
+                width: "44px",
+                height: "44px",
+                borderRadius: "12px",
+                background: "#eff6ff",
+                color: "#2563eb",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.4rem",
+              }}
+            >
+              <i className="ri-pie-chart-line" />
+            </div>
+            <div>
+              <div style={{ fontSize: "0.8rem", color: "var(--text-secondary, #64748b)" }}>
+                Thể loại hoạt động
+              </div>
+              <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--text-primary, #0f172a)" }}>
+                {stats?.categories?.length ?? 0} nhóm
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* THANH TÌM KIẾM VÀ BỘ LỌC */}
+        <section
+          className="portal-card"
+          style={{ padding: "16px 20px", marginBottom: "20px" }}
+        >
+          <form
+            onSubmit={handleSearchSubmit}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "12px",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", flex: "1", minWidth: "260px", gap: "10px" }}>
+              <input
+                type="text"
+                placeholder="Tìm kiếm theo tiêu đề, tác giả, email, nội dung..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                style={{
+                  flex: 1,
+                  padding: "8px 14px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border-default, #cbd5e1)",
+                  fontSize: "0.85rem",
+                }}
+              />
+              <button type="submit" className="btn btn-primary btn-sm">
+                <i className="ri-search-line" /> Tìm
+              </button>
+            </div>
+
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <label style={{ fontSize: "0.82rem", color: "var(--text-secondary, #64748b)" }}>
+                Thể loại:
+              </label>
+              <select
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  setPage(1);
+                }}
+                style={{
+                  padding: "7px 12px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border-default, #cbd5e1)",
+                  fontSize: "0.85rem",
+                  background: "var(--surface-white, #fff)",
+                }}
+              >
+                <option value="all">Tất cả thể loại</option>
+                <option value="article">Bài viết</option>
+                <option value="image">Hình ảnh</option>
+                <option value="video">Video</option>
+                <option value="inspire">Truyền cảm hứng</option>
+              </select>
+
+              {(search || category !== "all") && (
+                <button
+                  type="button"
+                  onClick={handleResetFilter}
+                  className="btn btn-outline btn-sm"
+                  style={{ fontSize: "0.8rem" }}
+                >
+                  Xóa lọc
+                </button>
+              )}
+            </div>
+          </form>
+        </section>
+
+        {/* DANH SÁCH BÀI VIẾT */}
+        <section className="portal-card" style={{ padding: "20px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "16px",
+            }}
+          >
+            <h3 style={{ margin: 0, fontSize: "1.05rem", fontWeight: 700 }}>
+              Danh sách bài viết ({data?.total ?? 0})
+            </h3>
+            <span style={{ fontSize: "0.8rem", color: "var(--text-secondary, #64748b)" }}>
+              Trang {page} / {data?.pages || 1}
+            </span>
+          </div>
+
+          {loading ? (
+            <div style={{ padding: "40px", textAlign: "center", color: "#64748b" }}>
+              <i className="ri-loader-4-line ri-spin" style={{ fontSize: "1.8rem" }} />
+              <p style={{ marginTop: "8px" }}>Đang tải danh sách câu chuyện...</p>
+            </div>
+          ) : !data?.items?.length ? (
+            <EmptyState>
+              Hiện chưa có bài viết nào phù hợp với bộ lọc tìm kiếm.
+            </EmptyState>
+          ) : (
+            <div className="portal-table-wrap" style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr
+                    style={{
+                      borderBottom: "2px solid var(--border-default, #e2e8f0)",
+                      textAlign: "left",
+                      fontSize: "0.78rem",
+                      color: "var(--text-secondary, #64748b)",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    <th style={{ padding: "12px 10px", width: "40%" }}>Câu chuyện</th>
+                    <th style={{ padding: "12px 10px" }}>Thể loại</th>
+                    <th style={{ padding: "12px 10px" }}>Tác giả</th>
+                    <th style={{ padding: "12px 10px", textAlign: "center" }}>Lượt thích</th>
+                    <th style={{ padding: "12px 10px" }}>Ngày đăng</th>
+                    <th style={{ padding: "12px 10px", textAlign: "right" }}>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.items.map((story) => (
+                    <tr
+                      key={story.id}
+                      style={{
+                        borderBottom: "1px solid var(--border-default, #f1f5f9)",
+                        fontSize: "0.86rem",
+                      }}
+                    >
+                      <td style={{ padding: "12px 10px" }}>
+                        <div style={{ fontWeight: 700, color: "var(--text-primary, #0f172a)", marginBottom: "3px" }}>
+                          {story.title}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.76rem",
+                            color: "var(--text-secondary, #64748b)",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                            lineHeight: 1.35,
+                          }}
+                        >
+                          {story.body}
+                        </div>
+                      </td>
+
+                      <td style={{ padding: "12px 10px" }}>
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            borderRadius: "999px",
+                            fontSize: "0.72rem",
+                            fontWeight: 600,
+                            background:
+                              story.category === "video"
+                                ? "#eff6ff"
+                                : story.category === "inspire"
+                                ? "#fdf2f8"
+                                : "#f0fdf4",
+                            color:
+                              story.category === "video"
+                                ? "#1d4ed8"
+                                : story.category === "inspire"
+                                ? "#be185d"
+                                : "#15803d",
+                            border: "1px solid rgba(0,0,0,0.06)",
+                          }}
+                        >
+                          {categoryLabels[story.category] || story.category}
+                        </span>
+                      </td>
+
+                      <td style={{ padding: "12px 10px" }}>
+                        <div style={{ fontWeight: 600 }}>
+                          {story.author_name || "Ẩn danh"}
+                        </div>
+                        {story.author_email && (
+                          <div style={{ fontSize: "0.74rem", color: "var(--text-secondary, #64748b)" }}>
+                            {story.author_email}
+                          </div>
+                        )}
+                      </td>
+
+                      <td style={{ padding: "12px 10px", textAlign: "center" }}>
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "4px",
+                            color: "#ef4444",
+                            fontWeight: 700,
+                            fontSize: "0.82rem",
+                          }}
+                        >
+                          <i className="ri-heart-fill" /> {story.likes || 0}
+                        </span>
+                      </td>
+
+                      <td style={{ padding: "12px 10px", fontSize: "0.78rem", color: "#64748b" }}>
+                        {formatDate(story.created_at)}
+                      </td>
+
+                      <td style={{ padding: "12px 10px", textAlign: "right" }}>
+                        <div style={{ display: "inline-flex", gap: "6px" }}>
+                          <button
+                            type="button"
+                            onClick={() => setViewStory(story)}
+                            className="btn btn-outline btn-sm"
+                            title="Xem chi tiết"
+                            style={{ padding: "4px 8px", fontSize: "0.78rem" }}
+                          >
+                            <i className="ri-eye-line" /> Xem
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDeleteTarget(story);
+                              setDeleteReason("");
+                            }}
+                            className="btn btn-danger btn-sm"
+                            title="Gỡ bỏ bài viết"
+                            style={{ padding: "4px 8px", fontSize: "0.78rem" }}
+                          >
+                            <i className="ri-delete-bin-line" /> Xóa
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {data && data.pages > 1 && (
+            <div style={{ marginTop: "20px" }}>
+              <Pagination
+                page={page}
+                limit={10}
+                total={data.total}
+                onChange={setPage}
+                loading={loading}
+              />
+            </div>
+          )}
+        </section>
+
+        {/* MODAL XEM CHI TIẾT CÂU CHUYỆN */}
+        {viewStory && (
+          <Modal label="Chi tiết câu chuyện" onClose={() => setViewStory(null)}>
+            <div style={{ padding: "10px 0" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px", marginBottom: "12px" }}>
+                <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800, color: "var(--text-primary, #0f172a)" }}>
+                  {viewStory.title}
+                </h3>
+                <span
+                  style={{
+                    padding: "4px 10px",
+                    borderRadius: "999px",
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    background: "#ecfdf5",
+                    color: "#059669",
+                    flexShrink: 0,
+                  }}
+                >
+                  {categoryLabels[viewStory.category] || viewStory.category}
+                </span>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "14px",
+                  fontSize: "0.8rem",
+                  color: "var(--text-secondary, #64748b)",
+                  borderBottom: "1px solid var(--border-default, #e2e8f0)",
+                  paddingBottom: "12px",
+                  marginBottom: "16px",
+                  flexWrap: "wrap",
+                }}
+              >
+                <span>
+                  <strong>Tác giả:</strong> {viewStory.author_name || "Ẩn danh"} {viewStory.author_email && `(${viewStory.author_email})`}
+                </span>
+                <span>
+                  <strong>Ngày đăng:</strong> {formatDate(viewStory.created_at)}
+                </span>
+                <span>
+                  <i className="ri-heart-fill" style={{ color: "#ef4444" }} /> {viewStory.likes || 0} lượt thích
+                </span>
+              </div>
+
+              <div
+                style={{
+                  fontSize: "0.9rem",
+                  lineHeight: 1.7,
+                  color: "var(--text-primary, #1e293b)",
+                  whiteSpace: "pre-line",
+                  maxHeight: "360px",
+                  overflowY: "auto",
+                  padding: "10px",
+                  background: "var(--canvas, #f8fafc)",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border-default, #e2e8f0)",
+                }}
+              >
+                {viewStory.body}
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "16px", gap: "10px" }}>
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={() => setViewStory(null)}
+                >
+                  Đóng
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => {
+                    setDeleteTarget(viewStory);
+                    setViewStory(null);
+                  }}
+                >
+                  <i className="ri-delete-bin-line" /> Gỡ bài này
+                </button>
+              </div>
+            </div>
+          </Modal>
+        )}
+
+        {/* MODAL XÁC NHẬN XÓA BÀI VIẾT */}
+        {deleteTarget && (
+          <Modal label="Xác nhận xóa câu chuyện" onClose={() => setDeleteTarget(null)}>
+            <form onSubmit={handleDeleteStory} style={{ padding: "8px 0" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "14px",
+                  color: "#dc2626",
+                }}
+              >
+                <i className="ri-error-warning-fill" style={{ fontSize: "1.8rem" }} />
+                <div>
+                  <h4 style={{ margin: 0, fontSize: "1.05rem" }}>
+                    Xác nhận gỡ bỏ bài viết?
+                  </h4>
+                  <p style={{ margin: "2px 0 0 0", fontSize: "0.8rem", color: "#64748b" }}>
+                    Hành động này sẽ được ghi nhận vào Nhật ký hệ thống (Audit Logs).
+                  </p>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  background: "#fef2f2",
+                  border: "1px solid #fecaca",
+                  borderRadius: "8px",
+                  padding: "12px",
+                  marginBottom: "16px",
+                  fontSize: "0.85rem",
+                }}
+              >
+                <strong>Tiêu đề bài viết:</strong> {deleteTarget.title}
+                <br />
+                <span style={{ fontSize: "0.78rem", color: "#64748b" }}>
+                  Tác giả: {deleteTarget.author_name || "Ẩn danh"}
+                </span>
+              </div>
+
+              <label style={{ display: "block", marginBottom: "16px" }}>
+                <span style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, marginBottom: "6px" }}>
+                  Lý do gỡ bỏ (ghi vào Audit Log):
+                </span>
+                <textarea
+                  required
+                  placeholder="Nhập lý do xóa (ví dụ: Vi phạm tiêu chuẩn cộng đồng, nội dung phản cảm, quảng cáo spam...)"
+                  value={deleteReason}
+                  onChange={(e) => setDeleteReason(e.target.value)}
+                  style={{
+                    width: "100%",
+                    minHeight: "80px",
+                    padding: "8px 12px",
+                    borderRadius: "8px",
+                    border: "1px solid #cbd5e1",
+                    fontSize: "0.85rem",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </label>
+
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={() => setDeleteTarget(null)}
+                  disabled={busy}
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-danger"
+                  disabled={busy}
+                >
+                  {busy ? "Đang xử lý..." : "Xác nhận gỡ bài"}
+                </button>
+              </div>
+            </form>
+          </Modal>
+        )}
+      </div>
+    </PortalShell>
+  );
+}
+

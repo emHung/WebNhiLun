@@ -123,3 +123,8 @@ class ThemeUpdate(BaseModel):
     surface_color: str = Field(pattern="^#[0-9A-Fa-f]{6}$")
     mode: str = Field(default="light", pattern="^(light|dark)$")
     meaning: str | None = Field(default=None, max_length=1000)
+
+
+class AdminDeleteStoryInput(BaseModel):
+    reason: str | None = Field(default=None, max_length=1000)
+

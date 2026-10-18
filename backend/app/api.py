@@ -33,6 +33,7 @@ from app.schemas import (
     ReviewInput,
     ThemeUpdate,
     StoryInput,
+    AdminDeleteStoryInput,
 )
 
 router = APIRouter(prefix="/api/v1")
@@ -1424,6 +1425,88 @@ async def admin_audit_logs(
             for row in rows
         ]
     )
+
+
+@router.get("/admin/stories/stats")
+async def admin_stories_stats(
+    user: CurrentUser = Depends(require_roles("admin")),
+    db=Depends(get_db),
+):
+    async with db.acquire() as conn:
+        total_stories = await conn.fetchval("select count(*) from public.stories")
+        total_likes = await conn.fetchval(
+            "select coalesce(sum(s.legacy_likes), 0) + (select count(*) from public.story_likes) from public.stories s"
+        )
+        categories = await conn.fetch(
+            "select category, count(*) as count from public.stories group by category order by count desc"
+        )
+    return ok({
+        "total_stories": total_stories or 0,
+        "total_likes": total_likes or 0,
+        "categories": [dict(c) for c in categories],
+    })
+
+
+@router.get("/admin/stories")
+async def admin_stories(
+    page: int = Query(default=1, ge=1),
+    limit: int = Query(default=10, ge=1, le=100),
+    search: str = Query(default="", max_length=200),
+    category: str = Query(default="all", max_length=100),
+    user: CurrentUser = Depends(require_roles("admin")),
+    db=Depends(get_db),
+):
+    where = "where ($1='all' or s.category=$1) and ($2='' or concat_ws(' ', s.title, s.body, p.name, p.email) ilike $2)"
+    source = "from public.stories s left join public.profiles p on p.id=s.user_id"
+    args = [category, f"%{search.strip()}%" if search.strip() else ""]
+    async with (
+        db.acquire() as conn,
+        conn.transaction(isolation="repeatable_read", readonly=True),
+    ):
+        total = await conn.fetchval(f"select count(*) {source} {where}", *args)
+        rows = await conn.fetch(
+            f"""select s.*,
+                s.legacy_likes + (select count(*) from public.story_likes l where l.story_id=s.id) as likes,
+                p.name as author_name,
+                p.email as author_email,
+                p.avatar_url as author_avatar
+                {source} {where}
+                order by s.created_at desc, s.id desc
+                limit $3 offset $4""",
+            *args,
+            limit,
+            (page - 1) * limit,
+        )
+    return ok(page_result(rows, total, page, limit))
+
+
+@router.delete("/admin/stories/{story_id}")
+async def admin_delete_story(
+    story_id: str,
+    request: Request,
+    payload: AdminDeleteStoryInput | None = None,
+    user: CurrentUser = Depends(require_roles("admin")),
+    db=Depends(get_db),
+):
+    async with db.acquire() as conn, conn.transaction():
+        story = await conn.fetchrow(
+            "select s.id, s.title, s.user_id, p.name as author_name from public.stories s left join public.profiles p on p.id=s.user_id where s.id=$1",
+            story_id,
+        )
+        if not story:
+            raise HTTPException(404, "Không tìm thấy câu chuyện.")
+        await conn.execute("delete from public.stories where id=$1", story_id)
+        reason = payload.reason.strip() if payload and payload.reason else "Quản trị viên xóa bài viết vi phạm."
+        await write_audit(
+            conn,
+            user,
+            "admin_delete_story",
+            story_id,
+            f"Tiêu đề: {story['title']} | Tác giả: {story['author_name'] or 'Ẩn danh'} | Lý do: {reason}",
+            request,
+        )
+    return ok({"id": story_id}, "Đã xóa câu chuyện và lưu nhật ký thành công.")
+
 
 
 @router.get("/admin/themes")

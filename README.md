@@ -1,4 +1,4 @@
-# VolunteerHub — Nền Tảng Kết Nối & Quản Lý Hoạt Động Thiện Nguyện (NhiLun)
+ # VolunteerHub — Nền Tảng Kết Nối & Quản Lý Hoạt Động Thiện Nguyện (NhiLun)
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
@@ -46,11 +46,12 @@ Hệ thống được tổ chức phân quyền chặt chẽ theo mô hình **RB
 | 19 | `/organizer/create-event` | Tạo hoạt động mới | Organizer | Wizard 5 bước thiết lập chiến dịch, lịch trình, tải banner và nộp duyệt. |
 | **IV** | **CỔNG QUẢN TRỊ VIÊN** | | | *(Yêu cầu vai trò Admin)* |
 | 20 | `/admin/moderation` | Kiểm duyệt hệ thống | Admin | Duyệt pháp nhân tổ chức (tích xanh), duyệt hoạt động, tra cứu Audit Logs. |
-| 21 | `/admin/theme-settings` | Cấu hình bảng màu | Admin | Quản lý bảng màu động CSS Variables, đổi theme toàn trang 1 chạm. |
+| 21 | `/admin/stories` | Quản lý Câu chuyện | Admin | Kiểm duyệt, tìm kiếm, xem chi tiết và gỡ bỏ các bài viết câu chuyện cộng đồng vi phạm. |
+| 22 | `/admin/theme-settings` | Cấu hình bảng màu | Admin | Quản lý bảng màu động CSS Variables, đổi theme toàn trang 1 chạm. |
 | **V** | **HỆ THỐNG ĐIỀU HƯỚNG PHỤ** | | | |
-| 22 | `/dashboard` | Phễu điều hướng thông minh | Authenticated | Tự động chuyển tiếp đến trang tương ứng với Role của tài khoản. |
-| 23 | `/forbidden` | Báo lỗi 403 Forbidden | Authenticated | Chặn truy cập khi tài khoản không đủ quyền hạn nghiệp vụ. |
-| 24 | `/[...legacy]` | Chuyển tiếp URL cũ | Public | Tự động bắt link `.html` cũ (VD: `detail.html?id=...`) ➔ React route mới. |
+| 23 | `/dashboard` | Phễu điều hướng thông minh | Authenticated | Tự động chuyển tiếp đến trang tương ứng với Role của tài khoản. |
+| 24 | `/forbidden` | Báo lỗi 403 Forbidden | Authenticated | Chặn truy cập khi tài khoản không đủ quyền hạn nghiệp vụ. |
+| 25 | `/[...legacy]` | Chuyển tiếp URL cũ | Public | Tự động bắt link `.html` cũ (VD: `detail.html?id=...`) ➔ React route mới. |
 
 ---
 
@@ -89,6 +90,7 @@ graph TD
 
     subgraph ADMIN["🛡️ CỔNG QUẢN TRỊ VIÊN (ADMIN)"]
         AMOD["Kiểm duyệt & Audit Logs (/admin/moderation)"]:::admin
+        ASTORY["Quản lý Câu chuyện (/admin/stories)"]:::admin
         ATHEME["Bảng màu & Theme (/admin/theme-settings)"]:::admin
     end
 
@@ -99,7 +101,8 @@ graph TD
     AUTH -->|Đăng nhập TNV| VDASH
     AUTH -->|Đăng nhập BTC| OMANAGE
     AUTH -->|Đăng nhập Admin| AMOD
-    AMOD <-->|Thanh Menu & Tab Giao diện| ATHEME
+    AMOD <-->|Tab Menu Admin| ASTORY
+    ASTORY <-->|Tab Menu Admin| ATHEME
     ATHEME -.->|Áp dụng bảng màu động toàn trang| HOME
 
     VDASH --> SCHED
