@@ -6,7 +6,7 @@ const env=Object.fromEntries(readFileSync(new URL("../.env.local",import.meta.ur
 const run="qa-realtime-"+randomUUID();
 const clients=[]; const received=[new Set(),new Set(),new Set()];
 const db=(action,owner="")=>{
- const code=`import sys,asyncio,asyncpg\nsys.path.insert(0,'../backend')\nfrom app.core.config import get_settings\nasync def main():\n c=await asyncpg.connect(get_settings().supabase_db_url,ssl='require')\n try:\n  if sys.argv[1]=='insert':\n   await c.execute("insert into public.change_events(entity,owner_id) values($1,null),($2,$3::uuid)",sys.argv[2]+'-public',sys.argv[2]+'-private',sys.argv[3])\n  else: await c.execute("delete from public.change_events where entity=any($1::text[])",[sys.argv[2]+'-public',sys.argv[2]+'-private'])\n finally: await c.close()\nasyncio.run(main())`;
+ const code=`import sys,asyncio,asyncpg\nsys.path.insert(0,'../backend')\nsys.path.insert(0,'../backend/scripts')\nfrom qa_auth import admin_dsn\nasync def main():\n c=await asyncpg.connect(admin_dsn(),ssl='require')\n try:\n  if sys.argv[1]=='insert':\n   await c.execute("insert into public.change_events(entity,owner_id) values($1,null),($2,$3::uuid)",sys.argv[2]+'-public',sys.argv[2]+'-private',sys.argv[3])\n  else: await c.execute("delete from public.change_events where entity=any($1::text[])",[sys.argv[2]+'-public',sys.argv[2]+'-private'])\n finally: await c.close()\nasyncio.run(main())`;
  const result=spawnSync("python",["-c",code,action,run,owner],{encoding:"utf8",timeout:20000});
  if(result.status!==0)throw Error("Realtime test fixture operation failed: "+result.stderr);
 };

@@ -4,6 +4,22 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from uuid import UUID
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from urllib.parse import urlsplit
+
+
+class InputModel(BaseModel):
+    model_config = ConfigDict(extra="forbid", hide_input_in_errors=True)
+
+
+def safe_image_url(value):
+    if value is None:
+        return value
+    if value.startswith("/legacy/") and ".." not in value and "\\" not in value:
+        return value
+    parsed = urlsplit(value)
+    if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+        raise ValueError("Ảnh phải dùng URL HTTPS hợp lệ hoặc tài nguyên của ứng dụng.")
+    return value
 
 
 class Envelope(BaseModel):
@@ -12,18 +28,18 @@ class Envelope(BaseModel):
     message: str | None = None
 
 
-class ApplyInput(BaseModel):
+class ApplyInput(InputModel):
     shift: str = Field(default="Toàn thời gian", max_length=255)
     experience: str | None = Field(default=None, max_length=5000)
     skills: str | None = Field(default=None, max_length=5000)
 
 
-class ReviewInput(BaseModel):
+class ReviewInput(InputModel):
     decision: str = Field(pattern="^(approve|reject)$")
     reason: str | None = Field(default=None, max_length=2000)
 
 
-class ProfileUpdate(BaseModel):
+class ProfileUpdate(InputModel):
     model_config = ConfigDict(extra="forbid")
 
     name: str | None = Field(default=None, min_length=1, max_length=150)
@@ -35,6 +51,7 @@ class ProfileUpdate(BaseModel):
     skills: list[str] | None = Field(default=None, max_length=50)
     cover_url: str | None = Field(default=None, max_length=2048)
     interests: list[str] | None = Field(default=None, max_length=20)
+    _images = field_validator("avatar_url", "cover_url")(safe_image_url)
 
     @field_validator("name", "skills", "interests")
     @classmethod
@@ -47,7 +64,7 @@ class ProfileUpdate(BaseModel):
 
 
 
-class OrganizationCreate(BaseModel):
+class OrganizationCreate(InputModel):
     model_config = ConfigDict(extra="forbid")
 
     name: str = Field(min_length=2, max_length=200)
@@ -56,12 +73,12 @@ class OrganizationCreate(BaseModel):
     description: str | None = Field(default=None, max_length=5000)
 
 
-class ActivityScheduleInput(BaseModel):
+class ActivityScheduleInput(InputModel):
     time_frame: str = Field(min_length=1, max_length=100)
     content: str = Field(min_length=1, max_length=1000)
 
 
-class ActivityCreate(BaseModel):
+class ActivityCreate(InputModel):
     model_config = ConfigDict(extra="forbid")
 
     idempotency_key: UUID | None = None
@@ -83,6 +100,7 @@ class ActivityCreate(BaseModel):
     contact: str | None = Field(default=None, max_length=500)
     banner_url: str | None = Field(default=None, max_length=2048)
     schedule: list["ActivityScheduleInput"] = Field(default_factory=list, max_length=30)
+    _banner = field_validator("banner_url")(safe_image_url)
 
     @model_validator(mode="after")
     def valid_dates(self):
@@ -96,28 +114,29 @@ class ActivityCreate(BaseModel):
         return self
 
 
-class StoryInput(BaseModel):
+class StoryInput(InputModel):
     title: str = Field(min_length=3, max_length=200)
     body: str = Field(min_length=10, max_length=10000)
     category: str = Field(default="all", max_length=100)
     thumbnail_url: str | None = Field(default=None, max_length=2048)
+    _thumbnail = field_validator("thumbnail_url")(safe_image_url)
 
 
 
-class AdminDecision(BaseModel):
+class AdminDecision(InputModel):
     decision: str = Field(pattern="^(approve|reject)$")
     reason: str | None = Field(default=None, max_length=2000)
 
 
-class FavoriteInput(BaseModel):
+class FavoriteInput(InputModel):
     activity_id: str = Field(min_length=1, max_length=100)
 
 
-class NotificationReadInput(BaseModel):
+class NotificationReadInput(InputModel):
     unread: bool = False
 
 
-class ThemeUpdate(BaseModel):
+class ThemeUpdate(InputModel):
     name: str = Field(min_length=1, max_length=100)
     primary_color: str = Field(pattern="^#[0-9A-Fa-f]{6}$")
     cta_color: str = Field(pattern="^#[0-9A-Fa-f]{6}$")
@@ -127,6 +146,6 @@ class ThemeUpdate(BaseModel):
     meaning: str | None = Field(default=None, max_length=1000)
 
 
-class AdminDeleteStoryInput(BaseModel):
+class AdminDeleteStoryInput(InputModel):
     reason: str | None = Field(default=None, max_length=1000)
 

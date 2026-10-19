@@ -1,11 +1,11 @@
-/* ==========================================================================
-   PROFILE.CSS — Giao Diện Hồ Sơ Cá Nhân & Bảng Điều Khiển Tình Nguyện Viên
-   Khớp 100% Mockup: Sidebar Menu, Ảnh Bìa Panorama, Thẻ KPI, Kỹ Năng, Cấp Bậc
-   ========================================================================== */
+
+
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&display=swap');
 
-/* --- BỐ CỤC TỔNG THỂ (APP DASHBOARD LAYOUT) --- */
+
 .profile-app-container {
   display: flex;
   min-height: 100vh;
@@ -14,7 +14,7 @@
   font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* --- SIDEBAR TRÁI (LEFT SIDEBAR) --- */
+
 .profile-sidebar {
   width: 228px;
   background: var(--surface-white);
@@ -123,7 +123,7 @@
   border-radius: 999px;
 }
 
-/* Banner nhỏ dưới đáy sidebar */
+
 .sidebar-mini-promo {
   background: linear-gradient(135deg, #e8f5e9 0%, #f0fdf4 100%);
   border: 1px solid rgba(16, 185, 129, 0.2);
@@ -173,7 +173,7 @@
   transform: translateY(-1px);
 }
 
-/* --- KHU VỰC NỘI DUNG CHÍNH (MAIN AREA) --- */
+
 .profile-main-area {
   flex: 1;
   display: flex;
@@ -182,7 +182,7 @@
   padding: 12px 20px 32px;
 }
 
-/* Top Navbar */
+
 .profile-topbar {
   display: flex;
   justify-content: space-between;
@@ -283,7 +283,7 @@
   font-weight: 700;
 }
 
-/* --- BANNER ẢNH BÌA & THÔNG TIN HỒ SƠ (PROFILE HEADER) --- */
+
 .profile-hero-card {
   background: var(--surface-white);
   border: 1px solid var(--border-default);
@@ -338,7 +338,7 @@
   border-color: #ffffff;
 }
 
-/* Phần thông tin profile bên dưới ảnh bìa */
+
 .profile-meta-bar {
   padding: 0 22px 18px;
   display: flex;
@@ -458,7 +458,7 @@
   color: #059669;
 }
 
-/* --- TAB THANH ĐIỀU HƯỚNG NGANG (HORIZONTAL TABS) --- */
+
 .profile-nav-tabs-bar {
   display: flex;
   border-bottom: 2px solid var(--border-default);
@@ -499,21 +499,21 @@
   border-bottom-color: #34d399;
 }
 
-/* --- NỘI DUNG CHÍNH 2 CỘT (MAIN 2-COLUMN GRID) --- */
+
 .profile-content-grid {
   display: grid;
   grid-template-columns: 2.1fr 1fr;
   gap: 14px;
 }
 
-/* CỘT TRÁI */
+
 .profile-left-col {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* 4 THẺ THỐNG KÊ KPI */
+
 .profile-kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -586,7 +586,7 @@
   line-height: 1.2;
 }
 
-/* CÁC THẺ KHỐI SECTION CHUNG */
+
 .profile-box-card {
   background: var(--surface-white);
   border: 1px solid var(--border-default);
@@ -678,7 +678,7 @@
   color: #7e22ce;
 }
 
-/* KỸ NĂNG & THẾ MẠNH */
+
 .box-skills-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -723,7 +723,7 @@
   background: rgba(16, 185, 129, 0.08);
 }
 
-/* HOẠT ĐỘNG SẮP TỚI */
+
 .upcoming-activities-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -825,14 +825,14 @@
   color: #ffffff;
 }
 
-/* --- CỘT PHẢI (RIGHT SIDEBAR COLUMN) --- */
+
 .profile-right-col {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* 1. CẤP BẬC TÌNH NGUYỆN */
+
 .rank-card-box {
   display: flex;
   align-items: center;
@@ -885,7 +885,7 @@
   color: var(--text-secondary);
 }
 
-/* 2. THÀNH TÍCH (ACHIEVEMENTS TIMELINE) */
+
 .achievement-timeline-list {
   list-style: none;
   margin: 0;
@@ -926,7 +926,7 @@
   color: var(--text-secondary);
 }
 
-/* 3. TÀI LIỆU CỦA TÔI */
+
 .verified-docs-list {
   display: flex;
   flex-direction: column;
@@ -996,7 +996,7 @@
   color: #10b981;
 }
 
-/* --- CÁC TAB NỘI DUNG ẨN HIỆN --- */
+
 .profile-tab-pane {
   display: none;
 }
@@ -1011,7 +1011,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* RESPONSIVE CHO MÀN HÌNH NHỎ */
+
 @media (max-width: 992px) {
   .profile-content-grid {
     grid-template-columns: 1fr;
@@ -1081,7 +1081,7 @@
   }
 }
 
-/* Mobile layout for profile history and account settings */
+
 @media (max-width: 640px) {
   .profile-main-area {
     min-width: 0;

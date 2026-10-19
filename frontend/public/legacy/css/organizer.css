@@ -1,9 +1,9 @@
-/* ==========================================================================
-   ORGANIZER.CSS — Modern NhiLun Organizer Portal & Event Creator
-   Matches add_hoatdong.png high-fidelity mockup perfectly
-   ========================================================================== */
 
-/* Layout Container */
+
+
+
+
+
 .organizer-page-wrapper {
   background: #f4f8f6;
   min-height: 100vh;
@@ -187,7 +187,7 @@
   gap: 2px;
 }
 
-/* 3-Column Grid Main Container */
+
 .organizer-container {
   max-width: 1360px;
   margin: 20px auto 0;
@@ -198,7 +198,7 @@
   align-items: start;
 }
 
-/* LEFT SIDEBAR */
+
 .organizer-sidebar {
   display: flex;
   flex-direction: column;
@@ -374,7 +374,7 @@
   transform: translateY(-1px);
 }
 
-/* CENTER MAIN COLUMN */
+
 .organizer-main {
   display: flex;
   flex-direction: column;
@@ -382,7 +382,7 @@
   min-width: 0;
 }
 
-/* Hero Banner Card */
+
 .org-hero-banner {
   background: linear-gradient(135deg, #eaf6ef 0%, #e2f4ea 50%, #eaf6ef 100%);
   border: 1px solid #d1fae5;
@@ -464,7 +464,7 @@
   border: 2px solid #ffffff;
 }
 
-/* 5-Step Stepper Bar */
+
 .org-stepper-bar {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -545,7 +545,7 @@
   background: #10b981;
 }
 
-/* Card Form Container */
+
 .org-form-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -588,7 +588,7 @@
   margin: 2px 0 0 0;
 }
 
-/* Form Controls */
+
 .org-form-group {
   margin-bottom: 18px;
 }
@@ -675,7 +675,7 @@
   font-size: 0.75rem;
 }
 
-/* Image & Banner Upload Section */
+
 .org-upload-row {
   display: flex;
   gap: 16px;
@@ -777,7 +777,7 @@
   border-color: #9ca3af;
 }
 
-/* Textarea with bottom counter */
+
 .org-textarea-box {
   position: relative;
 }
@@ -809,7 +809,7 @@
   pointer-events: none;
 }
 
-/* Rich Text Editor */
+
 .org-rich-editor {
   border: 1px solid #d1d5db;
   border-radius: 10px;
@@ -879,14 +879,14 @@
   color: #9ca3af;
 }
 
-/* RIGHT HELPER COLUMN */
+
 .organizer-helper {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Card: Thông tin hỗ trợ */
+
 .org-helper-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -938,7 +938,7 @@
   margin-top: 1px;
 }
 
-/* Card: Lưu ý quan trọng */
+
 .org-alert-card {
   background: #f7faea;
   border: 1px solid #e2ebb4;
@@ -963,7 +963,7 @@
   line-height: 1.4;
 }
 
-/* Card: Bản xem trước */
+
 .org-preview-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -1073,7 +1073,7 @@
   margin-left: -6px;
 }
 
-/* Action Buttons */
+
 .org-actions-box {
   display: flex;
   flex-direction: column;
@@ -1122,7 +1122,7 @@
   background: #e6f9f0;
 }
 
-/* WIZARD PANES */
+
 .wizard-pane {
   display: none;
 }
@@ -1137,7 +1137,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* THEMED CALENDAR POPUP */
+
 .calendar-field-wrapper {
   position: relative;
 }
@@ -1288,7 +1288,7 @@
   cursor: default;
 }
 
-/* Location Card in Step 2 */
+
 .location-item-card {
   background: #f9fafb;
   border: 1px solid #e5e7eb;
@@ -1297,7 +1297,7 @@
   margin-bottom: 10px;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 1200px) {
   .organizer-container {
     grid-template-columns: 220px 1fr 270px;

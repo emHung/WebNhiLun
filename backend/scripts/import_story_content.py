@@ -35,7 +35,7 @@ async def main():
         if not rows:raise RuntimeError("No legacy stories found; stopped.")
         async with conn.transaction():
             await conn.executemany("insert into public.stories(id,title,body,category,legacy_likes) values($1,$2,$3,$4,$5) on conflict(id) do nothing",rows)
-            # Preserve legacy controls as data instead of executable inline handlers.
+
             content=re.sub(r'onclick="filterStories\(\'([^\']+)\', this\)"',r'data-story-filter="\1"',content)
             content=content.replace('onclick="openStoryModal()"','data-story-action="share"').replace('onclick="openStoryVideoModal(event)"','data-story-action="video"')
             content=re.sub(r'\s+on\w+="[^"]*"','',content)

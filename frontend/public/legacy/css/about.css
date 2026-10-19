@@ -1,6 +1,6 @@
-/* ==========================================================================
-   ABOUT.CSS — Trang Giới Thiệu NhiLun (Khớp Mockup Hình 2)
-   ========================================================================== */
+
+
+
 
 .about-page-wrapper {
   background: #f4f8f6;
@@ -19,7 +19,7 @@
   gap: 28px;
 }
 
-/* 1. HERO BANNER */
+
 .about-hero-banner {
   background: linear-gradient(135deg, #eaf6ef 0%, #e2f4ea 50%, #eaf6ef 100%);
   border: 1px solid #d1fae5;
@@ -141,7 +141,7 @@
   box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
-/* 4 Stats Cards Row */
+
 .about-hero-stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -186,7 +186,7 @@
   color: #64748b;
 }
 
-/* 2. SỨ MỆNH & TẦM NHÌN SECTION */
+
 .about-mission-section {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -314,7 +314,7 @@
   flex-shrink: 0;
 }
 
-/* 3. CÁCH THỨC HOẠT ĐỘNG (4 BƯỚC) */
+
 .about-how-it-works-section {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -393,7 +393,7 @@
   color: #cbd5e1;
 }
 
-/* 4. HÀNH TRÌNH & TÁC ĐỘNG */
+
 .about-impact-section {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -504,7 +504,7 @@
   text-decoration: none;
 }
 
-/* 5. ĐỐI TÁC & ĐỒNG HÀNH */
+
 .about-partners-section {
   background: #ffffff;
   border: 1px solid #e5e7eb;

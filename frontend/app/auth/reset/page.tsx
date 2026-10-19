@@ -31,6 +31,11 @@ export default function ResetPage() {
       return;
     }
     setBusy(true);
+    if (new TextEncoder().encode(password).byteLength > 72) {
+      setMessage("Mật khẩu không được vượt quá 72 byte.");
+      setBusy(false);
+      return;
+    }
     try {
       const { error } = await createClient().auth.updateUser({ password });
       if (error) throw error;
@@ -57,7 +62,7 @@ export default function ResetPage() {
             autoComplete="new-password"
             required
             minLength={8}
-            maxLength={128}
+            maxLength={72}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={!ready}

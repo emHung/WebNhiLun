@@ -13,7 +13,7 @@ export function CertificateQr({ code }: { code: string }) {
       .then((value) => {
         if (active) setSrc(value);
       })
-      .catch((error) => console.error("Không tạo được QR", error));
+      .catch((error) => console.error("Không tạo được mã QR."));
     return () => {
       active = false;
     };

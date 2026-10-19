@@ -95,7 +95,7 @@ function AuthForm() {
   }
 
   async function destinationFromVerifiedProfile() {
-    const profile = await apiRequest<{ role: string }>("/auth/me");
+    const profile = await apiRequest<{ role: string; requires_mfa: boolean }>("/auth/me");
     const {
       data: { user },
     } = await createClient().auth.getUser();
@@ -104,6 +104,7 @@ function AuthForm() {
       user?.user_metadata?.organization_registration_draft
     )
       return "/organizer/manage?onboard=1";
+    if (profile.role === "admin" && profile.requires_mfa) return "/auth/mfa";
     const returnTo = searchParams.get("returnTo");
     if (
       returnTo?.startsWith("/") &&
@@ -123,7 +124,7 @@ function AuthForm() {
     setBusy(true);
     setMessage("");
     try {
-      document.cookie = `vh-remember=${rememberSession ? "1" : "0"}; Path=/; SameSite=Lax${rememberSession ? "; Max-Age=31536000" : ""}`;
+      document.cookie = `vh-remember=${rememberSession ? "1" : "0"}; Path=/; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}${rememberSession ? "; Max-Age=31536000" : ""}`;
       const supabase = createClient();
       if (mode === "login") {
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -139,6 +140,8 @@ function AuthForm() {
         throw new Error("Mật khẩu xác nhận chưa khớp.");
       if (!termsAccepted)
         throw new Error("Vui lòng đồng ý với Quy tắc cộng đồng để tiếp tục.");
+      if (new TextEncoder().encode(password).byteLength > 72)
+        throw new Error("Mật khẩu không được vượt quá 72 byte.");
       if (
         mode === "register" &&
         accountRole === "organizer" &&
@@ -576,8 +579,8 @@ function AuthForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    minLength={8}
-                    maxLength={128}
+                    minLength={1}
+                    maxLength={1024}
                   />
                   <button
                     type="button"
@@ -636,7 +639,7 @@ function AuthForm() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         minLength={8}
-                        maxLength={128}
+                        maxLength={72}
                       />
                       <button
                         type="button"
@@ -672,7 +675,7 @@ function AuthForm() {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                         minLength={8}
-                        maxLength={128}
+                        maxLength={72}
                       />
                       <button
                         type="button"

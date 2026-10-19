@@ -1,8 +1,8 @@
-/* ==========================================================================
-   ADMIN.CSS — Giao Diện Kiểm Duyệt & Audit Logs (Chuẩn Mockup Bo Tròn & Thiên Nhiên)
-   ========================================================================== */
 
-/* 1. HERO BANNER THIÊN NHIÊN (LÁ CÂY, MINH BẠCH, BO GÓC TRÒN MỀM MẠI) */
+
+
+
+
 .admin-hero-nature-banner {
   background: linear-gradient(135deg, rgba(230, 248, 240, 0.95) 0%, rgba(240, 253, 244, 0.98) 60%, rgba(220, 252, 231, 0.9) 100%),
               radial-gradient(circle at top right, rgba(16, 185, 129, 0.18), transparent 70%);
@@ -90,7 +90,7 @@
   transform: rotate(0deg) scale(1.05);
 }
 
-/* 2. 4 THẺ METRICS BO TRÒN HIỆN ĐẠI */
+
 .admin-stats-row-four {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -152,7 +152,7 @@
   margin-top: 2px;
 }
 
-/* 3. SECTION BLOCK BO GÓC 22PX CHUẨN DESIGN SYSTEM */
+
 .admin-section-block {
   background: var(--surface-white);
   border: 1px solid var(--border-default);
@@ -214,7 +214,7 @@
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
 }
 
-/* 4. TABLE STYLING TRÒN & HIỆN ĐẠI */
+
 .table {
   width: 100%;
   border-collapse: separate;
@@ -310,7 +310,7 @@
   color: #b91c1c;
 }
 
-/* 5. RESPONSIVE BREAKPOINTS */
+
 @media (max-width: 992px) {
   .admin-stats-row-four {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -376,7 +376,7 @@
   }
 }
 
-/* Mobile moderation tables become readable record cards instead of squeezed columns. */
+
 @media (max-width: 640px) {
   .admin-section-block {
     min-width: 0;

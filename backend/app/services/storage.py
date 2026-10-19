@@ -6,21 +6,13 @@ from urllib.parse import quote
 from uuid import uuid4
 from fastapi import HTTPException, UploadFile
 from app.core.config import get_settings
+from app.services.uploads import protected_upload
 
-async def upload_document(bucket: str, owner: str, file: UploadFile):
+async def upload_document(bucket: str, owner: str, file: UploadFile, db):
     settings=get_settings()
     if not settings.supabase_secret_key:
         raise HTTPException(503,"Storage chưa được cấu hình.")
-    types={"application/pdf":("pdf",b"%PDF"),"image/jpeg":("jpg",b"\xff\xd8"),"image/png":("png",b"\x89PNG")}
-    mime=(file.content_type or "").lower()
-    if mime not in types:
-        raise HTTPException(415,"Chỉ nhận PDF, JPG hoặc PNG.")
-    content=await file.read(15*1024*1024+1)
-    if len(content)>15*1024*1024:
-        raise HTTPException(413,"Tài liệu vượt quá 15 MB.")
-    extension,magic=types[mime]
-    if not content.startswith(magic):
-        raise HTTPException(415,"Nội dung tệp không đúng định dạng.")
+    content,mime,extension=await protected_upload(db,owner,file,15*1024*1024,document=True)
     path=f"{owner}/{uuid4().hex}.{extension}"
     request=urllib.request.Request(f"{settings.supabase_url.rstrip('/')}/storage/v1/object/{bucket}/{path}",data=content,method="POST",headers={"apikey":settings.supabase_secret_key,"Content-Type":mime})
     try:

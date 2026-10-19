@@ -1,13 +1,13 @@
-/* ==========================================================================
-   BASE.CSS — Design Tokens & Core Styles (Compact & Refined Edition)
-   Font: Be Vietnam Pro | Chuẩn Design System: NhiLun v1.1
-   Tối ưu không gian hiển thị gọn gàng, thoáng mắt, hiện đại
-   ========================================================================== */
+
+
+
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css');
 
-/* REMIX ICON UTILITY STYLES */
+
 i[class^="ri-"], i[class*=" ri-"] {
   vertical-align: middle;
   display: inline-flex;
@@ -17,26 +17,26 @@ i[class^="ri-"], i[class*=" ri-"] {
 }
 
 :root {
-  /* BIẾN MÀU THAY ĐỔI THEO THEME (Được quản lý bởi useTheme.js) */
-  --brand-primary: #12304A;    /* Màu thương hiệu chính */
-  --brand-cta: #087F78;        /* Nút hành động chính (Call To Action) */
-  --brand-cta-hover: #066963;  /* Hover nút bấm */
-  --brand-surface: #E9F7F3;    /* Nền thẻ nổi bật, badge, highlight */
+
+  --brand-primary: #12304A;
+  --brand-cta: #087F78;
+  --brand-cta-hover: #066963;
+  --brand-surface: #E9F7F3;
   
-  /* CÁC MÀU NỀN VÀ TRẠNG THÁI CHUẨN CỐ ĐỊNH (Mặc định: Light Mode) */
-  --canvas: #F4F7FA;           /* Nền trang web */
-  --surface-white: #FFFFFF;    /* Nền thẻ card, modal, bảng */
-  --text-primary: #172B3A;     /* Chữ tiêu đề & nội dung chính */
-  --text-secondary: #536779;   /* Chữ phụ đề, mô tả nhỏ */
-  --border-default: #DCE5EA;   /* Viền nhẹ nhàng */
-  --table-header-bg: #FAFBFD;  /* Nền header bảng */
 
-  /* TRẠNG THÁI NGHIỆP VỤ */
-  --status-success: #147D52;   /* Đã duyệt, thành công */
-  --status-warning: #9A5B00;   /* Chờ duyệt, cảnh báo */
-  --status-danger: #B42318;    /* Từ chối, hủy, lỗi */
+  --canvas: #F4F7FA;
+  --surface-white: #FFFFFF;
+  --text-primary: #172B3A;
+  --text-secondary: #536779;
+  --border-default: #DCE5EA;
+  --table-header-bg: #FAFBFD;
 
-  /* KÍCH THƯỚC & BO GÓC TRÒN HIỆN ĐẠI (ROUNDED SOFT DESIGN TOKENS) */
+
+  --status-success: #147D52;
+  --status-warning: #9A5B00;
+  --status-danger: #B42318;
+
+
   --radius-btn: 999px;
   --radius-badge: 999px;
   --radius-card: 16px;
@@ -47,7 +47,7 @@ i[class^="ri-"], i[class*=" ri-"] {
   --shadow-md: 0 4px 14px rgba(18, 48, 74, 0.08);
 }
 
-/* RESET CƠ BẢN */
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -69,14 +69,14 @@ body {
   background-color: var(--canvas);
   color: var(--text-primary);
   line-height: 1.45;
-  font-size: 0.85rem;          /* Tối ưu cỡ chữ thanh thoát, gọn gàng */
+  font-size: 0.85rem;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* KHUNG CHỨA TRUNG TÂM */
+
 .container {
   width: 100%;
   max-width: var(--content-max);
@@ -88,7 +88,7 @@ body {
   min-width: 0;
 }
 
-/* TYPOGRAPHY GỌN GÀNG, KHÔNG BỊ TO QUÁ KHỔ */
+
 h1, h2, h3, h4 {
   color: var(--brand-primary);
   font-weight: 700;

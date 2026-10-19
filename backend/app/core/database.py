@@ -1,6 +1,7 @@
 import logging
 import asyncio
 import time
+import ssl
 from urllib.parse import urlsplit
 
 import asyncpg
@@ -9,6 +10,13 @@ from fastapi import HTTPException, Request
 from app.core.config import get_settings
 
 logger = logging.getLogger("volunteerhub.database")
+
+
+def database_ssl(settings):
+    """The provider's legacy CA lacks keyUsage; keep CA and hostname verification."""
+    context = ssl.create_default_context(cafile=settings.supabase_db_ca_file)
+    context.verify_flags &= ~ssl.VERIFY_X509_STRICT
+    return context
 
 
 async def connect_db(app) -> None:
@@ -26,7 +34,7 @@ async def connect_db(app) -> None:
             min_size=1,
             max_size=10,
             command_timeout=30,
-            ssl="require",
+            ssl=database_ssl(settings),
             server_settings={"application_name": "volunteerhub-api"},
         )
         logger.info("Connected to Supabase PostgreSQL.")
@@ -59,10 +67,6 @@ async def get_db(request: Request) -> asyncpg.Pool:
     if db is None:
         raise HTTPException(
             status_code=503,
-            detail=(
-                "Cơ sở dữ liệu Supabase chưa được kết nối. Hãy cấu hình "
-                "SUPABASE_DB_URL bằng connection string PostgreSQL của đúng project "
-                "trong backend/.env rồi khởi động lại FastAPI."
-            ),
+            detail="Dịch vụ dữ liệu tạm thời không khả dụng. Vui lòng thử lại sau.",
         )
     return db

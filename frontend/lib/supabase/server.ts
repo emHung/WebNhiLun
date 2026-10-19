@@ -11,6 +11,7 @@ export async function createClient() {
     );
 
   return createServerClient(url, key, {
+    cookieOptions: { sameSite: "lax", secure: process.env.NODE_ENV === "production" },
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -21,7 +22,7 @@ export async function createClient() {
             cookieStore.set(name, value, options),
           );
         } catch {
-          /* Server Components cannot write cookies; middleware refreshes the session. */
+
         }
       },
     },

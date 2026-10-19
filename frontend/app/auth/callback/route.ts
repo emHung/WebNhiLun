@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     (data as { redirectType?: string }).redirectType === "recovery"
   )
     return NextResponse.redirect(new URL("/auth/reset", request.url));
-  // Metadata hints at onboarding; authorization still uses the verified server profile.
+
   const onboarding = data.user?.user_metadata?.organization_registration_draft;
   return NextResponse.redirect(
     new URL(

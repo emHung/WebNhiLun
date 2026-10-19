@@ -1,10 +1,10 @@
-/* ==========================================================================
-   DETAIL.CSS — Chi Tiết Hoạt Động Thiện Nguyện (Khớp 100% Mockup Hình 4)
-   ========================================================================== */
+
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&display=swap');
 
-/* --- HERO BANNER KHÁM BỆNH --- */
+
 .detail-hero-banner {
   background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #f7fee7 100%);
   border: 1px solid rgba(16, 185, 129, 0.18);
@@ -75,7 +75,7 @@
   gap: 6px;
 }
 
-/* Phần Visual bên phải */
+
 .detail-hero-visual-right {
   position: relative;
   display: flex;
@@ -130,7 +130,7 @@
   cursor: pointer;
 }
 
-/* --- TABS ĐIỀU HƯỚNG CHI TIẾT --- */
+
 .detail-nav-tabs-bar {
   display: flex;
   gap: 6px;
@@ -163,7 +163,7 @@
   border-bottom-color: #34d399;
 }
 
-/* --- BỐ CỤC 2 CỘT CHÍNH --- */
+
 .detail-content-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -178,7 +178,7 @@
   gap: 14px;
 }
 
-/* TIMELINE LỊCH TRÌNH (TO RÕ, DỄ ĐỌC CHUẨN DESIGN) */
+
 .detail-timeline-wrap {
   position: relative;
   padding-left: 28px;
@@ -267,7 +267,7 @@
   }
 }
 
-/* MAP PREVIEW BOX */
+
 .map-preview-box {
   background: var(--canvas);
   border: 1px solid var(--border-default);
@@ -279,7 +279,7 @@
   margin-top: 8px;
 }
 
-/* 2 CỘT YÊU CẦU & VẬT DỤNG */
+
 .detail-two-cards-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -304,7 +304,7 @@
   gap: 6px;
 }
 
-/* THẺ ACTION BÊN PHẢI (STICKY REGISTRATION CARD) */
+
 .detail-action-card {
   background: var(--surface-white);
   border: 1px solid var(--border-default);

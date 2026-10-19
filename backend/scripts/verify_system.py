@@ -19,6 +19,7 @@ settings=get_settings()
 created=[]
 pdf_paths=[]
 temporary_user=None
+temporary_admin=None
 assertions=0
 def request(path,token=None,method='GET',body=None):
     headers={'Content-Type':'application/json'}
@@ -43,7 +44,7 @@ def supabase(path,method,body=None):
         content=response.read();return json.loads(content) if content else {}
 
 def main_checks():
-    global temporary_user
+    global temporary_user, temporary_admin
     check(request('/health/ready')[0]==200,'database readiness')
     tokens={}
     for role in ('volunteer','organizer','admin'):
@@ -51,6 +52,10 @@ def main_checks():
         check(status==200,'demo login '+role)
         tokens[role]=body['data']['access_token']
     volunteer,organizer,admin=(tokens[key] for key in ('volunteer','organizer','admin'))
+    check(request('/admin/metrics',admin)[0]==403,'admin without MFA is rejected')
+    from qa_auth import create_verified_admin
+    temporary_admin,admin=create_verified_admin()
+    check(request('/admin/metrics',admin)[0]==200,'disposable admin with verified TOTP is accepted')
     tag='QA-'+uuid.uuid4().hex[:10]
     password=uuid.uuid4().hex+'!aA1'
     user=supabase('/admin/users','POST',{'email':tag.lower()+'@example.test','password':password,'email_confirm':True,'user_metadata':{'name':tag}})
@@ -70,7 +75,7 @@ def main_checks():
     status,again=request('/organizer/activities',organizer,'POST',payload)
     check(status==201 and again['data']['id']==activity,'creation idempotency')
     check(request('/activities/'+activity)[0]==404,'draft not publicly visible')
-    # An omitted image on submit must preserve the uploaded draft banner.
+
     banner='https://example.test/qa-banner.png'
     check(request('/organizer/activities/'+activity,organizer,'PUT',{**payload,'banner_url':banner})[0]==200,'save draft banner')
     payload['publish']=True
@@ -138,7 +143,8 @@ def main_checks():
     check(request('/organizer/applications/'+application+'/checkin',organizer,'POST')[0]==409,'future checkin blocked')
 
 async def cleanup():
-    connection=await asyncpg.connect(settings.supabase_db_url,ssl='require')
+    from qa_auth import admin_dsn
+    connection=await asyncpg.connect(admin_dsn(),ssl='require')
     try:
         async with connection.transaction():
             ids=created[:]
@@ -154,6 +160,7 @@ async def cleanup():
         req=urllib.request.Request(settings.supabase_url+'/storage/v1/object/certificates',data=json.dumps({'prefixes':pdf_paths}).encode(),method='DELETE',headers={'apikey':settings.supabase_secret_key,'Content-Type':'application/json'})
         with urllib.request.urlopen(req,timeout=20) as response:response.read()
     if temporary_user:supabase('/admin/users/'+temporary_user,'DELETE')
+    if temporary_admin:supabase('/admin/users/'+temporary_admin,'DELETE')
     (ROOT/'backend/logs/qa-manifest.json').unlink(missing_ok=True)
 
 if __name__=='__main__':

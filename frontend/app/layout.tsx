@@ -3,6 +3,9 @@ import "./globals.css";
 import { LiveDataSync } from "@/components/portal/LiveDataSync";
 import { LegacyStyles } from "@/components/portal/LegacyStyles";
 import { ThemeSync } from "@/components/portal/ThemeSync";
+import { SessionGuard } from "@/components/portal/SessionGuard";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "VolunteerHub | NhiLun",
@@ -25,6 +28,7 @@ export default function RootLayout({
       </head>
       <body>
         <LiveDataSync />
+        <SessionGuard />
         <ThemeSync />
         {children}
       </body>

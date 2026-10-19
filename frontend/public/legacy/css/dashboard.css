@@ -1,10 +1,10 @@
-/* ==========================================================================
-   DASHBOARD.CSS — Bảng Điều Khiển Trung Tâm (Khớp 100% Mockup Hình 3)
-   ========================================================================== */
+
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&display=swap');
 
-/* --- HERO WELCOME CARD --- */
+
 .dash-welcome-card {
   background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #f7fee7 100%);
   border: 1px solid rgba(16, 185, 129, 0.18);
@@ -80,7 +80,7 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* --- CAROUSEL HOẠT ĐỘNG SẮP TỚI --- */
+
 .dash-act-carousel-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -165,7 +165,7 @@
   border-top: 1px solid var(--border-default);
 }
 
-/* --- BIỂU ĐỒ THỐNG KÊ HOẠT ĐỘNG (CHART) --- */
+
 .chart-box-card {
   background: var(--surface-white);
   border: 1px solid var(--border-default);
@@ -209,7 +209,7 @@
   color: var(--text-secondary);
 }
 
-/* --- GỢI Ý HOẠT ĐỘNG (RECOMMENDATIONS) --- */
+
 .dash-recommend-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -257,7 +257,7 @@
   color: var(--text-secondary);
 }
 
-/* --- MINI LỊCH CỦA TÔI TRÊN SIDEBAR PHẢI --- */
+
 .mini-cal-card {
   background: var(--surface-white);
   border: 1px solid var(--border-default);
@@ -305,7 +305,7 @@
   object-fit: cover;
 }
 
-/* THÔNG BÁO MỚI TRÊN RIGHT SIDEBAR */
+
 .dash-notify-item-compact {
   display: flex;
   align-items: flex-start;

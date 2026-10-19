@@ -8,12 +8,13 @@ import time
 import urllib.error
 import urllib.request
 from urllib.parse import quote
-from collections import defaultdict, deque
 from uuid import uuid4
 from zoneinfo import ZoneInfo
 from app.services.storage import upload_document, signed_url
 from app.services.pagination import page_result
 from app.services.certificate_files import certificate_file
+from app.services.uploads import protected_upload
+from app.core.protection import auth_limit, limit
 
 import asyncpg
 from fastapi import APIRouter, Depends, File, HTTPException, Query, Request, UploadFile
@@ -37,7 +38,6 @@ from app.schemas import (
 )
 
 router = APIRouter(prefix="/api/v1")
-_demo_attempts: dict[str, deque[float]] = defaultdict(deque)
 _demo_accounts = {
     "volunteer": ("an.nguyen@email.com", "demo_password_usr_001"),
     "organizer": ("coordinator@quyxanh.vn", "demo_password_usr_002"),
@@ -62,12 +62,12 @@ async def write_audit(
     details: str | None = None,
     request: Request | None = None,
 ):
-    ip = request.client.host if request and request.client else None
+    ip = None
     await conn.execute(
         "insert into public.audit_logs(id,actor_id,actor,action,target,details,ip) values($1,$2,$3,$4,$5,$6,$7::inet)",
         f"LOG-{uuid4().hex[:12].upper()}",
         user.id,
-        user.name,
+        user.role,
         action,
         target,
         details,
@@ -160,7 +160,7 @@ async def me(user: CurrentUser = Depends(get_current_user), db=Depends(get_db)):
         "select id,role,role_title,name,email,avatar_url from public.profiles where id=$1",
         user.id,
     )
-    return ok(dict(row))
+    return ok({**dict(row), "aal": user.aal, "requires_mfa": user.role == "admin" and get_settings().admin_mfa_required and user.aal != "aal2"})
 
 
 @router.get("/me/profile")
@@ -236,19 +236,13 @@ async def update_profile(
 
 @router.post("/me/avatar")
 async def upload_avatar(
-    file: UploadFile = File(...), user: CurrentUser = Depends(get_current_user)
+    file: UploadFile = File(...), user: CurrentUser = Depends(get_current_user), db=Depends(get_db)
 ):
     settings = get_settings()
     if not settings.supabase_secret_key:
         raise HTTPException(503, "Storage chưa được cấu hình ở backend.")
-    mime = (file.content_type or "").lower()
-    allowed = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp"}
-    if mime not in allowed:
-        raise HTTPException(415, "Chỉ chấp nhận ảnh JPG, PNG hoặc WebP.")
-    content = await file.read(2 * 1024 * 1024 + 1)
-    if len(content) > 2 * 1024 * 1024:
-        raise HTTPException(413, "Ảnh vượt quá dung lượng tối đa 2 MB.")
-    object_path = f"{user.id}/{uuid4().hex}.{allowed[mime]}"
+    content, mime, extension = await protected_upload(db, user.id, file, 2 * 1024 * 1024, document=False)
+    object_path = f"{user.id}/{uuid4().hex}.{extension}"
     url = f"{settings.supabase_url.rstrip('/')}/storage/v1/object/avatars/{quote(object_path, safe='/')}"
     upload = urllib.request.Request(
         url,
@@ -315,7 +309,7 @@ async def remove_favorite(
 
 
 @router.post("/auth/demo-login/{role}")
-async def demo_login(role: str, request: Request):
+async def demo_login(role: str, request: Request, db=Depends(get_db)):
     from app.core.config import get_settings
 
     settings = get_settings()
@@ -326,20 +320,10 @@ async def demo_login(role: str, request: Request):
     ):
         raise HTTPException(404, "Đăng nhập demo hiện không khả dụng.")
     email, password_attribute = _demo_accounts[role]
+    await auth_limit(db, request, "demo", email, settings.auth_login_limit)
     password = getattr(settings, password_attribute)
     if not password or not settings.supabase_publishable_key:
         raise HTTPException(503, "Tài khoản demo chưa được cấu hình ở backend.")
-    client_ip = request.client.host if request.client else "unknown"
-    now = time.monotonic()
-    attempts = _demo_attempts[client_ip]
-    while attempts and now - attempts[0] > 60:
-        attempts.popleft()
-    if len(attempts) >= 5:
-        raise HTTPException(
-            429, "Bạn thao tác quá nhanh. Vui lòng thử lại sau một phút."
-        )
-    attempts.append(now)
-
     def request_session():
         payload = json.dumps({"email": email, "password": password}).encode("utf-8")
         req = urllib.request.Request(
@@ -922,7 +906,8 @@ async def my_certificates(
 
 
 @router.get("/certificates/verify/{code}")
-async def verify_certificate(code: str, db=Depends(get_db)):
+async def verify_certificate(code: str, request: Request, db=Depends(get_db)):
+    await limit(db, "certificate:verify", request.client.host if request.client else "unknown", 30, 60)
     row = await db.fetchrow(
         "select c.certificate_code,c.recipient_name,c.title as activity_title,c.issuer,c.hours,c.issue_date,c.qr_verified as valid,c.activity_id "
         "from public.certificates c where c.certificate_code=$1",
@@ -1033,7 +1018,7 @@ async def store_activity(payload, user, conn, activity_id=None):
         if not previous:
             raise HTTPException(404, "Không tìm thấy bản nháp.")
         if previous["status"] != "draft":
-            # Repeating a successful submission is safe; it cannot overwrite approved content.
+
             if previous["idempotency_key"] == payload.idempotency_key:
                 return previous
             raise HTTPException(409, "Chỉ bản nháp mới được chỉnh sửa.")
@@ -1174,14 +1159,8 @@ async def upload_activity_banner(
     )
     if not activity:
         raise HTTPException(404, "Không tìm thấy hoạt động thuộc tổ chức của bạn.")
-    mime = (file.content_type or "").lower()
-    allowed = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp"}
-    if mime not in allowed:
-        raise HTTPException(415, "Chỉ chấp nhận ảnh JPG, PNG hoặc WebP.")
-    content = await file.read(10 * 1024 * 1024 + 1)
-    if len(content) > 10 * 1024 * 1024:
-        raise HTTPException(413, "Ảnh vượt quá dung lượng tối đa 10 MB.")
-    object_path = f"{user.id}/{activity_id}/{uuid4().hex}.{allowed[mime]}"
+    content, mime, extension = await protected_upload(db, user.id, file, 10 * 1024 * 1024, document=False)
+    object_path = f"{user.id}/{activity_id}/{uuid4().hex}.{extension}"
     url = f"{settings.supabase_url.rstrip('/')}/storage/v1/object/activity-banners/{quote(object_path, safe='/')}"
     upload = urllib.request.Request(
         url,
@@ -1224,14 +1203,8 @@ async def upload_organization_document(
     )
     if not organization:
         raise HTTPException(404, "Tài khoản chưa liên kết với tổ chức.")
-    mime = (file.content_type or "").lower()
-    allowed = {"application/pdf": "pdf", "image/jpeg": "jpg", "image/png": "png"}
-    if mime not in allowed:
-        raise HTTPException(415, "Chỉ chấp nhận tệp PDF, JPG hoặc PNG.")
-    content = await file.read(15 * 1024 * 1024 + 1)
-    if len(content) > 15 * 1024 * 1024:
-        raise HTTPException(413, "Tệp vượt quá dung lượng tối đa 15 MB.")
-    object_path = f"{user.id}/{organization['id']}/{uuid4().hex}.{allowed[mime]}"
+    content, mime, extension = await protected_upload(db, user.id, file, 15 * 1024 * 1024, document=True)
+    object_path = f"{user.id}/{organization['id']}/{uuid4().hex}.{extension}"
     url = f"{settings.supabase_url.rstrip('/')}/storage/v1/object/organization-docs/{quote(object_path, safe='/')}"
     request_obj = urllib.request.Request(
         url,
@@ -1255,7 +1228,7 @@ async def upload_organization_document(
         "update public.organizations set doc_url=$2,doc_name=$3 where id=$1",
         organization["id"],
         object_path,
-        (file.filename or f"document.{allowed[mime]}")[:255],
+        (file.filename or f"document.{extension}")[:255],
     )
     return ok(
         {"path": object_path, "name": file.filename}, "Đã tải tài liệu tổ chức lên."
@@ -1755,24 +1728,13 @@ async def share_story(
 @router.post("/stories/upload-image")
 async def upload_story_image(
     file: UploadFile = File(...),
-    user: CurrentUser = Depends(get_current_user),
+    user: CurrentUser = Depends(get_current_user), db=Depends(get_db),
 ):
     settings = get_settings()
     if not settings.supabase_secret_key:
         raise HTTPException(503, "Storage chưa được cấu hình ở backend.")
-    mime = (file.content_type or "").lower()
-    allowed = {
-        "image/jpeg": "jpg",
-        "image/png": "png",
-        "image/webp": "webp",
-        "image/gif": "gif",
-    }
-    if mime not in allowed:
-        raise HTTPException(415, "Chỉ chấp nhận ảnh định dạng JPG, PNG, WebP hoặc GIF.")
-    content = await file.read(10 * 1024 * 1024 + 1)
-    if len(content) > 10 * 1024 * 1024:
-        raise HTTPException(413, "Ảnh vượt quá dung lượng tối đa 10 MB.")
-    object_path = f"stories/{user.id}/{uuid4().hex}.{allowed[mime]}"
+    content, mime, extension = await protected_upload(db, user.id, file, 10 * 1024 * 1024, document=False)
+    object_path = f"stories/{user.id}/{uuid4().hex}.{extension}"
     url = f"{settings.supabase_url.rstrip('/')}/storage/v1/object/activity-banners/{quote(object_path, safe='/')}"
     upload = urllib.request.Request(
         url,
@@ -1856,7 +1818,7 @@ async def add_profile_document(
     user: CurrentUser = Depends(get_current_user),
     db=Depends(get_db),
 ):
-    path = await upload_document("profile-docs", str(user.id), file)
+    path = await upload_document("profile-docs", str(user.id), file, db)
     row = await db.fetchrow(
         "insert into public.profile_documents(user_id,name,path) values($1,$2,$3) returning id,name,created_at",
         user.id,

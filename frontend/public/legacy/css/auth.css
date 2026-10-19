@@ -1,11 +1,11 @@
-/* ==========================================================================
-   AUTH.CSS — Giao Diện Xác Thực NhiLun (Premium Glassmorphism Nature)
-   Khớp 100% Mockup: Đăng Nhập & Đăng Ký, Background Mầm Xanh, Hộp Quick Demo
-   ========================================================================== */
+
+
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&display=swap');
 
-/* --- KHUNG TRANG TOÀN CẢNH (FULLPAGE NATURE WRAPPER) --- */
+
 .auth-page-wrapper {
   min-height: 100vh;
   position: relative;
@@ -19,7 +19,7 @@
   overflow-x: hidden;
 }
 
-/* Overlay làm mượt sáng / tối */
+
 .auth-page-wrapper::before {
   content: '';
   position: fixed;
@@ -33,7 +33,7 @@
   background: radial-gradient(circle at 50% 30%, rgba(15, 23, 42, 0.75) 0%, rgba(13, 35, 26, 0.88) 100%);
 }
 
-/* --- HEADER THANH ĐIỀU HƯỚNG MỜ SANG TRỌNG --- */
+
 .auth-top-nav {
   position: relative;
   z-index: 10;
@@ -78,7 +78,7 @@
   color: #10b981;
 }
 
-/* --- KHU VỰC LOGO & SLOGAN TRÊN ĐẦU THẺ --- */
+
 .auth-brand-banner {
   position: relative;
   z-index: 10;
@@ -137,7 +137,7 @@
   color: #94a3b8;
 }
 
-/* --- TRÍCH DẪN NGHỆ THUẬT (AMBIENT SCRIPT QUOTES) --- */
+
 .ambient-top-quote {
   position: absolute;
   top: 75px;
@@ -188,7 +188,7 @@
   color: #86efac;
 }
 
-/* --- THẺ THỦ CÔNG FROSTED GLASS (MAIN AUTH CARD) --- */
+
 .auth-glass-card {
   position: relative;
   z-index: 10;
@@ -210,7 +210,7 @@
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* --- THANH DEMO ĐĂNG NHẬP NHANH 1 CHẠM --- */
+
 .demo-accounts-ribbon {
   background: rgba(238, 248, 242, 0.88);
   border: 1px solid rgba(16, 185, 129, 0.28);
@@ -339,7 +339,7 @@
   text-overflow: ellipsis;
 }
 
-/* --- TAB CHUYỂN ĐỔI ĐĂNG NHẬP / ĐĂNG KÝ --- */
+
 .auth-nav-tabs {
   display: flex;
   border-bottom: 2px solid #e2e8f0;
@@ -403,7 +403,7 @@
   }
 }
 
-/* --- CÁC FORM CONTROLS VỚI ICON TRONG SUỐT --- */
+
 .auth-form-group {
   margin-bottom: 14px;
 }
@@ -516,7 +516,7 @@
   color: #34d399;
 }
 
-/* --- GHI NHỚ PHIÊN ĐĂNG NHẬP & QUY TẮC CỘNG ĐỒNG --- */
+
 .auth-checkbox-row {
   display: flex;
   align-items: center;
@@ -549,7 +549,7 @@
   cursor: help;
 }
 
-/* --- NÚT HÀNH ĐỘNG GRADIENT HOÀN HẢO --- */
+
 .auth-submit-btn {
   width: 100%;
   height: 46px;
@@ -613,7 +613,7 @@
   color: #059669;
 }
 
-/* --- TAB ĐĂNG KÝ: CHỌN VAI TRÒ (ROLE CARDS) --- */
+
 .role-selection-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -714,7 +714,7 @@
   line-height: 1.25;
 }
 
-/* 2 Cột Mật khẩu ở form Đăng Ký */
+
 .register-pwd-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

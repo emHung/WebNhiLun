@@ -185,7 +185,7 @@ Mở file `backend/.env` và thiết lập các biến sau:
 # 1. Supabase Project Credentials
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_PUBLISHABLE_KEY=sb_publishable_your_anon_key_here
-SUPABASE_SECRET_KEY=sb_secret_your_service_role_key_here
+SUPABASE_SECRET_KEY=
 SUPABASE_JWKS_URL=https://your-project.supabase.co/auth/v1/.well-known/jwks.json
 
 # 2. Kết nối PostgreSQL trực tiếp qua asyncpg
@@ -403,3 +403,11 @@ WebNhiLun/
 
 ## 📄 Bản Quyền & Giấy Phép
 Dự án được xây dựng và phát triển vì mục đích phi lợi nhuận phục vụ phong trào tình nguyện cộng đồng. Mọi đóng góp xin vui lòng tạo Pull Request hoặc liên hệ ban phát triển NhiLun.
+
+
+## Bản đồ trang và chức năng
+
+- [Tổng hợp tài liệu và kết quả dọn comment](VolunteerHub_Docs/20-documentation-summary.md)
+- [Bố cục, component, thẻ HTML và hàm từng trang](VolunteerHub_Docs/21-pages-layout-functions.md)
+- [Danh mục hàm frontend](VolunteerHub_Docs/22-function-catalog.md)
+- [API và hàm backend](VolunteerHub_Docs/23-backend-api-reference.md)

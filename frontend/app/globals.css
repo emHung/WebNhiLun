@@ -1090,7 +1090,7 @@ body:has(.notification-page) .portal-main {
   }
 }
 
-/* Shared shell and dialogs; scoped so legacy page styles cannot change controls. */
+
 .live-sync-indicator {
   position: fixed;
   right: 12px;
@@ -1280,7 +1280,7 @@ body:has(.notification-page) .portal-main {
   }
 }
 
-/* React labels wrap their controls; prevent legacy flex alignment shrinking inputs. */
+
 .org-form-card .org-form-label {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

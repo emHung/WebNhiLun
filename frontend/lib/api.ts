@@ -15,7 +15,7 @@ type ApiEnvelope<T> = {
   error?: { message?: string };
 };
 
-// Only promises in flight are shared; no private response survives an account switch.
+
 const pending = new Map<string, Promise<unknown>>();
 export async function apiRequest<T>(
   path: string,
@@ -45,13 +45,16 @@ export async function apiRequest<T>(
     const body = (await response
       .json()
       .catch(() => null)) as ApiEnvelope<T> | null;
-    if (!response.ok)
+    if (!response.ok) {
+      if (response.status === 401 && session) window.dispatchEvent(new Event("auth-session-ended"));
+      if (response.headers.get("X-Auth-Action") === "mfa" && !window.location.pathname.startsWith("/auth")) window.location.assign("/auth/mfa");
       throw new Error(
         body?.error?.message ??
           (typeof body?.detail === "string"
             ? body.detail
             : `Yêu cầu thất bại (${response.status}).`),
       );
+    }
     if (init.method && init.method !== "GET")
       emitDataChange(mutationEntities(path));
     return body?.data as T;

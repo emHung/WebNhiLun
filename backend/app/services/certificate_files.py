@@ -82,7 +82,7 @@ async def certificate_file(code, user, db):
     path, _ = artifact(row, settings)
     if settings.supabase_secret_key and row["pdf_url"] == path:
         cached = await asyncio.to_thread(_object, settings, path)
-        # Cache hits do not hold a database connection during Storage I/O.
+
         latest = await db.fetchrow(AUTHORIZED_CERTIFICATE, code, user.id, user.role)
         if not latest:
             raise HTTPException(404, "Không tìm thấy chứng nhận của bạn.")
@@ -92,7 +92,7 @@ async def certificate_file(code, user, db):
             and artifact(latest, settings)[0] == path
         ):
             return cached, True
-    # Only misses serialize generation. All workers recheck ownership/version under the lock.
+
     async with db.acquire() as conn, conn.transaction():
         await conn.execute(
             "select pg_advisory_xact_lock(hashtextextended($1,0))",

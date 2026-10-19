@@ -1,4 +1,4 @@
-/** Invalidate by server entity, with explicit full refresh for auth/reconnect only. */
+
 export const DATA_CHANGED = "volunteerhub-data-change";
 export type DataChange = { entities?: string[]; authChanged?: boolean };
 let allRevision = 0;

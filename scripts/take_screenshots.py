@@ -10,7 +10,7 @@ def main():
         browser = p.chromium.launch(channel="chrome", headless=True)
         print("Chrome launched successfully.")
 
-        # --- 1. Public Pages ---
+
         context = browser.new_context(viewport={"width": 1440, "height": 900})
         page = context.new_page()
 
@@ -33,7 +33,7 @@ def main():
             page.screenshot(path=str(OUTPUT_DIR / filename))
             print(f"Saved {filename}")
 
-        # --- 2. Volunteer Portal ---
+
         print("Logging in as Volunteer (TNV)...")
         page.goto("http://127.0.0.1:3000/auth", wait_until="networkidle")
         time.sleep(1)
@@ -66,7 +66,7 @@ def main():
 
         context.close()
 
-        # --- 3. Organizer Portal ---
+
         print("Logging in as Organizer (BTC)...")
         context_org = browser.new_context(viewport={"width": 1440, "height": 900})
         page_org = context_org.new_page()
@@ -91,7 +91,7 @@ def main():
         print("Saved 13_organizer_create_event.png")
         context_org.close()
 
-        # --- 4. Admin Portal ---
+
         print("Logging in as Admin...")
         context_admin = browser.new_context(viewport={"width": 1440, "height": 900})
         page_admin = context_admin.new_page()

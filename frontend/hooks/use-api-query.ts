@@ -29,17 +29,17 @@ export function useLoad<T>(path: string | null) {
     let active = true;
     const version = ++generation.current;
 
-    // When the path changes completely, reset and show loading
+
     if (prevPath.current !== path) {
       prevPath.current = path;
       dataRef.current = null;
       setData(null);
       setLoading(true);
     } else if (dataRef.current === null) {
-      // First load for this path
+
       setLoading(true);
     }
-    // Background revalidation / realtime update does not flip loading=true
+
     setIsValidating(true);
 
     apiRequest<T>(path)

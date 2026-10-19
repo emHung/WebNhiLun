@@ -1,6 +1,6 @@
-/* ==========================================================================
-   ACTIVITIES.CSS — Trang Danh Sách Hoạt Động (Khớp Mockup Hình 3)
-   ========================================================================== */
+
+
+
 
 .act-page-wrapper {
   background: #f4f8f6;
@@ -16,7 +16,7 @@
   padding: 0 24px;
 }
 
-/* 1. BREADCRUMB & HERO BANNER */
+
 .act-hero-banner-new {
   background: linear-gradient(135deg, #eaf6ef 0%, #e2f4ea 50%, #eaf6ef 100%);
   border: 1px solid #d1fae5;
@@ -92,7 +92,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Embedded search input row */
+
 .act-embedded-search-wrap {
   display: flex;
   gap: 10px;
@@ -136,7 +136,7 @@
   background: #047857;
 }
 
-/* 2. MAIN 2-COLUMN LAYOUT */
+
 .act-main-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -144,7 +144,7 @@
   align-items: start;
 }
 
-/* LEFT FILTERS SIDEBAR */
+
 .act-filter-panel {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -264,7 +264,7 @@
   background: #f0fdf4;
 }
 
-/* RIGHT CONTENT LIST */
+
 .act-list-container {
   display: flex;
   flex-direction: column;
@@ -328,7 +328,7 @@
   outline: none;
 }
 
-/* HORIZONTAL ACTIVITY CARDS */
+
 .act-card-horizontal {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -448,7 +448,7 @@
   gap: 4px;
 }
 
-/* Progress bar */
+
 .act-progress-row {
   display: flex;
   align-items: center;
@@ -476,7 +476,7 @@
   color: #059669;
 }
 
-/* Right buttons column */
+
 .act-card-actions-col {
   display: flex;
   flex-direction: column;
@@ -538,7 +538,7 @@
   text-decoration: none;
 }
 
-/* Pagination bar */
+
 .act-pagination {
   display: flex;
   align-items: center;
@@ -590,7 +590,7 @@
   }
 }
 
-/* Grid View Mode */
+
 #actCardsListContainer.grid-mode {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
@@ -713,7 +713,7 @@
   }
 }
 
-/* Responsive layout for activity discovery */
+
 .btn-mobile-filter-trigger,
 .act-filter-close-btn,
 .act-filter-actions-bottom,

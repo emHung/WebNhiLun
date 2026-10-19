@@ -6,6 +6,7 @@
 .env.*
 !.env.example
 node_modules/
+.venv/
 .next/
 .next-dev/
 *.tsbuildinfo
@@ -14,4 +15,7 @@ __pycache__/
 .ruff_cache/
 .gstack/
 backend/logs/
+.secrets/
+.tools/
+backups/
 supabase/.temp/

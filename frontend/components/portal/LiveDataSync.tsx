@@ -76,7 +76,7 @@ export function LiveDataSync() {
       setTimeout(() => {
         if (!active) return;
         void connect(session?.access_token).catch((error) => {
-          console.error("Không kết nối được cập nhật trực tiếp", error);
+          console.error("Kết nối cập nhật trực tiếp tạm thời gián đoạn.");
           if (active) setOnline(false);
         });
         emitDataChange(undefined, true);
@@ -86,7 +86,7 @@ export function LiveDataSync() {
       .getSession()
       .then(({ data: { session } }) => connect(session?.access_token))
       .catch((error) => {
-        console.error("Không khởi tạo được cập nhật trực tiếp", error);
+        console.error("Không khởi tạo được cập nhật trực tiếp.");
       });
     window.addEventListener("focus", invalidateAll);
     window.addEventListener("online", invalidateAll);

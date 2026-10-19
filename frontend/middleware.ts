@@ -1,7 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { pageSecurity, securePage } from "@/lib/http-security";
 
 export async function middleware(request: NextRequest) {
+  const security = pageSecurity(request);
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   const path = request.nextUrl.pathname;
@@ -11,18 +13,20 @@ export async function middleware(request: NextRequest) {
     ) || path === "/certificates";
   if (!url || !key)
     return privatePage
-      ? NextResponse.redirect(new URL("/auth?error=config", request.url))
-      : NextResponse.next({ request });
+      ? securePage(NextResponse.redirect(new URL("/auth?error=config", request.url)), security.csp)
+      : securePage(NextResponse.next({ request: { headers: security.headers } }), security.csp);
 
-  let response = NextResponse.next({ request });
+  let response = NextResponse.next({ request: { headers: security.headers } });
   const supabase = createServerClient(url, key, {
+    cookieOptions: { sameSite: "lax", secure: process.env.NODE_ENV === "production" || request.nextUrl.protocol === "https:" },
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value }) =>
           request.cookies.set(name, value),
         );
-        response = NextResponse.next({ request });
+        security.headers.set("cookie", request.headers.get("cookie") || "");
+        response = NextResponse.next({ request: { headers: security.headers } });
         cookiesToSet.forEach(({ name, value, options }) => {
           const opts = { ...options };
           if (
@@ -41,12 +45,12 @@ export async function middleware(request: NextRequest) {
     const next = NextResponse.redirect(new URL(target, request.url));
     response.cookies.getAll().forEach((cookie) => next.cookies.set(cookie));
     next.headers.set("Cache-Control", "private, no-store");
-    return next;
+    return securePage(next, security.csp);
   };
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!privatePage) return response;
+  if (!privatePage) return securePage(response, security.csp);
   if (!user)
     return redirect(
       `/auth?returnTo=${encodeURIComponent(path + request.nextUrl.search)}`,
@@ -64,6 +68,7 @@ export async function middleware(request: NextRequest) {
     );
     if (!result.ok) return redirect("/auth?error=profile");
     const { data: profile } = await result.json();
+    if (profile.role === "admin" && profile.requires_mfa) return redirect("/auth/mfa");
     const home =
       profile.role === "admin"
         ? "/admin/moderation"
@@ -92,7 +97,7 @@ export async function middleware(request: NextRequest) {
     return redirect("/auth?error=service");
   }
   response.headers.set("Cache-Control", "private, no-store");
-  return response;
+  return securePage(response, security.csp);
 }
 
 export const config = {

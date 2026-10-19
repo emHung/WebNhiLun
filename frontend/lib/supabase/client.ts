@@ -3,6 +3,7 @@ import {
   parseCookieHeader,
   serializeCookieHeader,
 } from "@supabase/ssr";
+import { authFetch } from "./auth-fetch";
 
 export function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -12,6 +13,8 @@ export function createClient() {
       "Thiếu cấu hình Supabase công khai trong môi trường frontend.",
     );
   return createBrowserClient(url, key, {
+    global: { fetch: authFetch },
+    cookieOptions: { sameSite: "lax", secure: typeof window !== "undefined" && window.location.protocol === "https:" },
     cookies: {
       getAll: () =>
         typeof document === "undefined"

@@ -10,10 +10,11 @@ import os
 
 ROOT=Path(__file__).resolve().parents[2]
 load_dotenv(ROOT / "backend/.env")
+load_dotenv(ROOT / ".secrets/admin.env")
 
 async def run(args):
     target=os.environ.get("SUPABASE_URL", "")
-    dsn=os.environ.get("SUPABASE_DB_URL", "")
+    dsn=os.environ.get("SUPABASE_MIGRATION_DB_URL") or os.environ.get("SUPABASE_DB_URL", "")
     ref=(urlparse(target).hostname or "").split(".")[0]
     uri=urlparse(dsn)
     if not ref or not (uri.hostname==f"db.{ref}.supabase.co" or (uri.hostname or "").endswith(".pooler.supabase.com") and ref in (uri.username or "")):

@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "file": "data/seedData.js",
+      "removed": 1
+    },
+    {
+      "file": "frontend/app/auth/callback/route.ts",
+      "removed": 1
+    },
+    {
+      "file": "frontend/components/portal/LegacyMarkup.tsx",
+      "removed": 1
+    },
+    {
+      "file": "frontend/components/portal/StoryCard.tsx",
+      "removed": 1
+    },
+    {
+      "file": "frontend/hooks/use-api-query.ts",
+      "removed": 3
+    },
+    {
+      "file": "frontend/lib/api.ts",
+      "removed": 1
+    },
+    {
+      "file": "frontend/lib/data-events.ts",
+      "removed": 1
+    },
+    {
+      "file": "frontend/lib/media.ts",
+      "removed": 1
+    },
+    {
+      "file": "frontend/lib/supabase/server.ts",
+      "removed": 1
+    }
+  ],
+  "total": 11,
+  "pages": 25
+}

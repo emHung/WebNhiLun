@@ -161,7 +161,7 @@ async def apply_public_reference_data(data: dict) -> None:
         raise RuntimeError("Set SUPABASE_DB_URL in the backend environment before --apply.")
     conn = await asyncpg.connect(dsn=dsn, command_timeout=30, ssl="require")
     try:
-        # Bootstrap seeding cannot reset an already-used database.
+
         if await conn.fetchval("select exists(select 1 from public.activities) or exists(select 1 from public.applications)"):
             print("Existing database detected; bootstrap seed skipped without writes.")
             return
@@ -232,7 +232,7 @@ async def apply_public_reference_data(data: dict) -> None:
                     banner = f"/legacy/{str(banner).lstrip('/')}"
                 org_id = org_ids.get(activity.get("organizer"))
                 if not org_id:
-                    # Legacy activities may reference retired organizations; retain the visible organizer label.
+
                     org_id = f"LEGACY-{activity['id']}"
                     await conn.execute(
                         """insert into public.organizations(id,name,representative,category,status,verified,description)

@@ -29,7 +29,7 @@ export function imageUrl(value?: string | null) {
     normalize(value || "/legacy/images/profile-avatar.jpg")
   );
 }
-/** Only transform local legacy assets; user Storage URLs keep their ownership and cache policy. */
+
 export function optimizeHtmlImages(html: string) {
   const document = new DOMParser().parseFromString(html, "text/html");
   document.querySelectorAll("img").forEach((image) => {

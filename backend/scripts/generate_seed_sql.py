@@ -27,7 +27,7 @@ async def export_seed():
     out.append("BEGIN;\n")
     out.append("CREATE EXTENSION IF NOT EXISTS pgcrypto;\n")
 
-    # 1. DEMO AUTH USERS
+
     out.append("-- ------------------------------------------------------------")
     out.append("-- 1. DEMO TÀI KHOẢN ĐĂNG NHẬP (auth.users)")
     out.append("-- Mật khẩu mặc định cho tất cả tài khoản mẫu: Demo@123456")
@@ -59,7 +59,7 @@ async def export_seed():
   raw_user_meta_data = excluded.raw_user_meta_data;
 """)
 
-    # 2. PROFILES
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 2. HỒ SƠ TÌNH NGUYỆN VIÊN / TỔ CHỨC / ADMIN (public.profiles)")
     out.append("-- ------------------------------------------------------------")
@@ -110,7 +110,7 @@ async def export_seed():
   verified_hours = excluded.verified_hours;
 """)
 
-    # 3. ORGANIZATIONS
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 3. CÁC TỔ CHỨC THIỆN NGUYỆN (public.organizations)")
     out.append("-- ------------------------------------------------------------")
@@ -135,7 +135,7 @@ async def export_seed():
   description = excluded.description;
 """)
 
-    # 4. ACTIVITIES
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 4. HOẠT ĐỘNG THIỆN NGUYỆN (public.activities)")
     out.append("-- ------------------------------------------------------------")
@@ -184,7 +184,7 @@ async def export_seed():
   contact = excluded.contact;
 """)
 
-    # 5. APPLICATIONS
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 5. ĐƠN ĐĂNG KÝ THAM GIA (public.applications)")
     out.append("-- ------------------------------------------------------------")
@@ -201,7 +201,7 @@ async def export_seed():
 ) ON CONFLICT (id) DO NOTHING;
 """)
 
-    # 6. CERTIFICATES
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 6. CHỨNG NHẬN THAM GIA (public.certificates)")
     out.append("-- ------------------------------------------------------------")
@@ -222,7 +222,7 @@ async def export_seed():
 ) ON CONFLICT (id) DO NOTHING;
 """)
 
-    # 7. SYSTEM THEMES
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 7. BẢNG MÀU & CHỦ ĐỀ GIAO DIỆN (public.system_themes)")
     out.append("-- ------------------------------------------------------------")
@@ -249,7 +249,7 @@ async def export_seed():
   is_default = excluded.is_default;
 """)
 
-    # 8. SITE CONTENT
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 8. NỘI DUNG TRANG GIỚI THIỆU & CÂU CHUYỆN (public.site_content)")
     out.append("-- ------------------------------------------------------------")
@@ -265,7 +265,7 @@ async def export_seed():
   updated_at = NOW();
 """)
 
-    # 9. STORIES
+
     out.append("\n-- ------------------------------------------------------------")
     out.append("-- 9. BÀI VIẾT CÂU CHUYỆN CỘNG ĐỒNG (public.stories)")
     out.append("-- ------------------------------------------------------------")

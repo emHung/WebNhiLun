@@ -48,7 +48,7 @@ export function StoryCard({
       onLike();
     } else onOpen();
   }
-  // Legacy card markup is sanitized once by the parent; preserve its image/author layout.
+
   return template ? (
     <article
       ref={ref}
