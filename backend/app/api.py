@@ -20,6 +20,7 @@ import asyncpg
 from fastapi import APIRouter, Depends, File, HTTPException, Query, Request, UploadFile
 from fastapi.responses import StreamingResponse
 
+from app.services.supabase_transport import open_supabase
 from app.core.config import get_settings
 from app.core.database import get_db
 from app.core.security import CurrentUser, get_current_user, require_roles
@@ -256,7 +257,7 @@ async def upload_avatar(
     )
     try:
         await asyncio.to_thread(
-            lambda: urllib.request.urlopen(upload, timeout=20).read()
+            lambda: open_supabase(upload, timeout=20).read()
         )
     except urllib.error.HTTPError as exc:
         raise HTTPException(502, "Supabase Storage từ chối tải ảnh lên.") from exc
@@ -336,7 +337,7 @@ async def demo_login(role: str, request: Request, db=Depends(get_db)):
             },
         )
         try:
-            with urllib.request.urlopen(req, timeout=10) as response:
+            with open_supabase(req, timeout=10) as response:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             raise RuntimeError("Supabase Auth rejected the demo sign-in") from exc
@@ -1174,7 +1175,7 @@ async def upload_activity_banner(
     )
     try:
         await asyncio.to_thread(
-            lambda: urllib.request.urlopen(upload, timeout=20).read()
+            lambda: open_supabase(upload, timeout=20).read()
         )
     except urllib.error.HTTPError as exc:
         raise HTTPException(502, "Supabase Storage từ chối tải ảnh lên.") from exc
@@ -1218,7 +1219,7 @@ async def upload_organization_document(
     )
     try:
         await asyncio.to_thread(
-            lambda: urllib.request.urlopen(request_obj, timeout=20).read()
+            lambda: open_supabase(request_obj, timeout=20).read()
         )
     except urllib.error.HTTPError as exc:
         raise HTTPException(502, "Supabase Storage từ chối tải tài liệu lên.") from exc
@@ -1261,7 +1262,7 @@ async def organization_document_url(
     )
     try:
         response = await asyncio.to_thread(
-            lambda: urllib.request.urlopen(sign_request, timeout=10).read()
+            lambda: open_supabase(sign_request, timeout=10).read()
         )
         result = json.loads(response.decode())
     except (
@@ -1748,7 +1749,7 @@ async def upload_story_image(
     )
     try:
         await asyncio.to_thread(
-            lambda: urllib.request.urlopen(upload, timeout=20).read()
+            lambda: open_supabase(upload, timeout=20).read()
         )
     except urllib.error.HTTPError as exc:
         raise HTTPException(502, "Supabase Storage từ chối tải ảnh lên.") from exc

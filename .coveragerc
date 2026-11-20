@@ -1,0 +1,7 @@
+[run]
+source = backend/app
+relative_files = True
+branch = True
+
+[xml]
+output = coverage.xml

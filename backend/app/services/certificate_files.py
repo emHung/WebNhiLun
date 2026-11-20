@@ -9,6 +9,7 @@ from urllib.parse import quote
 
 from fastapi import HTTPException
 
+from app.services.supabase_transport import open_supabase
 from app.core.config import get_settings
 from app.services.certificates import certificate_pdf
 
@@ -25,7 +26,7 @@ def _object(settings, path, content=None):
         },
     )
     try:
-        with urllib.request.urlopen(request, timeout=20) as response:
+        with open_supabase(request, timeout=20) as response:
             return response.read()
     except urllib.error.HTTPError as exc:
         if content is None:

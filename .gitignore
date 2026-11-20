@@ -19,3 +19,7 @@ backend/logs/
 .tools/
 backups/
 supabase/.temp/
+.coverage
+coverage.xml
+bandit-report.json
+.scannerwork/
